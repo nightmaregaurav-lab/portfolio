@@ -1,0 +1,71 @@
+name: Sync Fork with Upstream
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '*/5 * * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-fork-${{ github.repository }}
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install jq
+        run: sudo apt-get update && sudo apt-get install -y jq
+
+      - name: Get repository info
+        id: repo_info
+        run: |
+          repo_data=$(curl -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -s https://api.github.com/repos/${{ github.repository }})
+          echo "is_fork=$(echo \"$repo_data\" | jq -r .fork)" >> $GITHUB_OUTPUT
+          echo "default_branch=$(echo \"$repo_data\" | jq -r .default_branch)" >> $GITHUB_OUTPUT
+          echo "parent_full_name=$(echo \"$repo_data\" | jq -r .parent.full_name)" >> $GITHUB_OUTPUT
+          echo "parent_default_branch=$(echo \"$repo_data\" | jq -r .parent.default_branch)" >> $GITHUB_OUTPUT
+          if [ "$(echo "$repo_data" | jq -r .fork)" != "true" ]; then
+            echo "Not a fork; exiting."
+            exit 0
+          fi
+
+      - name: Add upstream remote
+        if: steps.repo_info.outputs.is_fork == 'true'
+        run: |
+          git remote add upstream https://github.com/${{ steps.repo_info.outputs.parent_full_name }}.git
+          git fetch upstream
+
+      - name: Checkout default branch
+        if: steps.repo_info.outputs.is_fork == 'true'
+        run: git checkout ${{ steps.repo_info.outputs.default_branch }}
+
+      - name: Check for upstream updates
+        if: steps.repo_info.outputs.is_fork == 'true'
+        run: |
+          local_commit=$(git rev-parse HEAD)
+          upstream_commit=$(git rev-parse upstream/${{ steps.repo_info.outputs.parent_default_branch }})
+          if [ "$local_commit" = "$upstream_commit" ]; then
+            echo "Upstream has no new commits; exiting."
+            exit 0
+          fi
+
+      - name: Merge upstream changes
+        if: steps.repo_info.outputs.is_fork == 'true'
+        run: |
+          if ! git merge upstream/${{ steps.repo_info.outputs.parent_default_branch }}; then
+            echo "Merge conflict detected; aborting."
+            git merge --abort
+            exit 1
+          fi
+
+      - name: Push synchronized branch
+        if: steps.repo_info.outputs.is_fork == 'true'
+        run: git push origin ${{ steps.repo_info.outputs.default_branch }}
