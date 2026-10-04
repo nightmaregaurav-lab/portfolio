@@ -55,35 +55,20 @@ jobs:
       - name: Check for upstream updates
         if: steps.repo_info.outputs.is_fork == 'true'
         run: |
-          local_commit=$(git rev-parse HEAD)
-          upstream_commit=$(git rev-parse upstream/${{ steps.repo_info.outputs.parent_default_branch }})
-          if [ "$local_commit" = "$upstream_commit" ]; then
-            echo "Upstream has no new commits; exiting."
+          if git merge-base --is-ancestor "upstream/${{ steps.repo_info.outputs.parent_default_branch }}" "${{ steps.repo_info.outputs.default_branch }}"; then
+            echo "Fork already contains all upstream commits."
             exit 0
           fi
 
       - name: Configure Git identity
         if: steps.repo_info.outputs.is_fork == 'true'
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          user_data=$(curl -fsSL \
-            -H "Authorization: Bearer $GH_TOKEN" \
-            -H "Accept: application/vnd.github+json" \
-            https://api.github.com/user)
-
-          name=$(jq -r '.name // .login' <<< "$user_data")
-          login=$(jq -r '.login' <<< "$user_data")
-          id=$(jq -r '.id' <<< "$user_data")
-
-          git config user.name "$name"
-          git config user.email "${id}+${login}@users.noreply.github.com"
-
-          echo "Git identity configured as: $name <$id+$login@users.noreply.github.com>"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
       - name: Merge upstream changes
         if: steps.repo_info.outputs.is_fork == 'true'
-        run: |
+        run: |      
           if ! git merge upstream/${{ steps.repo_info.outputs.parent_default_branch }}; then
             echo "Merge conflict detected; aborting."
             git merge --abort
