@@ -1,3 +1,60 @@
 {
-  "services": []
+  "services": [
+    {
+      "id": "service-f26c037e79d1",
+      "title": "Custom Software Development",
+      "description": "<p>I design and develop custom software solutions tailored to specific business requirements. From understanding complex workflows to implementing complete applications, I focus on building reliable, maintainable, and practical software that solves real-world problems.</p>",
+      "icon": "Code",
+      "link": "https://en.wikipedia.org/wiki/Custom_software"
+    },
+    {
+      "id": "service-a81d39e72c45",
+      "title": "Full-Stack Web Development",
+      "description": "<p>I build modern, end-to-end web applications using .NET and React. My work covers responsive user interfaces, backend services, database integration, authentication, and application architecture, delivering cohesive solutions from frontend to backend.</p>",
+      "icon": "Layers",
+      "link": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Server-side/First_steps/Client-Server_overview"
+    },
+    {
+      "id": "service-b72e51f93a64",
+      "title": "Backend & API Development",
+      "description": "<p>I develop robust backend systems and well-structured APIs that power modern applications. From implementing complex business logic and authentication to integrating third-party services, I prioritize performance, security, maintainability, and clean architecture.</p>",
+      "icon": "Server",
+      "link": "https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Introduction_to_web_APIs"
+    },
+    {
+      "id": "service-c63f82a14b95",
+      "title": "Enterprise Software Solutions",
+      "description": "<p>I develop software for complex business operations, including enterprise management systems, ERP solutions, banking applications, educational platforms, and client-management systems. I enjoy turning intricate business requirements and workflows into efficient, integrated software solutions.</p>",
+      "icon": "Building2",
+      "link": "https://en.wikipedia.org/wiki/Enterprise_software"
+    },
+    {
+      "id": "service-d94a73b26c18",
+      "title": "Database Design & Integration",
+      "description": "<p>I design and implement structured database solutions that support reliable and scalable applications. From data modelling and query optimization to database integration and managing complex relationships, I focus on data integrity, efficiency, and long-term maintainability.</p>",
+      "icon": "Database",
+      "link": "https://support.microsoft.com/en-us/office/database-design-basics-eb2159cf-1e30-401a-8084-bd4f9c9ca1f5"
+    },
+    {
+      "id": "service-e15b84c37d29",
+      "title": "Software Architecture & Consulting",
+      "description": "<p>I help transform software ideas and business requirements into practical technical solutions. Whether selecting an appropriate technology stack, designing application architecture, evaluating existing systems, or planning for scalability, I provide engineering-oriented guidance grounded in real development experience.</p>",
+      "icon": "Workflow",
+      "link": "https://learn.microsoft.com/en-us/azure/architecture/guide/architecture-styles/"
+    },
+    {
+      "id": "service-g37d96e58f41",
+      "title": "Code Review & Optimization",
+      "description": "<p>I review existing codebases to identify architectural weaknesses, performance bottlenecks, maintainability issues, and opportunities for improvement. My goal is to help teams build cleaner, more efficient, reliable, and sustainable software.</p>",
+      "icon": "Gauge",
+      "link": "https://google.github.io/eng-practices/review/"
+    },
+    {
+      "id": "service-h48e17f69a52",
+      "title": "Technical Mentoring & Knowledge Sharing",
+      "description": "<p>I enjoy helping aspiring developers navigate the world of software development. Through technical guidance, problem-solving discussions, and sharing practical development knowledge, I help beginners strengthen their fundamentals and become more confident engineers. I also welcome opportunities to learn together.</p>",
+      "icon": "GraduationCap",
+      "link": "https://developer.mozilla.org/en-US/docs/Web"
+    }
+  ]
 }

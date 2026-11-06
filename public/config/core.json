@@ -1,7 +1,24 @@
 {
-  "favicon": "",
-  "websiteName": "",
-  "fullName": "",
-  "seoDescription": "",
-  "seoKeywords": []
+  "favicon": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_3043_SQ.ico",
+  "websiteName": "Gaurav's Portfolio",
+  "fullName": "Gaurav Nyaupane",
+  "seoDescription": "Software engineer passionate about building innovative software, exploring emerging technologies, and sharing knowledge with the developer community.",
+  "seoKeywords": [
+    "Gaurav Nyaupane",
+    "Gaurav",
+    "Nyaupane",
+    "Gaurav Nightmare",
+    "nightmaregaurav",
+    "Software Engineer",
+    "Software Developer",
+    "Full-stack Developer",
+    "Software Engineering",
+    "Web Development",
+    "Software Projects",
+    "Programming",
+    "Technology Enthusiast",
+    "Emerging Technologies",
+    "Developer Community",
+    "Nepal Software Engineer"
+  ]
 }

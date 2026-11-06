@@ -1,3 +1,14 @@
 {
-  "links": []
+  "links": [
+    {
+      "title": "Get Resume",
+      "icon": "File",
+      "link": "https://raw.githubusercontent.com/nightmaregaurav/public-documents/main/Resume_Gaurav_Nyaupane.pdf"
+    },
+    {
+      "title": "Get CV",
+      "icon": "FileSpreadsheet",
+      "link": "https://raw.githubusercontent.com/nightmaregaurav/public-documents/main/CV_Gaurav_Nyaupane.pdf"
+    }
+  ]
 }

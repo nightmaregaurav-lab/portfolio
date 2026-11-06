@@ -1,5 +1,41 @@
 {
-  "profilePicture": "",
-  "socials": [],
-  "enabledMenus": []
+  "profilePicture": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_3043_SQ.jpg",
+  "socials": [
+    {
+      "name": "LinkedIn",
+      "url": "https://www.linkedin.com/in/nightmaregaurav/"
+    },
+    {
+      "name": "GitHub",
+      "url": "https://github.com/nightmaregaurav"
+    },
+    {
+      "name": "Medium",
+      "url": "https://medium.com/@nightmaregaurav"
+    },
+    {
+      "name": "YouTube",
+      "url": "https://www.youtube.com/@gauravnightmare"
+    },
+    {
+      "name": "Spotify",
+      "url": "https://open.spotify.com/user/31rq3tdzashe4xe24aqscmn3hdae"
+    },
+    {
+      "name": "PayPal",
+      "url": "https://www.paypal.com/donate/?hosted_button_id=LG8Q32VA2VHT6"
+    }
+  ],
+  "enabledMenus": [
+    "about",
+    "home",
+    "journey",
+    "skills",
+    "testimonials",
+    "projects",
+    "services",
+    "gallery",
+    "quickLinks",
+    "blogs"
+  ]
 }
