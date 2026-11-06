@@ -12,9 +12,10 @@ import {Model as BlogModel} from "@/configuration/blog";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return BlogsConfig
-    .posts
-    .map((post) => ({blogId: post.id}));
+  return [
+    ...BlogsConfig.posts.map((post) => ({blogId: post.id})),
+    {blogId: "__404__"},
+  ];
 }
 
 const emptyBlog: BlogModel = {content: ""};

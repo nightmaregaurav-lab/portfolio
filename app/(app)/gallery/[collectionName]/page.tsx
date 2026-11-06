@@ -10,9 +10,10 @@ import type {GalleryCollection} from "./page.types";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return GalleryConfig
-    .categories
-    .map((collection) => ({collectionName: collection.name}));
+  return [
+    ...GalleryConfig.categories.map((collection) => ({collectionName: collection.name})),
+    {collectionName: "__404__"},
+  ];
 }
 
 function findCollection(collectionName: string) {

@@ -8,9 +8,10 @@ import PageContent from "./page.content";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return ProjectsConfig
-    .projects
-    .map((project) => ({projectId: project.id}));
+  return [
+    ...ProjectsConfig.projects.map((project) => ({projectId: project.id})),
+    {projectId: "__404__"},
+  ];
 }
 
 function findProject(projectId: string) {
