@@ -6,6 +6,7 @@ import {XIcon} from "lucide-react";
 import {cn} from "@/lib/utils";
 import SmartLink from "@/components/ui/SmartLink";
 import {fuzzySearch} from "@/lib/fuzzySearch";
+import {Button} from "@/components/ui/button";
 
 type ArrayInputProps = Omit<React.ComponentProps<"input">, "value" | "onChange"> & {
   value: string[] | undefined;
@@ -95,20 +96,22 @@ function ArrayInput({className, value, onChange, suggestions = [], onValueAdded,
         {filteredSuggestions.length > 0 && (
           <div className={"absolute inset-x-0 top-full z-50 mt-1 max-h-48 overflow-auto rounded-md border bg-popover p-1 text-popover-foreground shadow-md"} role={"listbox"}>
             {filteredSuggestions.map((suggestion, index) => (
-              <button
+              <Button
                 key={suggestion}
                 type={"button"}
+                variant={"ghost"}
+                size={"sm"}
                 role={"option"}
                 aria-selected={index === activeSuggestionIndex}
                 className={cn(
-                  "flex w-full cursor-pointer items-center rounded-sm px-2 py-1.5 text-left text-sm outline-none hover:bg-accent hover:text-accent-foreground",
+                  "h-auto w-full justify-start rounded-sm px-2 py-1.5 text-left text-sm font-normal",
                   index === activeSuggestionIndex && "bg-accent text-accent-foreground"
                 )}
                 onMouseDown={(event) => event.preventDefault()}
                 onClick={() => addValue(suggestion)}
               >
                 {suggestion}
-              </button>
+              </Button>
             ))}
           </div>
         )}
@@ -124,14 +127,16 @@ function ArrayInput({className, value, onChange, suggestions = [], onValueAdded,
               ) : (
                 <span className={"max-w-[18rem] truncate"}>{item}</span>
               )}
-              <button
+              <Button
                 type={"button"}
+                variant={"ghost"}
+                size={"icon-xs"}
                 aria-label={`Remove ${item}`}
-                className={"ml-1 inline-flex size-4 shrink-0 cursor-pointer items-center justify-center rounded-sm transition-transform hover:scale-110 active:scale-95 hover:bg-primary-foreground/20"}
+                className={"ml-1 shrink-0 rounded-sm text-primary-foreground transition-transform hover:scale-110 hover:bg-primary-foreground/20 active:scale-95"}
                 onClick={() => removeValue(index)}
               >
                 <XIcon size={12} />
-              </button>
+              </Button>
             </span>
           ))}
         </div>

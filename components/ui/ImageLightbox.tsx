@@ -11,6 +11,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet";
+import {Slider} from "@/components/ui/slider";
 
 const MIN_ZOOM = 0.1;
 const MAX_ZOOM = 10;
@@ -77,9 +78,11 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
       setUncontrolledOpen(nextOpen);
       onOpenChange?.(nextOpen);
     }}>
-      {trigger && <button
+      {trigger && <Button
         type={"button"}
-        className={"block cursor-pointer text-left transition-transform hover:scale-[1.01] active:scale-[0.99]"}
+        variant={"ghost"}
+        size={"default"}
+        className={"block h-auto w-full p-0 text-left transition-transform hover:scale-[1.01] active:scale-[0.99]"}
         onClick={(event) => {
           event.stopPropagation();
           setUncontrolledOpen(true);
@@ -88,7 +91,7 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
         aria-label={`View ${name}`}
       >
         {trigger}
-      </button>}
+      </Button>}
       <SheetContent className={"top-0 left-0 h-dvh! max-h-dvh! w-dvw! max-w-dvw! translate-x-0 translate-y-0 gap-3 rounded-none p-4 sm:p-6"} showCloseButton>
         <SheetHeader>
           <SheetTitle>{name || "Image preview"}</SheetTitle>
@@ -127,15 +130,14 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
             </Button>
             <label className={"ml-2 flex min-w-40 items-center gap-2 text-xs text-muted-foreground"}>
               <span>Zoom</span>
-              <input
-                type={"range"}
+              <Slider
                 min={MIN_ZOOM}
                 max={MAX_ZOOM}
                 step={ZOOM_STEP}
                 value={zoom}
-                onChange={(event) => setZoom(Number(event.target.value))}
+                onValueChange={setZoom}
                 aria-label={"Zoom level"}
-                className={"w-28 accent-primary"}
+                className={"w-28"}
               />
               <span className={"w-10 text-right"}>{Math.round(zoom * 100)}%</span>
             </label>

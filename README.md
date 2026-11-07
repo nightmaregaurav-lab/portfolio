@@ -1,21 +1,26 @@
 # Portfolio
 
-A configurable portfolio site built with `Next.js` to host with GitHub Pages.
+A polished, configurable portfolio website powered by Next.js and GitHub Pages. Fork it, publish it for free, and make it yours from the built-in setup experience.
 
-## Configuration migrations
+## Get your website online
 
-Configuration files are versioned independently in `public/config/`. The build runs
-`pnpm migrate-config` before `next build`, so older configuration files are migrated
-before Next.js validates or imports them.
+1. **Fork** this repository on GitHub.
+2. In your fork, open **Settings → Pages** and choose **GitHub Actions** as the source.
+3. Open the **Actions** tab and enable the workflows when GitHub asks.
+4. Run **Deploy portfolio to GitHub Pages** once from **Actions → Run workflow**.
+5. Visit the Pages URL GitHub gives you.
+6. Open the website's **Setup** area and update your content, appearance, and links.
 
-When changing a configuration shape, increment its version in
-`migrations/configurationMigrationManager.ts` and add a migration for each version transition.
-Migrations are applied sequentially, so a file that skips several versions receives
-every migration between its stored version and the current version.
+Your fork stays connected to the upstream project and can receive future updates through the included sync workflow.
 
-## Publish your own portfolio
+## Contributing
 
-1. Fork this repository.
-2. In the fork, open **Settings → Pages** and set **Source** to **GitHub Actions**.
-3. Edit the JSON files in public/config/, or use the site's **Setup** pages.
-4. In the Actions tab, click "I understand my workflows, go ahead and enable them" to allow the GitHub Actions workflow to run.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, configuration, contribution rules, and the pull request workflow.
+
+## License
+
+This project is available under the [Personal Use, Attribution, Non-Commercial License](LICENSE). You may use and modify it for personal, educational, and non-commercial purposes at no cost, provided that the required author attribution, project backlink, and license text remain intact. Commercial use, resale, redistribution, and use of any part of the project in a commercial product or service are not permitted without written permission.
+
+---
+
+With love, [Gaurav Nyaupane](https://github.com/nightmaregaurav) · [Upstream Project](https://github.com/nightmaregaurav/portfolio)

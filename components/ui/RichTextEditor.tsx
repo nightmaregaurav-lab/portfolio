@@ -96,8 +96,10 @@ function ImageToolbar({ editor }: { editor: Editor }) {
     <div className="rich-text-image-toolbar" aria-label="Image options">
       <span className="rich-text-image-toolbar-label">Image</span>
       {(["left", "center", "right"] as const).map((align) => (
-        <button
+        <Button
           key={align}
+          variant="ghost"
+          size="sm"
           type="button"
           className={cn(
             "rich-text-image-toolbar-button",
@@ -108,12 +110,14 @@ function ImageToolbar({ editor }: { editor: Editor }) {
           aria-pressed={imageAttributes.imageAlign === align}
         >
           {align[0].toUpperCase() + align.slice(1)}
-        </button>
+        </Button>
       ))}
       <span className="rich-text-image-toolbar-divider" />
       {(["none", "left", "right"] as const).map((wrap) => (
-        <button
+        <Button
           key={wrap}
+          variant="ghost"
+          size="sm"
           type="button"
           className={cn(
             "rich-text-image-toolbar-button",
@@ -124,11 +128,13 @@ function ImageToolbar({ editor }: { editor: Editor }) {
           aria-pressed={imageAttributes.imageWrap === wrap}
         >
           {wrap === "none" ? "No wrap" : `Wrap ${wrap}`}
-        </button>
+        </Button>
       ))}
       <span className="rich-text-image-toolbar-divider" />
-      <button
+      <Button
         type="button"
+        variant="ghost"
+        size="sm"
         className={cn(
           "rich-text-image-toolbar-button",
           imageAttributes.imageCrop && "is-active"
@@ -139,7 +145,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
         title="Crop uses the image's saved dimensions; resize first for a custom crop frame."
       >
         {imageAttributes.imageCrop ? "Show full" : "Crop"}
-      </button>
+      </Button>
     </div>
   );
 }

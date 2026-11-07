@@ -4,6 +4,7 @@ export const schema = z.object({
   favicon: z
     .url("Favicon must be a valid URL")
     .min(1, "Favicon is required.")
+    .default("")
     .meta({
       title: "Favicon",
       description:
@@ -17,6 +18,7 @@ export const schema = z.object({
   websiteName: z
     .string()
     .min(1, "Website name is required.")
+    .default("")
     .meta({
       title: "Website Name",
       description: "The name of the website.",
@@ -25,6 +27,7 @@ export const schema = z.object({
   fullName: z
     .string("Full Name is required")
     .min(1, "Full name is required.")
+    .default("")
     .meta({
       title: "Full Name",
       description:
@@ -44,7 +47,7 @@ export const schema = z.object({
     }
   ),
   seoKeywords: z
-    .array(z.string("Please enter a valid keyword").min(1, "Keyword is required.").meta({
+    .array(z.string("Please enter a valid keyword").min(1, "Keyword is required.").default("").meta({
       title: "SEO Keyword",
       description: "A search term associated with the website.",
     }))
