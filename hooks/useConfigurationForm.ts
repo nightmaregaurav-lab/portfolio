@@ -14,8 +14,8 @@ export function useConfigurationForm<
   query?: Record<string, string | number | null>
 ) {
 
-  type Input = z.input<TSchema>;
-  type Output = z.output<TSchema>;
+  type TInput = z.input<TSchema>;
+  type TOutput = z.output<TSchema>;
 
   const {
     config,
@@ -24,7 +24,7 @@ export function useConfigurationForm<
     isSavingConfig,
   } = useConfig(identifier, query);
 
-  const form = useForm<Input, any, Output>({
+  const form = useForm<TInput, any, TOutput>({
     resolver: zodResolver(schema) as any,
     defaultValues: defaultValues as any,
   });

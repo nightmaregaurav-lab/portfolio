@@ -1,4 +1,4 @@
-import {Model as GalleryModel} from "@/configuration/gallery";
+import {TModel as GalleryModel} from "@/configuration/gallery";
 
 
 export type GalleryCollection = GalleryModel["categories"][number] & {

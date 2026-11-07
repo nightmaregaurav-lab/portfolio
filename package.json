@@ -4,10 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && rm -rf build/config build/uploads build/uploads_thumbs",
+    "migrate-config": "tsx scripts/migrate-config.ts",
+    "build": "pnpm migrate-config && next build && rm -rf build/config build/uploads build/uploads_thumbs",
     "start": "next start",
-    "lint": "eslint",
-    "zod2md": "tsx ./lib/zod2md.ts ./configuration/__schemas.ts ./CONFIGURATIONS.md 'Configuration files for the application' 'This application is backed by several JSON configuration files. A setup UI will be provided to easily set/update them easily directly to GitHub. The setup UI will also allow the user to manage files inside uploads folder of the selected repository so these files can be used in various parts of the application. These configuration files are described below.'"
+    "lint": "eslint"
   },
   "dependencies": {
     "@base-ui/react": "^1.7.0",

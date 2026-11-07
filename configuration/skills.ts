@@ -2,8 +2,8 @@ import * as z from "zod";
 
 export const schema = z.object({
   summary: z.string().min(1, "Summary is required.").meta({
-    title: "Page Description",
-    description: "Introductory text displayed at the top of the skills page.",
+    title: "Summary",
+    description: "Introductory text displayed at the top of the skills page and used as its search result description.",
   }),
   skills: z.array(
     z.object({
@@ -26,14 +26,14 @@ export const schema = z.object({
       associatedMilestoneIds: z.array(z.string().min(1, "Milestone ID is required.").meta({
         title: "Milestone ID",
         description: "The ID of a journey milestone associated with this skill.",
-      })).meta({
+      })).default([]).meta({
         title: "Associated Milestones",
         description: "Select existing journey milestones that demonstrate or relate to this skill.",
       }),
       associatedProjectIds: z.array(z.string().min(1, "Project ID is required.").meta({
         title: "Project ID",
         description: "The ID of a project associated with this skill.",
-      })).meta({
+      })).default([]).meta({
         title: "Associated Projects",
         description: "Select existing projects that demonstrate or use this skill.",
       }),
@@ -41,7 +41,7 @@ export const schema = z.object({
       title: "Skill",
       description: "A skill entry and its related projects and milestones.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Skills",
     description: "The skills displayed on the skills page.",
   }),
@@ -50,9 +50,11 @@ export const schema = z.object({
   description: "Configuration for the skills page and its skill entries.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   summary: "",
   skills: [],
 };

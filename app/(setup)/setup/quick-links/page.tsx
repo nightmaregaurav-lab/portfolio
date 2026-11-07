@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/quickLinks";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/quickLinks";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
@@ -17,13 +17,13 @@ import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
 import {LucideReactIconPicker} from "@/components/ui/LucideReactIconPicker";
 
-const emptyLink: Model["links"][number] = {
+const emptyLink: NonNullable<TInput["links"]>[number] = {
   title: "",
   icon: "",
   link: "",
 };
 
-function LinkFields({control, index}: {control: Control<Model>; index: number}) {
+function LinkFields({control, index}: {control: Control<TInput>; index: number}) {
   return (
     <div className={"grid gap-3 md:grid-cols-2"}>
       <Controller
@@ -67,7 +67,7 @@ function LinkFields({control, index}: {control: Control<Model>; index: number}) 
 
 function LinkPreview(
   {link}: {
-    link: Model["links"][number]["link"];
+    link: NonNullable<TInput["links"]>[number]["link"];
   }
 ) {
   return (<>
@@ -80,7 +80,7 @@ function LinkCardHeader(
     title, icon, isCurrentlyEditing, onEdit, onDelete
   }: {
     title: string;
-    icon: Model["links"][number]["icon"];
+    icon: NonNullable<TInput["links"]>[number]["icon"];
     isCurrentlyEditing: boolean;
     onEdit: () => void;
     onDelete: () => void
@@ -135,9 +135,9 @@ function Page() {
   );
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const {fields: links, append, remove} = useFieldArray({control, name: "links", keyName: "fieldArrayId"});
-  const linksWatch = useWatch({control, name: "links"});
+  const linksWatch = useWatch({control, name: "links"}) || [];
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 

@@ -2,8 +2,8 @@ import * as z from "zod";
 
 export const schema = z.object({
   summary: z.string().min(1, "Summary is required.").meta({
-    title: "Page Description",
-    description: "A short introduction shown above the project cards. Keep it to one or two sentences.",
+    title: "Summary",
+    description: "A concise introduction shown above the project cards and used as the page's search result description.",
   }),
   projects: z.array(
     z.object({
@@ -29,7 +29,7 @@ export const schema = z.object({
           title: "Project Link",
           description: "An external link associated with the project.",
         }),
-      ).meta({
+      ).default([]).meta({
         title: "Links",
         description: "External links associated with the project.",
       }),
@@ -44,7 +44,7 @@ export const schema = z.object({
       images: z.array(z.string().min(1, "Image URL is required.").meta({
         title: "Image URL",
         description: "The URL of an additional project image.",
-      })).meta({
+      })).default([]).meta({
         title: "Images",
         description: "Additional images to show with the project.",
       }),
@@ -62,14 +62,14 @@ export const schema = z.object({
           title: "Key Point",
           description: "A short detail that highlights an aspect of the project.",
         }),
-      ).meta({
+      ).default([]).meta({
         title: "Key Points",
         description: "A list of short details about the project.",
       }),
       seoKeywords: z.array(z.string().min(1, "SEO keyword is required.").meta({
         title: "Keyword",
         description: "A search keyword associated with the project.",
-      })).meta({
+      })).default([]).meta({
         title: "SEO Keywords",
         description: "Comma-separated search terms describing the project. Use concise words rather than sentences.",
       }),
@@ -81,7 +81,7 @@ export const schema = z.object({
       title: "Project",
       description: "A project entry displayed on the projects page.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Projects",
     description: "The project entries displayed on the projects page.",
   }),
@@ -90,9 +90,11 @@ export const schema = z.object({
   description: "Configuration for the projects page and its project entries.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   summary: "",
   projects: [],
 };

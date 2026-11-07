@@ -4,9 +4,9 @@ import React from "react";
 import {SidebarProvider} from "@/components/ui/sidebar";
 import GoToTopButton from "@/components/ui/GoToTopButton";
 import LeftPanel from "@/app/(app)/LeftPanel";
-import type {Model as CoreModel} from "@/configuration/core";
-import type {Model as LeftPanelModel} from "@/configuration/leftPanel";
-import type {Model as QuickLinksModel} from "@/configuration/quickLinks";
+import type {TModel as CoreModel} from "@/configuration/core";
+import type {TModel as LeftPanelModel} from "@/configuration/leftPanel";
+import type {TModel as QuickLinksModel} from "@/configuration/quickLinks";
 
 type SiteShellProps = {
   children: React.ReactNode;

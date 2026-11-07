@@ -1,12 +1,12 @@
 import * as z from "zod";
 
 export const schema = z.object({
-  aboutMe: z
+  summary: z
     .string()
-    .min(1, "About me is required.")
+    .min(1, "Summary is required.")
     .meta({
-      title: "About me",
-      description: "A detailed description about yourself.",
+      title: "Summary",
+      description: "The introduction shown on the About page and used as its search result description.",
     }
   ),
   heroPicture: z
@@ -35,7 +35,7 @@ export const schema = z.object({
     }).meta({
       title: "Key point",
       description: "A key point to display on the about page.",
-    })).meta({
+    })).default([]).meta({
       title: "Key points",
       description: "A list of key points to display on the about page.",
     }),
@@ -51,10 +51,12 @@ export const schema = z.object({
   description: "Configuration for the About page, including its introduction, image, and key points.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
-  aboutMe: "",
+export const defaultValues: TInput = {
+  summary: "",
   heroPicture: "",
   keypoints: [],
   additionalInformation: "",

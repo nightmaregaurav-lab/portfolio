@@ -3,7 +3,7 @@
 import React, {useMemo, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/skills";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/skills";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
@@ -19,7 +19,7 @@ import {withConfigurationId} from "@/lib/configurationUtils";
 import {generateMilestoneLabel} from "@/lib/configurationUtils";
 import CheckboxList from "@/components/ui/CheckboxList";
 
-const emptySkill: Model["skills"][number] = {
+const emptySkill: NonNullable<TInput["skills"]>[number] = {
   id: "",
   title: "",
   image: "",
@@ -32,7 +32,7 @@ function SkillFields(
   {
     control, index, milestoneOptions, projectOptions
   }: {
-    control: Control<Model>;
+    control: Control<TInput>;
     index: number;
     milestoneOptions: {value: string, label: string}[];
     projectOptions: {value: string, label: string}[];
@@ -72,7 +72,7 @@ function SkillFields(
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`skills.${index}.description`}>Description</Label>
-            <RichTextEditor id={`skills.${index}.description`} placeholder={"How do you use this skill?"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+            <RichTextEditor id={`skills.${index}.description`} placeholder={"How do you use this skill?"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -84,7 +84,7 @@ function SkillFields(
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`skills.${index}.associatedMilestoneIds`}>Associated Milestones</Label>
-            <CheckboxList id={`skills.${index}.associatedMilestoneIds`} options={milestoneOptions} value={field.value} onValueChange={field.onChange}/>
+            <CheckboxList id={`skills.${index}.associatedMilestoneIds`} options={milestoneOptions} value={field.value || []} onValueChange={field.onChange}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -96,7 +96,7 @@ function SkillFields(
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`skills.${index}.associatedProjectIds`}>Associated Projects</Label>
-            <CheckboxList id={`skills.${index}.associatedProjectIds`} options={projectOptions} value={field.value} onValueChange={field.onChange}/>
+            <CheckboxList id={`skills.${index}.associatedProjectIds`} options={projectOptions} value={field.value || []} onValueChange={field.onChange}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -105,7 +105,7 @@ function SkillFields(
   );
 }
 
-function SkillPreview({skill}: {skill: Model["skills"][number]}) {
+function SkillPreview({skill}: {skill: NonNullable<TInput["skills"]>[number]}) {
   return (<>
     <p className={"truncate font-medium text-muted-foreground"}>
       {skill.title || "Untitled skill"}
@@ -177,7 +177,7 @@ function Page() {
   );
   const [editingSkillId, setEditingSkillId] = useState<string | null>(null);
   const {fields: skills, append, remove} = useFieldArray({control, name: "skills", keyName: "fieldArrayId"});
-  const skillsWatch = useWatch({control, name: "skills"});
+  const skillsWatch = useWatch({control, name: "skills"}) || [];
 
   const milestoneOptions = useMemo(() => (
     (journey?.milestones || []).map((milestone) => ({
@@ -193,7 +193,7 @@ function Page() {
     }))
   ), [projectsConfig]);
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -209,7 +209,7 @@ function Page() {
           name={"summary"}
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
-              <Label htmlFor={"skillsSummary"}>Page description</Label>
+              <Label htmlFor={"skillsSummary"}>Summary</Label>
               <RichTextEditor id={"skillsSummary"} placeholder={"Introduce your skills"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>

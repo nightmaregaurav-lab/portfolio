@@ -2,6 +2,17 @@
 
 A configurable portfolio site built with `Next.js`.
 
+## Configuration migrations
+
+Configuration files are versioned independently in `public/config/`. The build runs
+`pnpm migrate-config` before `next build`, so older configuration files are migrated
+before Next.js validates or imports them.
+
+When changing a configuration shape, increment its version in
+`migrations/configurationMigrationManager.ts` and add a migration for each version transition.
+Migrations are applied sequentially, so a file that skips several versions receives
+every migration between its stored version and the current version.
+
 ## Publish your own portfolio
 
 1. Fork this repository.

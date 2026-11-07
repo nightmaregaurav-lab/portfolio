@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/testimonials";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/testimonials";
 import {Input} from "@/components/ui/input";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {Label} from "@/components/ui/label";
@@ -17,7 +17,7 @@ import {Control, Controller, useFieldArray, useWatch} from "react-hook-form";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 
-const emptyTestimonial: Model["testimonials"][number] = {
+const emptyTestimonial: NonNullable<TInput["testimonials"]>[number] = {
   by: "",
   date: "",
   title: "",
@@ -29,7 +29,7 @@ const emptyTestimonial: Model["testimonials"][number] = {
   departmentWebsite: "",
 };
 
-function TestimonialFields({control, index}: {control: Control<Model>; index: number}) {
+function TestimonialFields({control, index}: {control: Control<TInput>; index: number}) {
   return (
     <>
       <div className={"grid gap-3 md:grid-cols-2"}>
@@ -85,7 +85,7 @@ function TestimonialFields({control, index}: {control: Control<Model>; index: nu
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`testimonials.${index}.text`}>Testimonial</Label>
-            <RichTextEditor id={`testimonials.${index}.text`} placeholder={"What did they say about your work?"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+            <RichTextEditor id={`testimonials.${index}.text`} placeholder={"What did they say about your work?"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -146,7 +146,7 @@ function TestimonialFields({control, index}: {control: Control<Model>; index: nu
 
 function TestimonialPreview(
   {testimonial}: {
-    testimonial: Model["testimonials"][number]
+    testimonial: NonNullable<TInput["testimonials"]>[number]
   }
 ) {
   return (<>
@@ -219,9 +219,9 @@ function Page() {
   );
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
   const {fields: testimonials, append, remove} = useFieldArray({control, name: "testimonials", keyName: "fieldArrayId"});
-  const testimonialsWatch = useWatch({control, name: "testimonials"});
+  const testimonialsWatch = useWatch({control, name: "testimonials"}) || [];
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -237,7 +237,7 @@ function Page() {
           name={"summary"}
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
-              <Label htmlFor={"testimonialsSummary"}>Page description</Label>
+              <Label htmlFor={"testimonialsSummary"}>Summary</Label>
               <RichTextEditor id={"testimonialsSummary"} placeholder={"Introduce your testimonials"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>

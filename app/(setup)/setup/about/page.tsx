@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
 import {Controller, useFieldArray} from "react-hook-form";
-import {defaultValues, Model, schema} from "@/configuration/about";
+import {defaultValues, TOutput, schema} from "@/configuration/about";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
@@ -31,7 +31,7 @@ function Page() {
     defaultValues
   );
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -46,11 +46,11 @@ function Page() {
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid gap-6 max-w-3xl")}>
         <Controller
           control={control}
-          name={"aboutMe"}
+          name={"summary"}
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
-              <Label htmlFor={"aboutMe"}>About Me</Label>
-              <RichTextEditor id={"aboutMe"} placeholder={"Tell visitors about yourself"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+              <Label htmlFor={"summary"}>Summary</Label>
+              <RichTextEditor id={"summary"} placeholder={"Tell visitors about yourself"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }

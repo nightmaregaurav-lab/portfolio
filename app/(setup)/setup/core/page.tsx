@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
 import {Controller} from "react-hook-form";
-import {defaultValues, Model, schema} from "@/configuration/core";
+import {defaultValues, TOutput, schema} from "@/configuration/core";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
@@ -31,7 +31,7 @@ function Page() {
     defaultValues
   );
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 

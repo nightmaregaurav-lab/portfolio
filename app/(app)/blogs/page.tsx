@@ -4,7 +4,7 @@ import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
 
-const description = stripHtmlTags(CoreConfig.seoDescription).slice(0, 300);
+const description = stripHtmlTags(BlogsConfig.summary).slice(0, 300);
 
 export const metadata = createPageMetadata({
   title: "Blog",

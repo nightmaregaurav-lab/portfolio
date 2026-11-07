@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
 import { Controller, useFieldArray } from "react-hook-form";
-import { Model, schema, defaultValues } from "@/configuration/leftPanel";
+import { TOutput, schema, defaultValues } from "@/configuration/leftPanel";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -44,7 +44,7 @@ function Page() {
     defaultValues
   );
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -162,7 +162,7 @@ function Page() {
                   Select the menus that should be visible on your website.
                 </p>
               </div>
-              <CheckboxList id={"enabledMenus"} options={availableMenus} value={field.value} onValueChange={field.onChange}/>
+              <CheckboxList id={"enabledMenus"} options={availableMenus} value={field.value || []} onValueChange={field.onChange}/>
               {error && (
                 <small className={"text-destructive"}>
                   {error.message}

@@ -2,8 +2,9 @@
 
 import React from 'react';
 import styles from "./page.module.css";
-import {Model as BlogsModel} from "@/configuration/blogs"
+import {TModel as BlogsModel} from "@/configuration/blogs"
 import SmartLink from "@/components/ui/SmartLink";
+import HtmlRenderer from "@/components/ui/HtmlRenderer";
 
 function PageContent(
   {blogsConfig}: {
@@ -13,6 +14,7 @@ function PageContent(
   return (
     <main className={styles.page}>
       <h1 className={styles.pageHeader}>Blog</h1>
+      <HtmlRenderer className={styles.pageText}>{blogsConfig.summary}</HtmlRenderer>
       {blogsConfig.posts ? (
         <div className={styles.postGrid}>
           {blogsConfig.posts.map((post) => (
@@ -20,7 +22,7 @@ function PageContent(
               <article className={styles.postCard}>
                 <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
                 <h2>{post.title}</h2>
-                <p className={styles.postExcerpt}>Click to read this post...</p>
+                <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>
                 {!!post.categories.length && (
                   <div className={styles.tagList}>
                     {post.categories.map((category) => (

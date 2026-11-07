@@ -6,7 +6,7 @@ export const schema = z.object({
     .min(1, "Summary is required.")
     .meta({
       title: "Summary",
-      description: "A concise introduction shown above the timeline. One or two sentences works best."
+      description: "A concise introduction shown above the timeline and used as its search result description."
     }),
   milestones: z.array(
     z.object({
@@ -53,7 +53,7 @@ export const schema = z.object({
       points: z.array(z.string().min(1, "Point is required.").meta({
         title: "Point",
         description: "A key point or highlight of the milestone"
-      })).optional().meta({
+      })).default([]).meta({
         title: "Points",
         description: "A list of key points or highlights of the milestone"
       }),
@@ -81,7 +81,7 @@ export const schema = z.object({
             description: "An achievement related to the milestone"
           })
         )
-        .optional().meta({
+        .default([]).meta({
           title: "Achievements",
           description: "A list of achievements related to the milestone"
         })
@@ -89,7 +89,7 @@ export const schema = z.object({
       title: "Milestone",
       description: "A significant event in your journey"
     })
-  ).meta({
+  ).default([]).meta({
     title: "Milestones",
     description: "A list of significant events in your journey"
   }),
@@ -98,9 +98,11 @@ export const schema = z.object({
   description: "A summary of your journey and the milestones that make it up.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   summary: "",
   milestones: [],
 };

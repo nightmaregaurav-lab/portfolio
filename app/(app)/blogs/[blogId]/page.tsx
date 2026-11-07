@@ -7,7 +7,8 @@ import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
 import type {BlogPost} from "./page.types";
-import {Model as BlogModel} from "@/configuration/blog";
+import {TModel as BlogModel} from "@/configuration/blog";
+import {getConfigurationDirectory} from "@/configuration/configurationFiles";
 
 export const dynamicParams = false;
 
@@ -27,7 +28,7 @@ function findBlogPost(postId: string){
     return null;
   }
 
-  const blogContentDirectory = join(process.cwd(), "public", "config", "blogs");
+  const blogContentDirectory = join(getConfigurationDirectory(), "blogs");
   let content: BlogModel;
   try {
     const fileContent = readFileSync(join(blogContentDirectory, postId + ".json"), "utf8");
@@ -53,7 +54,7 @@ export async function generateMetadata(
 
   return createPageMetadata({
     title: post.title,
-    description: stripHtmlTags(post.content).slice(0, 300),
+    description: stripHtmlTags(post.summary || post.content).slice(0, 300),
     path: "/blogs/" + blogId + "/",
     image: CoreConfig.favicon,
     keywords: post.tags,
@@ -81,7 +82,7 @@ export default async function Page(
         "@context": "https://schema.org",
         "@type": "BlogPosting",
         headline: post.title,
-        description: stripHtmlTags(post.content).slice(0, 300),
+        description: stripHtmlTags(post.summary || post.content).slice(0, 300),
         datePublished: post.date,
         articleSection: post.categories,
         keywords: post.tags,

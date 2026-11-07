@@ -1,22 +1,23 @@
 "use client"
 
 import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {Model as CoreConfigurationModel} from "@/configuration/core";
-import {Model as LeftPanelConfigurationModel} from "@/configuration/leftPanel";
-import {Model as HomeConfigurationModel} from "@/configuration/home";
-import {Model as AboutConfigurationModel} from "@/configuration/about";
-import {Model as JourneyConfigurationModel} from "@/configuration/journey";
-import {Model as ProjectsConfigurationModel} from "@/configuration/projects";
-import {Model as SkillsConfigurationModel} from "@/configuration/skills";
-import {Model as TestimonialsConfigurationModel} from "@/configuration/testimonials";
-import {Model as GalleryConfigurationModel} from "@/configuration/gallery";
-import {Model as DownloadsConfigurationModel} from "@/configuration/quickLinks";
-import {Model as BlogsConfigurationModel} from "@/configuration/blogs";
-import {Model as BlogConfigurationModel} from "@/configuration/blog";
-import {Model as ServicesConfigurationModel} from "@/configuration/services";
+import {TOutput as CoreConfigurationOutput, schema as CoreConfigurationSchema} from "@/configuration/core";
+import {TOutput as LeftPanelConfigurationOutput, schema as LeftPanelConfigurationSchema} from "@/configuration/leftPanel";
+import {TOutput as HomeConfigurationOutput, schema as HomeConfigurationSchema} from "@/configuration/home";
+import {TOutput as AboutConfigurationOutput, schema as AboutConfigurationSchema} from "@/configuration/about";
+import {TOutput as JourneyConfigurationOutput, schema as JourneyConfigurationSchema} from "@/configuration/journey";
+import {TOutput as ProjectsConfigurationOutput, schema as ProjectsConfigurationSchema} from "@/configuration/projects";
+import {TOutput as SkillsConfigurationOutput, schema as SkillsConfigurationSchema} from "@/configuration/skills";
+import {TOutput as TestimonialsConfigurationOutput, schema as TestimonialsConfigurationSchema} from "@/configuration/testimonials";
+import {TOutput as GalleryConfigurationOutput, schema as GalleryConfigurationSchema} from "@/configuration/gallery";
+import {TOutput as QuickLinksConfigurationOutput, schema as QuickLinksConfigurationSchema} from "@/configuration/quickLinks";
+import {TOutput as BlogsConfigurationOutput, schema as BlogsConfigurationSchema} from "@/configuration/blogs";
+import {TOutput as BlogConfigurationOutput, schema as BlogConfigurationSchema} from "@/configuration/blog";
+import {TOutput as ServicesConfigurationOutput, schema as ServicesConfigurationSchema} from "@/configuration/services";
 import {toast} from "sonner";
 import {useGitHubPatAuth} from "@/hooks/useGitHubPatAuth";
 import {getGitHubFileContent, uploadGitHubFiles} from "@/lib/gitHub";
+import {migrateConfiguration, serializeConfiguration} from "@/migrations/configurationMigrationManager";
 
 export enum Identifier {
   Core = "core",
@@ -35,19 +36,19 @@ export enum Identifier {
 }
 
 type ConfigurationModelMap = {
-  [Identifier.Core]: CoreConfigurationModel;
-  [Identifier.LeftPanel]: LeftPanelConfigurationModel;
-  [Identifier.Home]: HomeConfigurationModel;
-  [Identifier.About]: AboutConfigurationModel;
-  [Identifier.Journey]: JourneyConfigurationModel;
-  [Identifier.Projects]: ProjectsConfigurationModel;
-  [Identifier.Skills]: SkillsConfigurationModel;
-  [Identifier.Testimonials]: TestimonialsConfigurationModel;
-  [Identifier.Gallery]: GalleryConfigurationModel;
-  [Identifier.QuickLinks]: DownloadsConfigurationModel;
-  [Identifier.Blogs]: BlogsConfigurationModel;
-  [Identifier.Blog]: BlogConfigurationModel;
-  [Identifier.Services]: ServicesConfigurationModel;
+  [Identifier.Core]: CoreConfigurationOutput;
+  [Identifier.LeftPanel]: LeftPanelConfigurationOutput;
+  [Identifier.Home]: HomeConfigurationOutput;
+  [Identifier.About]: AboutConfigurationOutput;
+  [Identifier.Journey]: JourneyConfigurationOutput;
+  [Identifier.Projects]: ProjectsConfigurationOutput;
+  [Identifier.Skills]: SkillsConfigurationOutput;
+  [Identifier.Testimonials]: TestimonialsConfigurationOutput;
+  [Identifier.Gallery]: GalleryConfigurationOutput;
+  [Identifier.QuickLinks]: QuickLinksConfigurationOutput;
+  [Identifier.Blogs]: BlogsConfigurationOutput;
+  [Identifier.Blog]: BlogConfigurationOutput;
+  [Identifier.Services]: ServicesConfigurationOutput;
 };
 
 type ConfigQuery = Record<string, string|number|null>;
@@ -73,6 +74,22 @@ const configurationPaths: Record<Identifier, (query?: ConfigQuery) => string> = 
   [Identifier.Blogs]: _ => `public/config/blogs.json`,
   [Identifier.Blog]: (query) => `public/config/blogs/${query ? query["id"] : "empty"}.json`,
   [Identifier.Services]: _ => `public/config/services.json`,
+};
+
+const configurationSchemas = {
+  [Identifier.Core]: CoreConfigurationSchema,
+  [Identifier.LeftPanel]: LeftPanelConfigurationSchema,
+  [Identifier.Home]: HomeConfigurationSchema,
+  [Identifier.About]: AboutConfigurationSchema,
+  [Identifier.Journey]: JourneyConfigurationSchema,
+  [Identifier.Projects]: ProjectsConfigurationSchema,
+  [Identifier.Skills]: SkillsConfigurationSchema,
+  [Identifier.Testimonials]: TestimonialsConfigurationSchema,
+  [Identifier.Gallery]: GalleryConfigurationSchema,
+  [Identifier.QuickLinks]: QuickLinksConfigurationSchema,
+  [Identifier.Blogs]: BlogsConfigurationSchema,
+  [Identifier.Blog]: BlogConfigurationSchema,
+  [Identifier.Services]: ServicesConfigurationSchema,
 };
 
 export function useConfig<T extends Identifier>(configIdentifier: T, query?: ConfigQuery): ConfigHookResult<T>{
@@ -136,7 +153,7 @@ async function saveConfig<T extends Identifier>(
 ): Promise<void> {
   const configPathFunction = configurationPaths[configIdentifier];
   const filePath = configPathFunction(query);
-  const content = JSON.stringify(newConfig, null, 2);
+  const content = serializeConfiguration(configIdentifier, newConfig);
   await uploadGitHubFiles(
     gitHubPat ?? "",
     repo,
@@ -164,5 +181,6 @@ async function getConfig<T extends Identifier>(
     filePath
   );
 
-  return JSON.parse(response) as ConfigurationModel<T>;
+  const migratedConfig = migrateConfiguration(configIdentifier, JSON.parse(response));
+  return configurationSchemas[configIdentifier].parse(migratedConfig.configuration) as ConfigurationModel<T>;
 }

@@ -27,7 +27,7 @@ export const schema = z.object({
       title: "Service",
       description: "A service offered and its related information.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Services",
     description: "The list of services offered on the Services page.",
   })
@@ -36,8 +36,10 @@ export const schema = z.object({
   description: "The configuration for the Services page.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   services: [],
 }

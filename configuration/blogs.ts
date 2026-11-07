@@ -1,6 +1,10 @@
 import * as z from "zod";
 
 export const schema = z.object({
+  summary: z.string().min(1, "Summary is required.").default("").meta({
+    title: "Summary",
+    description: "A short introduction to the articles on the Blog page.",
+  }),
   posts: z.array(
     z.object({
       id: z.string().min(1, "ID is required.").meta({
@@ -11,6 +15,10 @@ export const schema = z.object({
         title: "Title",
         description: "The headline shown on the blog card and at the top of the post.",
       }),
+      summary: z.string().min(1, "Summary is required.").default("").meta({
+        title: "Summary",
+        description: "A concise description shown on the blog card and used for the post's search result description.",
+      }),
       date: z.string().min(1, "Date is required.").meta({
         title: "Date",
         description: "The publication date shown to readers. Use a clear date such as 2026-01-15.",
@@ -18,14 +26,14 @@ export const schema = z.object({
       categories: z.array(z.string().min(1, "Category is required.").meta({
         title: "Category",
         description: "A category used to group the blog post.",
-      })).meta({
+      })).default([]).meta({
         title: "Categories",
         description: "Broad groups used to filter or organize posts, such as Engineering or Design.",
       }),
       tags: z.array(z.string().min(1, "Tag is required.").meta({
         title: "Tag",
         description: "A tag associated with the blog post.",
-      })).meta({
+      })).default([]).meta({
         title: "Tags",
         description: "Specific searchable topics for the post, such as React, TypeScript, or Accessibility.",
       }),
@@ -33,14 +41,17 @@ export const schema = z.object({
       title: "Blog Post Metadata",
       description: "Metadata that identifies a blog post whose rich-text HTML is stored in a file named after its ID.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Blog Posts",
     description: "The list of blog posts available on the Blog page.",
   })
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
+  summary: "",
   posts: []
 };

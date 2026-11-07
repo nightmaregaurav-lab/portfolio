@@ -3,7 +3,7 @@
 import React, {useState} from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/services";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/services";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
 import {Button} from "@/components/ui/button";
@@ -20,7 +20,7 @@ import {LucideReactIconPicker} from "@/components/ui/LucideReactIconPicker";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
 import {stripHtmlTags} from "@/lib/html";
 
-const emptyService: Model["services"][number] = {
+const emptyService: NonNullable<TInput["services"]>[number] = {
   id: "",
   title: "",
   description: "",
@@ -28,7 +28,7 @@ const emptyService: Model["services"][number] = {
   link: "",
 };
 
-function ServiceFields({control, index}: {control: Control<Model>; index: number}) {
+function ServiceFields({control, index}: {control: Control<TInput>; index: number}) {
   return (
     <>
       <div className={"grid gap-3 md:grid-cols-2"}>
@@ -63,7 +63,7 @@ function ServiceFields({control, index}: {control: Control<Model>; index: number
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`services.${index}.description`}>Description</Label>
-            <RichTextEditor id={`services.${index}.description`} placeholder={"What does this service include?"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+            <RichTextEditor id={`services.${index}.description`} placeholder={"What does this service include?"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -84,7 +84,7 @@ function ServiceFields({control, index}: {control: Control<Model>; index: number
   );
 }
 
-function ServicePreview({service}: {service: Model["services"][number]}) {
+function ServicePreview({service}: {service: NonNullable<TInput["services"]>[number]}) {
   return (<>
     <p className={"truncate font-medium text-muted-foreground"}>
       <DynamicLucideReactIcon name={service.icon as LucideReactIconName} className={"mr-2 inline"} size={16}/>{service.title || "Untitled service"}
@@ -155,9 +155,9 @@ function Page() {
   );
   const [editingServiceId, setEditingServiceId] = useState<string | null>(null);
   const {fields: services, append, remove} = useFieldArray({control, name: "services", keyName: "fieldArrayId"});
-  const servicesWatch = useWatch({control, name: "services"});
+  const servicesWatch = useWatch({control, name: "services"}) || [];
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 

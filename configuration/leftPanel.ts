@@ -32,6 +32,7 @@ export const schema = z.object({
         description: "A social media account.",
       }),
     )
+    .default([])
     .meta({
       title: "Social Media Accounts",
       description: "A list of social media accounts to show in the left panel.",
@@ -41,6 +42,7 @@ export const schema = z.object({
       title: "Menu Name",
       description: "The name of the menu.",
     }))
+    .default([])
     .meta({
       title: "Enabled Menus",
       description:
@@ -51,9 +53,11 @@ export const schema = z.object({
   description: "Configuration for the profile, social links, and menu shown in the left panel.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   profilePicture: "",
   socials: [],
   enabledMenus: [],

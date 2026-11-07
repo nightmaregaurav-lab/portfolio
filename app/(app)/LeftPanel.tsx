@@ -17,9 +17,9 @@ import SocialLinks from "@/components/ui/SocialLinks";
 import {cn} from "@/lib/utils";
 import SidebarCustomMenuItem from "@/app/(app)/SidebarCustomMenuItem";
 import SmartLink from "@/components/ui/SmartLink";
-import type {Model as CoreModel} from "@/configuration/core";
-import type {Model as LeftPanelModel} from "@/configuration/leftPanel";
-import type {Model as QuickLinksModel} from "@/configuration/quickLinks";
+import type {TModel as CoreModel} from "@/configuration/core";
+import type {TModel as LeftPanelModel} from "@/configuration/leftPanel";
+import type {TModel as QuickLinksModel} from "@/configuration/quickLinks";
 
 class LeftPanelItem {
   label: string;

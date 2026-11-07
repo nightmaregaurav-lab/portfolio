@@ -1,59 +1,50 @@
-import aboutJson from "@/public/config/about.json";
-import type {Model as AboutModel} from "@/configuration/about";
+import {migrateConfiguration} from "@/migrations/configurationMigrationManager";
+import {readConfigurationFile} from "@/configuration/configurationFiles";
+
+import type {TOutput as AboutOutput} from "@/configuration/about";
 import {schema as aboutSchema} from "@/configuration/about";
-export const AboutConfig: AboutModel = aboutSchema.parse(aboutJson);
+export const AboutConfig: AboutOutput = aboutSchema.parse(migrateConfiguration("about", readConfigurationFile("about.json")).configuration);
 
-import blogsJson from "@/public/config/blogs.json";
-import type {Model as BlogsModel} from "@/configuration/blogs";
+import type {TOutput as BlogsOutput} from "@/configuration/blogs";
 import {schema as blogsSchema} from "@/configuration/blogs";
-export const BlogsConfig: BlogsModel = blogsSchema.parse(blogsJson);
+export const BlogsConfig: BlogsOutput = blogsSchema.parse(migrateConfiguration("blogs", readConfigurationFile("blogs.json")).configuration);
 
-import coreJson from "@/public/config/core.json";
-import type {Model as CoreModel} from "@/configuration/core";
+import type {TOutput as CoreOutput} from "@/configuration/core";
 import {schema as coreSchema} from "@/configuration/core";
-export const CoreConfig: CoreModel = coreSchema.parse(coreJson);
+export const CoreConfig: CoreOutput = coreSchema.parse(migrateConfiguration("core", readConfigurationFile("core.json")).configuration);
 
-import galleryJson from "@/public/config/gallery.json";
-import type {Model as GalleryModel} from "@/configuration/gallery";
+import type {TOutput as GalleryOutput} from "@/configuration/gallery";
 import {schema as gallerySchema} from "@/configuration/gallery";
-export const GalleryConfig: GalleryModel = gallerySchema.parse(galleryJson);
+export const GalleryConfig: GalleryOutput = gallerySchema.parse(migrateConfiguration("gallery", readConfigurationFile("gallery.json")).configuration);
 
-import homeJson from "@/public/config/home.json";
-import type {Model as HomeModel} from "@/configuration/home";
+import type {TOutput as HomeOutput} from "@/configuration/home";
 import {schema as homeSchema} from "@/configuration/home";
-export const HomeConfig: HomeModel = homeSchema.parse(homeJson);
+export const HomeConfig: HomeOutput = homeSchema.parse(migrateConfiguration("home", readConfigurationFile("home.json")).configuration);
 
-import journeyJson from "@/public/config/journey.json";
-import type {Model as JourneyModel} from "@/configuration/journey";
+import type {TOutput as JourneyOutput} from "@/configuration/journey";
 import {schema as journeySchema} from "@/configuration/journey";
-export const JourneyConfig: JourneyModel = journeySchema.parse(journeyJson);
+export const JourneyConfig: JourneyOutput = journeySchema.parse(migrateConfiguration("journey", readConfigurationFile("journey.json")).configuration);
 
-import leftPanelJson from "@/public/config/left-panel.json";
-import type {Model as LeftPanelModel} from "@/configuration/leftPanel";
+import type {TOutput as LeftPanelOutput} from "@/configuration/leftPanel";
 import {schema as leftPanelSchema} from "@/configuration/leftPanel";
-export const LeftPanelConfig: LeftPanelModel = leftPanelSchema.parse(leftPanelJson);
+export const LeftPanelConfig: LeftPanelOutput = leftPanelSchema.parse(migrateConfiguration("leftPanel", readConfigurationFile("left-panel.json")).configuration);
 
-import projectsJson from "@/public/config/projects.json";
-import type {Model as ProjectsModel} from "@/configuration/projects";
+import type {TOutput as ProjectsOutput} from "@/configuration/projects";
 import {schema as projectsSchema} from "@/configuration/projects";
-export const ProjectsConfig: ProjectsModel = projectsSchema.parse(projectsJson);
+export const ProjectsConfig: ProjectsOutput = projectsSchema.parse(migrateConfiguration("projects", readConfigurationFile("projects.json")).configuration);
 
-import quickLinksJson from "@/public/config/quick-links.json";
-import type {Model as QuickLinksModel} from "@/configuration/quickLinks";
+import type {TOutput as QuickLinksOutput} from "@/configuration/quickLinks";
 import {schema as quickLinksSchema} from "@/configuration/quickLinks";
-export const QuickLinksConfig: QuickLinksModel = quickLinksSchema.parse(quickLinksJson);
+export const QuickLinksConfig: QuickLinksOutput = quickLinksSchema.parse(migrateConfiguration("quickLinks", readConfigurationFile("quick-links.json")).configuration);
 
-import servicesJson from "@/public/config/services.json";
-import type {Model as ServicesModel} from "@/configuration/services";
+import type {TOutput as ServicesOutput} from "@/configuration/services";
 import {schema as servicesSchema} from "@/configuration/services";
-export const ServicesConfig: ServicesModel = servicesSchema.parse(servicesJson);
+export const ServicesConfig: ServicesOutput = servicesSchema.parse(migrateConfiguration("services", readConfigurationFile("services.json")).configuration);
 
-import skillsJson from "@/public/config/skills.json";
-import type {Model as SkillsModel} from "@/configuration/skills";
+import type {TOutput as SkillsOutput} from "@/configuration/skills";
 import {schema as skillsSchema} from "@/configuration/skills";
-export const SkillsConfig: SkillsModel = skillsSchema.parse(skillsJson);
+export const SkillsConfig: SkillsOutput = skillsSchema.parse(migrateConfiguration("skills", readConfigurationFile("skills.json")).configuration);
 
-import testimonialsJson from "@/public/config/testimonials.json";
-import type {Model as TestimonialsModel} from "@/configuration/testimonials";
+import type {TOutput as TestimonialsOutput} from "@/configuration/testimonials";
 import {schema as testimonialsSchema} from "@/configuration/testimonials";
-export const TestimonialsConfig: TestimonialsModel = testimonialsSchema.parse(testimonialsJson);
+export const TestimonialsConfig: TestimonialsOutput = testimonialsSchema.parse(migrateConfiguration("testimonials", readConfigurationFile("testimonials.json")).configuration);

@@ -1,6 +1,10 @@
 import * as z from "zod";
 
 export const schema = z.object({
+  summary: z.string().min(1, "Summary is required.").default("").meta({
+    title: "Summary",
+    description: "A short introduction to the photo collections on the Gallery page.",
+  }),
   categories: z.array(
     z.object({
       name: z.string().min(1, "Category name is required.").meta({
@@ -19,7 +23,7 @@ export const schema = z.object({
       title: "Category",
       description: "A named folder in the gallery.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Categories",
     description: "The folders used to organize gallery photos. A photo can appear in multiple folders without being copied.",
   }),
@@ -46,7 +50,7 @@ export const schema = z.object({
           title: "Category",
           description: "A gallery category that groups this photo.",
         }),
-      ).meta({
+      ).default([]).meta({
         title: "Categories",
         description: "The categories used to group this photo in the gallery.",
       }),
@@ -54,7 +58,7 @@ export const schema = z.object({
       title: "Photo",
       description: "A photo and its display information in the gallery.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Photos",
     description: "The photos to display in the gallery.",
   }),
@@ -63,9 +67,12 @@ export const schema = z.object({
   description: "Configuration for the portfolio photo gallery.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
+  summary: "",
   categories: [],
   photos: [],
 };

@@ -3,7 +3,7 @@
 import React, {useMemo, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/projects";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/projects";
 import {Input} from "@/components/ui/input";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
@@ -20,7 +20,7 @@ import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectVal
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {generateMilestoneLabel} from "@/lib/configurationUtils";
 
-const emptyProject: Model["projects"][number] = {
+const emptyProject: NonNullable<TInput["projects"]>[number] = {
   id: "",
   title: "",
   links: [{name: "", url: ""}],
@@ -32,7 +32,7 @@ const emptyProject: Model["projects"][number] = {
   milestoneId: "",
 };
 
-function ProjectLinksFields({control, projectIndex}: {control: Control<Model>; projectIndex: number}) {
+function ProjectLinksFields({control, projectIndex}: {control: Control<TInput>; projectIndex: number}) {
   const {fields, append, remove} = useFieldArray({control, name: `projects.${projectIndex}.links` as const});
 
   return (
@@ -77,7 +77,7 @@ function ProjectLinksFields({control, projectIndex}: {control: Control<Model>; p
   );
 }
 
-function KeypointFields({control, index: projectIndex}: {control: Control<Model>; index: number}) {
+function KeypointFields({control, index: projectIndex}: {control: Control<TInput>; index: number}) {
   const {fields, append, remove} = useFieldArray({control, name: `projects.${projectIndex}.keypoints` as const});
 
   return (
@@ -122,7 +122,7 @@ function KeypointFields({control, index: projectIndex}: {control: Control<Model>
   );
 }
 
-function ProjectFields({control, index, journey}: {control: Control<Model>; index: number; journey: ReturnType<typeof useConfig<Identifier.Journey>>["config"]}) {
+function ProjectFields({control, index, journey}: {control: Control<TInput>; index: number; journey: ReturnType<typeof useConfig<Identifier.Journey>>["config"]}) {
   const milestoneOptions = useMemo(() => {
     const milestones = journey?.milestones || [];
     return milestones.map((milestone) => ({
@@ -165,7 +165,7 @@ function ProjectFields({control, index, journey}: {control: Control<Model>; inde
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={"projectDescription"}>Description</Label>
-            <RichTextEditor id={"projectDescription"} placeholder={"What did you build and why does it matter?"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+            <RichTextEditor id={"projectDescription"} placeholder={"What did you build and why does it matter?"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -226,7 +226,7 @@ function ProjectFields({control, index, journey}: {control: Control<Model>; inde
   );
 }
 
-function ProjectPreview({project}: {project: Model["projects"][number]}) {
+function ProjectPreview({project}: {project: NonNullable<TInput["projects"]>[number]}) {
   return (<>
     <p className={"truncate font-medium text-muted-foreground"}>
       {project.title || "Untitled project"}
@@ -298,9 +298,9 @@ function Page() {
   );
   const [editingProjectId, setEditingProjectId] = useState<string | null>(null);
   const {fields: projects, append, remove} = useFieldArray({control, name: "projects", keyName: "fieldArrayId"});
-  const projectsWatch = useWatch({control, name: "projects"});
+  const projectsWatch = useWatch({control, name: "projects"}) || [];
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -316,7 +316,7 @@ function Page() {
           name={"summary"}
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
-              <Label htmlFor={"projectsSummary"}>Page description</Label>
+              <Label htmlFor={"projectsSummary"}>Summary</Label>
               <RichTextEditor id={"projectsSummary"} placeholder={"Introduce your works"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>

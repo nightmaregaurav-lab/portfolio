@@ -2,8 +2,8 @@ import * as z from "zod";
 
 export const schema = z.object({
   summary: z.string().min(1, "Summary is required.").meta({
-    title: "Page Description",
-    description: "Introductory text displayed at the top of the testimonials page.",
+    title: "Summary",
+    description: "Introductory text displayed at the top of the testimonials page and used as its search result description.",
   }),
   testimonials: z.array(
     z.object({
@@ -47,7 +47,7 @@ export const schema = z.object({
       title: "Testimonial",
       description: "A testimonial and optional details about its author.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Testimonials",
     description: "The testimonials to display on the portfolio.",
   }),
@@ -56,9 +56,11 @@ export const schema = z.object({
   description: "Configuration for the testimonials page and its testimonials.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   summary: "",
   testimonials: [],
 };

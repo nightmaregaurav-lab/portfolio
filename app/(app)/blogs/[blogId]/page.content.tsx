@@ -19,6 +19,7 @@ function PageContent(
         <header className={styles.articleHeader}>
           <h1>{post.title}</h1>
           <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
+          <p className={styles.pageText}>{post.summary}</p>
           {!!post.categories.length && (
             <div className={styles.tagList}>
               {post.categories.map((category) => (

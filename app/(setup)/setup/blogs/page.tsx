@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/blogs";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
 import {Input} from "@/components/ui/input";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {ArrayInput} from "@/components/ui/ArrayInput";
@@ -16,21 +16,23 @@ import {Pencil, Plus, Trash2} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Control, Controller, useFieldArray, useFormContext, useWatch} from "react-hook-form";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
+import {Textarea} from "@/components/ui/textarea";
 import {withConfigurationId} from "@/lib/configurationUtils";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {confirm} from "@/components/ui/Confirm";
 import {isNullOrWhitespace} from "@/lib/string";
 
-const emptyPost: Model["posts"][number] = {
+const emptyPost: NonNullable<TInput["posts"]>[number] = {
   id: "",
   title: "",
+  summary: "",
   date: "",
   categories: [],
   tags: [],
 };
 
 
-function BlogMetadataFields({control, index}: {control: Control<Model>; index: number}) {
+function BlogMetadataFields({control, index}: {control: Control<TInput>; index: number}) {
   return (
     <>
       <div className={"grid gap-3 md:grid-cols-2"}>
@@ -58,6 +60,19 @@ function BlogMetadataFields({control, index}: {control: Control<Model>; index: n
           }
         />
       </div>
+
+      <Controller
+        control={control}
+        name={`posts.${index}.summary`}
+        render={({field, fieldState: {error}}) =>
+          <div className={"grid gap-2"}>
+            <Label htmlFor={`posts.${index}.summary`}>Summary (optional)</Label>
+            <Textarea {...field} id={`posts.${index}.summary`} placeholder={"A concise description of this post"} className={cn("w-full", error && "border-destructive")}/>
+            <p className={"text-xs text-muted-foreground"}>Shown on the blog page and used in search and social previews.</p>
+            {error && <small className={"text-destructive"}>{error.message}</small>}
+          </div>
+        }
+      />
 
       <div className={"grid gap-3 md:grid-cols-2"}>
         <Controller
@@ -103,7 +118,7 @@ function BlogForm(
   const {
     control,
     trigger
-  } = useFormContext<Model>();
+  } = useFormContext<TInput>();
   const selectedPost = useWatch({control, name: `posts.${postIndex}`});
   const selectedPostId = selectedPost?.id || "NA";
 
@@ -203,14 +218,14 @@ function BlogForm(
   </>);
 }
 
-function BlogPreview({post}: {post: Model["posts"][number]}) {
+function BlogPreview({post}: {post: NonNullable<TInput["posts"]>[number]}) {
   return (<>
     <p className={"truncate font-medium text-muted-foreground"}>
       {post.title || "Untitled post"}
     </p>
 
     <p className={"truncate text-sm text-muted-foreground"}>
-      {post.date || "No publication date"}{post.categories.length > 0 ? ` · ${post.categories.join(", ")}` : ""}
+      {post.date || "No publication date"}{post.categories && post.categories.length > 0 ? ` · ${post.categories.join(", ")}` : ""}
     </p>
   </>);
 }
@@ -219,7 +234,7 @@ function BlogCardHeader(
   {
     post, isCurrentlyEditing, onEdit, onDelete
   }: {
-    post: Model["posts"][number];
+    post: NonNullable<TInput["posts"]>[number];
     isCurrentlyEditing: boolean;
     onEdit: () => void;
     onDelete: () => void;
@@ -274,7 +289,7 @@ function Page() {
   );
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
   const {fields: posts, append, remove} = useFieldArray({control, name: "posts", keyName: "fieldArrayId"});
-  const postsWatch = useWatch({control, name: "posts"});
+  const postsWatch = useWatch({control, name: "posts"}) || [];
 
   const [deletingPost, setDeletingPost] = useState<boolean>(false);
 
@@ -302,14 +317,14 @@ function Page() {
 
     const deletedPostId = post.id;
     remove(index);
-    await save(form.getValues());
+    await save(schema.parse(form.getValues()));
     if(editingBlogId === deletedPostId) {
       setEditingBlogId(null);
     }
     setDeletingPost(false);
   }
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -320,6 +335,18 @@ function Page() {
   return (
     <ConfigurationFormWrapper className={styles.page} title={"Blog Configuration"} config={formValues} form={form}>
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
+        <Controller
+          control={control}
+          name={"summary"}
+          render={({field, fieldState: {error}}) =>
+            <div className={"grid gap-2"}>
+              <Label htmlFor={"blogsSummary"}>Summary</Label>
+              <RichTextEditor id={"blogsSummary"} placeholder={"Introduce the articles on your blog"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+              {error && <small className={"text-destructive"}>{error.message}</small>}
+            </div>
+          }
+        />
+
         <div className={"flex flex-col justify-between gap-3 sm:flex-row sm:items-center"}>
           <div>
             <Label>Blogs</Label>
@@ -368,7 +395,7 @@ function Page() {
           <BlogForm
             postIndex={posts.findIndex((post) => post.id === editingBlogId)}
             onClose={() => setEditingBlogId(null)}
-            onSave={async () => await save(formValues)}
+            onSave={async () => await save(schema.parse(formValues))}
             onDelete={async (index) => await deletePost(index)}
             saving={isSavingConfig}
             deleting={deletingPost}

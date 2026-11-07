@@ -7,8 +7,8 @@ import SmartText from "@/components/ui/SmartText";
 import {AspectRatio} from "@/components/ui/aspect-ratio";
 import {cn} from "@/lib/utils";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import {Model as CoreModel} from "@/configuration/core";
-import {Model as AboutModel} from "@/configuration/about";
+import {TModel as CoreModel} from "@/configuration/core";
+import {TModel as AboutModel} from "@/configuration/about";
 
 function PageContent(
   {coreConfig, aboutConfig}: {
@@ -19,7 +19,7 @@ function PageContent(
   return (
     <main className={cn(styles.page, "bg-secondary")}>
       <h1 className={styles.pageHeader}>About</h1>
-      <HtmlRenderer className={styles.pageText}>{aboutConfig.aboutMe}</HtmlRenderer>
+      <HtmlRenderer className={styles.pageText}>{aboutConfig.summary}</HtmlRenderer>
       <div className={styles.pageContent}>
         <AspectRatio ratio={16 / 9} className="w-full max-w-sm rounded-lg bg-muted">
           <Image

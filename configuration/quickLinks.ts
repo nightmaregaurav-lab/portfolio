@@ -19,7 +19,7 @@ export const schema = z.object({
       title: "Download Link",
       description: "A file or resource that visitors can download.",
     }),
-  ).meta({
+  ).default([]).meta({
     title: "Download Links",
     description: "A list of downloadable files and resources.",
   }),
@@ -28,8 +28,10 @@ export const schema = z.object({
   description: "Configuration for the downloads available on the portfolio.",
 });
 
-export type Model = z.infer<typeof schema>;
+export type TInput = z.input<typeof schema>;
+export type TOutput = z.output<typeof schema>;
+export type TModel = TOutput;
 
-export const defaultValues: Model = {
+export const defaultValues: TInput = {
   links: [],
 };

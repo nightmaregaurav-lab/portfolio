@@ -3,7 +3,7 @@
 import React, {useEffect, useMemo, useRef, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/gallery";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/gallery";
 import {Input} from "@/components/ui/input";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
@@ -29,7 +29,7 @@ import {Textarea} from "@/components/ui/textarea";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {stripHtmlTags} from "@/lib/html";
 
-const emptyPhoto: Model["photos"][number] = {
+const emptyPhoto: NonNullable<TInput["photos"]>[number] = {
   id: "",
   url: "",
   title: "",
@@ -37,7 +37,7 @@ const emptyPhoto: Model["photos"][number] = {
   categories: [],
 };
 
-const emptyCategory: Model["categories"][number] = {
+const emptyCategory: NonNullable<TInput["categories"]>[number] = {
   name: "",
   coverImage: "",
   description: "",
@@ -45,7 +45,7 @@ const emptyCategory: Model["categories"][number] = {
 
 function PhotoFields(
   {control, index, categorySuggestions, onCategoryAdded}: {
-    control: Control<Model>;
+    control: Control<TInput>;
     index: number
     categorySuggestions: string[];
     onCategoryAdded: (name: string) => void;
@@ -117,7 +117,7 @@ function GalleryPhotoCard(
   {
     photo, index, onEdit, onDelete
   }: {
-    photo: Model["photos"][number];
+    photo: NonNullable<TInput["photos"]>[number];
     index: number;
     onEdit: () => void;
     onDelete: () => void;
@@ -143,7 +143,7 @@ function GalleryPhotoCard(
       <div className={"pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/30 to-transparent p-3 pt-10"}>
         {photo.title && <p className={"truncate text-sm font-semibold text-white"}>{photo.title}</p>}
         <p className={"truncate text-sm font-medium text-white"}>{photo.caption || `Photo ${index + 1}`}</p>
-        {photo.categories.length > 0 && <p className={"truncate text-xs text-white/75"}>{photo.categories.join(" · ")}</p>}
+        {photo.categories && photo.categories.length > 0 && <p className={"truncate text-xs text-white/75"}>{photo.categories.join(" · ")}</p>}
       </div>
 
       <div className={"absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"}>
@@ -173,7 +173,7 @@ function GalleryPhotoCard(
   );
 }
 
-function CategoryPreview({category}: {category: Model["categories"][number]}) {
+function CategoryPreview({category}: {category: NonNullable<TInput["categories"]>[number]}) {
   return (<>
     <p className={"truncate text-sm text-muted-foreground"}>
       {stripHtmlTags(category.description) || "No introduction yet"}
@@ -373,7 +373,7 @@ function Page() {
     setDialogOpen(true);
   }
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     const categoryNames = new Set<string>();
     for (const [index, category] of values.categories.entries()) {
       const name = category.name.trim();
@@ -408,6 +408,18 @@ function Page() {
   return (
     <ConfigurationFormWrapper className={styles.page} title={"Gallery Configuration"} config={formValues} form={form}>
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
+        <Controller
+          control={control}
+          name={"summary"}
+          render={({field, fieldState: {error}}) =>
+            <div className={"grid gap-2"}>
+              <Label htmlFor={"gallerySummary"}>Summary</Label>
+              <RichTextEditor id={"gallerySummary"} placeholder={"Introduce the photos and collections in your gallery"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+              {error && <small className={"text-destructive"}>{error.message}</small>}
+            </div>
+          }
+        />
+
         <div className={"grid gap-3"}>
           <div className={"flex flex-col justify-between gap-3 sm:flex-row sm:items-center"}>
             <div>

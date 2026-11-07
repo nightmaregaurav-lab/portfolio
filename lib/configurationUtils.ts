@@ -1,5 +1,4 @@
 import {isNullOrWhitespace} from "@/lib/string";
-import type {Model} from "@/configuration/journey";
 
 export function createConfigurationId(prefix?: string) {
   const randomId = typeof crypto !== "undefined" && "randomUUID" in crypto
@@ -20,7 +19,13 @@ export function withConfigurationId<T extends object>(entry: T & {id?: string}, 
   };
 }
 
-export function generateMilestoneLabel(milestone: Model["milestones"][number]) {
+export function generateMilestoneLabel(milestone: {
+  title?: string;
+  start?: string;
+  end?: string;
+  department?: string;
+  organisation?: string;
+}) {
   const { title, start, end, department, organisation } = milestone;
 
   const bigDot = "•";

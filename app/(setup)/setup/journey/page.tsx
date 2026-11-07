@@ -3,7 +3,7 @@
 import React, {useEffect, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/journey";
+import {defaultValues, TInput, TOutput, schema} from "@/configuration/journey";
 import {Input} from "@/components/ui/input";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {Textarea} from "@/components/ui/textarea";
@@ -21,7 +21,7 @@ import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {withConfigurationId} from "@/lib/configurationUtils";
 import {Select, SelectTrigger, SelectValue, SelectContent, SelectGroup, SelectItem} from "@/components/ui/select";
 
-const emptyMilestone: Model["milestones"][number] = {
+const emptyMilestone: NonNullable<TInput["milestones"]>[number] = {
   id: "",
   type: "Professional",
   title: "",
@@ -37,7 +37,7 @@ const emptyMilestone: Model["milestones"][number] = {
   achievements: [],
 };
 
-function AchievementFields({control, index}: {control: Control<Model>; index: number}) {
+function AchievementFields({control, index}: {control: Control<TInput>; index: number}) {
   const {fields, append, remove} = useFieldArray({
     control,
     name: `milestones.${index}.achievements`,
@@ -97,7 +97,7 @@ function AchievementFields({control, index}: {control: Control<Model>; index: nu
   );
 }
 
-function MilestoneFields({control, index}: {control: Control<Model>; index: number}) {
+function MilestoneFields({control, index}: {control: Control<TInput>; index: number}) {
   const types = [
     {
       value: "Academic",
@@ -268,7 +268,7 @@ function MilestoneFields({control, index}: {control: Control<Model>; index: numb
 
 function MilestonePreview(
   {milestone}: {
-    milestone: Model["milestones"][number];
+    milestone: NonNullable<TInput["milestones"]>[number];
   }
 ){
   return (<>
@@ -341,7 +341,7 @@ function Page() {
   );
   const [editingMilestoneId, setEditingMilestoneId] = useState<string | null>(null);
   const {fields: milestones, append, remove, move} = useFieldArray({control, name: "milestones", keyName: "fieldArrayId"});
-  const milestonesWatch = useWatch({control, name: "milestones"});
+  const milestonesWatch = useWatch({control, name: "milestones"}) || [];
 
   useEffect(() => {
     const milestonesCopy = [...milestonesWatch];
@@ -373,7 +373,7 @@ function Page() {
     });
   }, [milestonesWatch, move]);
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 
@@ -389,7 +389,7 @@ function Page() {
           name={"summary"}
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
-              <Label htmlFor={"summary"}>Summarize your journey</Label>
+              <Label htmlFor={"summary"}>Summary</Label>
               <RichTextEditor id={"summary"} placeholder={"Tell visitors about your journey"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")} />
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>

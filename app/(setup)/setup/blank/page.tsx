@@ -4,7 +4,7 @@ import React from 'react';
 import styles from "./page.module.css";
 import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
 import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, Model, schema} from "@/configuration/core"; // Change this
+import {defaultValues, TOutput, schema} from "@/configuration/core"; // Change this
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -26,7 +26,7 @@ function Page() {
     defaultValues
   );
 
-  async function save(values: Model) {
+  async function save(values: TOutput) {
     await saveConfig(values);
   }
 

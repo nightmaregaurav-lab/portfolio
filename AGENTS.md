@@ -10,8 +10,6 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 <!-- BEGIN:development-information -->
 
-@CONFIGURATIONS.md
-
 ## Working style
 
 - Keep code and changes consistent, predictable, and easy to review.

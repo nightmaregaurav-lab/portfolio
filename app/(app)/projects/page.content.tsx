@@ -16,7 +16,7 @@ import {
 import {Input} from "@/components/ui/input";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {cn} from "@/lib/utils";
-import type {Model as ProjectsModel} from "@/configuration/projects";
+import type {TModel as ProjectsModel} from "@/configuration/projects";
 
 function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
   return [

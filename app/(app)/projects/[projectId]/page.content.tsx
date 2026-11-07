@@ -10,9 +10,9 @@ import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import SmartLink from "@/components/ui/SmartLink";
 import {cn} from "@/lib/utils";
-import {Model as ProjectModel} from "@/configuration/projects";
-import {Model as MilestoneModel} from "@/configuration/journey";
-import {Model as SkillModel} from "@/configuration/skills";
+import {TModel as ProjectModel} from "@/configuration/projects";
+import {TModel as MilestoneModel} from "@/configuration/journey";
+import {TModel as SkillModel} from "@/configuration/skills";
 
 function PageContent(
   {project, milestone, skills}: {

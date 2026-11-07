@@ -2,10 +2,11 @@
 
 import React from 'react';
 import styles from "./page.module.css";
-import {Model as GalleryModel} from "@/configuration/gallery";
+import {TModel as GalleryModel} from "@/configuration/gallery";
 import {cn} from "@/lib/utils";
 import {Folder, Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
+import HtmlRenderer from "@/components/ui/HtmlRenderer";
 
 const uncategorizedGalleryCategory = {name: "Uncategorized", coverImage: "", description: "Photos that are not part of a specific collection."};
 
@@ -39,6 +40,7 @@ function PageContent(
         <div className={styles.headingRow}>
           <h1 className={styles.pageHeader}>Gallery</h1>
         </div>
+        <HtmlRenderer className={styles.pageText}>{galleryConfig.summary}</HtmlRenderer>
         <div className={styles.emptyState}>
           <Images className={styles.emptyIcon} aria-hidden="true" />
           No photos yet.
@@ -53,7 +55,7 @@ function PageContent(
         <div className={styles.headingRow}>
           <h1 className={styles.pageHeader}>Gallery</h1>
         </div>
-        <p className={styles.pageText}>Browse the photo collections.</p>
+          <HtmlRenderer className={styles.pageText}>{galleryConfig.summary}</HtmlRenderer>
         <div className={styles.folderGrid}>
           {[...galleryConfig.categories, uncategorizedGalleryCategory]
             .sort((a, b) => a.name.localeCompare(b.name))
