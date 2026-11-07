@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "migrate-config": "tsx scripts/migrate-config.ts",
-    "build": "pnpm migrate-config && next build && rm -rf build/config build/uploads build/uploads_thumbs",
+    "build": "NODE_ENV=production pnpm migrate-config && NODE_ENV=production pnpm migrate-config next build && rm -rf build/config build/uploads build/uploads_thumbs",
     "start": "next start",
     "lint": "eslint"
   },
