@@ -17,13 +17,15 @@ import {cn} from "@/lib/utils";
 import {Control, Controller, useFieldArray, useFormContext, useWatch} from "react-hook-form";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {Textarea} from "@/components/ui/textarea";
-import {withConfigurationId} from "@/lib/configurationUtils";
+import {createConfigurationId, withConfigurationId} from "@/lib/configurationUtils";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {confirm} from "@/components/ui/Confirm";
 import {isNullOrWhitespace} from "@/lib/string";
+import {slugify} from "@/lib/slugs";
 
 const emptyPost: NonNullable<TInput["posts"]>[number] = {
   id: "",
+  slugs: [],
   title: "",
   summary: "",
   date: "",
@@ -325,6 +327,35 @@ function Page() {
   }
 
   async function save(values: TOutput) {
+    for (const post of values.posts) {
+      if (isNullOrWhitespace(post.id)) {
+        post.id = createConfigurationId("blog");
+      }
+
+      const exhaustedSlugsExceptThisPost = new Set(values
+        .posts
+        .filter(x => x.id !== post.id)
+        .flatMap(x => x.slugs)
+        .map(x => x.slug)
+      );
+      const activeSlugCandidate = slugify(post.title, exhaustedSlugsExceptThisPost);
+      let foundActiveSlug = false;
+      for (const slugEntry of post.slugs) {
+        if (slugEntry.slug === activeSlugCandidate) {
+          slugEntry.isActive = true;
+          foundActiveSlug = true;
+          continue;
+        }
+        slugEntry.isActive = false;
+      }
+      if(!foundActiveSlug){
+        post.slugs.push({
+          slug: activeSlugCandidate,
+          isActive: true
+        });
+      }
+    }
+
     await saveConfig(values);
   }
 

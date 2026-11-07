@@ -73,7 +73,14 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git merge --no-edit "upstream/$UPSTREAM_BRANCH"
+          git merge --no-ff --no-edit -X theirs "upstream/$UPSTREAM_BRANCH"
+
+      - name: Preserve local configuration
+        if: steps.changes.outputs.has_updates == 'true'
+        run: |
+          git checkout ORIG_HEAD -- public/config
+          git add public/config
+          git commit --amend --no-edit
 
       - name: Push synchronized branch
         if: steps.changes.outputs.has_updates == 'true'

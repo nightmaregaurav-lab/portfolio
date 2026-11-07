@@ -1,4 +1,7 @@
 import {migrateAboutToV1} from "@/migrations/about/v1";
+import {migrateBlogsToV1} from "@/migrations/blogs/v1";
+import {migrateGalleryToV1} from "@/migrations/gallery/v1";
+import {migrateProjectsToV1} from "@/migrations/projects/v1";
 
 export type ConfigurationMigration = (configuration: unknown) => unknown;
 
@@ -14,13 +17,13 @@ const initialConfigurationVersion = 0;
 const currentConfigurationVersions: Record<string, number> = {
   about: 1,
   blog: initialConfigurationVersion,
-  blogs: initialConfigurationVersion,
+  blogs: 1,
   core: initialConfigurationVersion,
-  gallery: initialConfigurationVersion,
+  gallery: 1,
   home: initialConfigurationVersion,
   journey: initialConfigurationVersion,
   leftPanel: initialConfigurationVersion,
-  projects: initialConfigurationVersion,
+  projects: 1,
   quickLinks: initialConfigurationVersion,
   services: initialConfigurationVersion,
   skills: initialConfigurationVersion,
@@ -32,13 +35,19 @@ const configurationMigrationManager: Record<string, ConfigurationMigrationMap> =
     1: migrateAboutToV1
   },
   blog: {},
-  blogs: {},
+  blogs: {
+    1: migrateBlogsToV1,
+  },
   core: {},
-  gallery: {},
+  gallery: {
+    1: migrateGalleryToV1,
+  },
   home: {},
   journey: {},
   leftPanel: {},
-  projects: {},
+  projects: {
+    1: migrateProjectsToV1,
+  },
   quickLinks: {},
   services: {},
   skills: {},

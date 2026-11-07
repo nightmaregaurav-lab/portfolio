@@ -17,6 +17,7 @@ import {Input} from "@/components/ui/input";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {cn} from "@/lib/utils";
 import type {TModel as ProjectsModel} from "@/configuration/projects";
+import {getActiveSlug} from "@/lib/slugs";
 
 function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
   return [
@@ -91,7 +92,7 @@ function PageContent(
           <div className={cn(styles.projectGrid, viewMode === "list" && styles.listView)}>
             {visibleProjects.map((project) => (
               <SmartLink
-                href={"/projects/" + project.id + "/"}
+                href={"/projects/" + getActiveSlug(project.slugs) + "/"}
                 className={styles.projectLink}
                 key={project.id}
               >

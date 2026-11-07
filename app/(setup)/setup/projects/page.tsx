@@ -15,13 +15,16 @@ import {Pencil, Plus, Trash2} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Control, Controller, useFieldArray, useWatch} from "react-hook-form";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
-import {withConfigurationId} from "@/lib/configurationUtils";
+import {createConfigurationId, withConfigurationId} from "@/lib/configurationUtils";
 import {Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue} from "@/components/ui/select";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {generateMilestoneLabel} from "@/lib/configurationUtils";
+import {isNullOrWhitespace} from "@/lib/string";
+import {slugify} from "@/lib/slugs";
 
 const emptyProject: NonNullable<TInput["projects"]>[number] = {
   id: "",
+  slugs: [],
   title: "",
   links: [{name: "", url: ""}],
   description: "",
@@ -301,6 +304,35 @@ function Page() {
   const projectsWatch = useWatch({control, name: "projects"}) || [];
 
   async function save(values: TOutput) {
+    for (const project of values.projects) {
+      if (isNullOrWhitespace(project.id)) {
+        project.id = createConfigurationId("project");
+      }
+
+      const exhaustedSlugsExceptThisProject = new Set(values
+        .projects
+        .filter(x => x.id != project.id)
+        .flatMap(x => x.slugs)
+        .map(x => x.slug)
+      );
+      const activeSlugCandidate = slugify(project.title, exhaustedSlugsExceptThisProject);
+      let foundActiveSlug = false;
+      for (const slugEntry of project.slugs) {
+        if (slugEntry.slug === activeSlugCandidate) {
+          slugEntry.isActive = true;
+          foundActiveSlug = true;
+          continue;
+        }
+        slugEntry.isActive = false;
+      }
+      if(!foundActiveSlug){
+        project.slugs.push({
+          slug: activeSlugCandidate,
+          isActive: true
+        });
+      }
+    }
+
     await saveConfig(values);
   }
 

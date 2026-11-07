@@ -7,8 +7,14 @@ import {cn} from "@/lib/utils";
 import {Folder, Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import {getActiveSlug} from "@/lib/slugs";
 
-const uncategorizedGalleryCategory = {name: "Uncategorized", coverImage: "", description: "Photos that are not part of a specific collection."};
+export const uncategorizedGalleryCategory = {
+  name: "Uncategorized",
+  slugs: [{slug: "uncategorized", isActive: true}],
+  coverImage: "",
+  description: "Photos that are not part of a specific collection."
+};
 
 export function getCollectionPhotos(collectionName: string, photos: GalleryModel["photos"]) {
   if(collectionName === uncategorizedGalleryCategory.name) {
@@ -65,7 +71,7 @@ function PageContent(
 
               return (
                 <SmartLink
-                  href={"/gallery/" + collection.name + "/"}
+                  href={"/gallery/" + getActiveSlug(collection.slugs) + "/"}
                   key={index}
                   className={styles.folderCard}
                 >

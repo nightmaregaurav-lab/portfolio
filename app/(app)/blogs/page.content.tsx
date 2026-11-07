@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import {TModel as BlogsModel} from "@/configuration/blogs"
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import {getActiveSlug} from "@/lib/slugs";
 
 function PageContent(
   {blogsConfig}: {
@@ -18,7 +19,7 @@ function PageContent(
       {blogsConfig.posts ? (
         <div className={styles.postGrid}>
           {blogsConfig.posts.map((post) => (
-            <SmartLink href={"/blogs/" + post.id + "/"} className={styles.postLink} key={post.id}>
+            <SmartLink href={"/blogs/" + getActiveSlug(post.slugs) + "/"} className={styles.postLink} key={post.id}>
               <article className={styles.postCard}>
                 <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
                 <h2>{post.title}</h2>

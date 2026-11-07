@@ -28,6 +28,7 @@ import {
 import {Textarea} from "@/components/ui/textarea";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {stripHtmlTags} from "@/lib/html";
+import {slugify} from "@/lib/slugs";
 
 const emptyPhoto: NonNullable<TInput["photos"]>[number] = {
   id: "",
@@ -39,6 +40,7 @@ const emptyPhoto: NonNullable<TInput["photos"]>[number] = {
 
 const emptyCategory: NonNullable<TInput["categories"]>[number] = {
   name: "",
+  slugs: [],
   coverImage: "",
   description: "",
 };
@@ -260,7 +262,14 @@ function Page() {
     const existingCategories = form.getValues("categories") || [];
     const normalizedName = name.trim().toLocaleLowerCase();
     if (!normalizedName || existingCategories.some((category) => category.name.trim().toLocaleLowerCase() === normalizedName)) return;
-    appendCategory({name: name.trim(), coverImage: "", description: ""}, {shouldFocus: false});
+    appendCategory({
+      name: name.trim(),
+      slugs: [],
+      coverImage: "",
+      description: ""
+    }, {
+      shouldFocus: false
+    });
   }
 
   function updatePhotoCategoryName(previousName: string, nextName: string) {
@@ -354,7 +363,14 @@ function Page() {
         const name = categoryName.trim();
         const normalizedName = name.toLocaleLowerCase();
         if (name && !knownNames.has(normalizedName)) {
-          appendCategory({name, coverImage: "", description: ""}, {shouldFocus: false});
+          appendCategory({
+            name,
+            slugs: [],
+            coverImage: "",
+            description: ""
+          }, {
+            shouldFocus: false
+          });
           knownNames.add(normalizedName);
         }
       }
@@ -392,9 +408,39 @@ function Page() {
         const name = categoryName.trim();
         const normalizedName = name.toLocaleLowerCase();
         if (name && !categoryNames.has(normalizedName)) {
-          values.categories.push({name, coverImage: "", description: ""});
+          values.categories.push({
+            name,
+            slugs: [],
+            coverImage: "",
+            description: ""
+          });
           categoryNames.add(normalizedName);
         }
+      }
+    }
+
+    for (const category of values.categories){
+      const exhaustedSlugsExceptThisCategory = new Set(values
+        .categories
+        .filter(x => x.name != category.name)
+        .flatMap(x => x.slugs)
+        .map(x => x.slug)
+      );
+      const activeSlugCandidate = slugify(category.name, exhaustedSlugsExceptThisCategory);
+      let foundActiveSlug = false;
+      for (const slugEntry of category.slugs){
+        if (slugEntry.slug === activeSlugCandidate) {
+          slugEntry.isActive = true;
+          foundActiveSlug = true;
+          continue;
+        }
+        slugEntry.isActive = false;
+      }
+      if(!foundActiveSlug){
+        category.slugs.push({
+          slug: activeSlugCandidate,
+          isActive: true
+        });
       }
     }
 

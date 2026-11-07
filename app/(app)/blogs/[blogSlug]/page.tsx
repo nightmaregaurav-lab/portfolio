@@ -13,17 +13,22 @@ import {getConfigurationDirectory} from "@/configuration/configurationFiles";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
+  const slugs = BlogsConfig
+    .posts
+    .flatMap(x => x.slugs)
+    .map(x => x.slug);
+
   return [
-    ...BlogsConfig.posts.map((post) => ({blogId: post.id})),
-    {blogId: "__404__"},
+    ...slugs.map((slug) => ({blogSlug: slug})),
+    {blogSlug: "__404__"},
   ];
 }
 
 const emptyBlog: BlogModel = {content: ""};
-function findBlogPost(postId: string){
+function findBlogPost(postSlug: string){
   const metadata = BlogsConfig
     .posts
-    .find((post) => post.id === postId);
+    .find((post) => post.slugs.findIndex(x => x.slug == postSlug) != -1);
   if(!metadata){
     return null;
   }
@@ -31,7 +36,7 @@ function findBlogPost(postId: string){
   const blogContentDirectory = join(getConfigurationDirectory(), "blogs");
   let content: BlogModel;
   try {
-    const fileContent = readFileSync(join(blogContentDirectory, postId + ".json"), "utf8");
+    const fileContent = readFileSync(join(blogContentDirectory, metadata.id + ".json"), "utf8");
     content = JSON.parse(fileContent) as BlogModel;
   } catch {
     content = emptyBlog;
@@ -44,10 +49,10 @@ function findBlogPost(postId: string){
 }
 
 export async function generateMetadata(
-  {params}: { params: Promise<{blogId: string}>; }
+  {params}: { params: Promise<{blogSlug: string}>; }
 ) {
-  const {blogId} = await params;
-  const post = findBlogPost(blogId);
+  const {blogSlug} = await params;
+  const post = findBlogPost(blogSlug);
   if (!post) {
     return {};
   }
@@ -55,7 +60,7 @@ export async function generateMetadata(
   return createPageMetadata({
     title: post.title,
     description: stripHtmlTags(post.summary || post.content).slice(0, 300),
-    path: "/blogs/" + blogId + "/",
+    path: "/blogs/" + blogSlug + "/",
     image: CoreConfig.favicon,
     keywords: post.tags,
     type: "article",
@@ -63,15 +68,15 @@ export async function generateMetadata(
 }
 
 export default async function Page(
-  {params}: { params: Promise<{blogId: string}>; }
+  {params}: { params: Promise<{blogSlug: string}>; }
 ) {
-  const {blogId} = await params;
-  const post = findBlogPost(blogId);
+  const {blogSlug} = await params;
+  const post = findBlogPost(blogSlug);
   if (!post) {
     notFound();
   }
 
-  const canonical = getCanonicalUrl("/blogs/" + blogId + "/");
+  const canonical = getCanonicalUrl("/blogs/" + blogSlug + "/");
   return (
     <>
       <PageContent

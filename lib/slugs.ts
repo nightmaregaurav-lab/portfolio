@@ -29,3 +29,14 @@ export function slugify(value: string, exhaustedSet: Set<string>): string {
     return candidate;
   }
 }
+
+export function getActiveSlug(slugs: {
+  slug: string;
+  isActive: boolean
+}[]){
+  const active = slugs.find(x => x.isActive);
+  if(active){
+    return active.slug;
+  }
+  return slugs[0].slug;
+}

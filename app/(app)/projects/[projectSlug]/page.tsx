@@ -8,23 +8,28 @@ import PageContent from "./page.content";
 export const dynamicParams = false;
 
 export function generateStaticParams() {
+  const slugs = ProjectsConfig
+    .projects
+    .flatMap(x => x.slugs)
+    .map(x => x.slug);
+
   return [
-    ...ProjectsConfig.projects.map((project) => ({projectId: project.id})),
-    {projectId: "__404__"},
+    ...slugs.map((slug) => ({projectSlug: slug})),
+    {projectSlug: "__404__"},
   ];
 }
 
-function findProject(projectId: string) {
+function findProject(projectSlug: string) {
   return ProjectsConfig
     .projects
-    .find((project) => project.id === projectId);
+    .find((project) => project.slugs.findIndex(x => x.slug == projectSlug) != -1);
 }
 
 export async function generateMetadata(
-  {params}: { params: Promise<{projectId: string}>; }
+  {params}: { params: Promise<{projectSlug: string}>; }
 ) {
-  const {projectId} = await params;
-  const project = findProject(projectId);
+  const {projectSlug} = await params;
+  const project = findProject(projectSlug);
   if (!project) {
     return {};
   }
@@ -32,7 +37,7 @@ export async function generateMetadata(
   return createPageMetadata({
     title: project.title,
     description: stripHtmlTags(project.description).slice(0, 300),
-    path: "/projects/" + projectId + "/",
+    path: "/projects/" + projectSlug + "/",
     image: project.previewImage || CoreConfig.favicon,
     keywords: project.seoKeywords || [],
     type: "article",
@@ -40,10 +45,10 @@ export async function generateMetadata(
 }
 
 async function Page(
-  {params}: { params: Promise<{projectId: string}>; }
+  {params}: { params: Promise<{projectSlug: string}>; }
 ) {
-  const {projectId} = await params;
-  const project = findProject(projectId);
+  const {projectSlug} = await params;
+  const project = findProject(projectSlug);
   if (!project) {
     notFound();
   }
@@ -56,7 +61,7 @@ async function Page(
     .skills
     .filter((skill) => (skill.associatedProjectIds || []).includes(project.id));
 
-  const canonical = getCanonicalUrl("/projects/" + projectId + "/");
+  const canonical = getCanonicalUrl("/projects/" + projectSlug + "/");
   return (
     <>
       <PageContent
