@@ -1,4 +1,7 @@
 {
-  "summary": "<p>Throughout my academic and professional journey, I've had the opportunity to work with different people, teams, and organizations. The experiences we've shared have shaped how I approach my work, collaborate with others, and grow as a professional.</p><p>This page brings together feedback and testimonials from people I've worked with, studied alongside, or collaborated with. Each one offers a perspective on my contributions, work ethic, and the impact of our time working together.</p>",
-  "testimonials": []
+  "version": 0,
+  "configuration": {
+    "summary": "<p>Throughout my academic and professional journey, I've had the opportunity to work with different people, teams, and organizations. The experiences we've shared have shaped how I approach my work, collaborate with others, and grow as a professional.</p><p>This page brings together feedback and testimonials from people I've worked with, studied alongside, or collaborated with. Each one offers a perspective on my contributions, work ethic, and the impact of our time working together.</p>",
+    "testimonials": []
+  }
 }

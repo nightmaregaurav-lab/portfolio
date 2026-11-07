@@ -1,200 +1,203 @@
 {
-  "summary": "<p>A timeline of my journey through education, software engineering, and continuous growth. From my academic beginnings and early projects to professional experiences, technical challenges, and milestones, each chapter has shaped the way I learn, build, and approach technology.</p><p>Explore the experiences, achievements, and turning points that have shaped my path as a software engineer.</p>",
-  "milestones": [
-    {
-      "id": "milestone-04ffdbc7d7f1",
-      "type": "Academic",
-      "title": "High School",
-      "description": "Completed my secondary education at Singhadevi Secondary School, where I developed a strong academic foundation with Mathematics as my major subject. This stage strengthened my analytical thinking, problem-solving abilities, and interest in logical reasoning, laying the groundwork for my later studies in computer science and technology.",
-      "start": "2014-04-01",
-      "end": "2015-04-01",
-      "organisation": "Singhadevi Secondary School",
-      "organizationWebsite": "https://edusanjal.com/school/singh-devi-higher-secondary-school/",
-      "department": "",
-      "departmentWebsite": "",
-      "points": [
-        "Major: Mathematics",
-        "Division: First"
-      ],
-      "partingNote": "A challenging year that tested my resilience and determination. Due to health issues, I could attend only one week of classes throughout the academic year. I continued my studies through self-learning, even while hospitalized and recovering in bed. Despite the circumstances, I completed the year with First Division and ranked first in my class. This experience taught me the value of perseverance, independence, and commitment to learning.",
-      "achievements": [
-        {
-          "title": "Valedictorian | Top Student of the Session",
-          "description": "Graduated as the highest-performing student of my academic session, earning recognition for outstanding academic performance and receiving an award for securing the top position.",
-          "on": "2015-04-01"
-        }
-      ]
-    },
-    {
-      "id": "milestone-c25a71ed7573",
-      "type": "Academic",
-      "title": "Intermediate",
-      "description": "Completed my intermediate education at Singhadevi Secondary School, with Computer Science, Mathematics, and Accounting as my major subjects. This stage strengthened my foundation in programming, mathematical reasoning, computational thinking, and business fundamentals, further shaping my interest in software development and technology.",
-      "start": "2015-06-01",
-      "end": "2017-06-01",
-      "organisation": "Singhadevi Secondary School",
-      "organizationWebsite": "https://edusanjal.com/school/singh-devi-higher-secondary-school/",
-      "department": "Management and Business Studies",
-      "departmentWebsite": "",
-      "points": [
-        "Major: Compuer Science, Mathematics, and Accounting",
-        "Division: Second"
-      ],
-      "partingNote": "My intermediate years were particularly challenging due to persistent health issues. I missed approximately half of the classes in Grade 11 and a quarter in Grade 12, including time spent travelling to India for medical checkups. Despite these interruptions and having to manage my studies alongside recovery, I remained committed to learning and secured the top position in my academic session. I graduated with 59.9%, narrowly missing the First Division threshold by 0.1 percentage point. This experience reinforced my resilience, independence, and ability to stay focused despite difficult circumstances.",
-      "achievements": [
-        {
-          "title": "Top Student of the Session",
-          "description": "Secured the highest academic position in my intermediate session, demonstrating strong academic performance despite significant interruptions to classroom attendance.",
-          "on": "2017-06-01"
-        }
-      ]
-    },
-    {
-      "id": "milestone-c3e95f8760e1",
-      "type": "Academic",
-      "title": "Bachelor of Computer Application",
-      "description": "Completed a four-year Bachelor of Computer Applications (BCA) degree at Mechi Multiple Campus, Tribhuvan University, building a strong foundation in computer science, software development, and information technology.\n\nThroughout the eight-semester program, I maintained a consistent academic record, graduating with a CGPA of 3.66/4.00 (B+, First Division). My academic journey included practical software development projects, technical workshops, and recognition for outstanding performance, including topping six of the eight semesters.",
-      "start": "2017-05-01",
-      "end": "2021-12-01",
-      "organisation": "Tribhuvan University",
-      "organizationWebsite": "https://tu.edu.np",
-      "department": "Mechi Multiple Campus",
-      "departmentWebsite": "https://mechicampus.edu.np/",
-      "points": [
-        "CGPA: 3.66/4.00",
-        "Grade: B+",
-        "Division: First"
-      ],
-      "partingNote": "My undergraduate journey was marked by consistent academic performance, practical learning, and a strong commitment to software development. I secured the top position in six of the eight semesters and completed the entire degree without failing or repeating a subject.\n\nThe final phase of my studies was affected by the COVID-19 pandemic, which disrupted the academic and examination schedules and delayed the publication of results. Although I completed my coursework in 2021, the resulting administrative and examination delays meant that my formal degree completion was recorded in 2022.\n\nLooking back, this journey strengthened not only my technical foundation but also my discipline, adaptability, and appreciation for continuous learning.",
-      "achievements": [
-        {
-          "title": "Semester Topper | Six-Time Academic Distinction",
-          "description": "Secured the highest academic position in six out of eight semesters of the Bachelor of Computer Applications program at Tribhuvan University, demonstrating consistent academic excellence throughout the degree.",
-          "on": "2021-12-01"
-        },
-        {
-          "title": "Four Academic Scholarships",
-          "description": "Received four scholarships in recognition of academic performance. These included a 50% tuition fee waiver valued at NPR 57,750.",
-          "on": "2021-12-01"
-        },
-        {
-          "title": "First Division | CGPA 3.66/4",
-          "description": "Successfully completed the four-year undergraduate program with a CGPA of 3.66/4.00 (B+, First Division), without failing or repeating any subject.",
-          "on": "2021-12-01"
-        },
-        {
-          "title": "Top 10% Academic Performer | University Session",
-          "description": "Ranked among the top-performing students in the Bachelor of Computer Applications session at Tribhuvan University, placing within the top 10% of approximately 120 students across six constituent schools. Also secured the highest academic position in six out of eight semesters.",
-          "on": "2021-12-01"
-        }
-      ]
-    },
-    {
-      "id": "milestone-48e00aa5d53d",
-      "type": "Professional",
-      "title": "Software Development Intern",
-      "description": "Completed an internship at Mechi Multiple Campus, gaining practical experience in a professional academic environment. The experience provided an opportunity to apply my technical knowledge, strengthen my problem-solving skills, and develop a better understanding of real-world work practices.",
-      "start": "2021-03-01",
-      "end": "2021-10-01",
-      "organisation": "Mechi Multiple Campus",
-      "organizationWebsite": "https://mechicampus.edu.np/",
-      "department": "Department of Computer Science and Application",
-      "departmentWebsite": "",
-      "points": [
-        "Developed OpenCV-based automated attendance system.",
-        "Contributed to Education Management Information System for 1,000+ students."
-      ],
-      "partingNote": "This internship was an important step in bridging academic learning with professional experience. It helped me understand the practical expectations of the workplace and gave me a foundation for continued growth in my career.",
-      "achievements": []
-    },
-    {
-      "id": "milestone-769ef323e4c5",
-      "type": "Professional",
-      "title": "Software Developer",
-      "description": "Began my professional journey at Crystal, gaining hands-on experience in software development and contributing to the team's engineering work. During my first three months, I demonstrated my ability to learn quickly, adapt to professional responsibilities, and grow as an engineer, laying the foundation for my subsequent promotion to Team Lead.",
-      "start": "2022-01-16",
-      "end": "2022-04-14",
-      "organisation": "Crystal Solution",
-      "organizationWebsite": "https://crystalsolution.com.np/",
-      "department": "",
-      "departmentWebsite": "",
-      "points": [
-        "Bugs and Features Fixes and Launch of ERP.",
-        "Migrated legacy data access layers to ORM-based architecture for improved performance."
-      ],
-      "partingNote": "My contributions and growth during this initial period led to a promotion to Team Lead. I continued my journey at Crystal in this new role, taking on greater responsibilities and entering the next stage of my professional development.",
-      "achievements": [
-        {
-          "title": "Promoted to Team Lead",
-          "description": "Earned a promotion to Team Lead within the first three months at Crystal, reflecting my professional growth, adaptability, and readiness to take on greater responsibilities.",
-          "on": "2022-04-14"
-        }
-      ]
-    },
-    {
-      "id": "milestone-ce00544993d4",
-      "type": "Professional",
-      "title": "Software Developer (Team Lead)",
-      "description": "Following my promotion to Team Lead, I took on greater responsibility for project delivery, system maintenance, and team coordination. I led the development of a Conference Management System, contributed to system launches and ongoing maintenance, and helped onboard interns and new team members by guiding them through the ERP system's workflows, coding conventions, and development practices.\n\nThis role strengthened my technical leadership, task delegation, mentoring, and software project management skills while allowing me to contribute to the delivery and maintenance of business-critical systems.",
-      "start": "2022-04-15",
-      "end": "2022-07-17",
-      "organisation": "Crystal Solution",
-      "organizationWebsite": "https://crystalsolution.com.np/",
-      "department": "",
-      "departmentWebsite": "",
-      "points": [
-        "System Launch and Maintainance.",
-        "Training Interns and new team members about workflow, coding patterns and codes of ERP system.",
-        "Breaking down issues into tasks and assigning to suitable team member.",
-        "Led team to build a conference management system for 1,000+ participants.",
-        "Ensured high-quality code via unit and integration tests with 90% coverage."
-      ],
-      "partingNote": "",
-      "achievements": []
-    },
-    {
-      "id": "milestone-1353f03a14c5",
-      "type": "Professional",
-      "title": "Full-Stack Developer (.Net/React)",
-      "description": "Worked as a Full-Stack Developer at Premium Technologies, contributing to the development and maintenance of a Core Banking System across both frontend and backend components. I also designed and developed an Identity Server and a centralized Push Notification Server, expanding my experience in authentication infrastructure, service design, and reusable backend systems.\n\nThis role strengthened my full-stack engineering capabilities and broadened my experience in developing and maintaining interconnected software systems.",
-      "start": "2022-12-20",
-      "end": "2023-09-15",
-      "organisation": "Premium Technologies",
-      "organizationWebsite": "https://premiumtech.com.np/",
-      "department": "",
-      "departmentWebsite": "",
-      "points": [
-        "Implemented APIs for delivery service using OpenStreetMap.",
-        "Development and maintainence of Loan management System.",
-        "Developed NotificationHub, a real-time notification system for multiple platforms.",
-        "Built custom Identity Server for secure authentication and authorization.",
-        "Improved Core Banking System and developed Loan Management System, reducing manual pro- cessing time by 40%."
-      ],
-      "partingNote": "This experience broadened my perspective beyond individual application development to the design of shared services and infrastructure. Working across banking software, identity management, and centralized notifications strengthened my ability to approach software engineering from both application-level and system-level perspectives.",
-      "achievements": []
-    },
-    {
-      "id": "milestone-da445a239107",
-      "type": "Professional",
-      "title": "Sr. Software Engineer (.Net/React)",
-      "description": "Working as a Software Engineer at Tekkon Technologies, contributing to software development for international clients. Currently working as a Senior Software Engineer for PlanCare, based in Perth, Western Australia, applying my full-stack development experience to engineering software solutions in an international work environment.",
-      "start": "2023-09-18",
-      "end": "",
-      "organisation": "Tekkon Technologies",
-      "organizationWebsite": "https://tekkon.com.np/",
-      "department": "Plan Care",
-      "departmentWebsite": "https://plancare.com.au",
-      "points": [
-        "Led migration of legacy Angular system to React using a micro-frontend architecture.",
-        "Worked with the team lead and stakeholders to architect CareTaskr2.",
-        "Developed and deployed 60+ new features for Caretaskr platform serving 1,500+ users.",
-        "Developed and deployed 100+ new features for Caretaskr2.",
-        "Led the initial design and development of PlanCare Portal mobile app using React Native.",
-        "Enhanced Caretaskr’s performance by 35% through backend and frontend optimizations",
-        "Implemented over 1000 unit tests to increase code reliability."
-      ],
-      "partingNote": "",
-      "achievements": []
-    }
-  ]
+  "version": 0,
+  "configuration": {
+    "summary": "<p>A timeline of my journey through education, software engineering, and continuous growth. From my academic beginnings and early projects to professional experiences, technical challenges, and milestones, each chapter has shaped the way I learn, build, and approach technology.</p><p>Explore the experiences, achievements, and turning points that have shaped my path as a software engineer.</p>",
+    "milestones": [
+      {
+        "id": "milestone-04ffdbc7d7f1",
+        "type": "Academic",
+        "title": "High School",
+        "description": "Completed my secondary education at Singhadevi Secondary School, where I developed a strong academic foundation with Mathematics as my major subject. This stage strengthened my analytical thinking, problem-solving abilities, and interest in logical reasoning, laying the groundwork for my later studies in computer science and technology.",
+        "start": "2014-04-01",
+        "end": "2015-04-01",
+        "organisation": "Singhadevi Secondary School",
+        "organizationWebsite": "https://edusanjal.com/school/singh-devi-higher-secondary-school/",
+        "department": "",
+        "departmentWebsite": "",
+        "points": [
+          "Major: Mathematics",
+          "Division: First"
+        ],
+        "partingNote": "A challenging year that tested my resilience and determination. Due to health issues, I could attend only one week of classes throughout the academic year. I continued my studies through self-learning, even while hospitalized and recovering in bed. Despite the circumstances, I completed the year with First Division and ranked first in my class. This experience taught me the value of perseverance, independence, and commitment to learning.",
+        "achievements": [
+          {
+            "title": "Valedictorian | Top Student of the Session",
+            "description": "Graduated as the highest-performing student of my academic session, earning recognition for outstanding academic performance and receiving an award for securing the top position.",
+            "on": "2015-04-01"
+          }
+        ]
+      },
+      {
+        "id": "milestone-c25a71ed7573",
+        "type": "Academic",
+        "title": "Intermediate",
+        "description": "Completed my intermediate education at Singhadevi Secondary School, with Computer Science, Mathematics, and Accounting as my major subjects. This stage strengthened my foundation in programming, mathematical reasoning, computational thinking, and business fundamentals, further shaping my interest in software development and technology.",
+        "start": "2015-06-01",
+        "end": "2017-06-01",
+        "organisation": "Singhadevi Secondary School",
+        "organizationWebsite": "https://edusanjal.com/school/singh-devi-higher-secondary-school/",
+        "department": "Management and Business Studies",
+        "departmentWebsite": "",
+        "points": [
+          "Major: Compuer Science, Mathematics, and Accounting",
+          "Division: Second"
+        ],
+        "partingNote": "My intermediate years were particularly challenging due to persistent health issues. I missed approximately half of the classes in Grade 11 and a quarter in Grade 12, including time spent travelling to India for medical checkups. Despite these interruptions and having to manage my studies alongside recovery, I remained committed to learning and secured the top position in my academic session. I graduated with 59.9%, narrowly missing the First Division threshold by 0.1 percentage point. This experience reinforced my resilience, independence, and ability to stay focused despite difficult circumstances.",
+        "achievements": [
+          {
+            "title": "Top Student of the Session",
+            "description": "Secured the highest academic position in my intermediate session, demonstrating strong academic performance despite significant interruptions to classroom attendance.",
+            "on": "2017-06-01"
+          }
+        ]
+      },
+      {
+        "id": "milestone-c3e95f8760e1",
+        "type": "Academic",
+        "title": "Bachelor of Computer Application",
+        "description": "Completed a four-year Bachelor of Computer Applications (BCA) degree at Mechi Multiple Campus, Tribhuvan University, building a strong foundation in computer science, software development, and information technology.\n\nThroughout the eight-semester program, I maintained a consistent academic record, graduating with a CGPA of 3.66/4.00 (B+, First Division). My academic journey included practical software development projects, technical workshops, and recognition for outstanding performance, including topping six of the eight semesters.",
+        "start": "2017-05-01",
+        "end": "2021-12-01",
+        "organisation": "Tribhuvan University",
+        "organizationWebsite": "https://tu.edu.np",
+        "department": "Mechi Multiple Campus",
+        "departmentWebsite": "https://mechicampus.edu.np/",
+        "points": [
+          "CGPA: 3.66/4.00",
+          "Grade: B+",
+          "Division: First"
+        ],
+        "partingNote": "My undergraduate journey was marked by consistent academic performance, practical learning, and a strong commitment to software development. I secured the top position in six of the eight semesters and completed the entire degree without failing or repeating a subject.\n\nThe final phase of my studies was affected by the COVID-19 pandemic, which disrupted the academic and examination schedules and delayed the publication of results. Although I completed my coursework in 2021, the resulting administrative and examination delays meant that my formal degree completion was recorded in 2022.\n\nLooking back, this journey strengthened not only my technical foundation but also my discipline, adaptability, and appreciation for continuous learning.",
+        "achievements": [
+          {
+            "title": "Semester Topper | Six-Time Academic Distinction",
+            "description": "Secured the highest academic position in six out of eight semesters of the Bachelor of Computer Applications program at Tribhuvan University, demonstrating consistent academic excellence throughout the degree.",
+            "on": "2021-12-01"
+          },
+          {
+            "title": "Four Academic Scholarships",
+            "description": "Received four scholarships in recognition of academic performance. These included a 50% tuition fee waiver valued at NPR 57,750.",
+            "on": "2021-12-01"
+          },
+          {
+            "title": "First Division | CGPA 3.66/4",
+            "description": "Successfully completed the four-year undergraduate program with a CGPA of 3.66/4.00 (B+, First Division), without failing or repeating any subject.",
+            "on": "2021-12-01"
+          },
+          {
+            "title": "Top 10% Academic Performer | University Session",
+            "description": "Ranked among the top-performing students in the Bachelor of Computer Applications session at Tribhuvan University, placing within the top 10% of approximately 120 students across six constituent schools. Also secured the highest academic position in six out of eight semesters.",
+            "on": "2021-12-01"
+          }
+        ]
+      },
+      {
+        "id": "milestone-48e00aa5d53d",
+        "type": "Professional",
+        "title": "Software Development Intern",
+        "description": "Completed an internship at Mechi Multiple Campus, gaining practical experience in a professional academic environment. The experience provided an opportunity to apply my technical knowledge, strengthen my problem-solving skills, and develop a better understanding of real-world work practices.",
+        "start": "2021-03-01",
+        "end": "2021-10-01",
+        "organisation": "Mechi Multiple Campus",
+        "organizationWebsite": "https://mechicampus.edu.np/",
+        "department": "Department of Computer Science and Application",
+        "departmentWebsite": "",
+        "points": [
+          "Developed OpenCV-based automated attendance system.",
+          "Contributed to Education Management Information System for 1,000+ students."
+        ],
+        "partingNote": "This internship was an important step in bridging academic learning with professional experience. It helped me understand the practical expectations of the workplace and gave me a foundation for continued growth in my career.",
+        "achievements": []
+      },
+      {
+        "id": "milestone-769ef323e4c5",
+        "type": "Professional",
+        "title": "Software Developer",
+        "description": "Began my professional journey at Crystal, gaining hands-on experience in software development and contributing to the team's engineering work. During my first three months, I demonstrated my ability to learn quickly, adapt to professional responsibilities, and grow as an engineer, laying the foundation for my subsequent promotion to Team Lead.",
+        "start": "2022-01-16",
+        "end": "2022-04-14",
+        "organisation": "Crystal Solution",
+        "organizationWebsite": "https://crystalsolution.com.np/",
+        "department": "",
+        "departmentWebsite": "",
+        "points": [
+          "Bugs and Features Fixes and Launch of ERP.",
+          "Migrated legacy data access layers to ORM-based architecture for improved performance."
+        ],
+        "partingNote": "My contributions and growth during this initial period led to a promotion to Team Lead. I continued my journey at Crystal in this new role, taking on greater responsibilities and entering the next stage of my professional development.",
+        "achievements": [
+          {
+            "title": "Promoted to Team Lead",
+            "description": "Earned a promotion to Team Lead within the first three months at Crystal, reflecting my professional growth, adaptability, and readiness to take on greater responsibilities.",
+            "on": "2022-04-14"
+          }
+        ]
+      },
+      {
+        "id": "milestone-ce00544993d4",
+        "type": "Professional",
+        "title": "Software Developer (Team Lead)",
+        "description": "Following my promotion to Team Lead, I took on greater responsibility for project delivery, system maintenance, and team coordination. I led the development of a Conference Management System, contributed to system launches and ongoing maintenance, and helped onboard interns and new team members by guiding them through the ERP system's workflows, coding conventions, and development practices.\n\nThis role strengthened my technical leadership, task delegation, mentoring, and software project management skills while allowing me to contribute to the delivery and maintenance of business-critical systems.",
+        "start": "2022-04-15",
+        "end": "2022-07-17",
+        "organisation": "Crystal Solution",
+        "organizationWebsite": "https://crystalsolution.com.np/",
+        "department": "",
+        "departmentWebsite": "",
+        "points": [
+          "System Launch and Maintainance.",
+          "Training Interns and new team members about workflow, coding patterns and codes of ERP system.",
+          "Breaking down issues into tasks and assigning to suitable team member.",
+          "Led team to build a conference management system for 1,000+ participants.",
+          "Ensured high-quality code via unit and integration tests with 90% coverage."
+        ],
+        "partingNote": "",
+        "achievements": []
+      },
+      {
+        "id": "milestone-1353f03a14c5",
+        "type": "Professional",
+        "title": "Full-Stack Developer (.Net/React)",
+        "description": "Worked as a Full-Stack Developer at Premium Technologies, contributing to the development and maintenance of a Core Banking System across both frontend and backend components. I also designed and developed an Identity Server and a centralized Push Notification Server, expanding my experience in authentication infrastructure, service design, and reusable backend systems.\n\nThis role strengthened my full-stack engineering capabilities and broadened my experience in developing and maintaining interconnected software systems.",
+        "start": "2022-12-20",
+        "end": "2023-09-15",
+        "organisation": "Premium Technologies",
+        "organizationWebsite": "https://premiumtech.com.np/",
+        "department": "",
+        "departmentWebsite": "",
+        "points": [
+          "Implemented APIs for delivery service using OpenStreetMap.",
+          "Development and maintainence of Loan management System.",
+          "Developed NotificationHub, a real-time notification system for multiple platforms.",
+          "Built custom Identity Server for secure authentication and authorization.",
+          "Improved Core Banking System and developed Loan Management System, reducing manual pro- cessing time by 40%."
+        ],
+        "partingNote": "This experience broadened my perspective beyond individual application development to the design of shared services and infrastructure. Working across banking software, identity management, and centralized notifications strengthened my ability to approach software engineering from both application-level and system-level perspectives.",
+        "achievements": []
+      },
+      {
+        "id": "milestone-da445a239107",
+        "type": "Professional",
+        "title": "Sr. Software Engineer (.Net/React)",
+        "description": "Working as a Software Engineer at Tekkon Technologies, contributing to software development for international clients. Currently working as a Senior Software Engineer for PlanCare, based in Perth, Western Australia, applying my full-stack development experience to engineering software solutions in an international work environment.",
+        "start": "2023-09-18",
+        "end": "",
+        "organisation": "Tekkon Technologies",
+        "organizationWebsite": "https://tekkon.com.np/",
+        "department": "Plan Care",
+        "departmentWebsite": "https://plancare.com.au",
+        "points": [
+          "Led migration of legacy Angular system to React using a micro-frontend architecture.",
+          "Worked with the team lead and stakeholders to architect CareTaskr2.",
+          "Developed and deployed 60+ new features for Caretaskr platform serving 1,500+ users.",
+          "Developed and deployed 100+ new features for Caretaskr2.",
+          "Led the initial design and development of PlanCare Portal mobile app using React Native.",
+          "Enhanced Caretaskr’s performance by 35% through backend and frontend optimizations",
+          "Implemented over 1000 unit tests to increase code reliability."
+        ],
+        "partingNote": "",
+        "achievements": []
+      }
+    ]
+  }
 }

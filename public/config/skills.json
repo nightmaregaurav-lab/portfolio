@@ -1,4 +1,7 @@
 {
-  "summary": "<p>I see skills not just as items on a list, but as abilities developed through curiosity, practice, experience, and continuous learning. Some have grown through building projects, others through academic pursuits, professional responsibilities, or personal exploration.</p><p>This page brings together the technologies, tools, and areas of knowledge I've worked with, along with what each of them means to me. Where possible, I've connected a skill to the projects or milestones that helped me develop it. Others stand on their own, representing knowledge and abilities worth sharing in their own right.</p><p>More than a measure of proficiency, this is a reflection of what I've explored, what I've learned, and how I've grown along the way.</p>",
-  "skills": []
+  "version": 0,
+  "configuration": {
+    "summary": "<p>I see skills not just as items on a list, but as abilities developed through curiosity, practice, experience, and continuous learning. Some have grown through building projects, others through academic pursuits, professional responsibilities, or personal exploration.</p><p>This page brings together the technologies, tools, and areas of knowledge I've worked with, along with what each of them means to me. Where possible, I've connected a skill to the projects or milestones that helped me develop it. Others stand on their own, representing knowledge and abilities worth sharing in their own right.</p><p>More than a measure of proficiency, this is a reflection of what I've explored, what I've learned, and how I've grown along the way.</p>",
+    "skills": []
+  }
 }

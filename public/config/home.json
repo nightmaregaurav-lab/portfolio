@@ -1,4 +1,7 @@
 {
-  "coverPicture": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-18-29-20-qgmCGTQcuh-intro.jpg",
-  "bio": "Software Engineer"
+  "version": 0,
+  "configuration": {
+    "coverPicture": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-18-29-20-qgmCGTQcuh-intro.jpg",
+    "bio": "Software Engineer"
+  }
 }

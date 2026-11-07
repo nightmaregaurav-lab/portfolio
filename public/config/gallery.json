@@ -1,4 +1,7 @@
 {
-  "categories": [],
-  "photos": []
+  "version": 0,
+  "configuration": {
+    "categories": [],
+    "photos": []
+  }
 }
