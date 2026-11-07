@@ -1,0 +1,161 @@
+.page {
+  min-height: 100dvh;
+  padding: 2rem;
+}
+
+.intro {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2rem;
+  margin: 0 auto clamp(2rem, 5vw, 4rem);
+}
+
+.pageHeader {
+  margin: 0;
+  font-size: clamp(2.4rem, 6vw, 5.25rem);
+  line-height: 0.95;
+  letter-spacing: -0.055em;
+}
+
+.serviceGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.serviceCard,
+.featuredCard {
+  min-height: 16rem;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.featuredCard {
+  grid-column: span 2;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.serviceCard:hover,
+.featuredCard:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.iconFrame {
+  display: grid;
+  width: 3rem;
+  height: 3rem;
+  place-items: center;
+  border-radius: 0.9rem;
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.featuredCard .iconFrame {
+  background: color-mix(in oklch, var(--primary-foreground) 15%, transparent);
+  color: var(--primary-foreground);
+}
+
+.cardContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.85rem;
+}
+
+.serviceTitle {
+  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  letter-spacing: -0.03em;
+}
+
+.serviceDescription {
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+.featuredCard .serviceDescription {
+  color: color-mix(in oklch, var(--primary-foreground) 75%, transparent);
+}
+
+.serviceDescription > :first-child {
+  margin-top: 0;
+}
+
+.serviceDescription > :last-child {
+  margin-bottom: 0;
+}
+
+.serviceLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  margin-top: auto;
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.featuredCard .serviceLink {
+  color: var(--primary-foreground);
+}
+
+.serviceLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 18rem;
+  margin: 0 auto;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 2rem;
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.emptyState h2 {
+  margin: 0.35rem 0 0;
+  color: var(--foreground);
+  font-size: 1.25rem;
+}
+
+.emptyState p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .introNote {
+    padding-bottom: 0;
+    text-align: left;
+  }
+
+  .serviceGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featuredCard {
+    grid-column: auto;
+  }
+}

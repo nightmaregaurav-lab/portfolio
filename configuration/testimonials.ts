@@ -1,17 +1,17 @@
 import * as z from "zod";
 
 export const schema = z.object({
-  summary: z.string().min(1, "Summary is required.").default("").meta({
+  summary: z.string().min(1, "Summary is required.").meta({
     title: "Summary",
     description: "Introductory text displayed at the top of the testimonials page and used as its search result description.",
   }),
   testimonials: z.array(
     z.object({
-      by: z.string().min(1, "Author is required.").default("").meta({
+      by: z.string().min(1, "Author is required.").meta({
         title: "Author",
         description: "The person who gave the testimonial.",
       }),
-      date: z.string().min(1, "Date is required.").default("").meta({
+      date: z.string().min(1, "Date is required.").meta({
         title: "Date",
         description: "The date the testimonial was given or published.",
       }),
@@ -23,7 +23,7 @@ export const schema = z.object({
         title: "Image",
         description: "An optional image associated with the testimonial or its author.",
       }),
-      text: z.string().min(1, "Testimonial is required.").default("").meta({
+      text: z.string().min(1, "Testimonial is required.").meta({
         title: "Testimonial",
         description: "The testimonial text.",
       }),

@@ -3,15 +3,15 @@ import * as z from "zod";
 export const schema = z.object({
   links: z.array(
     z.object({
-      title: z.string().min(1, "Title is required.").default("").meta({
+      title: z.string().min(1, "Title is required.").meta({
         title: "Title",
         description: "The label shown for this download.",
       }),
-      icon: z.string().min(1, "Icon is required.").default("").meta({
+      icon: z.string().min(1, "Icon is required.").meta({
         title: "Icon",
         description: "The icon to show alongside the download link.",
       }),
-      link: z.string().min(1, "Link is required.").default("").meta({
+      link: z.string().min(1, "Link is required.").meta({
         title: "Link",
         description: "The URL or path of the downloadable file.",
       })

@@ -4,7 +4,6 @@ export const schema = z.object({
   coverPicture: z
     .url("The cover picture must be a valid URL")
     .min(1, "Cover picture URL is required.")
-    .default("")
     .meta({
       title: "Cover picture",
       description: "The background image to use in the landing page."
@@ -13,7 +12,6 @@ export const schema = z.object({
   bio: z
     .string("Bio is required")
     .min(1, "Bio is required.")
-    .default("")
     .meta({
       title: "Bio",
       description: "A really short description about yourself. Job title, role, or a few words about you."

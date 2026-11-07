@@ -1,7 +1,7 @@
 import * as z from "zod";
 
 export const schema = z.object({
-  content: z.string().min(1, "Content is required.").default("").meta({
+  content: z.string().min(1, "Content is required.").meta({
     title: "Content",
     description: "The actual HTML content of the blog post."
   })
