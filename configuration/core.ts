@@ -60,6 +60,15 @@ export const schema = z.object({
   description: "Site-wide identity and search metadata used throughout the portfolio.",
 });
 
+export const buildSchema = schema.extend({
+  favicon: z.union([
+    z.literal(""),
+    z.url("Favicon must be a valid URL"),
+  ]),
+  websiteName: z.string(),
+  fullName: z.string(),
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;

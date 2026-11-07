@@ -21,6 +21,14 @@ export const schema = z.object({
   description: "Configuration for the landing page, including its cover image and short bio.",
 });
 
+export const buildSchema = schema.extend({
+  coverPicture: z.union([
+    z.literal(""),
+    z.url("The cover picture must be a valid URL"),
+  ]),
+  bio: z.string(),
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;

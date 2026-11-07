@@ -53,6 +53,13 @@ export const schema = z.object({
   description: "Configuration for the profile, social links, and menu shown in the left panel.",
 });
 
+export const buildSchema = schema.extend({
+  profilePicture: z.union([
+    z.literal(""),
+    z.url("Profile Picture must be a valid URL"),
+  ]),
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;

@@ -98,6 +98,10 @@ export const schema = z.object({
   description: "A summary of your journey and the milestones that make it up.",
 });
 
+export const buildSchema = schema.extend({
+  summary: z.string()
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;

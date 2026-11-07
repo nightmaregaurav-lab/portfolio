@@ -51,6 +51,14 @@ export const schema = z.object({
   description: "Configuration for the About page, including its introduction, image, and key points.",
 });
 
+export const buildSchema = schema.extend({
+  summary: z.string(),
+  heroPicture: z.union([
+    z.literal(""),
+    z.url("Please provide a valid URL for the hero picture."),
+  ]),
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;

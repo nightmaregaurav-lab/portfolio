@@ -28,6 +28,9 @@ export const schema = z.object({
   description: "Configuration for the downloads available on the portfolio.",
 });
 
+export const buildSchema = schema.extend({
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;
