@@ -62,4 +62,7 @@ jobs:
               repo: context.repo.repo,
               workflow_id: "deploy-pages.yml",
               ref: context.ref.replace("refs/heads/", ""),
+              headers: {
+                "X-GitHub-Api-Version": "2026-03-10",
+              },
             })

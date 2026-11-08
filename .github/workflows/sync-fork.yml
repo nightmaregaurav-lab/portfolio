@@ -33,7 +33,7 @@ jobs:
           repository_data="$(curl --fail-with-body --silent --show-error \
             -H "Accept: application/vnd.github+json" \
             -H "Authorization: Bearer $GH_TOKEN" \
-            -H "X-GitHub-Api-Version: 2022-11-28" \
+            -H "X-GitHub-Api-Version: 2026-03-10" \
             "https://api.github.com/repos/$REPOSITORY")"
 
           echo "default_branch=$(jq -r '.default_branch' <<< "$repository_data")" >> "$GITHUB_OUTPUT"
@@ -99,4 +99,7 @@ jobs:
               repo: context.repo.repo,
               workflow_id: "migrate-config.yml",
               ref: "${{ steps.repository.outputs.default_branch }}",
+              headers: {
+                "X-GitHub-Api-Version": "2026-03-10",
+              },
             })
