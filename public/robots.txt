@@ -1,5 +1,0 @@
-# portfolio robots.txt
-User-agent: *
-Disallow: /setup
-Disallow: /404.html
-Disallow: /cdn-cgi/

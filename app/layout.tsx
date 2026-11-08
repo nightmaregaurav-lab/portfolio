@@ -4,28 +4,48 @@ import "./globals.css";
 import "@/components/block-editor/style.css";
 import Providers from "@/app/Providers";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig} from "@/configuration";
-import {getCanonicalUrl} from "@/lib/pageMetadata";
+import {CoreConfig, HomeConfig, LeftPanelConfig} from "@/configuration";
+import {
+  getAbsoluteUrl,
+  getAuthorName,
+  getCanonicalUrl,
+  getSiteDescription,
+  getSiteName,
+  getSiteUrl,
+} from "@/lib/pageMetadata";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
+const siteUrl = getSiteUrl();
 const canonical = getCanonicalUrl("/");
+const siteName = getSiteName();
+const authorName = getAuthorName();
+const siteDescription = getSiteDescription();
+const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || CoreConfig.favicon || "/favicon.ico");
 
 export const metadata: Metadata = {
-  metadataBase: siteUrl
-    ? new URL(siteUrl.endsWith("/") ? siteUrl : siteUrl + "/")
-    : undefined,
+  metadataBase: siteUrl,
   title: {
-    default: CoreConfig.websiteName,
-    template: "%s | " + CoreConfig.websiteName,
+    default: siteName,
+    template: "%s | " + siteName,
   },
-  description: CoreConfig.seoDescription,
+  description: siteDescription,
   keywords: CoreConfig.seoKeywords,
   authors: [{
-    name: CoreConfig.fullName
+    name: authorName
   }],
   alternates: canonical ? {canonical} : undefined,
   icons: {
-    icon: CoreConfig.favicon
+    icon: CoreConfig.favicon || "/favicon.ico",
+    apple: CoreConfig.favicon || "/favicon.ico",
+  },
+  manifest: "/manifest.webmanifest",
+  category: "portfolio",
+  creator: authorName,
+  publisher: authorName,
+  referrer: "origin-when-cross-origin",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
   robots: {
     index: true,
@@ -34,21 +54,20 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     url: canonical,
-    title: CoreConfig.websiteName,
-    description: CoreConfig.seoDescription,
-    siteName: CoreConfig.websiteName,
+    title: siteName,
+    description: siteDescription,
+    siteName,
     locale: "en_US",
-    images: [
-      CoreConfig.favicon
-    ],
+    images: [{
+      url: socialImage,
+      alt: CoreConfig.websiteName,
+    }],
   },
   twitter: {
     card: "summary_large_image",
-    title: CoreConfig.websiteName,
-    description: CoreConfig.seoDescription,
-    images: [
-      CoreConfig.favicon
-    ],
+    title: siteName,
+    description: siteDescription,
+    images: [socialImage],
   },
 };
 
@@ -64,10 +83,21 @@ function RootLayout({children}: LayoutProps<"/">) {
           {children}
           <StructuredData data={{
             "@context": "https://schema.org",
-            "@type": "Person",
-            name: CoreConfig.fullName,
-            image: CoreConfig.favicon,
-            ...(canonical ? {url: canonical} : {}),
+            "@graph": [
+              {
+                "@type": "Person",
+                name: authorName,
+                image: socialImage,
+                ...(canonical ? {url: canonical} : {}),
+                sameAs: LeftPanelConfig.socials.map((social) => social.url),
+              },
+              {
+                "@type": "WebSite",
+                name: siteName,
+                description: siteDescription,
+                ...(canonical ? {url: canonical} : {}),
+              },
+            ],
           }} />
         </Providers>
       </body>

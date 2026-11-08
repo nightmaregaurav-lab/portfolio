@@ -13,6 +13,12 @@ A polished, configurable portfolio website powered by Next.js and GitHub Pages. 
 
 Your fork stays connected to the upstream project and can receive future updates through the included sync workflow.
 
+## SEO and domain migration
+
+The deployment workflow sets `NEXT_PUBLIC_SITE_URL` from the GitHub Pages URL so canonical URLs, Open Graph URLs, Twitter cards, robots, and the sitemap are emitted as absolute URLs. If you connect a custom domain, configure that domain in GitHub Pages before deploying so the generated metadata uses the canonical domain.
+
+When replacing an existing website, keep the old URL paths where possible. If a path changes, add a permanent redirect at the old host and submit the new sitemap in Google Search Console and Bing Webmaster Tools. Verify the deployed `/robots.txt`, `/sitemap.xml`, and representative page source before switching DNS.
+
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for local development, configuration, contribution rules, and the pull request workflow.

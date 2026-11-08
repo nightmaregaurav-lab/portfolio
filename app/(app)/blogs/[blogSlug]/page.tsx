@@ -64,6 +64,9 @@ export async function generateMetadata(
     image: CoreConfig.favicon,
     keywords: post.tags,
     type: "article",
+    publishedTime: post.date,
+    section: post.categories[0],
+    tags: post.tags,
   });
 }
 

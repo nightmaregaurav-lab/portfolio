@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./page.module.css";
 import {cn} from "@/lib/utils";
 import {CoreConfig, HomeConfig} from "@/configuration";
-import {createPageMetadata} from "@/lib/pageMetadata";
+import {createPageMetadata, getSiteName} from "@/lib/pageMetadata";
 
 export const metadata = createPageMetadata({
-  title: CoreConfig.websiteName,
+  title: getSiteName(),
   description: CoreConfig.seoDescription || HomeConfig.bio,
   path: "/",
   image: HomeConfig.coverPicture || CoreConfig.favicon,
