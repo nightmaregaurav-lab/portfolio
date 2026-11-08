@@ -22,6 +22,14 @@ jobs:
         id: pages
         uses: actions/configure-pages@v5
 
+      - name: Normalize site URL
+        id: site
+        env:
+          PAGES_URL: ${{ steps.pages.outputs.base_url }}
+        run: |
+          set -euo pipefail
+          echo "url=$(printf '%s' "$PAGES_URL" | sed 's#^http://#https://#')" >> "$GITHUB_OUTPUT"
+
       - name: Set up pnpm
         uses: pnpm/action-setup@v6
 
@@ -38,7 +46,7 @@ jobs:
         run: pnpm build
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
-          NEXT_PUBLIC_SITE_URL: ${{ steps.pages.outputs.base_url }}
+          NEXT_PUBLIC_SITE_URL: ${{ steps.site.outputs.url }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4
