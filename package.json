@@ -74,6 +74,6 @@
   },
   "packageManager": "pnpm@12.18.0",
   "engines": {
-    "node": "26.8.1"
+    "node": "26.13.0"
   }
 }

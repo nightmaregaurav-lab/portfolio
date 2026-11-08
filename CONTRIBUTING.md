@@ -10,7 +10,7 @@ Thanks for helping improve the portfolio project.
 4. Start the development server with `pnpm dev`.
 5. Use the ignored `local-config/` folder for development-only configuration. It overrides `public/config/` while `NODE_ENV=development` is active.
 
-The project uses Node.js `26.8.1` and pnpm `12.18.0`. See `package.json` for the supported versions and available scripts.
+The project uses Node.js `26.13.0` and pnpm `12.18.0`. See `package.json` for the supported versions and available scripts.
 
 ## Make a contribution
 
