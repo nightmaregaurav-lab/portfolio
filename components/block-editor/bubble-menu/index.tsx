@@ -1,3 +1,5 @@
+"use client"
+
 import { isTextSelection } from "@tiptap/core";
 import type { Editor } from "@tiptap/react";
 import { BubbleMenu as TiptapBubbleMenu } from "@tiptap/react/menus";

@@ -1,3 +1,5 @@
+"use client"
+
 import { DragHandle } from "@tiptap/extension-drag-handle-react";
 import type { Node } from "@tiptap/pm/model";
 import { EditorContent } from "@tiptap/react";

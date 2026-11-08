@@ -1,3 +1,5 @@
+"use client"
+
 import type { Editor } from "@tiptap/core";
 import { createContext, useContext } from "react";
 import type { ReactNode } from "react";

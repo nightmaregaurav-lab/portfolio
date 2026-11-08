@@ -1,3 +1,5 @@
+"use client"
+
 import type { Editor } from "@tiptap/react";
 import { Plus } from "lucide-react";
 import { useEffect, useRef } from "react";

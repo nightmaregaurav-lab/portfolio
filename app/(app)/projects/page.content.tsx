@@ -87,6 +87,11 @@ function PageContent(
           </div>
         </div>
 
+        <div className="sr-only" aria-live="polite">
+          {visibleProjects.length} {visibleProjects.length === 1 ? "project" : "projects"} shown
+          {searchTerm.trim() ? " for “" + searchTerm.trim() + "”" : ""}
+        </div>
+
         {visibleProjects.length > 0 ? (
           <div className={cn(styles.projectGrid, viewMode === "list" && styles.listView)}>
             {visibleProjects.map((project) => (
@@ -130,7 +135,7 @@ function PageContent(
             ))}
           </div>
         ) : (
-          <div className={styles.emptyState}>
+          <div className={styles.emptyState} role="status">
             {searchTerm.trim()
               ? "No projects match “" + searchTerm.trim() + "”."
               : "No projects to show yet."}

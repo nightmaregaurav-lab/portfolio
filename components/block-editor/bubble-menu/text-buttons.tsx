@@ -1,3 +1,5 @@
+"use client"
+
 import type { Editor } from "@tiptap/react";
 
 import { DEFAULT_ICONS } from "../icons";

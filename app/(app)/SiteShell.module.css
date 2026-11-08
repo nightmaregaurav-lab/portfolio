@@ -1,0 +1,34 @@
+.skipLink {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 100;
+  padding: 0.55rem 0.9rem;
+  border: 1px solid var(--border);
+  border-radius: 0.5rem;
+  background: var(--background);
+  color: var(--foreground);
+  font-size: 0.9rem;
+  font-weight: 650;
+  text-decoration: none;
+  transform: translateY(-150%);
+  transition: transform 160ms ease;
+}
+
+.skipLink:focus,
+.skipLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+.mainLandmark {
+  min-width: 0;
+  outline: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skipLink {
+    transition: none;
+  }
+}

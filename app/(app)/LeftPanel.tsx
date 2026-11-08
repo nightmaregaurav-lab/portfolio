@@ -108,8 +108,8 @@ function LeftPanel({
   );
 
   return (<>
-    {!open && <SidebarTrigger variant={"outline"} className={styles.openButton}>
-      <AlignJustify/>
+    {!open && <SidebarTrigger variant={"outline"} className={styles.openButton} aria-label="Open navigation">
+      <AlignJustify aria-hidden="true"/>
     </SidebarTrigger>}
 
     <Sidebar>
@@ -142,8 +142,8 @@ function LeftPanel({
           )}
         </div>}
 
-        <SidebarTrigger  className={styles.closeButton} variant={"outline"}>
-          <XIcon/>
+        <SidebarTrigger className={styles.closeButton} variant={"outline"} aria-label="Close navigation">
+          <XIcon aria-hidden="true"/>
         </SidebarTrigger>
 
         <SocialLinks links={leftPanelConfig.socials}/>
@@ -200,7 +200,7 @@ function LeftPanel({
 
       <SidebarFooter className={cn(styles.footer, "text-secondary-foreground")}>
         &copy; {(new Date()).getFullYear()} Created using <SmartLink href={"https://github.com/nightmaregaurav/portfolio"} target={"_blank"}>Portfolio</SmartLink>.
-        Provided with <Heart className={"inline"} size={14}/> by <SmartLink href={"https://www.gauravnyaupane.com.np/"} target={"_blank"}>Gaurav Nyaupane</SmartLink>.
+        Provided with <Heart className={"inline"} size={14} aria-hidden="true"/> by <SmartLink href={"https://www.gauravnyaupane.com.np/"} target={"_blank"}>Gaurav Nyaupane</SmartLink>.
       </SidebarFooter>
     </Sidebar>
   </>);

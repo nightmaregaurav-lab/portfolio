@@ -16,7 +16,7 @@ function GoToTopButton() {
   } = useScrollPosition(bodyRef);
 
   if(isAtTop) {
-    return <></>;
+    return null;
   }
 
   return (
@@ -29,8 +29,9 @@ function GoToTopButton() {
         bodyRef.current?.scrollTo({top: 0, behavior: 'smooth'});
       }}
       className="cursor-pointer hover:-translate-y-px"
+      aria-label="Back to top"
     >
-      <ArrowUp/>
+      <ArrowUp aria-hidden="true"/>
     </Button>
   );
 }

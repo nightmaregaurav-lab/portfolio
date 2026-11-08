@@ -1,3 +1,5 @@
+"use client"
+
 import * as Icons from "lucide-react";
 
 export type LucideReactIconName = keyof typeof Icons;

@@ -82,7 +82,7 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
         type={"button"}
         variant={"ghost"}
         size={"default"}
-        className={"block h-auto w-full p-0 text-left transition-transform hover:scale-[1.01] active:scale-[0.99]"}
+        className={"block h-auto w-full p-0 text-left transition-transform hover:scale-[1.01] active:scale-[0.99] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"}
         onClick={(event) => {
           event.stopPropagation();
           setUncontrolledOpen(true);

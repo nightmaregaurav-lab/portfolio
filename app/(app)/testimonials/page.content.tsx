@@ -36,7 +36,7 @@ function PageContent(
                 <div className={styles.author}>
                   <Avatar size="lg">
                     {testimonial.image && <AvatarImage src={testimonial.image} alt="" />}
-                    <AvatarFallback>{initials(testimonial.by)}</AvatarFallback>
+                    <AvatarFallback aria-hidden="true">{initials(testimonial.by)}</AvatarFallback>
                   </Avatar>
                   <div>
                     <CardTitle className={styles.authorName}>{testimonial.by}</CardTitle>

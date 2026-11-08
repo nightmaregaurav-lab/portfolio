@@ -148,4 +148,9 @@ a {
   html {
     @apply font-sans;
   }
+  @media (prefers-reduced-motion: reduce) {
+    html:focus-within {
+      scroll-behavior: auto;
+    }
+  }
 }

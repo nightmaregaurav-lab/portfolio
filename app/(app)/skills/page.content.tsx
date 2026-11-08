@@ -29,7 +29,7 @@ function PageContent(
             <Card className={styles.skillCard} key={skill.id}>
               <div className={styles.skillImage}>
                 <img src={skill.image} alt="" loading={index > 1 ? "lazy" : "eager"}/>
-                <span className={styles.skillIndex}>0{index + 1}</span>
+                <span className={styles.skillIndex} aria-hidden="true">0{index + 1}</span>
               </div>
               <CardHeader className={styles.skillHeader}>
                 <CardTitle className={styles.skillTitle}>{skill.title}</CardTitle>

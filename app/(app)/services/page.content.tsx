@@ -28,9 +28,9 @@ function PageContent(
           {servicesConfig.services.map((service, index) => (
             <Card className={index === 0 ? styles.featuredCard : styles.serviceCard} key={service.id}>
               <CardHeader className={styles.cardHeader}>
-                <div className={styles.iconFrame}>
+                <div className={styles.iconFrame} aria-hidden="true">
                   {service.icon ? (
-                    <DynamicLucideReactIcon name={service.icon as LucideReactIconName} size={22}/>
+                    <DynamicLucideReactIcon name={service.icon as LucideReactIconName} size={22} aria-hidden="true"/>
                   ) : (
                     <BriefcaseBusiness size={22} aria-hidden="true"/>
                   )}
