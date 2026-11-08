@@ -3,7 +3,6 @@
 import React from "react";
 import {ArrowUpRight, BriefcaseBusiness, CheckCircle2} from "lucide-react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import {Badge} from "@/components/ui/badge";
 import SmartLink from "@/components/ui/SmartLink";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
@@ -18,15 +17,17 @@ function PageContent(
   return (
     <main className={styles.page}>
       <header className={styles.intro}>
-        <div>
-          <h1 className={styles.pageHeader}>Services</h1>
-        </div>
+        <h1 className={styles.pageHeader}>Services</h1>
       </header>
 
       {servicesConfig.services && servicesConfig.services.length > 0 ? (
         <section className={styles.serviceGrid} aria-label="Services offered">
           {servicesConfig.services.map((service, index) => (
-            <Card className={index === 0 ? styles.featuredCard : styles.serviceCard} key={service.id}>
+            <Card
+              className={styles.serviceCard}
+              data-tone={String(index % 3)}
+              key={service.id}
+            >
               <CardHeader className={styles.cardHeader}>
                 <div className={styles.iconFrame} aria-hidden="true">
                   {service.icon ? (
@@ -35,7 +36,7 @@ function PageContent(
                     <BriefcaseBusiness size={22} aria-hidden="true"/>
                   )}
                 </div>
-                <Badge variant="outline" className={index === 0 ? "text-white" : ""}>0{index + 1}</Badge>
+                <span className={styles.indexBadge}>0{index + 1}</span>
               </CardHeader>
               <CardContent className={styles.cardContent}>
                 <CardTitle className={styles.serviceTitle}>{service.title}</CardTitle>

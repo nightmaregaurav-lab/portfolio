@@ -1,7 +1,7 @@
 .page {
   min-height: 100dvh;
-  padding: 2rem;
   width: 100%;
+  padding: 2rem;
 }
 
 .intro {
@@ -9,7 +9,7 @@
   align-items: flex-end;
   justify-content: space-between;
   gap: 2rem;
-  margin: 0 auto clamp(2rem, 5vw, 4rem);
+  margin: 0 auto 1.25rem;
 }
 
 .pageHeader {
@@ -34,32 +34,63 @@
 }
 
 .quoteMark {
-  color: var(--border);
+  color: color-mix(in oklch, oklch(0.62 0.16 250) 35%, var(--border));
 }
 
 .quoteGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  width: min(100%, 72rem);
   margin: 0 auto;
-}
-
-.featuredQuote {
-  grid-column: span 2;
-  background: var(--primary);
-  color: var(--primary-foreground);
 }
 
 .quoteCard,
 .featuredQuote {
+  position: relative;
   min-height: 15rem;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+  border-top: 3px solid var(--accent-tone);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.quoteCard:nth-child(2), .featuredQuote:nth-child(2) { animation-delay: 50ms; }
+.quoteCard:nth-child(3), .featuredQuote:nth-child(3) { animation-delay: 100ms; }
+.quoteCard:nth-child(4), .featuredQuote:nth-child(4) { animation-delay: 150ms; }
+.quoteCard:nth-child(5), .featuredQuote:nth-child(5) { animation-delay: 200ms; }
+.quoteCard:nth-child(6), .featuredQuote:nth-child(6) { animation-delay: 250ms; }
+.quoteCard:nth-child(7), .featuredQuote:nth-child(7) { animation-delay: 300ms; }
+.quoteCard:nth-child(8), .featuredQuote:nth-child(8) { animation-delay: 350ms; }
+.quoteCard:nth-child(9), .featuredQuote:nth-child(9) { animation-delay: 400ms; }
+.quoteCard:nth-child(10), .featuredQuote:nth-child(10) { animation-delay: 450ms; }
+.quoteCard:nth-child(11), .featuredQuote:nth-child(11) { animation-delay: 500ms; }
+.quoteCard:nth-child(12), .featuredQuote:nth-child(12) { animation-delay: 550ms; }
+
+.featuredQuote {
+  grid-column: span 2;
+  background: color-mix(in oklch, var(--accent-tone) 8%, var(--card));
+}
+
+.quoteCard[data-tone="0"],
+.featuredQuote[data-tone="0"] {
+  --accent-tone: oklch(0.62 0.16 250);
+}
+
+.quoteCard[data-tone="1"],
+.featuredQuote[data-tone="1"] {
+  --accent-tone: oklch(0.62 0.16 155);
+}
+
+.quoteCard[data-tone="2"],
+.featuredQuote[data-tone="2"] {
+  --accent-tone: oklch(0.65 0.17 35);
 }
 
 .quoteCard:hover,
 .featuredQuote:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%);
+  transform: translateY(-4px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 12%);
 }
 
 .quoteHeader {
@@ -85,10 +116,6 @@
   font-size: 0.8rem;
 }
 
-.featuredQuote .authorMeta {
-  color: color-mix(in oklch, var(--primary-foreground) 70%, transparent);
-}
-
 .quoteContent {
   display: flex;
   flex: 1;
@@ -110,10 +137,10 @@
 }
 
 .featuredQuote .quoteText {
-  color: color-mix(in oklch, var(--primary-foreground) 88%, transparent);
-  font-size: clamp(1.35rem, 3vw, 2.15rem);
-  line-height: 1.35;
-  letter-spacing: -0.025em;
+  color: var(--foreground);
+  font-size: clamp(1.25rem, 2.5vw, 1.85rem);
+  line-height: 1.4;
+  letter-spacing: -0.02em;
 }
 
 .quoteText > :first-child {
@@ -131,18 +158,13 @@
   gap: 1rem;
   margin-top: auto;
   padding-top: 1rem;
-  border-top: 1px solid var(--border);
+  border-top: 1px solid color-mix(in oklch, var(--accent-tone) 18%, var(--border));
   color: var(--muted-foreground);
   font-size: 0.78rem;
 }
 
-.featuredQuote .quoteFooter {
-  border-color: color-mix(in oklch, var(--primary-foreground) 20%, transparent);
-  color: color-mix(in oklch, var(--primary-foreground) 70%, transparent);
-}
-
 .quoteFooter a {
-  color: inherit;
+  color: var(--accent-tone);
   font-weight: 650;
   text-decoration: none;
 }
@@ -155,6 +177,7 @@
 .emptyState {
   display: grid;
   min-height: 18rem;
+  width: min(100%, 72rem);
   margin: 0 auto;
   place-content: center;
   justify-items: center;
@@ -177,7 +200,30 @@
   line-height: 1.6;
 }
 
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quoteCard,
+  .featuredQuote {
+    animation: none;
+    transition: none;
+  }
+}
+
 @media (max-width: 700px) {
+  .page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
   .intro {
     align-items: flex-start;
     flex-direction: column;

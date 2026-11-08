@@ -81,12 +81,25 @@
 
 .projectCard {
   height: 100%;
-  transition: transform 150ms ease, box-shadow 150ms ease;
+  border-top: 3px solid var(--accent-tone);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.projectCard[data-tone="0"] {
+  --accent-tone: oklch(0.62 0.16 250);
+}
+
+.projectCard[data-tone="1"] {
+  --accent-tone: oklch(0.62 0.16 155);
+}
+
+.projectCard[data-tone="2"] {
+  --accent-tone: oklch(0.65 0.17 35);
 }
 
 .projectLink:hover .projectCard {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 25px rgb(0 0 0 / 10%);
+  transform: translateY(-4px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 12%);
 }
 
 .projectCover {

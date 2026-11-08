@@ -94,13 +94,13 @@ function PageContent(
 
         {visibleProjects.length > 0 ? (
           <div className={cn(styles.projectGrid, viewMode === "list" && styles.listView)}>
-            {visibleProjects.map((project) => (
+            {visibleProjects.map((project, index) => (
               <SmartLink
                 href={"/projects/" + getActiveSlug(project.slugs) + "/"}
                 className={styles.projectLink}
                 key={project.id}
               >
-                <Card className={styles.projectCard}>
+                <Card className={styles.projectCard} data-tone={String(index % 3)}>
                   <div className={styles.projectCover}>
                     {project.previewImage ? (
                       <img src={project.previewImage} alt={project.title + " preview"} />

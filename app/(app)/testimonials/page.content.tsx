@@ -1,13 +1,13 @@
 "use client";
 
 import React from "react";
-import {Quote, Star} from "lucide-react";
+import {Quote} from "lucide-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import SmartLink from "@/components/ui/SmartLink";
 import type {TModel as TestimonialsModel} from "@/configuration/testimonials";
 import styles from "./page.module.css";
+import SmartLink from "@/components/ui/SmartLink";
 
 function initials(name: string) {
   return name.split(/\s+/).filter(Boolean).map((part) => part[0]).slice(0, 2).join("").toUpperCase();
@@ -31,33 +31,35 @@ function PageContent(
       {testimonialsConfig.testimonials && testimonialsConfig.testimonials.length > 0 ? (
         <section className={styles.quoteGrid} aria-label="Testimonials">
           {testimonialsConfig.testimonials.map((testimonial, index) => (
-            <Card className={index === 0 ? styles.featuredQuote : styles.quoteCard} key={testimonial.by + "-" + index}>
+            <Card
+              className={index === 0 ? styles.featuredQuote : styles.quoteCard}
+              data-tone={String(index % 3)}
+              key={testimonial.by + "-" + index}
+            >
               <CardHeader className={styles.quoteHeader}>
                 <div className={styles.author}>
                   <Avatar size="lg">
-                    {testimonial.image && <AvatarImage src={testimonial.image} alt="" />}
+                    {testimonial.image && <AvatarImage src={testimonial.image} alt=""/>}
                     <AvatarFallback aria-hidden="true">{initials(testimonial.by)}</AvatarFallback>
                   </Avatar>
                   <div>
                     <CardTitle className={styles.authorName}>{testimonial.by}</CardTitle>
                     <p className={styles.authorMeta}>
-                      {testimonial.company || testimonial.department || "Collaborator"}
+                      <SmartLink href={testimonial.companyWebsite || ""}>
+                        {testimonial.company}
+                      </SmartLink>
+                      {testimonial.company && testimonial.department && " • "}
+                      <SmartLink href={testimonial.departmentWebsite || ""}>
+                        {testimonial.department}
+                      </SmartLink>
                     </p>
                   </div>
                 </div>
-                <Star size={16} fill="currentColor" aria-hidden="true"/>
+                <time dateTime={testimonial.date}>{testimonial.date}</time>
               </CardHeader>
               <CardContent className={styles.quoteContent}>
                 {testimonial.title && <h2 className={styles.quoteTitle}>{testimonial.title}</h2>}
                 <HtmlRenderer className={styles.quoteText}>{testimonial.text}</HtmlRenderer>
-                <div className={styles.quoteFooter}>
-                  <time dateTime={testimonial.date}>{testimonial.date}</time>
-                  {(testimonial.companyWebsite || testimonial.departmentWebsite) && (
-                    <SmartLink href={testimonial.companyWebsite || testimonial.departmentWebsite || ""}>
-                      View profile
-                    </SmartLink>
-                  )}
-                </div>
               </CardContent>
             </Card>
           ))}

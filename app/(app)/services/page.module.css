@@ -1,15 +1,11 @@
 .page {
   min-height: 100dvh;
-  padding: 2rem;
   width: 100%;
+  padding: 2rem;
 }
 
 .intro {
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  gap: 2rem;
-  margin: 0 auto clamp(2rem, 5vw, 4rem);
+  margin-bottom: 1.25rem;
 }
 
 .pageHeader {
@@ -23,25 +19,48 @@
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 1rem;
+  width: min(100%, 72rem);
   margin: 0 auto;
 }
 
-.serviceCard,
-.featuredCard {
+.serviceCard {
+  position: relative;
   min-height: 16rem;
-  transition: transform 160ms ease, box-shadow 160ms ease;
+  overflow: hidden;
+  border-top: 3px solid var(--accent-tone);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+  animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.featuredCard {
-  grid-column: span 2;
-  background: var(--primary);
-  color: var(--primary-foreground);
+.serviceCard:nth-child(2) { animation-delay: 50ms; }
+.serviceCard:nth-child(3) { animation-delay: 100ms; }
+.serviceCard:nth-child(4) { animation-delay: 150ms; }
+.serviceCard:nth-child(5) { animation-delay: 200ms; }
+.serviceCard:nth-child(6) { animation-delay: 250ms; }
+.serviceCard:nth-child(7) { animation-delay: 300ms; }
+.serviceCard:nth-child(8) { animation-delay: 350ms; }
+.serviceCard:nth-child(9) { animation-delay: 400ms; }
+.serviceCard:nth-child(10) { animation-delay: 450ms; }
+.serviceCard:nth-child(11) { animation-delay: 500ms; }
+.serviceCard:nth-child(12) { animation-delay: 550ms; }
+.serviceCard:nth-child(13) { animation-delay: 600ms; }
+.serviceCard:nth-child(14) { animation-delay: 650ms; }
+
+.serviceCard[data-tone="0"] {
+  --accent-tone: oklch(0.62 0.16 250);
 }
 
-.serviceCard:hover,
-.featuredCard:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%);
+.serviceCard[data-tone="1"] {
+  --accent-tone: oklch(0.62 0.16 155);
+}
+
+.serviceCard[data-tone="2"] {
+  --accent-tone: oklch(0.65 0.17 35);
+}
+
+.serviceCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 12%);
 }
 
 .cardHeader {
@@ -56,13 +75,20 @@
   height: 3rem;
   place-items: center;
   border-radius: 0.9rem;
-  background: var(--muted);
-  color: var(--foreground);
+  background: color-mix(in oklch, var(--accent-tone) 14%, var(--card));
+  color: var(--accent-tone);
 }
 
-.featuredCard .iconFrame {
-  background: color-mix(in oklch, var(--primary-foreground) 15%, transparent);
-  color: var(--primary-foreground);
+.indexBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.2rem 0.5rem;
+  border: 1px solid color-mix(in oklch, var(--accent-tone) 28%, var(--border));
+  border-radius: 999px;
+  color: var(--accent-tone);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
 }
 
 .cardContent {
@@ -74,17 +100,13 @@
 }
 
 .serviceTitle {
-  font-size: clamp(1.3rem, 2vw, 1.9rem);
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
   letter-spacing: -0.03em;
 }
 
 .serviceDescription {
   color: var(--muted-foreground);
   line-height: 1.65;
-}
-
-.featuredCard .serviceDescription {
-  color: color-mix(in oklch, var(--primary-foreground) 75%, transparent);
 }
 
 .serviceDescription > :first-child {
@@ -100,14 +122,10 @@
   align-items: center;
   gap: 0.35rem;
   margin-top: auto;
-  color: var(--foreground);
+  color: var(--accent-tone);
   font-size: 0.9rem;
   font-weight: 650;
   text-decoration: none;
-}
-
-.featuredCard .serviceLink {
-  color: var(--primary-foreground);
 }
 
 .serviceLink:hover {
@@ -118,6 +136,7 @@
 .emptyState {
   display: grid;
   min-height: 18rem;
+  width: min(100%, 72rem);
   margin: 0 auto;
   place-content: center;
   justify-items: center;
@@ -140,23 +159,30 @@
   line-height: 1.6;
 }
 
-@media (max-width: 700px) {
-  .intro {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 1.5rem;
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
   }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 
-  .introNote {
-    padding-bottom: 0;
-    text-align: left;
+@media (prefers-reduced-motion: reduce) {
+  .serviceCard {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 1.25rem 1rem 2rem;
   }
 
   .serviceGrid {
     grid-template-columns: 1fr;
-  }
-
-  .featuredCard {
-    grid-column: auto;
   }
 }
