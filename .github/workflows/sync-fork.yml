@@ -82,29 +82,13 @@ jobs:
           git add public/config
           git commit --amend --no-edit
 
-      - name: Set up pnpm
-        uses: pnpm/action-setup@v6
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 26.8.1
-          cache: pnpm
-
-      - name: Migrate configuration
-        if: steps.changes.outputs.has_updates == 'true'
-        run: |
-          pnpm migrate-config
-          git add public/config
-          git commit --amend --no-edit
-
       - name: Push synchronized branch
         if: steps.changes.outputs.has_updates == 'true'
         env:
           DEFAULT_BRANCH: ${{ steps.repository.outputs.default_branch }}
         run: git push origin "$DEFAULT_BRANCH"
 
-      - name: Deploy the synchronized site
+      - name: Migrate synchronized configuration
         if: steps.changes.outputs.has_updates == 'true'
         uses: actions/github-script@v7
         with:
@@ -113,6 +97,6 @@ jobs:
             await github.rest.actions.createWorkflowDispatch({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              workflow_id: "deploy-pages.yml",
+              workflow_id: "migrate-config.yml",
               ref: "${{ steps.repository.outputs.default_branch }}",
             })
