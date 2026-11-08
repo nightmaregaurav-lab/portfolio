@@ -421,6 +421,18 @@ function Page() {
                 No blog posts yet. Add your first post.
               </div>
             }
+
+            <div className={"flex justify-end"}>
+              <Button
+                type={"submit"}
+                size={"sm"}
+                variant={"outline"}
+                className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                disabled={isSavingConfig}
+              >
+                {isSavingConfig ? <Spinner /> : "Save"}
+              </Button>
+            </div>
           </>
         ) : (
           <BlogForm

@@ -14,7 +14,7 @@ function PageContent(
 ) {
   return (
     <main className={styles.page}>
-      <h1 className={styles.pageHeader}>Blog</h1>
+      <h1 className={styles.pageHeader}>Blogs</h1>
       <HtmlRenderer className={styles.pageText}>{blogsConfig.summary}</HtmlRenderer>
       {blogsConfig.posts ? (
         <div className={styles.postGrid}>

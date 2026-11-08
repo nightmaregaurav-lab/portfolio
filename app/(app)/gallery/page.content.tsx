@@ -42,7 +42,7 @@ function PageContent(
 ) {
   if (!galleryConfig.photos.length && !galleryConfig.categories.length) {
     return (
-      <main className={cn(styles.page, "bg-secondary")}>
+      <main className={cn(styles.page)}>
         <div className={styles.headingRow}>
           <h1 className={styles.pageHeader}>Gallery</h1>
         </div>
@@ -57,7 +57,7 @@ function PageContent(
 
   return (
     <>
-      <main className={cn(styles.page, "bg-secondary")}>
+      <main className={cn(styles.page)}>
         <div className={styles.headingRow}>
           <h1 className={styles.pageHeader}>Gallery</h1>
         </div>
