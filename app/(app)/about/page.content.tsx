@@ -9,6 +9,7 @@ import {cn} from "@/lib/utils";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {TModel as CoreModel} from "@/configuration/core";
 import {TModel as AboutModel} from "@/configuration/about";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 
 function PageContent(
   {coreConfig, aboutConfig}: {
@@ -22,13 +23,19 @@ function PageContent(
       <HtmlRenderer className={styles.pageText}>{aboutConfig.summary}</HtmlRenderer>
       <div className={styles.pageContent}>
         <AspectRatio ratio={16 / 9} className="w-full max-w-sm rounded-lg bg-muted">
-          <Image
-            className={styles.pagePhoto}
+          <ImageLightbox
             src={aboutConfig.heroPicture}
-            alt={coreConfig.fullName}
-            width={200}
-            height={200}
-            style={{objectFit: "cover", width: "100%", height: "auto"}}
+            name={`${coreConfig.fullName}`}
+            trigger={
+              <Image
+                className={styles.pagePhoto}
+                src={aboutConfig.heroPicture}
+                alt={coreConfig.fullName}
+                width={200}
+                height={200}
+                style={{objectFit: "cover", width: "100%", height: "auto"}}
+              />
+            }
           />
         </AspectRatio>
         <div className={styles.keypoints}>

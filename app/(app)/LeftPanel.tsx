@@ -17,6 +17,7 @@ import SocialLinks from "@/components/ui/SocialLinks";
 import {cn} from "@/lib/utils";
 import SidebarCustomMenuItem from "@/app/(app)/SidebarCustomMenuItem";
 import SmartLink from "@/components/ui/SmartLink";
+import ImageLightbox from "@/components/ui/ImageLightbox";
 import type {TModel as CoreModel} from "@/configuration/core";
 import type {TModel as LeftPanelModel} from "@/configuration/leftPanel";
 import type {TModel as QuickLinksModel} from "@/configuration/quickLinks";
@@ -114,18 +115,31 @@ function LeftPanel({
     <Sidebar>
       <SidebarHeader>
         {(leftPanelConfig.profilePicture || coreConfig.fullName) && <div className={styles.avatarBlock}>
-          <Avatar className={styles.avatar}>
-          <AvatarImage src={leftPanelConfig.profilePicture} alt={coreConfig.fullName} style={{objectFit: 'cover'}}/>
-            <AvatarFallback>
-              {coreConfig
-                .fullName
-                .split(' ')
-                .map((n) => n[0])
-                .slice(0, 2)
-                .join('')
+          {leftPanelConfig.profilePicture ? (
+            <ImageLightbox
+              src={leftPanelConfig.profilePicture}
+              name={`${coreConfig.fullName}`}
+              trigger={
+                <div className="flex justify-center">
+                  <Avatar className={styles.avatar}>
+                    <AvatarImage src={leftPanelConfig.profilePicture} alt={coreConfig.fullName} style={{objectFit: 'cover'}}/>
+                  </Avatar>
+                </div>
               }
-            </AvatarFallback>
-          </Avatar>
+            />
+          ) : (
+            <Avatar className={styles.avatar}>
+              <AvatarFallback>
+                {coreConfig
+                  .fullName
+                  .split(' ')
+                  .map((n) => n[0])
+                  .slice(0, 2)
+                  .join('')
+                }
+              </AvatarFallback>
+            </Avatar>
+          )}
         </div>}
 
         <SidebarTrigger  className={styles.closeButton} variant={"outline"}>
