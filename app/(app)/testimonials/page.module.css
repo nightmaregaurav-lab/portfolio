@@ -1,0 +1,198 @@
+.page {
+  min-height: 100dvh;
+  padding: 2rem;
+}
+
+.intro {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin: 0 auto clamp(2rem, 5vw, 4rem);
+}
+
+.pageHeader {
+  display: block;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.summary {
+  margin-top: 1.25rem;
+  color: var(--muted-foreground);
+  line-height: 1.65;
+}
+
+.summary > :first-child {
+  margin-top: 0;
+}
+
+.summary > :last-child {
+  margin-bottom: 0;
+}
+
+.quoteMark {
+  color: var(--border);
+}
+
+.quoteGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+  margin: 0 auto;
+}
+
+.featuredQuote {
+  grid-column: span 2;
+  background: var(--primary);
+  color: var(--primary-foreground);
+}
+
+.quoteCard,
+.featuredQuote {
+  min-height: 15rem;
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.quoteCard:hover,
+.featuredQuote:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 1rem 2rem rgb(0 0 0 / 10%);
+}
+
+.quoteHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.author {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+
+.authorName {
+  font-size: 1rem;
+}
+
+.authorMeta {
+  margin: 0.2rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.8rem;
+}
+
+.featuredQuote .authorMeta {
+  color: color-mix(in oklch, var(--primary-foreground) 70%, transparent);
+}
+
+.quoteContent {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.quoteTitle {
+  margin: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.quoteText {
+  max-width: 58ch;
+  color: var(--muted-foreground);
+  font-size: clamp(1.05rem, 2vw, 1.45rem);
+  line-height: 1.5;
+}
+
+.featuredQuote .quoteText {
+  color: color-mix(in oklch, var(--primary-foreground) 88%, transparent);
+  font-size: clamp(1.35rem, 3vw, 2.15rem);
+  line-height: 1.35;
+  letter-spacing: -0.025em;
+}
+
+.quoteText > :first-child {
+  margin-top: 0;
+}
+
+.quoteText > :last-child {
+  margin-bottom: 0;
+}
+
+.quoteFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.78rem;
+}
+
+.featuredQuote .quoteFooter {
+  border-color: color-mix(in oklch, var(--primary-foreground) 20%, transparent);
+  color: color-mix(in oklch, var(--primary-foreground) 70%, transparent);
+}
+
+.quoteFooter a {
+  color: inherit;
+  font-weight: 650;
+  text-decoration: none;
+}
+
+.quoteFooter a:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.25rem;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 18rem;
+  margin: 0 auto;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 2rem;
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.emptyState h2 {
+  margin: 0.35rem 0 0;
+  color: var(--foreground);
+  font-size: 1.25rem;
+}
+
+.emptyState p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+@media (max-width: 700px) {
+  .intro {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .quoteMark {
+    width: 3rem;
+    height: 3rem;
+  }
+
+  .quoteGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .featuredQuote {
+    grid-column: auto;
+  }
+}

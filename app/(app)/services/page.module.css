@@ -12,10 +12,10 @@
 }
 
 .pageHeader {
+  display: block;
   margin: 0;
-  font-size: clamp(2.4rem, 6vw, 5.25rem);
-  line-height: 0.95;
-  letter-spacing: -0.055em;
+  font-size: 2rem;
+  font-weight: 700;
 }
 
 .serviceGrid {
