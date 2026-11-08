@@ -17,7 +17,7 @@ function PageContent(
   }
 ) {
   return (
-    <main className={cn(styles.page, "bg-secondary")}>
+    <main className={cn(styles.page)}>
       <h1 className={styles.pageHeader}>About</h1>
       <HtmlRenderer className={styles.pageText}>{aboutConfig.summary}</HtmlRenderer>
       <div className={styles.pageContent}>

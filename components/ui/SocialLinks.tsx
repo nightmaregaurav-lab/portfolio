@@ -54,6 +54,20 @@ import {
   SiZhihu,
   SiOdnoklassniki,
   SiRss, SiPaypal,
+  SiApplepodcasts,
+  SiArtstation,
+  SiDailymotion,
+  SiEtsy,
+  SiGitbook,
+  SiKaggle,
+  SiLinktree,
+  SiNotion,
+  SiNpm,
+  SiGooglecolab,
+  SiHackclub,
+  SiLeetcode,
+  SiReplit,
+  SiStackexchange,
 } from '@icons-pack/react-simple-icons';
 import SmartLink from "@/components/ui/SmartLink";
 
@@ -547,10 +561,15 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   },
 
   {
-    // will get back to it later
     names: ['linkedin', 'linkedin.com', 'in'],
     iconRenderer: (size) => (
-      <>in</>
+      <span
+        aria-hidden="true"
+        className="inline-flex items-center justify-center rounded-[0.18em] bg-[#0A66C2] px-[0.16em] font-bold leading-none text-white transition-transform duration-200 ease-out hover:scale-110 active:scale-95"
+        style={{ fontSize: size * 0.72 }}
+      >
+        in
+      </span>
     ),
   },
 
@@ -561,7 +580,133 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
         <SiPaypal size={size} />
       </span>
     ),
-  }
+  },
+
+  {
+    names: ['apple podcasts', 'applepodcasts', 'podcasts'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#872EC4] transition-all duration-200 ease-out hover:scale-110 hover:text-[#6F24A4] active:scale-95">
+        <SiApplepodcasts size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['artstation'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#13AFF0] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiArtstation size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['dailymotion', 'daily motion'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#0A0A0A] transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <SiDailymotion size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['etsy'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#F16521] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiEtsy size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['gitbook'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#346DDB] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiGitbook size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['kaggle'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#20BEFF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiKaggle size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['linktree', 'link tree'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#43E55E] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiLinktree size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['notion'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <SiNotion size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['npm'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#CB3837] transition-all duration-200 ease-out hover:scale-110 hover:text-[#A82D2E] active:scale-95">
+        <SiNpm size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['google colab', 'googlecolab', 'colab'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#F9AB00] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiGooglecolab size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['hack club', 'hackclub'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#EC3750] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiHackclub size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['leetcode', 'leet code'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#FFA116] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiLeetcode size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['replit'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#F26207] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiReplit size={size} />
+      </span>
+    ),
+  },
+
+  {
+    names: ['stackexchange', 'stack exchange'],
+    iconRenderer: (size) => (
+      <span className="inline-flex items-center justify-center cursor-pointer text-[#1E5397] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <SiStackexchange size={size} />
+      </span>
+    ),
+  },
 ];
 
 function SocialLinks(
@@ -578,16 +723,25 @@ function SocialLinks(
   }
 
   return (
-    <div className={"flex flex-row gap-2 justify-center align-middle"}>
+    <div className="flex flex-row flex-wrap justify-center gap-2.5">
       {
         links.map((link, index) => {
-          const config = socialMediaIconConfig.find(config => config.names.includes(link.name.toLowerCase()));
+          const normalizedName = link.name.trim().toLowerCase();
+          const config = socialMediaIconConfig.find(config => config.names.includes(normalizedName));
           if (!config) {
             return <></>;
           }
           return (
-            <SmartLink key={index} href={link.url} target="_blank" rel="noopener noreferrer">
-              {config.iconRenderer(iconSize || 24)}
+            <SmartLink
+              key={`${normalizedName}-${link.url}-${index}`}
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={`Visit ${link.name}`}
+              title={link.name}
+              className="inline-flex rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+            >
+              {config.iconRenderer(iconSize || 20)}
             </SmartLink>
           );
         })

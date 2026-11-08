@@ -132,10 +132,7 @@ function LeftPanel({
           <XIcon/>
         </SidebarTrigger>
 
-        <SocialLinks
-          links={leftPanelConfig.socials}
-          iconSize={25}
-        />
+        <SocialLinks links={leftPanelConfig.socials}/>
       </SidebarHeader>
 
       <SidebarContent>

@@ -37,7 +37,6 @@ function PageContent(
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [searchTerm, setSearchTerm] = useState("");
   const projects = projectsConfig.projects || [];
-  const summary = projectsConfig.summary || "";
 
   const visibleProjects = useMemo(() => {
     const query = searchTerm.trim().toLocaleLowerCase();
@@ -46,9 +45,9 @@ function PageContent(
   }, [projects, searchTerm]);
 
   return (
-    <main className={cn(styles.page, "bg-secondary")}>
+    <main className={cn(styles.page)}>
       <h1 className={styles.pageHeader}>Projects</h1>
-      {summary && <HtmlRenderer className={styles.pageText}>{summary}</HtmlRenderer>}
+      <HtmlRenderer className={styles.pageText}>{projectsConfig.summary}</HtmlRenderer>
 
       <section className={styles.pageContent} aria-label="Project portfolio">
         <div className={styles.searchAndActionsStrip}>
