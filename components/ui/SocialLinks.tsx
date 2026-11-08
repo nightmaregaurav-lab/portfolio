@@ -1,75 +1,160 @@
 "use client"
 
-import React from 'react';
-import {
-  SiFacebook,
-  SiInstagram,
-  SiX,
-  SiYoutube,
-  SiTiktok,
-  SiGithub,
-  SiGitlab,
-  SiDiscord,
-  SiReddit,
-  SiPinterest,
-  SiSnapchat,
-  SiWhatsapp,
-  SiTelegram,
-  SiThreads,
-  SiBluesky,
-  SiMastodon,
-  SiTwitch,
-  SiSpotify,
-  SiSoundcloud,
-  SiMedium,
-  SiDevdotto,
-  SiStackoverflow,
-  SiDribbble,
-  SiBehance,
-  SiFlickr,
-  SiTumblr,
-  SiVk,
-  SiVimeo,
-  SiKick,
-  SiPatreon,
-  SiBuymeacoffee,
-  SiKofi,
-  SiQuora,
-  SiGoodreads,
-  SiLetterboxd,
-  SiSteam,
-  SiGoogle,
-  SiApple,
-  SiProducthunt,
-  SiCodeforces,
-  SiHackerrank,
-  SiHashnode,
-  SiGmail,
-  SiMessenger,
-  SiSignal,
-  SiLine,
-  SiWechat,
-  SiBilibili,
-  SiDouban,
-  SiZhihu,
-  SiOdnoklassniki,
-  SiRss, SiPaypal,
-  SiApplepodcasts,
-  SiArtstation,
-  SiDailymotion,
-  SiEtsy,
-  SiGitbook,
-  SiKaggle,
-  SiLinktree,
-  SiNotion,
-  SiNpm,
-  SiGooglecolab,
-  SiHackclub,
-  SiLeetcode,
-  SiReplit,
-  SiStackexchange,
-} from '@icons-pack/react-simple-icons';
+import React, {lazy, Suspense} from 'react';
+
 import SmartLink from "@/components/ui/SmartLink";
+
+type SimpleIconName =
+  "SiFacebook"
+  | "SiInstagram"
+  | "SiX"
+  | "SiYoutube"
+  | "SiTiktok"
+  | "SiThreads"
+  | "SiBluesky"
+  | "SiMastodon"
+  | "SiReddit"
+  | "SiPinterest"
+  | "SiSnapchat"
+  | "SiWhatsapp"
+  | "SiTelegram"
+  | "SiDiscord"
+  | "SiMessenger"
+  | "SiSignal"
+  | "SiLine"
+  | "SiWechat"
+  | "SiGithub"
+  | "SiGitlab"
+  | "SiStackoverflow"
+  | "SiDevdotto"
+  | "SiCodeforces"
+  | "SiHackerrank"
+  | "SiHashnode"
+  | "SiTwitch"
+  | "SiKick"
+  | "SiSpotify"
+  | "SiSoundcloud"
+  | "SiVimeo"
+  | "SiBilibili"
+  | "SiDribbble"
+  | "SiBehance"
+  | "SiFlickr"
+  | "SiTumblr"
+  | "SiPatreon"
+  | "SiBuymeacoffee"
+  | "SiKofi"
+  | "SiMedium"
+  | "SiQuora"
+  | "SiGoodreads"
+  | "SiLetterboxd"
+  | "SiSteam"
+  | "SiProducthunt"
+  | "SiVk"
+  | "SiDouban"
+  | "SiZhihu"
+  | "SiOdnoklassniki"
+  | "SiGoogle"
+  | "SiApple"
+  | "SiGmail"
+  | "SiRss"
+  | "SiPaypal"
+  | "SiApplepodcasts"
+  | "SiArtstation"
+  | "SiDailymotion"
+  | "SiEtsy"
+  | "SiGitbook"
+  | "SiKaggle"
+  | "SiLinktree"
+  | "SiNotion"
+  | "SiNpm"
+  | "SiGooglecolab"
+  | "SiHackclub"
+  | "SiLeetcode"
+  | "SiReplit"
+  | "SiStackexchange";
+
+const simpleIconLoaders: Record<SimpleIconName, () => Promise<{ default: React.ComponentType<{ size?: number }> }>> = {
+  SiFacebook: () => import("@icons-pack/react-simple-icons/icons/SiFacebook"),
+  SiInstagram: () => import("@icons-pack/react-simple-icons/icons/SiInstagram"),
+  SiX: () => import("@icons-pack/react-simple-icons/icons/SiX"),
+  SiYoutube: () => import("@icons-pack/react-simple-icons/icons/SiYoutube"),
+  SiTiktok: () => import("@icons-pack/react-simple-icons/icons/SiTiktok"),
+  SiThreads: () => import("@icons-pack/react-simple-icons/icons/SiThreads"),
+  SiBluesky: () => import("@icons-pack/react-simple-icons/icons/SiBluesky"),
+  SiMastodon: () => import("@icons-pack/react-simple-icons/icons/SiMastodon"),
+  SiReddit: () => import("@icons-pack/react-simple-icons/icons/SiReddit"),
+  SiPinterest: () => import("@icons-pack/react-simple-icons/icons/SiPinterest"),
+  SiSnapchat: () => import("@icons-pack/react-simple-icons/icons/SiSnapchat"),
+  SiWhatsapp: () => import("@icons-pack/react-simple-icons/icons/SiWhatsapp"),
+  SiTelegram: () => import("@icons-pack/react-simple-icons/icons/SiTelegram"),
+  SiDiscord: () => import("@icons-pack/react-simple-icons/icons/SiDiscord"),
+  SiMessenger: () => import("@icons-pack/react-simple-icons/icons/SiMessenger"),
+  SiSignal: () => import("@icons-pack/react-simple-icons/icons/SiSignal"),
+  SiLine: () => import("@icons-pack/react-simple-icons/icons/SiLine"),
+  SiWechat: () => import("@icons-pack/react-simple-icons/icons/SiWechat"),
+  SiGithub: () => import("@icons-pack/react-simple-icons/icons/SiGithub"),
+  SiGitlab: () => import("@icons-pack/react-simple-icons/icons/SiGitlab"),
+  SiStackoverflow: () => import("@icons-pack/react-simple-icons/icons/SiStackoverflow"),
+  SiDevdotto: () => import("@icons-pack/react-simple-icons/icons/SiDevdotto"),
+  SiCodeforces: () => import("@icons-pack/react-simple-icons/icons/SiCodeforces"),
+  SiHackerrank: () => import("@icons-pack/react-simple-icons/icons/SiHackerrank"),
+  SiHashnode: () => import("@icons-pack/react-simple-icons/icons/SiHashnode"),
+  SiTwitch: () => import("@icons-pack/react-simple-icons/icons/SiTwitch"),
+  SiKick: () => import("@icons-pack/react-simple-icons/icons/SiKick"),
+  SiSpotify: () => import("@icons-pack/react-simple-icons/icons/SiSpotify"),
+  SiSoundcloud: () => import("@icons-pack/react-simple-icons/icons/SiSoundcloud"),
+  SiVimeo: () => import("@icons-pack/react-simple-icons/icons/SiVimeo"),
+  SiBilibili: () => import("@icons-pack/react-simple-icons/icons/SiBilibili"),
+  SiDribbble: () => import("@icons-pack/react-simple-icons/icons/SiDribbble"),
+  SiBehance: () => import("@icons-pack/react-simple-icons/icons/SiBehance"),
+  SiFlickr: () => import("@icons-pack/react-simple-icons/icons/SiFlickr"),
+  SiTumblr: () => import("@icons-pack/react-simple-icons/icons/SiTumblr"),
+  SiPatreon: () => import("@icons-pack/react-simple-icons/icons/SiPatreon"),
+  SiBuymeacoffee: () => import("@icons-pack/react-simple-icons/icons/SiBuymeacoffee"),
+  SiKofi: () => import("@icons-pack/react-simple-icons/icons/SiKofi"),
+  SiMedium: () => import("@icons-pack/react-simple-icons/icons/SiMedium"),
+  SiQuora: () => import("@icons-pack/react-simple-icons/icons/SiQuora"),
+  SiGoodreads: () => import("@icons-pack/react-simple-icons/icons/SiGoodreads"),
+  SiLetterboxd: () => import("@icons-pack/react-simple-icons/icons/SiLetterboxd"),
+  SiSteam: () => import("@icons-pack/react-simple-icons/icons/SiSteam"),
+  SiProducthunt: () => import("@icons-pack/react-simple-icons/icons/SiProducthunt"),
+  SiVk: () => import("@icons-pack/react-simple-icons/icons/SiVk"),
+  SiDouban: () => import("@icons-pack/react-simple-icons/icons/SiDouban"),
+  SiZhihu: () => import("@icons-pack/react-simple-icons/icons/SiZhihu"),
+  SiOdnoklassniki: () => import("@icons-pack/react-simple-icons/icons/SiOdnoklassniki"),
+  SiGoogle: () => import("@icons-pack/react-simple-icons/icons/SiGoogle"),
+  SiApple: () => import("@icons-pack/react-simple-icons/icons/SiApple"),
+  SiGmail: () => import("@icons-pack/react-simple-icons/icons/SiGmail"),
+  SiRss: () => import("@icons-pack/react-simple-icons/icons/SiRss"),
+  SiPaypal: () => import("@icons-pack/react-simple-icons/icons/SiPaypal"),
+  SiApplepodcasts: () => import("@icons-pack/react-simple-icons/icons/SiApplepodcasts"),
+  SiArtstation: () => import("@icons-pack/react-simple-icons/icons/SiArtstation"),
+  SiDailymotion: () => import("@icons-pack/react-simple-icons/icons/SiDailymotion"),
+  SiEtsy: () => import("@icons-pack/react-simple-icons/icons/SiEtsy"),
+  SiGitbook: () => import("@icons-pack/react-simple-icons/icons/SiGitbook"),
+  SiKaggle: () => import("@icons-pack/react-simple-icons/icons/SiKaggle"),
+  SiLinktree: () => import("@icons-pack/react-simple-icons/icons/SiLinktree"),
+  SiNotion: () => import("@icons-pack/react-simple-icons/icons/SiNotion"),
+  SiNpm: () => import("@icons-pack/react-simple-icons/icons/SiNpm"),
+  SiGooglecolab: () => import("@icons-pack/react-simple-icons/icons/SiGooglecolab"),
+  SiHackclub: () => import("@icons-pack/react-simple-icons/icons/SiHackclub"),
+  SiLeetcode: () => import("@icons-pack/react-simple-icons/icons/SiLeetcode"),
+  SiReplit: () => import("@icons-pack/react-simple-icons/icons/SiReplit"),
+  SiStackexchange: () => import("@icons-pack/react-simple-icons/icons/SiStackexchange"),
+};
+
+const lazySimpleIcons = Object.fromEntries(
+  Object.entries(simpleIconLoaders).map(([name, load]) => [name, lazy(load)])
+) as Record<SimpleIconName, React.LazyExoticComponent<React.ComponentType<{ size?: number }>>>;
+
+function LazySimpleIcon({name, size}: { name: SimpleIconName; size: number }) {
+  const Icon = lazySimpleIcons[name];
+  return (
+    <Suspense fallback={null}>
+      <Icon size={size}/>
+    </Suspense>
+  );
+}
 
 class SocialMediaIconConfig {
   names: string[];
@@ -80,8 +165,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['facebook', 'fb'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1877F2] transition-all duration-200 ease-out hover:scale-110 hover:text-[#166FE5] active:scale-95">
-        <SiFacebook size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1877F2] transition-all duration-200 ease-out hover:scale-110 hover:text-[#166FE5] active:scale-95">
+        <LazySimpleIcon name="SiFacebook" size={size}/>
       </span>
     ),
   },
@@ -95,7 +181,7 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
           color: '#E4405F',
         }}
       >
-        <SiInstagram size={size} />
+        <LazySimpleIcon name="SiInstagram" size={size}/>
       </span>
     ),
   },
@@ -103,8 +189,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['twitter', 'x', 'x.com'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiX size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiX" size={size}/>
       </span>
     ),
   },
@@ -112,8 +199,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['youtube', 'yt'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF0000] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CC0000] active:scale-95">
-        <SiYoutube size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF0000] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CC0000] active:scale-95">
+        <LazySimpleIcon name="SiYoutube" size={size}/>
       </span>
     ),
   },
@@ -121,8 +209,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['tiktok', 'tik tok'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#000000] transition-all duration-200 ease-out hover:scale-110 hover:text-[#FE2C55] active:scale-95">
-        <SiTiktok size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#000000] transition-all duration-200 ease-out hover:scale-110 hover:text-[#FE2C55] active:scale-95">
+        <LazySimpleIcon name="SiTiktok" size={size}/>
       </span>
     ),
   },
@@ -130,8 +219,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['threads'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiThreads size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiThreads" size={size}/>
       </span>
     ),
   },
@@ -139,8 +229,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['bluesky', 'bsky'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1185FE] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0066CC] active:scale-95">
-        <SiBluesky size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1185FE] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0066CC] active:scale-95">
+        <LazySimpleIcon name="SiBluesky" size={size}/>
       </span>
     ),
   },
@@ -148,8 +239,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['mastodon'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#6364FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#4F50D8] active:scale-95">
-        <SiMastodon size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#6364FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#4F50D8] active:scale-95">
+        <LazySimpleIcon name="SiMastodon" size={size}/>
       </span>
     ),
   },
@@ -157,8 +249,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['reddit'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF4500] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D93F00] active:scale-95">
-        <SiReddit size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF4500] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D93F00] active:scale-95">
+        <LazySimpleIcon name="SiReddit" size={size}/>
       </span>
     ),
   },
@@ -166,8 +259,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['pinterest', 'pin'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#E60023] transition-all duration-200 ease-out hover:scale-110 hover:text-[#BD081C] active:scale-95">
-        <SiPinterest size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#E60023] transition-all duration-200 ease-out hover:scale-110 hover:text-[#BD081C] active:scale-95">
+        <LazySimpleIcon name="SiPinterest" size={size}/>
       </span>
     ),
   },
@@ -175,8 +269,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['snapchat', 'snap'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FFFC00] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CCC900] active:scale-95">
-        <SiSnapchat size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FFFC00] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CCC900] active:scale-95">
+        <LazySimpleIcon name="SiSnapchat" size={size}/>
       </span>
     ),
   },
@@ -184,8 +279,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['whatsapp', 'wa'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#25D366] transition-all duration-200 ease-out hover:scale-110 hover:text-[#1DA851] active:scale-95">
-        <SiWhatsapp size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#25D366] transition-all duration-200 ease-out hover:scale-110 hover:text-[#1DA851] active:scale-95">
+        <LazySimpleIcon name="SiWhatsapp" size={size}/>
       </span>
     ),
   },
@@ -193,8 +289,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['telegram', 'tg'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#26A5E4] transition-all duration-200 ease-out hover:scale-110 hover:text-[#168AC1] active:scale-95">
-        <SiTelegram size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#26A5E4] transition-all duration-200 ease-out hover:scale-110 hover:text-[#168AC1] active:scale-95">
+        <LazySimpleIcon name="SiTelegram" size={size}/>
       </span>
     ),
   },
@@ -202,8 +299,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['discord'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#5865F2] transition-all duration-200 ease-out hover:scale-110 hover:text-[#4752C4] active:scale-95">
-        <SiDiscord size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#5865F2] transition-all duration-200 ease-out hover:scale-110 hover:text-[#4752C4] active:scale-95">
+        <LazySimpleIcon name="SiDiscord" size={size}/>
       </span>
     ),
   },
@@ -217,7 +315,7 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
           color: '#0084FF',
         }}
       >
-        <SiMessenger size={size} />
+        <LazySimpleIcon name="SiMessenger" size={size}/>
       </span>
     ),
   },
@@ -225,8 +323,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['signal'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#3A76F0] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiSignal size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#3A76F0] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiSignal" size={size}/>
       </span>
     ),
   },
@@ -234,8 +333,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['line'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#00C300] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiLine size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#00C300] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiLine" size={size}/>
       </span>
     ),
   },
@@ -243,8 +343,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['wechat'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#07C160] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiWechat size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#07C160] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiWechat" size={size}/>
       </span>
     ),
   },
@@ -252,8 +353,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['github', 'gh'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#181717] transition-all duration-200 ease-out hover:scale-110 hover:text-[#333333] active:scale-95">
-        <SiGithub size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#181717] transition-all duration-200 ease-out hover:scale-110 hover:text-[#333333] active:scale-95">
+        <LazySimpleIcon name="SiGithub" size={size}/>
       </span>
     ),
   },
@@ -261,8 +363,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['gitlab'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FC6D26] transition-all duration-200 ease-out hover:scale-110 hover:text-[#E24329] active:scale-95">
-        <SiGitlab size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FC6D26] transition-all duration-200 ease-out hover:scale-110 hover:text-[#E24329] active:scale-95">
+        <LazySimpleIcon name="SiGitlab" size={size}/>
       </span>
     ),
   },
@@ -270,8 +373,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['stackoverflow', 'stack overflow', 'so'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#F48024] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D66F1C] active:scale-95">
-        <SiStackoverflow size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#F48024] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D66F1C] active:scale-95">
+        <LazySimpleIcon name="SiStackoverflow" size={size}/>
       </span>
     ),
   },
@@ -279,8 +383,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['dev.to', 'devto', 'dev'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiDevdotto size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiDevdotto" size={size}/>
       </span>
     ),
   },
@@ -288,8 +393,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['codeforces'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1F8ACB] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiCodeforces size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1F8ACB] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiCodeforces" size={size}/>
       </span>
     ),
   },
@@ -297,8 +403,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['hackerrank', 'hacker rank'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#00EA64] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiHackerrank size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#00EA64] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiHackerrank" size={size}/>
       </span>
     ),
   },
@@ -306,8 +413,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['hashnode'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#2962FF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiHashnode size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#2962FF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiHashnode" size={size}/>
       </span>
     ),
   },
@@ -315,8 +423,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['twitch'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#9146FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#772CE8] active:scale-95">
-        <SiTwitch size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#9146FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#772CE8] active:scale-95">
+        <LazySimpleIcon name="SiTwitch" size={size}/>
       </span>
     ),
   },
@@ -324,8 +433,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['kick'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#53FC18] transition-all duration-200 ease-out hover:scale-110 hover:text-[#3DD10D] active:scale-95">
-        <SiKick size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#53FC18] transition-all duration-200 ease-out hover:scale-110 hover:text-[#3DD10D] active:scale-95">
+        <LazySimpleIcon name="SiKick" size={size}/>
       </span>
     ),
   },
@@ -333,8 +443,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['spotify'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1DB954] transition-all duration-200 ease-out hover:scale-110 hover:text-[#1AA34A] active:scale-95">
-        <SiSpotify size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1DB954] transition-all duration-200 ease-out hover:scale-110 hover:text-[#1AA34A] active:scale-95">
+        <LazySimpleIcon name="SiSpotify" size={size}/>
       </span>
     ),
   },
@@ -342,8 +453,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['soundcloud'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF5500] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CC4400] active:scale-95">
-        <SiSoundcloud size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF5500] transition-all duration-200 ease-out hover:scale-110 hover:text-[#CC4400] active:scale-95">
+        <LazySimpleIcon name="SiSoundcloud" size={size}/>
       </span>
     ),
   },
@@ -351,8 +463,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['vimeo'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1AB7EA] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiVimeo size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1AB7EA] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiVimeo" size={size}/>
       </span>
     ),
   },
@@ -360,8 +473,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['bilibili'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#00AEEC] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiBilibili size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#00AEEC] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiBilibili" size={size}/>
       </span>
     ),
   },
@@ -369,8 +483,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['dribbble'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#EA4C89] transition-all duration-200 ease-out hover:scale-110 hover:text-[#C32361] active:scale-95">
-        <SiDribbble size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#EA4C89] transition-all duration-200 ease-out hover:scale-110 hover:text-[#C32361] active:scale-95">
+        <LazySimpleIcon name="SiDribbble" size={size}/>
       </span>
     ),
   },
@@ -378,8 +493,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['behance'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1769FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0057FF] active:scale-95">
-        <SiBehance size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1769FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0057FF] active:scale-95">
+        <LazySimpleIcon name="SiBehance" size={size}/>
       </span>
     ),
   },
@@ -387,8 +503,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['flickr'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF0084] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiFlickr size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF0084] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiFlickr" size={size}/>
       </span>
     ),
   },
@@ -396,8 +513,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['tumblr'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#36465D] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiTumblr size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#36465D] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiTumblr" size={size}/>
       </span>
     ),
   },
@@ -405,8 +523,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['patreon'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF424D] transition-all duration-200 ease-out hover:scale-110 hover:text-[#E23A44] active:scale-95">
-        <SiPatreon size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF424D] transition-all duration-200 ease-out hover:scale-110 hover:text-[#E23A44] active:scale-95">
+        <LazySimpleIcon name="SiPatreon" size={size}/>
       </span>
     ),
   },
@@ -414,8 +533,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['buymeacoffee', 'buy me a coffee', 'bmac'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FFDD00] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiBuymeacoffee size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FFDD00] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiBuymeacoffee" size={size}/>
       </span>
     ),
   },
@@ -423,8 +543,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['kofi', 'ko-fi'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FF5E5B] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiKofi size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FF5E5B] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiKofi" size={size}/>
       </span>
     ),
   },
@@ -432,8 +553,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['medium'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiMedium size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiMedium" size={size}/>
       </span>
     ),
   },
@@ -441,8 +563,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['quora'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#B92B27] transition-all duration-200 ease-out hover:scale-110 hover:text-[#8E211E] active:scale-95">
-        <SiQuora size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#B92B27] transition-all duration-200 ease-out hover:scale-110 hover:text-[#8E211E] active:scale-95">
+        <LazySimpleIcon name="SiQuora" size={size}/>
       </span>
     ),
   },
@@ -450,8 +573,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['goodreads'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#372213] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiGoodreads size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#372213] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiGoodreads" size={size}/>
       </span>
     ),
   },
@@ -459,8 +583,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['letterboxd'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#00E054] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiLetterboxd size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#00E054] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiLetterboxd" size={size}/>
       </span>
     ),
   },
@@ -468,8 +593,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['steam'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#171A21] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiSteam size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#171A21] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiSteam" size={size}/>
       </span>
     ),
   },
@@ -477,8 +603,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['producthunt', 'product hunt', 'ph'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#DA552F] transition-all duration-200 ease-out hover:scale-110 hover:text-[#B64225] active:scale-95">
-        <SiProducthunt size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#DA552F] transition-all duration-200 ease-out hover:scale-110 hover:text-[#B64225] active:scale-95">
+        <LazySimpleIcon name="SiProducthunt" size={size}/>
       </span>
     ),
   },
@@ -486,8 +613,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['vk', 'vkontakte'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#0077FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0066DD] active:scale-95">
-        <SiVk size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#0077FF] transition-all duration-200 ease-out hover:scale-110 hover:text-[#0066DD] active:scale-95">
+        <LazySimpleIcon name="SiVk" size={size}/>
       </span>
     ),
   },
@@ -495,8 +623,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['douban'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#00B51D] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiDouban size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#00B51D] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiDouban" size={size}/>
       </span>
     ),
   },
@@ -504,8 +633,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['zhihu'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#0084FF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiZhihu size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#0084FF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiZhihu" size={size}/>
       </span>
     ),
   },
@@ -513,8 +643,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['odnoklassniki', 'ok.ru', 'ok'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#EE8208] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiOdnoklassniki size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#EE8208] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiOdnoklassniki" size={size}/>
       </span>
     ),
   },
@@ -528,7 +659,7 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
           color: '#4285F4',
         }}
       >
-        <SiGoogle size={size} />
+        <LazySimpleIcon name="SiGoogle" size={size}/>
       </span>
     ),
   },
@@ -536,8 +667,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['apple', 'apple id'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiApple size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiApple" size={size}/>
       </span>
     ),
   },
@@ -545,8 +677,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['gmail', 'google mail'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#EA4335] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiGmail size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#EA4335] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiGmail" size={size}/>
       </span>
     ),
   },
@@ -554,8 +687,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['rss', 'feed', 'rss feed'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#F26522] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D9541B] active:scale-95">
-        <SiRss size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#F26522] transition-all duration-200 ease-out hover:scale-110 hover:text-[#D9541B] active:scale-95">
+        <LazySimpleIcon name="SiRss" size={size}/>
       </span>
     ),
   },
@@ -566,7 +700,7 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
       <span
         aria-hidden="true"
         className="inline-flex items-center justify-center rounded-[0.18em] bg-[#0A66C2] px-[0.16em] font-bold leading-none text-white transition-transform duration-200 ease-out hover:scale-110 active:scale-95"
-        style={{ fontSize: size * 0.72 }}
+        style={{fontSize: size * 0.72}}
       >
         in
       </span>
@@ -576,8 +710,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['paypal', 'paypal.me'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#003087] transition-all duration-200 ease-out hover:scale-110 hover:text-[#002060] active:scale-95">
-        <SiPaypal size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#003087] transition-all duration-200 ease-out hover:scale-110 hover:text-[#002060] active:scale-95">
+        <LazySimpleIcon name="SiPaypal" size={size}/>
       </span>
     ),
   },
@@ -585,8 +720,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['apple podcasts', 'applepodcasts', 'podcasts'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#872EC4] transition-all duration-200 ease-out hover:scale-110 hover:text-[#6F24A4] active:scale-95">
-        <SiApplepodcasts size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#872EC4] transition-all duration-200 ease-out hover:scale-110 hover:text-[#6F24A4] active:scale-95">
+        <LazySimpleIcon name="SiApplepodcasts" size={size}/>
       </span>
     ),
   },
@@ -594,8 +730,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['artstation'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#13AFF0] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiArtstation size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#13AFF0] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiArtstation" size={size}/>
       </span>
     ),
   },
@@ -603,8 +740,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['dailymotion', 'daily motion'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#0A0A0A] transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiDailymotion size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#0A0A0A] transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiDailymotion" size={size}/>
       </span>
     ),
   },
@@ -612,8 +750,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['etsy'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#F16521] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiEtsy size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#F16521] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiEtsy" size={size}/>
       </span>
     ),
   },
@@ -621,8 +760,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['gitbook'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#346DDB] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiGitbook size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#346DDB] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiGitbook" size={size}/>
       </span>
     ),
   },
@@ -630,8 +770,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['kaggle'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#20BEFF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiKaggle size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#20BEFF] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiKaggle" size={size}/>
       </span>
     ),
   },
@@ -639,8 +780,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['linktree', 'link tree'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#43E55E] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiLinktree size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#43E55E] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiLinktree" size={size}/>
       </span>
     ),
   },
@@ -648,8 +790,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['notion'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
-        <SiNotion size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-black transition-all duration-200 ease-out hover:scale-110 hover:text-neutral-600 active:scale-95">
+        <LazySimpleIcon name="SiNotion" size={size}/>
       </span>
     ),
   },
@@ -657,8 +800,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['npm'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#CB3837] transition-all duration-200 ease-out hover:scale-110 hover:text-[#A82D2E] active:scale-95">
-        <SiNpm size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#CB3837] transition-all duration-200 ease-out hover:scale-110 hover:text-[#A82D2E] active:scale-95">
+        <LazySimpleIcon name="SiNpm" size={size}/>
       </span>
     ),
   },
@@ -666,8 +810,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['google colab', 'googlecolab', 'colab'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#F9AB00] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiGooglecolab size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#F9AB00] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiGooglecolab" size={size}/>
       </span>
     ),
   },
@@ -675,8 +820,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['hack club', 'hackclub'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#EC3750] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiHackclub size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#EC3750] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiHackclub" size={size}/>
       </span>
     ),
   },
@@ -684,8 +830,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['leetcode', 'leet code'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#FFA116] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiLeetcode size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#FFA116] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiLeetcode" size={size}/>
       </span>
     ),
   },
@@ -693,8 +840,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['replit'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#F26207] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiReplit size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#F26207] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiReplit" size={size}/>
       </span>
     ),
   },
@@ -702,8 +850,9 @@ const socialMediaIconConfig: SocialMediaIconConfig[] = [
   {
     names: ['stackexchange', 'stack exchange'],
     iconRenderer: (size) => (
-      <span className="inline-flex items-center justify-center cursor-pointer text-[#1E5397] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
-        <SiStackexchange size={size} />
+      <span
+        className="inline-flex items-center justify-center cursor-pointer text-[#1E5397] transition-all duration-200 ease-out hover:scale-110 active:scale-95">
+        <LazySimpleIcon name="SiStackexchange" size={size}/>
       </span>
     ),
   },
@@ -718,7 +867,7 @@ function SocialLinks(
     iconSize?: number;
   }
 ) {
-  if(!links || links.length === 0) {
+  if (!links || links.length === 0) {
     return <></>;
   }
 

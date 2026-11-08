@@ -1,9 +1,36 @@
 "use client"
 
-import React, {useEffect} from 'react';
+import React, {useMemo} from 'react';
 import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import Prism from 'prismjs';
-import 'prismjs/themes/prism-tomorrow.css';
+import {common, createLowlight} from "lowlight";
+
+const lowlight = createLowlight(common);
+
+type HighlightNode = {
+  type: "root" | "element" | "text";
+  tagName?: string;
+  properties?: Record<string, unknown>;
+  value?: string;
+  children?: HighlightNode[];
+};
+
+function renderHighlightNode(node: HighlightNode, key: number | string): React.ReactNode {
+  if (node.type === "text") {
+    return node.value;
+  }
+
+  const children = node.children?.map((child, index) => renderHighlightNode(child, index));
+  if (node.type === "root") {
+    return children;
+  }
+
+  const properties = {...node.properties};
+  if (Array.isArray(properties.className)) {
+    properties.className = properties.className.join(" ");
+  }
+
+  return React.createElement(node.tagName ?? "span", {...properties, key}, children);
+}
 
 function ConfigPreviewDialog(
   {show, setShow, configString}: {
@@ -12,9 +39,10 @@ function ConfigPreviewDialog(
     configString: string
   }
 ) {
-  useEffect(() => {
-    Prism.highlightAll();
-  }, []);
+  const highlightedConfig = useMemo(
+    () => lowlight.highlight("json", configString),
+    [configString]
+  );
   return (
     <Dialog open={show} onOpenChange={setShow}>
       <DialogContent
@@ -27,7 +55,7 @@ function ConfigPreviewDialog(
           <DialogTitle><b>JSON Preview</b></DialogTitle>
         </DialogHeader>
         <pre
-          className="language-json"
+          className="hljs"
           style={{
             width: "100%",
             height: "100%",
@@ -35,9 +63,7 @@ function ConfigPreviewDialog(
             marginBottom: 0,
           }}
         >
-          <code className="language-json">
-            {configString}
-          </code>
+          <code>{renderHighlightNode(highlightedConfig as HighlightNode, "json")}</code>
         </pre>
       </DialogContent>
     </Dialog>

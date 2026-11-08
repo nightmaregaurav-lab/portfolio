@@ -1,6 +1,6 @@
 "use client"
 
-import { cn } from "cn"
+import {cn} from "@/lib/utils"
 
 function AspectRatio({
   ratio,
@@ -21,4 +21,4 @@ function AspectRatio({
   )
 }
 
-export { AspectRatio }
+export {AspectRatio}
