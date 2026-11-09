@@ -134,13 +134,15 @@ function PageContent(
 }
 
 function BlogCard({post, index}: {post: BlogsModel["posts"][number]; index: number}) {
+  const accentColor = post.accentColor || "#FFFFFF";
+  const style: Record<string, string> = {};
+  style["--accent-tone"] = accentColor;
   return (
     <SmartLink
       href={"/blogs/" + getActiveSlug(post.slugs) + "/"}
       className={styles.postLink}
-      data-tone={String(index % 3)}
     >
-      <article className={styles.postCard}>
+      <article className={styles.postCard} style={style as React.CSSProperties}>
         <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
         <h2 className={styles.postTitle}>{post.title}</h2>
         <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>

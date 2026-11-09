@@ -53,6 +53,10 @@ export const schema = z.object({
         title: "Tags",
         description: "Specific searchable topics for the post, such as React, TypeScript, or Accessibility.",
       }),
+      accentColor: z.string().min(1, "Accent Color is required.").meta({
+        title: "Accent Color",
+        description: "A color used to accentuate the blog card and other UI elements.",
+      }),
     }).meta({
       title: "Blog Post Metadata",
       description: "Metadata that identifies a blog post whose rich-text HTML is stored in a file named after its ID.",

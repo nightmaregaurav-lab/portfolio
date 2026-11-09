@@ -17,6 +17,7 @@ import {cn} from "@/lib/utils";
 import {Control, Controller, useFieldArray, useFormContext, useWatch} from "react-hook-form";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {Textarea} from "@/components/ui/textarea";
+import {ColorPicker} from "@/components/ui/ColorPicker";
 import {createConfigurationId, withConfigurationId} from "@/lib/configurationUtils";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {confirm} from "@/components/ui/Confirm";
@@ -31,6 +32,7 @@ const emptyPost: NonNullable<TInput["posts"]>[number] = {
   date: "",
   categories: [],
   tags: [],
+  accentColor: "#FFFFFF",
 };
 
 
@@ -101,6 +103,19 @@ function BlogMetadataFields({control, index}: {control: Control<TInput>; index: 
           }
         />
       </div>
+
+      <Controller
+        control={control}
+        name={`posts.${index}.accentColor`}
+        render={({field, fieldState: {error}}) =>
+          <div className={"grid gap-2"}>
+            <Label htmlFor={`posts.${index}.accentColor`}>Accent Color</Label>
+            <ColorPicker value={field.value || "#FFFFFF"} onChange={field.onChange} id={`posts.${index}.accentColor`} className={cn(error && "border-destructive")}/>
+            <p className={"text-xs text-muted-foreground"}>Used as the top border color on the blog card.</p>
+            {error && <small className={"text-destructive"}>{error.message}</small>}
+          </div>
+        }
+      />
     </>
   );
 }
