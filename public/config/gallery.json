@@ -24,6 +24,17 @@
         ],
         "coverImage": "",
         "description": ""
+      },
+      {
+        "name": "Tekknite 2025",
+        "slugs": [
+          {
+            "slug": "tekknite-2025",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
       }
     ],
     "photos": [
@@ -45,6 +56,16 @@
         "categories": [
           "Tekkon",
           "Tekknite 2026"
+        ]
+      },
+      {
+        "id": "photo-fb5de012273f",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/_U0A0267.jpg",
+        "title": "",
+        "caption": "@ Tekknite 2025",
+        "categories": [
+          "Tekknite 2025",
+          "Tekkon"
         ]
       }
     ]
