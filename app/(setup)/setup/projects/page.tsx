@@ -8,6 +8,7 @@ import {Input} from "@/components/ui/input";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
 import {FileUrl} from "@/components/ui/FileUrl";
+import {FileUrlArray} from "@/components/ui/FileUrlArray";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -193,7 +194,7 @@ function ProjectFields({control, index, journey}: {control: Control<TInput>; ind
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={"images"}>Additional image URLs</Label>
-            <ArrayInput value={field.value || []} onChange={field.onChange} id={"images"} placeholder={"Paste an image URL and press Enter"} className={cn("w-full", error && "border-destructive")}/>
+            <FileUrlArray value={field.value || []} onChange={field.onChange} id={"images"} placeholder={"Paste an image URL and press Enter"} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }

@@ -18,12 +18,14 @@ import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 type GithubFilePickerProps = {
   path?: string;
   onSelect?: (url: string) => void;
+  selectedUrls?: string[];
   className?: string;
 };
 
 function GithubFilePicker({
   path = UPLOADS_PATH,
   onSelect,
+  selectedUrls = [],
   className
 }: GithubFilePickerProps) {
   const {
@@ -43,6 +45,9 @@ function GithubFilePicker({
   const otherFiles = filteredFiles?.filter(file => getFileTypeFromExtension(file.name) !== "Image");
 
   function handleSelect(file: GitHubContent) {
+    if (selectedUrls.some((url) => url === file.download_url)) {
+      return;
+    }
     onSelect?.(file.download_url);
   }
 
@@ -94,6 +99,7 @@ function GithubFilePicker({
                   file={file}
                   onSelect={handleSelect}
                   onView={(url) => setImagePreview({url, name: file.name})}
+                  isSelected={selectedUrls.some((url) => url === file.download_url)}
                 />
               ))}
             </div>
@@ -109,6 +115,7 @@ function GithubFilePicker({
                   key={i}
                   file={file}
                   onSelect={handleSelect}
+                  isSelected={selectedUrls.some((url) => url === file.download_url)}
                 />
               ))}
             </div>
@@ -135,11 +142,13 @@ function GithubFilePicker({
 function PickerImageCard({
   file,
   onSelect,
-  onView
+  onView,
+  isSelected
 }: {
   file: GitHubContent;
   onSelect: (file: GitHubContent) => void;
   onView: (url: string) => void;
+  isSelected: boolean;
 }) {
   const [hovered, setHovered] = useState(false);
 
@@ -153,17 +162,25 @@ function PickerImageCard({
       <TooltipTrigger type="button" delay={2000}>
         <div
           className={cn(
-            "group relative aspect-square rounded-lg border overflow-hidden cursor-pointer transition-all duration-150 hover:scale-[1.02] hover:shadow-md",
-            hovered && "ring-2 ring-ring"
+            "group relative aspect-square rounded-lg border overflow-hidden transition-all duration-150",
+            isSelected
+              ? "ring-2 ring-ring border-ring opacity-60 cursor-default"
+              : "cursor-pointer hover:scale-[1.02] hover:shadow-md",
+            !isSelected && hovered && "ring-2 ring-ring"
           )}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          onClick={() => onSelect(file)}
+          onClick={() => {
+            if (!isSelected) {
+              onSelect(file);
+            }
+          }}
           role="button"
           tabIndex={0}
           aria-label={`Select ${file.name}`}
+          aria-pressed={isSelected}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
+            if (!isSelected && (e.key === "Enter" || e.key === " ")) {
               e.preventDefault();
               onSelect(file);
             }
@@ -182,7 +199,13 @@ function PickerImageCard({
             }}
           />
 
-          {hovered && (
+          {isSelected && (
+            <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+              <Check size={24} className="text-white drop-shadow-md" aria-hidden="true" />
+            </div>
+          )}
+
+          {!isSelected && hovered && (
             <div className="absolute inset-0 bg-black/40 flex items-center justify-center gap-1">
               <Button
                 type="button"
@@ -223,24 +246,34 @@ function PickerImageCard({
 
 function PickerFileCard({
   file,
-  onSelect
+  onSelect,
+  isSelected
 }: {
   file: GitHubContent;
   onSelect: (file: GitHubContent) => void;
+  isSelected: boolean;
 }) {
   return (
     <Tooltip>
       <TooltipTrigger type="button" delay={2000}>
         <div
           className={cn(
-            "flex items-center gap-2 rounded-lg border p-2 cursor-pointer transition-all duration-150 hover:bg-muted hover:shadow-sm"
+            "flex items-center gap-2 rounded-lg border p-2 transition-all duration-150",
+            isSelected
+              ? "border-ring bg-ring/10 opacity-60 cursor-default"
+              : "cursor-pointer hover:bg-muted hover:shadow-sm"
           )}
-          onClick={() => onSelect(file)}
+          onClick={() => {
+            if (!isSelected) {
+              onSelect(file);
+            }
+          }}
           role="button"
           tabIndex={0}
           aria-label={`Select ${file.name}`}
+          aria-pressed={isSelected}
           onKeyDown={(e) => {
-            if (e.key === "Enter" || e.key === " ") {
+            if (!isSelected && (e.key === "Enter" || e.key === " ")) {
               e.preventDefault();
               onSelect(file);
             }
@@ -256,10 +289,12 @@ function PickerFileCard({
             type="button"
             size="icon-xs"
             variant="ghost"
-            className="shrink-0 cursor-pointer hover:-translate-y-px"
+            className={cn("shrink-0", isSelected ? "cursor-default" : "cursor-pointer hover:-translate-y-px")}
             onClick={(e) => {
               e.stopPropagation();
-              onSelect(file);
+              if (!isSelected) {
+                onSelect(file);
+              }
             }}
             aria-label={`Select ${file.name}`}
           >

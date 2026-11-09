@@ -7,6 +7,7 @@ import {Controller} from "react-hook-form";
 import {defaultValues, TOutput, schema} from "@/configuration/home";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -46,7 +47,7 @@ function Page() {
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={"coverPicture"}>Cover Picture</Label>
-              <Input {...field} id={"coverPicture"} placeholder={"https://example.com/cover.jpg"} className={cn(error && "border-destructive")} />
+              <FileUrl {...field} id={"coverPicture"} placeholder={"https://example.com/cover.jpg"} className={cn(error && "border-destructive")} />
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }

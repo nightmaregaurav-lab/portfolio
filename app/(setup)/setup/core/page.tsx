@@ -7,6 +7,7 @@ import {Controller} from "react-hook-form";
 import {defaultValues, TOutput, schema} from "@/configuration/core";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import {ArrayInput} from "@/components/ui/ArrayInput";
@@ -48,7 +49,7 @@ function Page() {
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={"favicon"}>Favicon</Label>
-              <Input {...field} id={"favicon"} placeholder={"https://example.com/favicon.ico"} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={"favicon"} placeholder={"https://example.com/favicon.ico"} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }

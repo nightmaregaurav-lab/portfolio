@@ -70,7 +70,7 @@ function FileUrl({
         <DialogContent className="max-w-lg">
           <DialogTitle>Select a File</DialogTitle>
           {gitHubSession ? (
-            <GithubFilePicker onSelect={handleSelect} />
+            <GithubFilePicker onSelect={handleSelect} selectedUrls={value ? [value] : []} />
           ) : (
             <span className={"text-gray-500"}>
               You have not logged in yet. Please log in to use the file picker.

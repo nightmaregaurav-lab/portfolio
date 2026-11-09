@@ -7,6 +7,7 @@ import {Controller, useFieldArray} from "react-hook-form";
 import {defaultValues, TOutput, schema} from "@/configuration/about";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -62,7 +63,7 @@ function Page() {
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={"heroPicture"}>Hero Picture</Label>
-              <Input {...field} id={"heroPicture"} placeholder={"https://example.com/hero.jpg"} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={"heroPicture"} placeholder={"https://example.com/hero.jpg"} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }
