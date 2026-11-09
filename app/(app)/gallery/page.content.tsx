@@ -12,7 +12,7 @@ import {getCollectionCover, getCollectionPhotos} from "./[collectionSlug]/page.u
 export const uncategorizedGalleryCategory = {
   name: "Uncategorized",
   slugs: [{slug: "uncategorized", isActive: true}],
-  coverImage: "",
+  coverImage: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Pineapple_Postcards_%28Unsplash%29.jpg",
   description: "Photos that are not part of a specific collection."
 };
 
