@@ -95,8 +95,8 @@
         "name": "BCA",
         "slugs": [
           {
-            "slug": "bca",
-            "isActive": true
+            "isActive": true,
+            "slug": "bca"
           }
         ],
         "coverImage": "",
@@ -106,8 +106,8 @@
         "name": "Mechi Multiple Campus",
         "slugs": [
           {
-            "slug": "mechi-multiple-campus",
-            "isActive": true
+            "isActive": true,
+            "slug": "mechi-multiple-campus"
           }
         ],
         "coverImage": "",
@@ -257,6 +257,20 @@
         "categories": [
           "Mechi Multiple Campus"
         ]
+      },
+      {
+        "id": "photo-d54b9ed3fbdb",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-38-30-d9j8xxpxKT-1667389723849.jpg",
+        "title": "",
+        "caption": "Is this how my code looks to my coffee?",
+        "categories": []
+      },
+      {
+        "id": "photo-f684a22456e1",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-39-39-F2R8N6JKaS-1667389723898.jpg",
+        "title": "",
+        "caption": "Redbull? Nah, Red Tiger",
+        "categories": []
       }
     ]
   }
