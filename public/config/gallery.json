@@ -2,7 +2,41 @@
   "version": 1,
   "configuration": {
     "summary": "<p>Explore a curated photo gallery featuring photographs organized by category. Discover memorable moments, places, experiences, and visual stories.</p>",
-    "categories": [],
-    "photos": []
+    "categories": [
+      {
+        "name": "Tekkon",
+        "slugs": [
+          {
+            "slug": "tekkon",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "Tekknite 2026",
+        "slugs": [
+          {
+            "slug": "tekknite-2026",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      }
+    ],
+    "photos": [
+      {
+        "id": "photo-84f76b62bea1",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/_MG_3161.jpg",
+        "title": "Hosting Team-building activity @ Tekknite 2026",
+        "caption": "Hosting Team-building activity @ Tekknite 2026",
+        "categories": [
+          "Tekkon",
+          "Tekknite 2026"
+        ]
+      }
+    ]
   }
 }
