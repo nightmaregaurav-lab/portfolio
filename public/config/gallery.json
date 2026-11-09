@@ -90,6 +90,28 @@
         ],
         "coverImage": "",
         "description": ""
+      },
+      {
+        "name": "BCA",
+        "slugs": [
+          {
+            "slug": "bca",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "Mechi Multiple Campus",
+        "slugs": [
+          {
+            "slug": "mechi-multiple-campus",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
       }
     ],
     "photos": [
@@ -216,6 +238,24 @@
           "Bishnudwar Hike",
           "Tekkon",
           "Nepal"
+        ]
+      },
+      {
+        "id": "photo-63cba3624dd4",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-32-15-N5sAZ55Ayz-1667389723777.jpeg",
+        "title": "Assisting in a BCA Lab Session",
+        "caption": "I've always believed That Teaching is the best way to preserve your knowledge.",
+        "categories": [
+          "Mechi Multiple Campus"
+        ]
+      },
+      {
+        "id": "photo-68de4aee6ad5",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-29-37-1uovsV6fVt-1667389723806.jpg",
+        "title": "",
+        "caption": "Blood Donation: Saving Lives",
+        "categories": [
+          "Mechi Multiple Campus"
         ]
       }
     ]
