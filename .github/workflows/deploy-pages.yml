@@ -47,6 +47,7 @@ jobs:
         env:
           NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
           NEXT_PUBLIC_SITE_URL: ${{ steps.site.outputs.url }}
+          NEXT_PUBLIC_GITHUB_REPO: ${{ github.repository }}
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v4

@@ -27,7 +27,11 @@ function GitHubLoginDialog(
 
   const [showPat, setShowPat] = useState(false);
   const [pat, setPat] = useState("");
-  const [repoName, setRepoName] = useState("");
+  const [repoName, setRepoName] = useState(() => {
+    return typeof window !== "undefined" && process.env.NEXT_PUBLIC_GITHUB_REPO
+      ? process.env.NEXT_PUBLIC_GITHUB_REPO
+      : "";
+  });
 
   const savePat = async () => {
     if(!pat || !repoName){
@@ -78,6 +82,12 @@ function GitHubLoginDialog(
             {!gitHubSession && <>
               <p>To use this application, you need to provide a GitHub Personal Access Token (PAT) with the necessary permissions.</p>
               <p>Please <SmartLink className={"underline!"} href={"https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens"} target="_blank">generate a token on GitHub</SmartLink> and enter it below.</p>
+              <Input
+                type="text"
+                placeholder="Enter your repository name (e.g., owner/repo or repo)"
+                value={repoName}
+                onChange={(e) => setRepoName(e.target.value)}
+              />
               <InputGroup>
                 <InputGroupInput
                   type={showPat ? "text" : "password"}
@@ -92,12 +102,6 @@ function GitHubLoginDialog(
                   }
                 </InputGroupAddon>
               </InputGroup>
-              <Input
-                type="text"
-                placeholder="Enter your repository name (e.g., owner/repo or repo)"
-                value={repoName}
-                onChange={(e) => setRepoName(e.target.value)}
-              />
               <Button
                 type="submit"
                 className="px-4 py-2 cursor-pointer hover:-translate-y-px"
