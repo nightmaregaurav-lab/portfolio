@@ -11,7 +11,7 @@ import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
 import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
-import {Pencil, Plus, Trash2} from "lucide-react";
+import {AlertCircle, Pencil, Plus, Trash2} from "lucide-react";
 import {cn} from "@/lib/utils";
 import {Control, Controller, useFieldArray, useWatch} from "react-hook-form";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
@@ -117,12 +117,13 @@ function PhotoFields(
 
 function GalleryPhotoCard(
   {
-    photo, index, onEdit, onDelete
+    photo, index, onEdit, onDelete, hasError
   }: {
     photo: NonNullable<TInput["photos"]>[number];
     index: number;
     onEdit: () => void;
     onDelete: () => void;
+    hasError: boolean;
   }
 ) {
   const imageName = photo.title || photo.caption || `Gallery photo ${index + 1}`;
@@ -141,6 +142,12 @@ function GalleryPhotoCard(
           trigger={image}
         /> : image
       }
+
+      {hasError && (
+        <div className={"absolute left-2 top-2 z-10 flex size-6 items-center justify-center rounded-full bg-destructive"} title={"This photo has validation errors"}>
+          <AlertCircle size={14} className={"text-white"} />
+        </div>
+      )}
 
       <div className={"pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/30 to-transparent p-3 pt-10"}>
         {photo.title && <p className={"truncate text-sm font-semibold text-white"}>{photo.title}</p>}
@@ -603,6 +610,7 @@ function Page() {
                 index={index}
                 onEdit={() => openEditor(index)}
                 onDelete={() => remove(index)}
+                hasError={!!form.formState.errors.photos?.[index]}
               />
             ))}
           </div>
