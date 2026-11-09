@@ -260,6 +260,24 @@
         "title": "",
         "caption": "Redbull? Nah, Red Tiger",
         "categories": []
+      },
+      {
+        "id": "photo-0f47d6fc41c0",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2023-10-22-11-17-24-hQtOJ1GhVT-1697952235328.jpg",
+        "title": "Raani Jhula",
+        "caption": "I thought someone named it in Google Maps as a joke, but apparently it's the real name.",
+        "categories": [
+          "Nepal"
+        ]
+      },
+      {
+        "id": "photo-d97fcf1bab9e",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2023-10-22-11-17-6-Z8MfEVJSoM-1697952235336.jpg",
+        "title": "Raani Jharna | Queen waterfall",
+        "caption": "It's also named Nagarkot Jharna in Google Map. Not sure which one is the correct name.",
+        "categories": [
+          "Nepal"
+        ]
       }
     ]
   }
