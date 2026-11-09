@@ -58,6 +58,7 @@
   position: relative;
   grid-column: span 4;
   min-width: 0;
+  min-height: 16rem;
   overflow: hidden;
   border-radius: 1rem;
   background: var(--card);
@@ -90,14 +91,10 @@
 .photoImage {
   display: block;
   width: 100%;
-  aspect-ratio: 4 / 3;
+  height: 100%;
   object-fit: cover;
   transition: transform 280ms ease;
   pointer-events: none;
-}
-
-.photoCard[data-size="wide"] .photoImage {
-  aspect-ratio: 16 / 9;
 }
 
 .photoCard:hover .photoImage {
