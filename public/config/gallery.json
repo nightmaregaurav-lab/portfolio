@@ -79,6 +79,17 @@
         ],
         "coverImage": "",
         "description": ""
+      },
+      {
+        "name": "Bishnudwar Hike",
+        "slugs": [
+          {
+            "slug": "bishnudwar-hike",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
       }
     ],
     "photos": [
@@ -188,6 +199,24 @@
         "title": "The color of peace",
         "caption": "Believe me when I say this. Peace does have a color.",
         "categories": []
+      },
+      {
+        "id": "photo-ad62e35e3ac4",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_20220212_100012.jpg",
+        "title": "",
+        "caption": "My love for desolate places has no parallel",
+        "categories": []
+      },
+      {
+        "id": "photo-bc837e2cf98a",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG-20250524-WA0138.jpg",
+        "title": "",
+        "caption": "Tekkon x Bishnudwar Hike",
+        "categories": [
+          "Bishnudwar Hike",
+          "Tekkon",
+          "Nepal"
+        ]
       }
     ]
   }
