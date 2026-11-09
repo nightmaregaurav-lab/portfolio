@@ -135,6 +135,34 @@
           "Nepal",
           "Mustang"
         ]
+      },
+      {
+        "id": "photo-017c9a6b4477",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-40-51-QZo8fEVxK3-1667389724096.jpg",
+        "title": "Hear me roar",
+        "caption": "We called him 'Sher Khan'",
+        "categories": [
+          "Furry Friends"
+        ]
+      },
+      {
+        "id": "photo-f1aae7c0e2dc",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_20211228_165900.jpg",
+        "title": "Puddle of Joy",
+        "caption": "Found these cuties @ Hetauda",
+        "categories": [
+          "Furry Friends",
+          "Nepal"
+        ]
+      },
+      {
+        "id": "photo-c1640d24b261",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-36-49-nCUg76jH18-1667389723641.jpg",
+        "title": "",
+        "caption": "Damak Chowk",
+        "categories": [
+          "Nepal"
+        ]
       }
     ]
   }
