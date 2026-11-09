@@ -84,8 +84,8 @@
         "name": "Bishnudwar Hike",
         "slugs": [
           {
-            "slug": "bishnudwar-hike",
-            "isActive": true
+            "isActive": true,
+            "slug": "bishnudwar-hike"
           }
         ],
         "coverImage": "",
@@ -96,7 +96,7 @@
       {
         "id": "photo-84f76b62bea1",
         "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/_MG_3161.jpg",
-        "title": "Hosting Team-building activity @ Tekknite 2026",
+        "title": "",
         "caption": "Hosting Team-building activity @ Tekknite 2026",
         "categories": [
           "Tekkon",
