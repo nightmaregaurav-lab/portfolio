@@ -21,7 +21,7 @@ export function getCollectionCover(collectionName: string, photos: GalleryModel[
 
   const images = getCollectionPhotos(collectionName, photos);
   if (images.length) {
-    return images[0].url;
+    return images[images.length - 1].url;
   }
 
   if(collectionName === uncategorizedGalleryCategory.name) {
