@@ -423,6 +423,22 @@ function Page() {
       }
     }
 
+    const categoryNamesWithPhotos = new Set<string>();
+    for (const photo of values.photos) {
+      for (const categoryName of photo.categories) {
+        const normalizedName = categoryName.trim().toLocaleLowerCase();
+        if (normalizedName) {
+          categoryNamesWithPhotos.add(normalizedName);
+        }
+      }
+    }
+    values.categories = values.categories.filter(category => {
+      const hasPhotos = categoryNamesWithPhotos.has(category.name.trim().toLocaleLowerCase());
+      const hasCoverImage = !!category.coverImage?.trim();
+      const hasDescription = !!category.description?.trim();
+      return hasPhotos || hasCoverImage || hasDescription;
+    });
+
     for (const category of values.categories){
       const exhaustedSlugsExceptThisCategory = new Set(values
         .categories
