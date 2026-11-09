@@ -6,6 +6,7 @@ import {Identifier, useConfig} from "@/hooks/useConfig";
 import {defaultValues, TInput, TOutput, schema} from "@/configuration/skills";
 import {Input} from "@/components/ui/input";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -59,7 +60,7 @@ function SkillFields(
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={`skills.${index}.image`}>Image URL</Label>
-              <Input {...field} id={`skills.${index}.image`} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={`skills.${index}.image`} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }

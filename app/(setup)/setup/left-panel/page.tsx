@@ -14,6 +14,7 @@ import FullScreenMessage from "@/components/ui/FullScreenMessage";
 import { Spinner } from "@/components/ui/spinner";
 import { Trash2, Plus } from "lucide-react";
 import CheckboxList from "@/components/ui/CheckboxList";
+import { FileUrl } from "@/components/ui/FileUrl";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 
 const availableMenus = [
@@ -70,7 +71,7 @@ function Page() {
           render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={"profilePicture"}>Profile Photo</Label>
-              <Input {...field} id={"profilePicture"} placeholder={"https://example.com/profile.jpg"} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={"profilePicture"} placeholder={"https://example.com/profile.jpg"} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           )}

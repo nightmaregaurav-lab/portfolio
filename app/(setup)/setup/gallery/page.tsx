@@ -7,6 +7,7 @@ import {defaultValues, TInput, TOutput, schema} from "@/configuration/gallery";
 import {Input} from "@/components/ui/input";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -61,7 +62,7 @@ function PhotoFields(
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`photos.${index}.url`}>Photo URL</Label>
-            <Input {...field} id={`photos.${index}.url`} placeholder={"https://example.com/photo.jpg"} className={cn("w-full", error && "border-destructive")}/>
+            <FileUrl {...field} id={`photos.${index}.url`} placeholder={"https://example.com/photo.jpg"} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -538,7 +539,7 @@ function Page() {
                         render={({field, fieldState: {error}}) =>
                           <div className={"grid gap-2"}>
                             <Label htmlFor={`categories.${index}.coverImage`}>Folder cover image URL (optional)</Label>
-                            <Input
+                            <FileUrl
                               {...field}
                               id={`categories.${index}.coverImage`}
                               value={field.value || ""}

@@ -16,6 +16,7 @@ import Image from "next/image";
 import {Checkbox} from "@/components/ui/checkbox";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 import {getFileTypeFromExtension, humanizeFileSize} from "@/lib/files";
+import {UPLOADS_PATH, UPLOADS_THUMBS_PATH} from "@/lib/pathConfig";
 import FileUploadButton from "@/components/ui/FileUploadButton";
 import {confirm} from "@/components/ui/Confirm";
 import ImageLightbox from "@/components/ui/ImageLightbox";
@@ -422,8 +423,8 @@ function FileIconWithCheckbox(
   const showCheckbox = hovered || isAnySelected;
 
   const isImage = getFileTypeFromExtension(file.name) === "Image";
-  const thumbnailUrl = isImage && file.path.startsWith("public/uploads/") && !file.path.startsWith("public/uploads_thumbs/")
-    ? file.download_url.replace("/public/uploads/", "/public/uploads_thumbs/")
+  const thumbnailUrl = isImage && file.path.startsWith(`${UPLOADS_PATH}/`) && !file.path.startsWith(`${UPLOADS_THUMBS_PATH}/`)
+    ? file.download_url.replace(`/${UPLOADS_PATH}/`, `/${UPLOADS_THUMBS_PATH}/`)
     : file.download_url;
   const [imageUrl, setImageUrl] = useState(thumbnailUrl);
 

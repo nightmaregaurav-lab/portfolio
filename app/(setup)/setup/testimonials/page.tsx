@@ -7,6 +7,7 @@ import {defaultValues, TInput, TOutput, schema} from "@/configuration/testimonia
 import {Input} from "@/components/ui/input";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -72,7 +73,7 @@ function TestimonialFields({control, index}: {control: Control<TInput>; index: n
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={`testimonials.${index}.image`}>Image URL</Label>
-              <Input {...field} id={`testimonials.${index}.image`} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={`testimonials.${index}.image`} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }

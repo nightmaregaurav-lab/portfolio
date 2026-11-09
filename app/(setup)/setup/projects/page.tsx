@@ -7,6 +7,7 @@ import {defaultValues, TInput, TOutput, schema} from "@/configuration/projects";
 import {Input} from "@/components/ui/input";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
@@ -155,7 +156,7 @@ function ProjectFields({control, index, journey}: {control: Control<TInput>; ind
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={"previewImage"}>Preview image URL</Label>
-              <Input {...field} id={"previewImage"} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
+              <FileUrl {...field} id={"previewImage"} placeholder={"https://..."} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }
