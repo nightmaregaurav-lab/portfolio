@@ -9,7 +9,7 @@ export function getCollectionPhotos(collectionName: string, photos: GalleryModel
 }
 
 export function getCollectionCover(collectionName: string, photos: GalleryModel["photos"], coverImage?: string) {
-  if (coverImage) {
+  if (coverImage && collectionName !== uncategorizedGalleryCategory.name) {
     return coverImage;
   }
 
@@ -17,5 +17,10 @@ export function getCollectionCover(collectionName: string, photos: GalleryModel[
   if (images.length) {
     return images[0].url;
   }
+
+  if(collectionName === uncategorizedGalleryCategory.name) {
+    return coverImage;
+  }
+
   return null;
 }
