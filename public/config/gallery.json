@@ -40,8 +40,8 @@
         "name": "Mustang",
         "slugs": [
           {
-            "slug": "mustang",
-            "isActive": true
+            "isActive": true,
+            "slug": "mustang"
           }
         ],
         "coverImage": "",
@@ -51,8 +51,8 @@
         "name": "Nepal",
         "slugs": [
           {
-            "slug": "nepal",
-            "isActive": true
+            "isActive": true,
+            "slug": "nepal"
           }
         ],
         "coverImage": "",
@@ -62,8 +62,8 @@
         "name": "The Himalayas",
         "slugs": [
           {
-            "slug": "the-himalayas",
-            "isActive": true
+            "isActive": true,
+            "slug": "the-himalayas"
           }
         ],
         "coverImage": "",
@@ -73,8 +73,8 @@
         "name": "Furry Friends",
         "slugs": [
           {
-            "slug": "furry-friends",
-            "isActive": true
+            "isActive": true,
+            "slug": "furry-friends"
           }
         ],
         "coverImage": "",
@@ -122,6 +122,18 @@
           "Nepal",
           "The Himalayas",
           "Furry Friends"
+        ]
+      },
+      {
+        "id": "photo-a2d9907d985a",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-33-7-IJSasnD9nb-1667389724001.jpg",
+        "title": "",
+        "caption": "A random dog started following us while we were exploring around Muktinath Temple. I'd like to think it's their ability to sense love.",
+        "categories": [
+          "Furry Friends",
+          "The Himalayas",
+          "Nepal",
+          "Mustang"
         ]
       }
     ]
