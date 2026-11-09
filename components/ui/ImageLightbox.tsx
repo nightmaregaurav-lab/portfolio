@@ -23,9 +23,10 @@ type ImageLightboxProps = {
   trigger?: React.ReactNode;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
+  children?: React.ReactNode;
 };
 
-function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}: ImageLightboxProps) {
+function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange, children}: ImageLightboxProps) {
   const containerRef = React.useRef<HTMLDivElement>(null);
   const [imageSize, setImageSize] = useState({ width: 0, height: 0 });
   const [fitScale, setFitScale] = useState(1);
@@ -78,7 +79,9 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
       setUncontrolledOpen(nextOpen);
       onOpenChange?.(nextOpen);
     }}>
-      {trigger && <Button
+      {children ? (
+        children
+      ) : trigger && <Button
         type={"button"}
         variant={"ghost"}
         size={"default"}

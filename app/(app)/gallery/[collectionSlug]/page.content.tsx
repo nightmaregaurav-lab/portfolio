@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
-import {ArrowLeft, Images} from "lucide-react";
+import React, {useState} from "react";
+import {ArrowLeft, Eye, Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
@@ -30,23 +30,55 @@ function PageContent(
           {collection.photos.map((photo, index) => {
             const imageName = photo.title || "Untitled Photo";
             const imageUrl = photo.url;
+            const [isHovered, setIsHovered] = useState(false);
+            const [lightboxOpen, setLightboxOpen] = useState(false);
+
             return (
               <article
                 className={styles.photoCard}
                 data-size={index % 5 === 0 ? "wide" : "regular"}
+                data-hovered={isHovered ? "true" : "false"}
                 key={photo.id + "-" + index}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                onTouchStart={() => setIsHovered(prev => !prev)}
               >
                 <ImageLightbox
                   src={imageUrl}
                   name={imageName}
-                  trigger={<img className={styles.photoImage} src={imageUrl} alt={imageName}/>}
-                />
-                {(photo.title || photo.caption) && (
+                  open={lightboxOpen}
+                  onOpenChange={setLightboxOpen}
+                >
+                  <img
+                    className={styles.photoImage}
+                    src={imageUrl}
+                    alt={imageName}
+                    onClick={() => setLightboxOpen(true)}
+                  />
+                </ImageLightbox>
+                {(photo.title || photo.caption || (photo.categories && photo.categories.length)) && (
                   <div className={styles.photoText}>
+                    {photo.categories && photo.categories.length && (
+                      <div className={styles.photoCategories}>
+                        {photo.categories.map((category) => (
+                          <span className={styles.photoCategory} key={category}>{category}</span>
+                        ))}
+                      </div>
+                    )}
                     {photo.title && <h2 className={styles.photoTitle}>{photo.title}</h2>}
                     {photo.caption && <p className={styles.photoCaption}>{photo.caption}</p>}
                   </div>
                 )}
+                <button
+                  className={styles.viewButton}
+                  onClick={(event) => {
+                    event.stopPropagation();
+                    setLightboxOpen(true);
+                  }}
+                  aria-label={`View ${imageName}`}
+                >
+                  <Eye size={24} aria-hidden="true" />
+                </button>
               </article>
             );
           })}

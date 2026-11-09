@@ -63,6 +63,7 @@
   background: var(--card);
   transition: transform 180ms ease, box-shadow 180ms ease;
   animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  cursor: pointer;
 }
 
 .photoCard:nth-child(2) { animation-delay: 50ms; }
@@ -92,6 +93,7 @@
   aspect-ratio: 4 / 3;
   object-fit: cover;
   transition: transform 280ms ease;
+  pointer-events: none;
 }
 
 .photoCard[data-size="wide"] .photoImage {
@@ -103,9 +105,82 @@
 }
 
 .photoText {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   display: grid;
   gap: 0.25rem;
-  padding: 0.9rem 1rem 1.05rem;
+  padding: 2.5rem 1rem 1rem;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 60%, transparent 100%);
+  color: white;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 200ms ease, transform 200ms ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.photoCard[data-hovered="true"] .photoText {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.photoCard[data-hovered="true"] .photoCaption {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.photoCategories {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.photoCategory {
+  display: inline-block;
+  padding: 0.15rem 0.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 0.7rem;
+  font-weight: 500;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(4px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.viewButton {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--foreground);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms ease, transform 200ms ease, background 150ms ease;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.viewButton:hover {
+  background: rgba(255, 255, 255, 1);
+}
+
+.photoCard[data-hovered="true"] .viewButton {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+  pointer-events: auto;
 }
 
 .photoTitle {
@@ -167,6 +242,12 @@
   }
 
   .photoImage {
+    transition: none;
+  }
+
+  .photoText,
+  .photoCategory,
+  .viewButton {
     transition: none;
   }
 }
