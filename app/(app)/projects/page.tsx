@@ -3,6 +3,7 @@ import {CoreConfig, JourneyConfig, ProjectsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
+import {Suspense} from "react";
 
 const description = stripHtmlTags(ProjectsConfig.summary).slice(0, 300);
 
@@ -17,10 +18,12 @@ function Page() {
   const canonical = getCanonicalUrl("/projects/");
   return (
     <>
-      <PageContent
-        projectsConfig={ProjectsConfig}
-        journeyConfig={JourneyConfig}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <PageContent
+          projectsConfig={ProjectsConfig}
+          journeyConfig={JourneyConfig}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",

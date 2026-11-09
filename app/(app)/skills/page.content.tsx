@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import {ArrowUpRight, Brain, Compass} from "lucide-react";
+import {Brain, Compass} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
@@ -11,6 +11,18 @@ import type {TModel as JourneyModel} from "@/configuration/journey";
 import type {TModel as ProjectsModel} from "@/configuration/projects";
 import styles from "./page.module.css";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+
+function getSkillMilestoneType(skill: SkillsModel["skills"][number], journeyConfig: JourneyModel): JourneyModel["milestones"][number]["type"] {
+  const relatedMilestones = skill.associatedMilestoneIds
+    .map((id) => journeyConfig.milestones.find((milestone) => milestone.id === id))
+    .filter(Boolean) as JourneyModel["milestones"][number][];
+
+  if (relatedMilestones.length === 0) return "Personal";
+  if (relatedMilestones.length === 1) return relatedMilestones[0].type;
+
+  relatedMilestones.sort((a, b) => b.start.localeCompare(a.start));
+  return relatedMilestones[0].type;
+}
 
 function getRelatedWorks(skill: SkillsModel["skills"][number], journeyConfig: JourneyModel, projectsConfig: ProjectsModel) {
   const relatedProjects = skill.associatedProjectIds.map((id) => projectsConfig.projects.find((project) => project.id === id)).filter(Boolean);
@@ -55,7 +67,7 @@ function PageContent(
       {skillsConfig.skills && skillsConfig.skills.length > 0 ? (
         <section className={styles.skillGrid} aria-label="Skills and capabilities">
           {skillsConfig.skills.map((skill, index) => (
-            <Card className={styles.skillCard} data-tone={String(index % 3)} key={skill.id}>
+            <Card className={styles.skillCard} data-type={getSkillMilestoneType(skill, journeyConfig)} key={skill.id}>
               <div className={styles.skillImage}>
                 <img src={skill.image} alt="" loading={index > 1 ? "lazy" : "eager"}/>
                 <span className={styles.skillIndex} aria-hidden="true">0{index + 1}</span>
