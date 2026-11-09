@@ -29,7 +29,51 @@
         "name": "Tekknite 2025",
         "slugs": [
           {
-            "slug": "tekknite-2025",
+            "isActive": true,
+            "slug": "tekknite-2025"
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "Mustang",
+        "slugs": [
+          {
+            "slug": "mustang",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "Nepal",
+        "slugs": [
+          {
+            "slug": "nepal",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "The Himalayas",
+        "slugs": [
+          {
+            "slug": "the-himalayas",
+            "isActive": true
+          }
+        ],
+        "coverImage": "",
+        "description": ""
+      },
+      {
+        "name": "Furry Friends",
+        "slugs": [
+          {
+            "slug": "furry-friends",
             "isActive": true
           }
         ],
@@ -66,6 +110,18 @@
         "categories": [
           "Tekknite 2025",
           "Tekkon"
+        ]
+      },
+      {
+        "id": "photo-ff0ddcc20831",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/2022-11-2-22-32-44-DyLwQNQaBB-1667389723987.jpg",
+        "title": "",
+        "caption": "One best friend is enough. As long as it's a Dog.",
+        "categories": [
+          "Mustang",
+          "Nepal",
+          "The Himalayas",
+          "Furry Friends"
         ]
       }
     ]
