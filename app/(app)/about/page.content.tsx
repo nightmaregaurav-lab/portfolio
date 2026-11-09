@@ -18,10 +18,10 @@ function PageContent(
   }
 ) {
   return (
-    <main className={cn(styles.page)}>
+    <main className={cn(styles.page)} aria-label="About">
       <h1 className={styles.pageHeader}>About</h1>
       <HtmlRenderer className={styles.pageText}>{aboutConfig.summary}</HtmlRenderer>
-      <div className={styles.pageContent}>
+      <section className={styles.pageContent} aria-label="Profile details">
         <AspectRatio ratio={16 / 9} className="w-full max-w-sm rounded-lg bg-muted">
           <ImageLightbox
             src={aboutConfig.heroPicture}
@@ -46,7 +46,7 @@ function PageContent(
             </div>
           ))}
         </div>
-      </div>
+      </section>
       {aboutConfig.additionalInformation && (
         <section className={styles.additional} aria-label="Additional information">
           <HtmlRenderer className={styles.additionalText}>{aboutConfig.additionalInformation}</HtmlRenderer>

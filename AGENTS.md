@@ -25,6 +25,18 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - Avoid reformatting untouched code.
 - If conventions conflict, follow the most local, well-established pattern and keep the change as small as practical.
 
+## Accessibility
+
+- Every interactive element (buttons, links, inputs) must have an accessible label via `aria-label`, `aria-labelledby`, or visible text content.
+- Decorative icons and images inside labeled containers must include `aria-hidden="true"` to avoid duplicate announcements.
+- Images must have meaningful `alt` text describing their content or purpose; decorative images should use `alt=""` with a surrounding label.
+- Landmark regions (`<main>`, `<section>`, `<nav>`, `<aside>`, `<header>`, `<footer>`) should include descriptive `aria-label` attributes when multiple regions of the same type exist.
+- Use `aria-current="page"` on the active navigation item.
+- Use `aria-pressed` for toggle buttons and `aria-expanded` for collapsible regions.
+- Provide `role` attributes where semantic HTML alone is insufficient (e.g., `role="img"` on decorative background-image divs).
+- Use `aria-live` regions for dynamic content changes (e.g., search result counts).
+- Ensure all focusable elements have visible focus indicators.
+
 ## Changes and dependencies
 
 - Make the smallest coherent change that completes the request.

@@ -79,7 +79,7 @@ function PageContent(
   }, [projects, debouncedSearchTerm]);
 
   return (
-    <main className={cn(styles.page)}>
+    <main className={cn(styles.page)} aria-label="Projects">
       <h1 className={styles.pageHeader}>Projects</h1>
       <HtmlRenderer className={styles.pageText}>{projectsConfig.summary}</HtmlRenderer>
 
@@ -133,6 +133,7 @@ function PageContent(
                 href={"/projects/" + getActiveSlug(project.slugs) + "/"}
                 className={styles.projectLink}
                 key={project.id}
+                aria-label={`View ${project.title}`}
               >
                 <Card className={styles.projectCard} data-type={getProjectMilestoneType(project)}>
                   <div className={styles.projectCover}>

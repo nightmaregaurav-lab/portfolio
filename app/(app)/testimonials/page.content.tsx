@@ -19,7 +19,7 @@ function PageContent(
   }
 ) {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Testimonials">
       <header className={styles.intro}>
         <div>
           <h1 className={styles.pageHeader}>Testimonials</h1>
@@ -39,17 +39,17 @@ function PageContent(
               <CardHeader className={styles.quoteHeader}>
                 <div className={styles.author}>
                   <Avatar size="lg">
-                    {testimonial.image && <AvatarImage src={testimonial.image} alt=""/>}
+                    {testimonial.image && <AvatarImage src={testimonial.image} alt={`${testimonial.by} avatar`}/>}
                     <AvatarFallback aria-hidden="true">{initials(testimonial.by)}</AvatarFallback>
                   </Avatar>
                   <div>
                     <CardTitle className={styles.authorName}>{testimonial.by}</CardTitle>
                     <p className={styles.authorMeta}>
-                      <SmartLink href={testimonial.companyWebsite || ""}>
+                      <SmartLink href={testimonial.companyWebsite || ""} aria-label={`Visit ${testimonial.company}`}>
                         {testimonial.company}
                       </SmartLink>
                       {testimonial.company && testimonial.department && " • "}
-                      <SmartLink href={testimonial.departmentWebsite || ""}>
+                      <SmartLink href={testimonial.departmentWebsite || ""} aria-label={`Visit ${testimonial.department}`}>
                         {testimonial.department}
                       </SmartLink>
                     </p>

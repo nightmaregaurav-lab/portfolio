@@ -14,7 +14,7 @@ function PageContent(
   }
 ) {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label={`${collection.name} collection`}>
       <header className={styles.intro}>
         <SmartLink href="/gallery/" className={styles.backLink}>
           <ArrowLeft size={16} aria-hidden="true"/> Back to gallery

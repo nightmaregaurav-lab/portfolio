@@ -24,7 +24,7 @@ function Layout({ children }: LayoutProps<"/">) {
         className={"shrink-0 cursor-pointer hover:-translate-y-px"}
         onClick={() => setShowLoginDialog(true)}
       >
-        {gitHubSession ? <UnlockIcon/> : <LockIcon/>}
+        {gitHubSession ? <UnlockIcon aria-hidden="true"/> : <LockIcon aria-hidden="true"/>}
       </Button>
     </div>
     {children}

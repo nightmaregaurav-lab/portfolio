@@ -56,7 +56,7 @@ function PageContent(
   }
 ) {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Skills">
       <header className={styles.intro}>
         <div>
           <h1 className={styles.pageHeader}>Skills</h1>
@@ -69,7 +69,7 @@ function PageContent(
           {skillsConfig.skills.map((skill, index) => (
             <Card className={styles.skillCard} data-type={getSkillMilestoneType(skill, journeyConfig)} key={skill.id}>
               <div className={styles.skillImage}>
-                <img src={skill.image} alt="" loading={index > 1 ? "lazy" : "eager"}/>
+                <img src={skill.image} alt={`${skill.title} icon`} loading={index > 1 ? "lazy" : "eager"}/>
                 <span className={styles.skillIndex} aria-hidden="true">0{index + 1}</span>
               </div>
               <CardHeader className={styles.skillHeader}>
@@ -84,7 +84,7 @@ function PageContent(
                   </div>
                   <div className={styles.badges}>
                     {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(0, 3).map((work) =>
-                      <SmartLink href={work.url}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
+                      <SmartLink href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
                     )}
                     <Tooltip>
                       <TooltipTrigger>
@@ -94,7 +94,7 @@ function PageContent(
                       </TooltipTrigger>
                       <TooltipContent className={"flex flex-col w-auto"}>
                         {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(3).map((work) =>
-                          <SmartLink href={work.url}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
+                          <SmartLink href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
                         )}
                       </TooltipContent>
                     </Tooltip>

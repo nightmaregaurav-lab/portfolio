@@ -120,13 +120,13 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange}:
         <SheetFooter className={"flex-row flex-wrap justify-between sm:justify-between"}>
           <div className={"flex items-center gap-1"}>
             <Button type={"button"} size={"icon-sm"} variant={"outline"} onClick={() => setZoom((value) => Math.max(MIN_ZOOM, value - ZOOM_STEP))} aria-label={"Zoom out"} className="cursor-pointer hover:-translate-y-px">
-              <ZoomOut />
+              <ZoomOut aria-hidden="true" />
             </Button>
             <Button type={"button"} size={"icon-sm"} variant={"outline"} onClick={() => setZoom(1)} aria-label={"Reset zoom"} className="cursor-pointer hover:-translate-y-px">
-              <RotateCcw />
+              <RotateCcw aria-hidden="true" />
             </Button>
             <Button type={"button"} size={"icon-sm"} variant={"outline"} onClick={() => setZoom((value) => Math.min(MAX_ZOOM, value + ZOOM_STEP))} aria-label={"Zoom in"} className="cursor-pointer hover:-translate-y-px">
-              <ZoomIn />
+              <ZoomIn aria-hidden="true" />
             </Button>
             <label className={"ml-2 flex min-w-40 items-center gap-2 text-xs text-muted-foreground"}>
               <span>Zoom</span>

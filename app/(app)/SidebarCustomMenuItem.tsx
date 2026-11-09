@@ -51,9 +51,11 @@ function SidebarCustomMenuItem(
         "cursor-pointer hover:-translate-y-px"
       )}
       onClick={handleClick}
+      aria-current={isActive ? "page" : undefined}
+      aria-label={label}
     >
       <SmartLink href={link} className="w-full h-full flex items-center">
-        <DynamicLucideReactIcon name={icon as LucideReactIconName} style={{marginRight: '0.5rem'}}/>
+        <DynamicLucideReactIcon name={icon as LucideReactIconName} style={{marginRight: '0.5rem'}} aria-hidden="true"/>
         {label}
       </SmartLink>
     </Button>

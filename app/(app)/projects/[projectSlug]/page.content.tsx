@@ -25,10 +25,10 @@ function PageContent(
   const images = (project.images || []).filter(Boolean);
 
   return (
-    <main className={cn(styles.page, "bg-secondary")}>
+    <main className={cn(styles.page, "bg-secondary")} aria-label={`${project.title} project details`}>
       <div className={styles.pageInner}>
-        <SmartLink href="/projects/" className={cn(buttonVariants({variant: "outline", size: "sm"}), styles.backLink)}>
-          <ArrowLeft /> All projects
+        <SmartLink href="/projects/" className={cn(buttonVariants({variant: "outline", size: "sm"}), styles.backLink)} aria-label="Back to all projects">
+          <ArrowLeft aria-hidden="true" /> All projects
         </SmartLink>
 
         <article>
@@ -108,8 +108,9 @@ function PageContent(
                       href={link.url}
                       external
                       className={cn("inline-flex h-8 items-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted", styles.projectLinkButton)}
+                      aria-label={`Open ${link.name} (opens in new tab)`}
                     >
-                      <ExternalLink /> {link.name} <ArrowUpRight className={styles.externalArrow} />
+                      <ExternalLink aria-hidden="true" /> {link.name} <ArrowUpRight className={styles.externalArrow} aria-hidden="true" />
                     </SmartLink>
                   )) : (
                     <p className={styles.mutedText}>No external links are listed for this project.</p>
@@ -142,7 +143,7 @@ function PageContent(
                 <CardContent className={styles.skillList}>
                   {skills.length ? skills.map((skill) => (
                     <div className={styles.skill} key={skill.id}>
-                      {skill.image && <img src={skill.image} alt="" className={styles.skillImage} />}
+                      {skill.image && <img src={skill.image} alt={`${skill.title} icon`} className={styles.skillImage} />}
                       <div className={styles.skillText}>
                         <h3>{skill.title}</h3>
                         {skill.description && <HtmlRenderer className={styles.skillDescription}>{skill.description}</HtmlRenderer>}

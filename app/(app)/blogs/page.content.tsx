@@ -68,7 +68,7 @@ function PageContent(
   }, [sortedPosts, debouncedSearchTerm]);
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Blogs">
       <header className={styles.intro}>
         <h1 className={styles.pageHeader}>Blogs</h1>
         <HtmlRenderer className={styles.summary}>{blogsConfig.summary}</HtmlRenderer>
@@ -133,7 +133,7 @@ function PageContent(
   );
 }
 
-function BlogCard({post, index}: {post: BlogsModel["posts"][number]; index: number}) {
+function BlogCard({post}: {post: BlogsModel["posts"][number]; index: number}) {
   const accentColor = post.accentColor || "#FFFFFF";
   const style: Record<string, string> = {};
   style["--accent-tone"] = accentColor;
@@ -141,6 +141,7 @@ function BlogCard({post, index}: {post: BlogsModel["posts"][number]; index: numb
     <SmartLink
       href={"/blogs/" + getActiveSlug(post.slugs) + "/"}
       className={styles.postLink}
+      aria-label={`Read ${post.title}`}
     >
       <article className={styles.postCard} style={style as React.CSSProperties}>
         <time className={styles.postDate} dateTime={post.date}>{post.date}</time>

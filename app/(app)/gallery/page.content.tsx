@@ -26,7 +26,7 @@ function PageContent(
 
   if (!galleryConfig.photos.length && !galleryConfig.categories.length) {
     return (
-      <main className={styles.page}>
+      <main className={styles.page} aria-label="Gallery">
         <header className={styles.intro}>
           <h1 className={styles.pageHeader}>Gallery</h1>
           <HtmlRenderer className={styles.summary}>{galleryConfig.summary}</HtmlRenderer>
@@ -41,7 +41,7 @@ function PageContent(
   }
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Gallery">
       <header className={styles.intro}>
         <h1 className={styles.pageHeader}>Gallery</h1>
         <HtmlRenderer className={styles.summary}>{galleryConfig.summary}</HtmlRenderer>
@@ -58,10 +58,11 @@ function PageContent(
               key={getActiveSlug(collection.slugs) + "-" + index}
               className={styles.collectionCard}
               data-featured={index === 0 ? "true" : "false"}
+              aria-label={`View ${collection.name} collection, ${photoCount} ${photoCount === 1 ? "photo" : "photos"}`}
             >
               <span className={styles.collectionMedia}>
                 {cover ? (
-                  <img src={cover} alt="" className={styles.collectionImage}/>
+                  <img src={cover} alt={`${collection.name} collection cover`} className={styles.collectionImage}/>
                 ) : (
                   <span className={styles.collectionPlaceholder} aria-hidden="true">
                     <Images size={36}/>

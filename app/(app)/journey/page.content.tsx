@@ -183,7 +183,7 @@ function PageContent({journeyConfig}: {journeyConfig: JourneyModel}) {
   const summary = journeyConfig.summary || "Every chapter has a beginning, a lesson, and a direction. Here are the moments that shaped the way I work and what I care about.";
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="My Journey">
       <header className={styles.intro}>
         <h1 className={styles.pageHeader}>My Journey</h1>
         <HtmlRenderer className={styles.summary}>{summary}</HtmlRenderer>

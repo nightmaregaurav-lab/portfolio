@@ -14,10 +14,12 @@ export const metadata = createPageMetadata({
 
 function Page() {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Home">
       <div
         className={styles.heroImage}
         style={{backgroundImage: `url("${HomeConfig.coverPicture}")`}}
+        role="img"
+        aria-label={`Hero image of ${CoreConfig.fullName}`}
       />
       <div className={styles.heroText}>
         <h1 className={cn(styles.heroTextPrimary, "text-white")}>{CoreConfig.fullName}</h1>

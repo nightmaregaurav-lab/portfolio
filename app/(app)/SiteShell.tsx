@@ -27,7 +27,7 @@ export default function SiteShell({children, coreConfig, leftPanelConfig, quickL
         leftPanelConfig={leftPanelConfig}
         quickLinksConfig={quickLinksConfig}
       />
-      <div id="main-content" tabIndex={-1} className={styles.mainLandmark}>
+      <div id="main-content" tabIndex={-1} className={styles.mainLandmark} role="main" aria-label="Main content">
         {children}
       </div>
       <GoToTopButton />

@@ -15,7 +15,7 @@ function PageContent(
   }
 ) {
   return (
-    <main className={styles.page}>
+    <main className={styles.page} aria-label="Services">
       <header className={styles.intro}>
         <h1 className={styles.pageHeader}>Services</h1>
       </header>
@@ -42,7 +42,7 @@ function PageContent(
                 <CardTitle className={styles.serviceTitle}>{service.title}</CardTitle>
                 <HtmlRenderer className={styles.serviceDescription}>{service.description}</HtmlRenderer>
                 {service.link && (
-                  <SmartLink className={styles.serviceLink} href={service.link}>
+                  <SmartLink className={styles.serviceLink} href={service.link} aria-label={`Explore ${service.title}`}>
                     Explore this service <ArrowUpRight size={16} aria-hidden="true"/>
                   </SmartLink>
                 )}
