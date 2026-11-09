@@ -60,9 +60,9 @@ function PageContent(
                     onClick={() => setLightboxOpen(true)}
                   />
                 </ImageLightbox>
-                {(photo.title || photo.caption || (photo.categories && photo.categories.length)) && (
+                {(photo.title || photo.caption || (photo.categories && photo.categories.length > 0)) && (
                   <div className={styles.photoText}>
-                    {photo.categories && photo.categories.length && (
+                    {photo.categories && photo.categories.length > 0 && (
                       <div className={styles.photoCategories}>
                         {photo.categories.map((category) => (
                           <span className={styles.photoCategory} key={category}>{category}</span>
