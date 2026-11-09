@@ -5,6 +5,7 @@ import {Button} from "@/components/ui/button";
 import {cn} from "@/lib/utils";
 import SmartLink from "@/components/ui/SmartLink";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
+import {useSidebar} from "@/components/ui/sidebar";
 
 function SidebarCustomMenuItem(
   {
@@ -21,6 +22,7 @@ function SidebarCustomMenuItem(
     show?: boolean;
   }
 ) {
+  const { isMobile, setOpenMobile } = useSidebar();
 
   if(!show){
     return null;
@@ -33,6 +35,12 @@ function SidebarCustomMenuItem(
     || (link !== '/' && currentPath?.startsWith(link))
     || (link !== '/' && currentPath?.endsWith(link));
 
+  const handleClick = () => {
+    if (isMobile) {
+      setOpenMobile(false);
+    }
+  };
+
   return (
     <Button
       type="button"
@@ -42,6 +50,7 @@ function SidebarCustomMenuItem(
         isActive && "bg-gray-200",
         "cursor-pointer hover:-translate-y-px"
       )}
+      onClick={handleClick}
     >
       <SmartLink href={link} className="w-full h-full flex items-center">
         <DynamicLucideReactIcon name={icon as LucideReactIconName} style={{marginRight: '0.5rem'}}/>

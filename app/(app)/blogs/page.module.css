@@ -28,14 +28,63 @@
   margin-bottom: 0;
 }
 
+.content {
+  display: grid;
+  gap: 2.5rem;
+}
+
+.section {
+  display: grid;
+  gap: 1rem;
+}
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.sectionTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+
+.searchBox {
+  display: flex;
+  width: min(100%, 20rem);
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.65rem;
+  background: var(--card);
+  color: var(--muted-foreground);
+}
+
+.searchBox input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.searchBox input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
 .postGrid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
   gap: 1rem;
-  margin: 0 auto;
 }
 
 .postLink {
+  min-width: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -83,6 +132,17 @@
 .postLink:nth-child(17) .postCard { animation-delay: 800ms; }
 .postLink:nth-child(18) .postCard { animation-delay: 850ms; }
 .postLink:nth-child(19) .postCard { animation-delay: 900ms; }
+.postLink:nth-child(20) .postCard { animation-delay: 950ms; }
+.postLink:nth-child(21) .postCard { animation-delay: 1000ms; }
+.postLink:nth-child(22) .postCard { animation-delay: 1050ms; }
+.postLink:nth-child(23) .postCard { animation-delay: 1100ms; }
+.postLink:nth-child(24) .postCard { animation-delay: 1150ms; }
+.postLink:nth-child(25) .postCard { animation-delay: 1200ms; }
+.postLink:nth-child(26) .postCard { animation-delay: 1250ms; }
+.postLink:nth-child(27) .postCard { animation-delay: 1300ms; }
+.postLink:nth-child(28) .postCard { animation-delay: 1350ms; }
+.postLink:nth-child(29) .postCard { animation-delay: 1400ms; }
+.postLink:nth-child(30) .postCard { animation-delay: 1450ms; }
 
 .postLink:hover .postCard {
   transform: translateY(-4px);
@@ -129,7 +189,7 @@
 
 .emptyState {
   display: grid;
-  min-height: 18rem;
+  min-height: 12rem;
   margin: 0 auto;
   place-content: center;
   justify-items: center;
@@ -152,6 +212,21 @@
   line-height: 1.6;
 }
 
+@media (max-width: 640px) {
+  .page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .sectionHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .searchBox {
+    width: 100%;
+  }
+}
+
 @keyframes rise-in {
   from {
     opacity: 0;
@@ -167,11 +242,5 @@
   .postCard {
     animation: none;
     transition: none;
-  }
-}
-
-@media (max-width: 640px) {
-  .page {
-    padding: 1.25rem 1rem 2rem;
   }
 }

@@ -1,18 +1,72 @@
 "use client";
 
-import React from "react";
-import {NotebookPen} from "lucide-react";
+import React, {useEffect, useMemo} from "react";
+import {NotebookPen, Search} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import {Input} from "@/components/ui/input";
 import type {TModel as BlogsModel} from "@/configuration/blogs";
 import {getActiveSlug} from "@/lib/slugs";
+import {useDebouncedState} from "@/hooks/useDebouncedState";
+import {useRouter, useSearchParams} from "next/navigation";
 import styles from "./page.module.css";
+
+const RECENT_COUNT = 3;
+
+function getSearchablePostText(post: BlogsModel["posts"][number]) {
+  return [
+    post.title,
+    post.summary,
+    post.id,
+    ...post.slugs.map(({slug}) => slug),
+    ...(post.categories || []),
+    ...(post.tags || []),
+  ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
+}
 
 function PageContent(
   {blogsConfig}: {
     blogsConfig: BlogsModel
   }
 ) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  const {
+    state: searchTerm,
+    debouncedState: debouncedSearchTerm,
+    setState: setSearchTerm
+  } = useDebouncedState(keyword, 300);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if (!debouncedSearchTerm.trim()) {
+      params.delete("keyword");
+    } else {
+      params.set("keyword", debouncedSearchTerm);
+    }
+    router.push(`?${params.toString()}`);
+  }, [debouncedSearchTerm]);
+
+  const posts = blogsConfig.posts || [];
+  const hasPosts = posts.length > 0;
+
+  const sortedPosts = useMemo(() => {
+    return [...posts].sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return dateB - dateA;
+    });
+  }, [posts]);
+
+  const recentPosts = useMemo(() => sortedPosts.slice(0, RECENT_COUNT), [sortedPosts]);
+
+  const allPosts = useMemo(() => {
+    const query = debouncedSearchTerm.trim().toLocaleLowerCase();
+    if (!query) return sortedPosts;
+    return sortedPosts.filter((post) => getSearchablePostText(post).includes(query));
+  }, [sortedPosts, debouncedSearchTerm]);
+
   return (
     <main className={styles.page}>
       <header className={styles.intro}>
@@ -20,29 +74,53 @@ function PageContent(
         <HtmlRenderer className={styles.summary}>{blogsConfig.summary}</HtmlRenderer>
       </header>
 
-      {blogsConfig.posts && blogsConfig.posts.length > 0 ? (
-        <section className={styles.postGrid} aria-label="Blog posts">
-          {blogsConfig.posts.map((post, index) => (
-            <SmartLink
-              href={"/blogs/" + getActiveSlug(post.slugs) + "/"}
-              className={styles.postLink}
-              data-tone={String(index % 3)}
-              key={post.id}
-            >
-              <article className={styles.postCard}>
-                <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
-                <h2 className={styles.postTitle}>{post.title}</h2>
-                <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>
-                {!!post.categories.length && (
-                  <div className={styles.tagList}>
-                    {post.categories.map((category) => (
-                      <span className={styles.tag} key={category}>{category}</span>
-                    ))}
-                  </div>
-                )}
-              </article>
-            </SmartLink>
-          ))}
+      {hasPosts ? (
+        <section className={styles.content} aria-label="Blog posts">
+          {recentPosts.length > 0 && (
+            <div className={styles.section}>
+              <h2 className={styles.sectionTitle}>Recent Blogs</h2>
+              <div className={styles.postGrid}>
+                {recentPosts.map((post, index) => (
+                  <BlogCard post={post} index={index} key={post.id} />
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className={styles.section}>
+            <div className={styles.sectionHeader}>
+              <h2 className={styles.sectionTitle}>All Blogs</h2>
+              <div className={styles.searchBox}>
+                <Search size={17} aria-hidden="true" />
+                <Input
+                  type="search"
+                  aria-label="Search blogs"
+                  placeholder="Search by title or summary..."
+                  value={searchTerm}
+                  onChange={(event) => setSearchTerm(event.target.value)}
+                />
+              </div>
+            </div>
+
+            <div className="sr-only" aria-live="polite">
+              {allPosts.length} {allPosts.length === 1 ? "post" : "posts"} shown
+              {searchTerm.trim() ? ` for "${searchTerm.trim()}"` : ""}
+            </div>
+
+            {allPosts.length > 0 ? (
+              <div className={styles.postGrid}>
+                {allPosts.map((post, index) => (
+                  <BlogCard post={post} index={index} key={post.id} />
+                ))}
+              </div>
+            ) : (
+              <div className={styles.emptyState} role="status">
+                {searchTerm.trim()
+                  ? `No posts match "${searchTerm.trim()}".`
+                  : "No blog posts yet."}
+              </div>
+            )}
+          </div>
         </section>
       ) : (
         <section className={styles.emptyState} aria-label="Blog posts">
@@ -52,6 +130,29 @@ function PageContent(
         </section>
       )}
     </main>
+  );
+}
+
+function BlogCard({post, index}: {post: BlogsModel["posts"][number]; index: number}) {
+  return (
+    <SmartLink
+      href={"/blogs/" + getActiveSlug(post.slugs) + "/"}
+      className={styles.postLink}
+      data-tone={String(index % 3)}
+    >
+      <article className={styles.postCard}>
+        <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
+        <h2 className={styles.postTitle}>{post.title}</h2>
+        <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>
+        {!!post.categories.length && (
+          <div className={styles.tagList}>
+            {post.categories.map((category) => (
+              <span className={styles.tag} key={category}>{category}</span>
+            ))}
+          </div>
+        )}
+      </article>
+    </SmartLink>
   );
 }
 
