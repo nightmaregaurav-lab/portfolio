@@ -4,9 +4,12 @@ import {CoreConfig, GalleryConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
-import {uncategorizedGalleryCategory} from "../page.content";
 import type {GalleryCollection} from "./page.types";
-import {getCollectionCover, getCollectionPhotos} from "@/app/(app)/gallery/[collectionSlug]/page.utils";
+import {
+  getCollectionCover,
+  getCollectionPhotos,
+  uncategorizedGalleryCategory
+} from "@/app/(app)/gallery/[collectionSlug]/page.utils";
 
 export const dynamicParams = false;
 
@@ -23,16 +26,16 @@ export function generateStaticParams() {
 }
 
 function findCollection(collectionSlug: string) {
-  const metadata = GalleryConfig
-    .categories
-    .find((collection) => collection.slugs.findIndex(x => x.slug == collectionSlug) != -1)
-    ?? (collectionSlug === "uncategorized"
-      ? uncategorizedGalleryCategory
-      : undefined);
+  const metadata = (collectionSlug === "uncategorized")
+    ? uncategorizedGalleryCategory
+    : GalleryConfig
+      .categories
+      .find((collection) => collection.slugs.findIndex(x => x.slug == collectionSlug) != -1);
   if(!metadata){
     return null;
   }
 
+  console.log("findCollection", collectionSlug, metadata, uncategorizedGalleryCategory);
   const cover = getCollectionCover(metadata.name, GalleryConfig.photos, metadata.coverImage);
   const photos = getCollectionPhotos(metadata.name, GalleryConfig.photos);
   return {
@@ -47,6 +50,7 @@ export async function generateMetadata(
 ) {
   const {collectionSlug} = await params;
   const collection = findCollection(collectionSlug);
+  console.log("generateMetadata", collectionSlug, collection);
   if (!collection) {
     return {};
   }

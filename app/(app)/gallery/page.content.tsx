@@ -7,14 +7,7 @@ import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import type {TModel as GalleryModel} from "@/configuration/gallery";
 import {getActiveSlug} from "@/lib/slugs";
 import styles from "./page.module.css";
-import {getCollectionCover, getCollectionPhotos} from "./[collectionSlug]/page.utils";
-
-export const uncategorizedGalleryCategory = {
-  name: "Uncategorized",
-  slugs: [{slug: "uncategorized", isActive: true}],
-  coverImage: "https://upload.wikimedia.org/wikipedia/commons/d/d4/Pineapple_Postcards_%28Unsplash%29.jpg",
-  description: "Photos that are not part of a specific collection."
-};
+import {getCollectionCover, getCollectionPhotos, uncategorizedGalleryCategory} from "./[collectionSlug]/page.utils";
 
 function PageContent(
   {galleryConfig}: {
