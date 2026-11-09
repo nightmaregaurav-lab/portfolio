@@ -92,17 +92,6 @@
         "description": ""
       },
       {
-        "name": "BCA",
-        "slugs": [
-          {
-            "isActive": true,
-            "slug": "bca"
-          }
-        ],
-        "coverImage": "",
-        "description": ""
-      },
-      {
         "name": "Mechi Multiple Campus",
         "slugs": [
           {
