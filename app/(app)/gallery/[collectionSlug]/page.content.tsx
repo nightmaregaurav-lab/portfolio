@@ -41,7 +41,11 @@ function PageContent(
                 key={photo.id + "-" + index}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                onTouchStart={() => setIsHovered(prev => !prev)}
+                onTouchStart={(event) => {
+                  if (event.target === event.currentTarget) {
+                    setIsHovered(prev => !prev);
+                  }
+                }}
               >
                 <ImageLightbox
                   src={imageUrl}
@@ -74,6 +78,9 @@ function PageContent(
                   onClick={(event) => {
                     event.stopPropagation();
                     setLightboxOpen(true);
+                  }}
+                  onTouchStart={(event) => {
+                    event.stopPropagation();
                   }}
                   aria-label={`View ${imageName}`}
                 >
