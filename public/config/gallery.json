@@ -7,8 +7,8 @@
         "name": "Tekkon",
         "slugs": [
           {
-            "slug": "tekkon",
-            "isActive": true
+            "isActive": true,
+            "slug": "tekkon"
           }
         ],
         "coverImage": "",
@@ -18,8 +18,8 @@
         "name": "Tekknite 2026",
         "slugs": [
           {
-            "slug": "tekknite-2026",
-            "isActive": true
+            "isActive": true,
+            "slug": "tekknite-2026"
           }
         ],
         "coverImage": "",
@@ -32,6 +32,16 @@
         "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/_MG_3161.jpg",
         "title": "Hosting Team-building activity @ Tekknite 2026",
         "caption": "Hosting Team-building activity @ Tekknite 2026",
+        "categories": [
+          "Tekkon",
+          "Tekknite 2026"
+        ]
+      },
+      {
+        "id": "photo-e61592662534",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/_MG_3043.jpeg",
+        "title": "",
+        "caption": "@ Tekknite 2026",
         "categories": [
           "Tekkon",
           "Tekknite 2026"
