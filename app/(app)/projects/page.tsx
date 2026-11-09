@@ -1,5 +1,5 @@
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, ProjectsConfig} from "@/configuration";
+import {CoreConfig, JourneyConfig, ProjectsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
@@ -19,6 +19,7 @@ function Page() {
     <>
       <PageContent
         projectsConfig={ProjectsConfig}
+        journeyConfig={JourneyConfig}
       />
 
       <StructuredData data={{

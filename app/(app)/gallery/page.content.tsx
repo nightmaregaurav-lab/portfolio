@@ -34,7 +34,7 @@ function PageContent(
         <section className={styles.emptyState} aria-label="Gallery">
           <Images size={28} aria-hidden="true"/>
           <h2>No photos yet.</h2>
-          <p>Collections and images will appear here once they are added from the gallery settings.</p>
+          <p>Collections and images will appear here once they are being added...</p>
         </section>
       </main>
     );

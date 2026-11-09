@@ -85,15 +85,15 @@
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
-.projectCard[data-tone="0"] {
+.projectCard[data-type="Academic"] {
   --accent-tone: oklch(0.62 0.16 250);
 }
 
-.projectCard[data-tone="1"] {
+.projectCard[data-type="Professional"] {
   --accent-tone: oklch(0.62 0.16 155);
 }
 
-.projectCard[data-tone="2"] {
+.projectCard[data-type="Personal"] {
   --accent-tone: oklch(0.65 0.17 35);
 }
 

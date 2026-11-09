@@ -46,7 +46,7 @@ function getTimelineEvents(milestones: Milestone[]) {
 
   milestones.forEach((milestone) => {
     if (overlaps(milestone, milestones) && milestone.end) {
-      events.push({id: milestone.id + "-start", milestone, kind: "start", date: milestone.start});
+      events.push({id: milestone.id, milestone, kind: "start", date: milestone.start});
       events.push({id: milestone.id + "-end", milestone, kind: "end", date: milestone.end});
       return;
     }
@@ -114,7 +114,7 @@ function TimelineCard({event}: {event: TimelineEvent}) {
   const organisation = milestone.organisation || milestone.department;
 
   return (
-    <Card className={styles.timelineCard} data-type={milestone.type} data-kind={kind}>
+    <Card id={event.id} className={styles.timelineCard} data-type={milestone.type} data-kind={kind}>
       <CardHeader className={styles.cardHeader}>
         <div className={styles.cardTopline}>
           <span className={styles.typeLabel}><EventIcon type={milestone.type}/>{typeMeta[milestone.type].label}</span>

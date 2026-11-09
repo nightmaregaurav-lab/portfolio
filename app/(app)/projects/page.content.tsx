@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useMemo, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import SmartLink from "@/components/ui/SmartLink";
 import {ArrowRight, Grid2X2, Image as ImageIcon, List, Search} from "lucide-react";
 import styles from "./page.module.css";
@@ -16,33 +16,67 @@ import {
 import {Input} from "@/components/ui/input";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {cn} from "@/lib/utils";
+import type {TModel as JourneyModel} from "@/configuration/journey";
 import type {TModel as ProjectsModel} from "@/configuration/projects";
 import {getActiveSlug} from "@/lib/slugs";
+import {useDebouncedState} from "@/hooks/useDebouncedState";
+import {useRouter, useSearchParams} from "next/navigation";
+
+type MilestoneType = JourneyModel["milestones"][number]["type"];
 
 function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
   return [
     project.title,
     project.description,
     project.id,
+    ...project.slugs.map(({slug}) => slug),
     ...(project.keypoints || []).flatMap(({title, value}) => [title, value]),
     ...(project.seoKeywords || []),
   ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
 }
 
 function PageContent(
-  {projectsConfig}: {
-    projectsConfig: ProjectsModel
+  {projectsConfig, journeyConfig}: {
+    projectsConfig: ProjectsModel;
+    journeyConfig: JourneyModel;
   }
 ) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const keyword = searchParams.get("keyword") || "";
+  const {
+    state: searchTerm,
+    debouncedState: debouncedSearchTerm,
+    setState: setSearchTerm
+  } = useDebouncedState(keyword, 300);
+
+  useEffect(() => {
+    const params = new URLSearchParams(searchParams.toString());
+    if(!debouncedSearchTerm.trim()) {
+      params.delete("keyword");
+    } else {
+      params.set("keyword", debouncedSearchTerm);
+    }
+    router.push(`?${params.toString()}`);
+  }, [debouncedSearchTerm]);
+
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
-  const [searchTerm, setSearchTerm] = useState("");
+
   const projects = projectsConfig.projects || [];
+  const milestonesById = useMemo(() => {
+    return new Map((journeyConfig.milestones || []).map((milestone) => [milestone.id, milestone]));
+  }, [journeyConfig.milestones]);
+
+  const getProjectMilestoneType = (project: ProjectsModel["projects"][number]): MilestoneType => {
+    if (!project.milestoneId) return "Personal";
+    return milestonesById.get(project.milestoneId)?.type || "Personal";
+  };
 
   const visibleProjects = useMemo(() => {
-    const query = searchTerm.trim().toLocaleLowerCase();
+    const query = debouncedSearchTerm.trim().toLocaleLowerCase();
     if (!query) return projects;
     return projects.filter((project) => getSearchableProjectText(project).includes(query));
-  }, [projects, searchTerm]);
+  }, [projects, debouncedSearchTerm]);
 
   return (
     <main className={cn(styles.page)}>
@@ -94,13 +128,13 @@ function PageContent(
 
         {visibleProjects.length > 0 ? (
           <div className={cn(styles.projectGrid, viewMode === "list" && styles.listView)}>
-            {visibleProjects.map((project, index) => (
+            {visibleProjects.map((project) => (
               <SmartLink
                 href={"/projects/" + getActiveSlug(project.slugs) + "/"}
                 className={styles.projectLink}
                 key={project.id}
               >
-                <Card className={styles.projectCard} data-tone={String(index % 3)}>
+                <Card className={styles.projectCard} data-type={getProjectMilestoneType(project)}>
                   <div className={styles.projectCover}>
                     {project.previewImage ? (
                       <img src={project.previewImage} alt={project.title + " preview"} />
