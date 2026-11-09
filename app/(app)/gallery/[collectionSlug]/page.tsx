@@ -18,7 +18,7 @@ export function generateStaticParams() {
 
   return [
     ...slugs.map((slug) => ({collectionSlug: slug})),
-    {collectionSlug: "__404__"},
+    {collectionSlug: "uncategorized"},
   ];
 }
 
