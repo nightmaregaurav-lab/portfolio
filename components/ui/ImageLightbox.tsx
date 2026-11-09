@@ -81,11 +81,8 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange, 
     }}>
       {children ? (
         children
-      ) : trigger && <Button
-        type={"button"}
-        variant={"ghost"}
-        size={"default"}
-        className={"block h-auto w-full p-0 text-left transition-transform hover:scale-[1.01] active:scale-[0.99] motion-reduce:transition-none motion-reduce:hover:scale-100 motion-reduce:active:scale-100"}
+      ) : trigger && <span
+        className={"cursor-pointer"}
         onClick={(event) => {
           event.stopPropagation();
           setUncontrolledOpen(true);
@@ -94,7 +91,7 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange, 
         aria-label={`View ${name}`}
       >
         {trigger}
-      </Button>}
+      </span>}
       <SheetContent className={"top-0 left-0 h-dvh! max-h-dvh! w-dvw! max-w-dvw! translate-x-0 translate-y-0 gap-3 rounded-none p-4 sm:p-6"} showCloseButton>
         <SheetHeader>
           <SheetTitle>{name || "Image preview"}</SheetTitle>

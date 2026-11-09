@@ -12,8 +12,15 @@ import {Button} from "@/components/ui/button";
 import {Spinner} from "@/components/ui/spinner";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
 import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
-import {AlertCircle, Pencil, Plus, Trash2} from "lucide-react";
+import {AlertCircle, MoreHorizontal, Pencil, Plus, Trash2, X} from "lucide-react";
+import {Badge} from "@/components/ui/badge";
 import {cn} from "@/lib/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import {Control, Controller, useFieldArray, useWatch} from "react-hook-form";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {withConfigurationId} from "@/lib/configurationUtils";
@@ -28,7 +35,6 @@ import {
 } from "@/components/ui/dialog";
 import {Textarea} from "@/components/ui/textarea";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
-import {stripHtmlTags} from "@/lib/html";
 import {slugify} from "@/lib/slugs";
 
 const emptyPhoto: NonNullable<TInput["photos"]>[number] = {
@@ -183,54 +189,44 @@ function GalleryPhotoCard(
   );
 }
 
-function CategoryPreview({category}: {category: NonNullable<TInput["categories"]>[number]}) {
-  return (<>
-    <p className={"truncate text-sm text-muted-foreground"}>
-      {stripHtmlTags(category.description) || "No introduction yet"}
-    </p>
-  </>);
-}
-
-function CategoryCardHeader(
+function CategoryBadge(
   {
-    name, isCurrentlyEditing, onEdit, onDelete
+    category, isCurrentlyEditing, hasError, onEdit, onDelete
   }: {
-    name: string;
+    category: NonNullable<TInput["categories"]>[number];
     isCurrentlyEditing: boolean;
+    hasError: boolean;
     onEdit: () => void;
     onDelete: () => void;
   }
 ) {
   return (
-    <div className={"flex items-center justify-between gap-4"}>
-      <div className={"min-w-0"}>
-        <p className={"truncate font-medium text-muted-foreground"}>{name || "New folder"}</p>
-      </div>
-
-      <div className={"flex shrink-0 gap-2"}>
-        {!isCurrentlyEditing && <Button
-          type={"button"}
-          size={"icon-sm"}
-          variant={"ghost"}
-          onClick={onEdit}
-          aria-label={`Edit ${name || "category"}`}
-          className="cursor-pointer hover:-translate-y-px"
+    <DropdownMenu>
+      <DropdownMenuTrigger render={
+        <Badge
+          variant={hasError ? "destructive" : "outline"}
+          className={cn(
+            "h-auto gap-0 p-2 py-0.5 cursor-pointer",
+            hasError && "border-destructive"
+          )}
         >
-          <Pencil/>
-        </Button>}
-
-        <Button
-          type={"button"}
-          size={"icon-sm"}
-          variant={"ghost"}
-          className={"text-destructive cursor-pointer hover:-translate-y-px"}
-          onClick={onDelete}
-          aria-label={`Delete ${name || "category"}`}
-        >
-          <Trash2 />
-        </Button>
-      </div>
-    </div>
+          <span className={"truncate text-xs"}>
+            {category.name || "New Category"}
+          </span>
+          <MoreHorizontal size={12} className={"ml-1 shrink-0 opacity-50"} />
+        </Badge>
+      } />
+      <DropdownMenuContent align="start" sideOffset={4}>
+        {!isCurrentlyEditing && <DropdownMenuItem onClick={onEdit}>
+          <Pencil size={14}/>
+          <span>Edit</span>
+        </DropdownMenuItem>}
+        <DropdownMenuItem variant="destructive" onClick={onDelete}>
+          <X size={14} />
+          <span>Delete</span>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 }
 
@@ -497,91 +493,81 @@ function Page() {
               No folders yet. Add a category or add one while editing a photo.
             </div>
           ) : (
-            <div className={"grid gap-3"}>
-              {categoryFields.map((category, index) => (
-                <div key={category.categoryFieldId} className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
-                  <CategoryCardHeader
-                    name={categoriesWatch[index]?.name || ""}
+            <>
+              <div className={"flex flex-wrap gap-2"}>
+                {categoryFields.map((category, index) => (
+                  <CategoryBadge
+                    key={category.categoryFieldId}
+                    category={categoriesWatch[index] || category}
                     isCurrentlyEditing={editingCategoryIndex === index}
+                    hasError={!!form.formState.errors.categories?.[index]}
                     onEdit={() => openCategoryEditor(index)}
                     onDelete={() => removeCategory(index)}
                   />
+                ))}
+              </div>
 
-                  {editingCategoryIndex === index && (
-                    <div className={"grid gap-4 border-t pt-4"}>
-                      <Controller
-                        control={control}
-                        name={`categories.${index}.name`}
-                        render={({field, fieldState: {error}}) =>
-                          <div className={"grid gap-2"}>
-                            <Label htmlFor={`categories.${index}.name`}>Folder name</Label>
-                            <Input
-                              {...field}
-                              id={`categories.${index}.name`}
-                              className={cn("w-full", error && "border-destructive")}
-                              onChange={(event) => {
-                                const nextName = event.target.value;
-                                updatePhotoCategoryName(editingCategoryName.current, nextName);
-                                if (nextName.trim()) {
-                                  editingCategoryName.current = nextName;
-                                }
-                                form.clearErrors(`categories.${index}.name`);
-                                field.onChange(nextName);
-                              }}
-                            />
-                            {error && <small className={"text-destructive"}>{error.message}</small>}
-                          </div>
-                        }
-                      />
-                      <Controller
-                        control={control}
-                        name={`categories.${index}.coverImage`}
-                        render={({field, fieldState: {error}}) =>
-                          <div className={"grid gap-2"}>
-                            <Label htmlFor={`categories.${index}.coverImage`}>Folder cover image URL (optional)</Label>
-                            <FileUrl
-                              {...field}
-                              id={`categories.${index}.coverImage`}
-                              value={field.value || ""}
-                              placeholder={"https://example.com/cover.jpg"}
-                              className={cn("w-full", error && "border-destructive")}
-                            />
-                            <p className={"text-xs text-muted-foreground"}>When empty, the first photo in this folder is used as its cover.</p>
-                            {error && <small className={"text-destructive"}>{error.message}</small>}
-                          </div>
-                        }
-                      />
-                      <Controller
-                        control={control}
-                        name={`categories.${index}.description`}
-                        render={({field, fieldState: {error}}) =>
-                          <div className={"grid gap-2"}>
-                            <Label htmlFor={`categories.${index}.description`}>Folder introduction (optional)</Label>
-                            <RichTextEditor id={`categories.${index}.description`} placeholder={"Introduce this collection"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
-                            {error && <small className={"text-destructive"}>{error.message}</small>}
-                          </div>
-                        }
-                      />
-                      <div className={"flex justify-end"}>
-                        <Button type={"button"} size={"sm"} variant={"outline"} onClick={() => finishCategoryEdit(index)} className="cursor-pointer hover:-translate-y-px">Done</Button>
+              {editingCategoryIndex !== null && (
+                <div className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
+                  <Controller
+                    control={control}
+                    name={`categories.${editingCategoryIndex}.name`}
+                    render={({field, fieldState: {error}}) =>
+                      <div className={"grid gap-2"}>
+                        <Label htmlFor={`categories.${editingCategoryIndex}.name`}>Folder name</Label>
+                        <Input
+                          {...field}
+                          id={`categories.${editingCategoryIndex}.name`}
+                          className={cn("w-full", error && "border-destructive")}
+                          onChange={(event) => {
+                            const nextName = event.target.value;
+                            updatePhotoCategoryName(editingCategoryName.current, nextName);
+                            if (nextName.trim()) {
+                              editingCategoryName.current = nextName;
+                            }
+                            form.clearErrors(`categories.${editingCategoryIndex}.name`);
+                            field.onChange(nextName);
+                          }}
+                        />
+                        {error && <small className={"text-destructive"}>{error.message}</small>}
                       </div>
-                    </div>
-                  )}
-
-                  {editingCategoryIndex !== index && (
-                    <div className={"grid gap-1 border-t pt-4"}>
-                      <CategoryPreview category={categoriesWatch[index] || category}/>
-                    </div>
-                  )}
-
-                  {editingCategoryIndex !== index && form.formState.errors.categories?.[index] && (
-                    <div className={"text-sm text-destructive"}>
-                      Please fix the errors in this folder.
-                    </div>
-                  )}
+                    }
+                  />
+                  <Controller
+                    control={control}
+                    name={`categories.${editingCategoryIndex}.coverImage`}
+                    render={({field, fieldState: {error}}) =>
+                      <div className={"grid gap-2"}>
+                        <Label htmlFor={`categories.${editingCategoryIndex}.coverImage`}>Folder cover image URL (optional)</Label>
+                        <FileUrl
+                          {...field}
+                          id={`categories.${editingCategoryIndex}.coverImage`}
+                          value={field.value || ""}
+                          placeholder={"https://example.com/cover.jpg"}
+                          className={cn("w-full", error && "border-destructive")}
+                        />
+                        <p className={"text-xs text-muted-foreground"}>When empty, the first photo in this folder is used as its cover.</p>
+                        {error && <small className={"text-destructive"}>{error.message}</small>}
+                      </div>
+                    }
+                  />
+                  <Controller
+                    control={control}
+                    name={`categories.${editingCategoryIndex}.description`}
+                    render={({field, fieldState: {error}}) =>
+                      <div className={"grid gap-2"}>
+                        <Label htmlFor={`categories.${editingCategoryIndex}.description`}>Folder introduction (optional)</Label>
+                        <RichTextEditor id={`categories.${editingCategoryIndex}.description`} placeholder={"Introduce this collection"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
+                        {error && <small className={"text-destructive"}>{error.message}</small>}
+                      </div>
+                    }
+                  />
+                  <div className={"flex justify-end"}>
+                    <Button type={"button"} size={"sm"} variant={"outline"} onClick={() => finishCategoryEdit(editingCategoryIndex)} className="cursor-pointer hover:-translate-y-px">Done</Button>
+                  </div>
                 </div>
-              ))}
-            </div>
+              )}
+            </>
           )}
         </div>
 
