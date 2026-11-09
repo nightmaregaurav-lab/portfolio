@@ -1,13 +1,13 @@
-"use client"
+"use client";
 
-import React from 'react';
-import styles from "./page.module.css";
-import {TModel as GalleryModel} from "@/configuration/gallery";
-import {cn} from "@/lib/utils";
-import {Folder, Images} from "lucide-react";
+import React from "react";
+import {Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import type {TModel as GalleryModel} from "@/configuration/gallery";
 import {getActiveSlug} from "@/lib/slugs";
+import styles from "./page.module.css";
+import {getCollectionCover, getCollectionPhotos} from "./[collectionSlug]/page.utils";
 
 export const uncategorizedGalleryCategory = {
   name: "Uncategorized",
@@ -16,82 +16,69 @@ export const uncategorizedGalleryCategory = {
   description: "Photos that are not part of a specific collection."
 };
 
-export function getCollectionPhotos(collectionName: string, photos: GalleryModel["photos"]) {
-  if(collectionName === uncategorizedGalleryCategory.name) {
-    return photos.filter((photo) => !photo.categories || photo.categories.length === 0);
-  }
-  return photos.filter((photo) => photo.categories?.includes(collectionName));
-}
-
-export function getCollectionCover(collectionName: string, photos: GalleryModel["photos"], coverImage?: string) {
-  if (coverImage) {
-    return coverImage;
-  }
-
-  const images = getCollectionPhotos(collectionName, photos);
-  if(images.length) {
-    return images[0].url;
-  }
-  return null;
-}
-
 function PageContent(
   {galleryConfig}: {
     galleryConfig: GalleryModel
   }
 ) {
+  const collections = [...galleryConfig.categories, uncategorizedGalleryCategory]
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   if (!galleryConfig.photos.length && !galleryConfig.categories.length) {
     return (
-      <main className={cn(styles.page)}>
-        <div className={styles.headingRow}>
+      <main className={styles.page}>
+        <header className={styles.intro}>
           <h1 className={styles.pageHeader}>Gallery</h1>
-        </div>
-        <HtmlRenderer className={styles.pageText}>{galleryConfig.summary}</HtmlRenderer>
-        <div className={styles.emptyState}>
-          <Images className={styles.emptyIcon} aria-hidden="true" />
-          No photos yet.
-        </div>
+          <HtmlRenderer className={styles.summary}>{galleryConfig.summary}</HtmlRenderer>
+        </header>
+        <section className={styles.emptyState} aria-label="Gallery">
+          <Images size={28} aria-hidden="true"/>
+          <h2>No photos yet.</h2>
+          <p>Collections and images will appear here once they are added from the gallery settings.</p>
+        </section>
       </main>
     );
   }
 
   return (
-    <>
-      <main className={cn(styles.page)}>
-        <div className={styles.headingRow}>
-          <h1 className={styles.pageHeader}>Gallery</h1>
-        </div>
-          <HtmlRenderer className={styles.pageText}>{galleryConfig.summary}</HtmlRenderer>
-        <div className={styles.folderGrid}>
-          {[...galleryConfig.categories, uncategorizedGalleryCategory]
-            .sort((a, b) => a.name.localeCompare(b.name))
-            .map((collection, index) => {
-              const cover = getCollectionCover(collection.name, galleryConfig.photos, collection.coverImage);
-              const photoCount = getCollectionPhotos(collection.name, galleryConfig.photos).length;
+    <main className={styles.page}>
+      <header className={styles.intro}>
+        <h1 className={styles.pageHeader}>Gallery</h1>
+        <HtmlRenderer className={styles.summary}>{galleryConfig.summary}</HtmlRenderer>
+      </header>
 
-              return (
-                <SmartLink
-                  href={"/gallery/" + getActiveSlug(collection.slugs) + "/"}
-                  key={index}
-                  className={styles.folderCard}
-                >
-                  <span className={styles.folderCover}>
-                    {cover
-                      ? <img src={cover} alt="" className={styles.folderImage} />
-                      : <Folder className={styles.folderPlaceholder} aria-hidden="true" />}
+      <section className={styles.collectionGrid} aria-label="Photo collections">
+        {collections.map((collection, index) => {
+          const cover = getCollectionCover(collection.name, galleryConfig.photos, collection.coverImage);
+          const photoCount = getCollectionPhotos(collection.name, galleryConfig.photos).length;
+
+          return (
+            <SmartLink
+              href={"/gallery/" + getActiveSlug(collection.slugs) + "/"}
+              key={getActiveSlug(collection.slugs) + "-" + index}
+              className={styles.collectionCard}
+              data-featured={index === 0 ? "true" : "false"}
+            >
+              <span className={styles.collectionMedia}>
+                {cover ? (
+                  <img src={cover} alt="" className={styles.collectionImage}/>
+                ) : (
+                  <span className={styles.collectionPlaceholder} aria-hidden="true">
+                    <Images size={36}/>
                   </span>
-                  <span className={styles.folderDetails}>
-                    <span className={styles.folderName}><Folder size={18} />{collection.name}</span>
-                    <span className={styles.folderCount}>
-                      {photoCount} {photoCount === 1 ? "photo" : "photos"}
-                    </span>
-                  </span>
-                </SmartLink>
-              );
-            })}
-        </div>
-      </main>
-    </>
+                )}
+              </span>
+              <span className={styles.collectionOverlay}>
+                <span className={styles.collectionName}>{collection.name}</span>
+                <span className={styles.collectionCount}>
+                  {photoCount} {photoCount === 1 ? "photo" : "photos"}
+                </span>
+              </span>
+            </SmartLink>
+          );
+        })}
+      </section>
+    </main>
   );
 }
 

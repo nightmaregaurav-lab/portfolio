@@ -1,14 +1,12 @@
-"use client"
+"use client";
 
-import React from 'react';
-import type {GalleryCollection} from "./page.types";
-import styles from "./page.module.css";
-import { cn } from '@/lib/utils';
+import React from "react";
+import {ArrowLeft, Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
-import {buttonVariants} from "@/components/ui/button";
-import {ArrowLeft} from "lucide-react";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
+import type {GalleryCollection} from "./page.types";
+import styles from "./page.module.css";
 
 function PageContent(
   {collection}: {
@@ -16,29 +14,32 @@ function PageContent(
   }
 ) {
   return (
-    <main className={cn(styles.page, "bg-secondary")}>
-      <div className={styles.headingRow}>
-        <SmartLink href="/gallery/" className={cn(buttonVariants({variant: "outline", size: "sm"}))}>
-          <ArrowLeft /> Folders
+    <main className={styles.page}>
+      <header className={styles.intro}>
+        <SmartLink href="/gallery/" className={styles.backLink}>
+          <ArrowLeft size={16} aria-hidden="true"/> Back to gallery
         </SmartLink>
         <h1 className={styles.pageHeader}>{collection.name}</h1>
-      </div>
-
-      {collection.description?.trim() && (
-        <HtmlRenderer className={styles.pageText}>{collection.description}</HtmlRenderer>
-      )}
+        {collection.description?.trim() && (
+          <HtmlRenderer className={styles.summary}>{collection.description}</HtmlRenderer>
+        )}
+      </header>
 
       {collection.photos.length ? (
-        <div className={styles.photoGrid}>
+        <section className={styles.photoGrid} aria-label={collection.name + " photos"}>
           {collection.photos.map((photo, index) => {
             const imageName = photo.title || "Untitled Photo";
             const imageUrl = photo.url;
             return (
-              <article className={styles.photoCard} key={photo.id || photo.url + "-" + index}>
+              <article
+                className={styles.photoCard}
+                data-size={index % 5 === 0 ? "wide" : "regular"}
+                key={photo.id + "-" + index}
+              >
                 <ImageLightbox
                   src={imageUrl}
                   name={imageName}
-                  trigger={<img className={styles.photoImage} src={imageUrl} alt={imageName} />}
+                  trigger={<img className={styles.photoImage} src={imageUrl} alt={imageName}/>}
                 />
                 {(photo.title || photo.caption) && (
                   <div className={styles.photoText}>
@@ -49,9 +50,13 @@ function PageContent(
               </article>
             );
           })}
-        </div>
+        </section>
       ) : (
-        <div className={styles.emptyState}>This folder does not have any photos yet.</div>
+        <section className={styles.emptyState} aria-label="Collection photos">
+          <Images size={26} aria-hidden="true"/>
+          <h2>No photos in this collection.</h2>
+          <p>Images added to this collection will show up here.</p>
+        </section>
       )}
     </main>
   );

@@ -4,8 +4,9 @@ import {CoreConfig, GalleryConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
-import {getCollectionCover, getCollectionPhotos, uncategorizedGalleryCategory} from "../page.content";
+import {uncategorizedGalleryCategory} from "../page.content";
 import type {GalleryCollection} from "./page.types";
+import {getCollectionCover, getCollectionPhotos} from "@/app/(app)/gallery/[collectionSlug]/page.utils";
 
 export const dynamicParams = false;
 

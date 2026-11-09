@@ -62,6 +62,21 @@
         height: fit-content;
     }
 }
+.additional {
+  width: min(100%, 72rem);
+  margin: 2rem auto 0;
+  padding: 1.15rem 1.25rem;
+  border-radius: 0.85rem;
+  background: color-mix(in oklch, oklch(0.62 0.16 250) 8%, var(--card));
+  border: 1px solid var(--border);
+  animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 120ms;
+}
+
+.additionalText {
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
 
 @media (max-width: 1024px) {
     .pageContent {

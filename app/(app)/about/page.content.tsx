@@ -48,7 +48,9 @@ function PageContent(
         </div>
       </div>
       {aboutConfig.additionalInformation && (
-        <HtmlRenderer className={styles.pageText}>{aboutConfig.additionalInformation}</HtmlRenderer>
+        <section className={styles.additional} aria-label="Additional information">
+          <HtmlRenderer className={styles.additionalText}>{aboutConfig.additionalInformation}</HtmlRenderer>
+        </section>
       )}
     </main>
   );
