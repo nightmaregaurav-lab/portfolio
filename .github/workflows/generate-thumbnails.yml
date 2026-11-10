@@ -79,11 +79,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git pull --rebase
           git add public/uploads_thumbs
           if git diff --cached --quiet; then
             echo "No thumbnail changes."
             exit 0
           fi
+          git pull --rebase
           git commit -m "Generate upload thumbnails"
           git push
