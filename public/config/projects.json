@@ -40,15 +40,15 @@
         "id": "project-b6987ab35c1a",
         "slugs": [
           {
-            "slug": "personal-website-cms",
-            "isActive": true
+            "isActive": true,
+            "slug": "personal-website-cms"
           }
         ],
         "title": "Personal Website CMS",
         "links": [
           {
             "name": "GitHub (Source)",
-            "url": "github.com/nightmaregaurav/personal-website-cms-source"
+            "url": "https://github.com/nightmaregaurav/personal-website-cms-source"
           },
           {
             "name": "GitHub (Release)",
