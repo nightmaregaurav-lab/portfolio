@@ -12,6 +12,12 @@ import {
 } from "@/lib/gitHub";
 import {useGitHubPatAuth} from "@/hooks/useGitHubPatAuth";
 import {toast} from "sonner";
+import {
+  addRecentUploads,
+  removeRecentUploads,
+  useRecentUploads,
+  recentUploadToGitHubContent,
+} from "@/lib/recentUploads";
 
 const EMPTY_FILES: GitHubContent[] = [];
 export function useGitHubFolder(
@@ -25,18 +31,22 @@ export function useGitHubFolder(
     gitHubSession,
   } = useGitHubPatAuth();
 
+  const recentUploadsRaw = useRecentUploads();
+
   const {
-    data: files,
+    data: serverFiles,
     isLoading: loadingFiles,
-  } = useQuery({
+  } = useQuery<GitHubContent[]>({
     queryKey: ["gitHub-folder", normalizedFolderPath],
-    queryFn: async () => {
+    queryFn: async (): Promise<GitHubContent[]> => {
       try {
-        return await listGitHubFiles(
+        const result = await listGitHubFiles(
           gitHubPat ?? "",
           gitHubSession!.repository!.full_name ?? "",
           normalizedFolderPath
-        )
+        );
+        removeRecentUploads(result.map((f: GitHubContent) => f.name));
+        return result;
       } catch (error) {
         const errorMessage = error instanceof Error ? error.message : typeof error === "string" ? error : `Something went wrong!`;
         toast.error(errorMessage);
@@ -56,7 +66,8 @@ export function useGitHubFolder(
       normalizedFolderPath,
       fileNames
     ),
-    onSuccess: async () => {
+    onSuccess: async (_, fileNames) => {
+      removeRecentUploads(fileNames);
       await queryClient.invalidateQueries({queryKey: ["gitHub-folder", normalizedFolderPath]});
       toast.success("File(s) deleted successfully!");
     },
@@ -70,12 +81,30 @@ export function useGitHubFolder(
     mutateAsync: uploadFiles,
     isPending: uploadingFiles
   } = useMutation({
-    mutationFn: async (files: GitHubCreateFileRequest[]) => await uploadGitHubFiles(
-      gitHubPat ?? "",
-      gitHubSession!.repository!.full_name,
-      normalizedFolderPath,
-      files
-    ),
+    mutationFn: async (files: GitHubCreateFileRequest[]) => {
+      const blobContents = new Map<string, Blob>();
+      for (const file of files) {
+        if (file.content instanceof File) {
+          blobContents.set(file.name, file.content);
+        }
+      }
+
+      await uploadGitHubFiles(
+        gitHubPat ?? "",
+        gitHubSession!.repository!.full_name,
+        normalizedFolderPath,
+        files
+      );
+
+      if (gitHubSession?.repository) {
+        addRecentUploads(
+          blobContents,
+          normalizedFolderPath,
+          gitHubSession.repository.full_name,
+          gitHubSession.repository.default_branch,
+        );
+      }
+    },
     onSuccess: async () => {
       await queryClient.invalidateQueries({queryKey: ["gitHub-folder", normalizedFolderPath]});
       toast.success("File(s) uploaded successfully!");
@@ -86,8 +115,17 @@ export function useGitHubFolder(
     }
   });
 
+  const resolvedServerFiles = serverFiles ?? EMPTY_FILES;
+  const recentUploads = recentUploadsRaw
+    .filter((u) => !resolvedServerFiles.some((f) => f.name === u.name))
+    .map(recentUploadToGitHubContent);
+
+  const allFiles = [...recentUploads, ...resolvedServerFiles];
+
   return {
-    files: files ?? EMPTY_FILES,
+    files: allFiles,
+    recentUploads,
+    serverFiles: resolvedServerFiles,
     loadingFiles,
     deleteFiles,
     deletingFiles,

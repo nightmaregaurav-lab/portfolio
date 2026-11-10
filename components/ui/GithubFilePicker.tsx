@@ -14,6 +14,7 @@ import {UPLOADS_PATH, UPLOADS_THUMBS_PATH} from "@/lib/pathConfig";
 import Image from "next/image";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import {Separator} from "@/components/ui/separator";
 
 type GithubFilePickerProps = {
   path?: string;
@@ -35,11 +36,18 @@ function GithubFilePicker({
   } = useDebouncedState("", 500);
 
   const [imagePreview, setImagePreview] = useState<{url: string, name: string} | null>(null);
-  const {files, loadingFiles} = useGitHubFolder(path);
+  const {recentUploads, serverFiles, loadingFiles} = useGitHubFolder(path);
 
-  const filteredFiles = files?.filter(file =>
+  const filteredFiles = serverFiles?.filter(file =>
     file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase())
   );
+
+  const filteredRecentUploads = recentUploads?.filter(file =>
+    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase())
+  );
+
+  const recentImageFiles = filteredRecentUploads?.filter(file => getFileTypeFromExtension(file.name) === "Image");
+  const recentOtherFiles = filteredRecentUploads?.filter(file => getFileTypeFromExtension(file.name) !== "Image");
 
   const imageFiles = filteredFiles?.filter(file => getFileTypeFromExtension(file.name) === "Image");
   const otherFiles = filteredFiles?.filter(file => getFileTypeFromExtension(file.name) !== "Image");
@@ -76,19 +84,57 @@ function GithubFilePicker({
         </div>
       )}
 
-      {!loadingFiles && (!files || files.length === 0) && (
+      {!loadingFiles && (!serverFiles || serverFiles.length === 0) && (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
         <div className={"flex flex-row justify-center align-center items-center py-8"}>
           <span className={"text-gray-500"}>No files found.</span>
         </div>
       )}
 
-      {!loadingFiles && files && files.length > 0 && filteredFiles && filteredFiles.length === 0 && (
+      {!loadingFiles && serverFiles && serverFiles.length > 0 && filteredFiles && filteredFiles.length === 0 &&
+       (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
         <div className={"flex flex-row justify-center align-center items-center py-8"}>
           <span className={"text-gray-500"}>No files found matching the search criteria.</span>
         </div>
       )}
 
       <div className={"flex flex-col gap-3 overflow-y-auto max-h-64"}>
+        {(recentImageFiles && recentImageFiles.length > 0) || (recentOtherFiles && recentOtherFiles.length > 0) ? (
+          <>
+            <div className={"flex flex-row justify-between align-center items-center"}>
+              <span className={"text-xs font-semibold text-gray-700"}>Recent Uploads</span>
+              <span className={"text-xs text-gray-500"}>
+                syncing with server...
+              </span>
+            </div>
+            {recentImageFiles && recentImageFiles.length > 0 && (
+              <div className={"grid grid-cols-3 gap-2"}>
+                {recentImageFiles.map((file, i) => (
+                  <PickerImageCard
+                    key={`recent-img-${i}`}
+                    file={file}
+                    onSelect={handleSelect}
+                    onView={(url) => setImagePreview({url, name: file.name})}
+                    isSelected={selectedUrls.some((url) => url === file.download_url)}
+                  />
+                ))}
+              </div>
+            )}
+            {recentOtherFiles && recentOtherFiles.length > 0 && (
+              <div className={"flex flex-col gap-1"}>
+                {recentOtherFiles.map((file, i) => (
+                  <PickerFileCard
+                    key={`recent-file-${i}`}
+                    file={file}
+                    onSelect={handleSelect}
+                    isSelected={selectedUrls.some((url) => url === file.download_url)}
+                  />
+                ))}
+              </div>
+            )}
+            <Separator className={"my-1"}/>
+          </>
+        ) : null}
+
         {imageFiles && imageFiles.length > 0 && (
           <div className={"flex flex-col gap-2"}>
             <span className={"text-xs font-medium text-muted-foreground uppercase tracking-wider"}>Images</span>

@@ -39,6 +39,8 @@ function GitHubFileManager(
 
   const {
     files,
+    recentUploads,
+    serverFiles,
     loadingFiles,
     deleteFiles,
     uploadFiles,
@@ -86,7 +88,7 @@ function GitHubFileManager(
     }
   }
 
-  const filteredFiles = files
+  const filteredFiles = serverFiles
     ?.filter(file => {
       const typeString = getFileTypeFromExtension(file.name);
       if(selectedFileType && typeString !== selectedFileType) {
@@ -96,7 +98,11 @@ function GitHubFileManager(
       }
     );
 
-  const fileTypes = files?.reduce((acc, file) => {
+  const filteredRecentUploads = recentUploads?.filter(file =>
+    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase())
+  );
+
+  const fileTypes = serverFiles?.reduce((acc, file) => {
     const type = getFileTypeFromExtension(file.name);
     if (!acc[type]) {
       acc[type] = 0;
@@ -152,10 +158,11 @@ function GitHubFileManager(
       {loadingFiles && <div className={"flex flex-row justify-center align-center items-center"}>
         <Spinner className={"mr-1"}/> Loading...
       </div>}
-      {!loadingFiles && (!files || files.length === 0) && <div className={"flex flex-row justify-center align-center items-center"}>
+      {!loadingFiles && (!serverFiles || serverFiles.length === 0) && (!filteredRecentUploads || filteredRecentUploads.length === 0) && <div className={"flex flex-row justify-center align-center items-center"}>
         <span className={"text-gray-500"}>No files found.</span>
       </div>}
-      {!loadingFiles && files && files.length > 0 && filteredFiles && filteredFiles.length === 0 && <div className={"flex flex-row justify-center align-center items-center"}>
+      {!loadingFiles && serverFiles && serverFiles.length > 0 && filteredFiles && filteredFiles.length === 0 &&
+       (!filteredRecentUploads || filteredRecentUploads.length === 0) && <div className={"flex flex-row justify-center align-center items-center"}>
         <span className={"text-gray-500"}>No files found matching the search criteria.</span>
       </div>}
       <div className={"flex flex-row gap-2 overflow-x-auto py-1 mb-3"}>
@@ -200,6 +207,60 @@ function GitHubFileManager(
           </DropdownMenuContent>
         </DropdownMenu>
       </div>)}
+
+      {filteredRecentUploads && filteredRecentUploads.length > 0 && (
+        <div className="mb-4">
+          <div className={"flex flex-row justify-between align-center items-center mb-2"}>
+            <span className={"text-sm font-semibold text-gray-700"}>Recent Uploads</span>
+            <span className={"text-xs text-gray-500"}>
+              {filteredRecentUploads.length} file(s) — syncing with server...
+            </span>
+          </div>
+          <div
+            className={cn(
+              "grid gap-2",
+              {
+                "grid-cols-1 sm:grid-cols-2 md:grid-cols-3": viewMode === "grid",
+                "flex flex-col": viewMode === "list",
+              }
+            )}
+          >
+            {filteredRecentUploads.map((file, i) => (viewMode === "grid" ? (<GridCard
+              key={`recent-${i}`}
+              file={file}
+              isAnySelected={selectedFiles.length > 0}
+              isSelected={selectedFiles.includes(file.name)}
+              onSelectionChange={(selected) => {
+                if (selected) {
+                  setSelectedFiles([...selectedFiles, file.name]);
+                } else {
+                  setSelectedFiles(selectedFiles.filter(f => f !== file.name));
+                }
+              }}
+              onView={async (url) => setImagePreview({url, name: file.name})}
+              onDownload={undefined}
+              onDelete={undefined}
+            />) : (<ListCard
+              key={`recent-${i}`}
+              file={file}
+              isAnySelected={selectedFiles.length > 0}
+              isSelected={selectedFiles.includes(file.name)}
+              onSelectionChange={(selected) => {
+                if (selected) {
+                  setSelectedFiles([...selectedFiles, file.name]);
+                } else {
+                  setSelectedFiles(selectedFiles.filter(f => f !== file.name));
+                }
+              }}
+              onView={async (url) => setImagePreview({url, name: file.name})}
+              onDownload={undefined}
+              onDelete={undefined}
+            />)))}
+          </div>
+          <Separator className={"my-3"}/>
+        </div>
+      )}
+
       <div
         className={cn(
           "grid gap-2",
@@ -266,8 +327,8 @@ function GridCard(
     isSelected: boolean,
     onSelectionChange: (selected: boolean) => void,
     onView: (url: string) => Promise<void>,
-    onDownload: (fileNames: string[]) => Promise<void>,
-    onDelete: (fileNames: string[]) => Promise<void>
+    onDownload?: (fileNames: string[]) => Promise<void>,
+    onDelete?: (fileNames: string[]) => Promise<void>
   }
 ) {
   return (
@@ -317,8 +378,8 @@ function ListCard(
     isSelected: boolean,
     onSelectionChange: (selected: boolean) => void,
     onView: (url: string) => Promise<void>,
-    onDownload: (fileNames: string[]) => Promise<void>,
-    onDelete: (fileNames: string[]) => Promise<void>
+    onDownload?: (fileNames: string[]) => Promise<void>,
+    onDelete?: (fileNames: string[]) => Promise<void>
   }
 ) {
   return (
@@ -371,8 +432,8 @@ function FileActions(
   {file, onView, onDownload, onDelete}: {
     file: GitHubContent,
     onView: (url: string) => Promise<void>,
-    onDownload: (fileNames: string[]) => Promise<void>,
-    onDelete: (fileNames: string[]) => Promise<void>
+    onDownload?: (fileNames: string[]) => Promise<void>,
+    onDelete?: (fileNames: string[]) => Promise<void>
   }
 ) {
   return (
@@ -382,7 +443,7 @@ function FileActions(
       </Button>} />
       <DropdownMenuContent className="w-auto border rounded-md bg-white shadow-lg">
         <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 pt-2 cursor-pointer flex flex-no gap-2" onClick={async () => {
-          navigator.clipboard.writeText(file.download_url);
+          await navigator.clipboard.writeText(file.download_url);
         }}>
           <Copy size={14} />
           CopyLink
@@ -393,18 +454,18 @@ function FileActions(
           <Eye size={14} />
           View
         </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 cursor-pointer flex flex-no gap-2" onClick={async () => {
+        {onDownload && <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 cursor-pointer flex flex-no gap-2" onClick={async () => {
           await onDownload([file.name]);
         }}>
           <Download size={14} />
           Download
-        </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 cursor-pointer flex flex-no gap-2" onClick={async () => {
+        </DropdownMenuItem>}
+        {onDelete && <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 cursor-pointer flex flex-no gap-2" onClick={async () => {
           await onDelete([file.name]);
         }}>
           <Trash size={14} />
           Delete
-        </DropdownMenuItem>
+        </DropdownMenuItem>}
       </DropdownMenuContent>
     </DropdownMenu>
   );
