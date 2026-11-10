@@ -23,6 +23,7 @@ import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {generateMilestoneLabel} from "@/lib/configurationUtils";
 import {isNullOrWhitespace} from "@/lib/string";
 import {slugify} from "@/lib/slugs";
+import {stripHtmlTags} from "@/lib/html";
 
 const emptyProject: NonNullable<TInput["projects"]>[number] = {
   id: "",
@@ -238,7 +239,7 @@ function ProjectPreview({project}: {project: NonNullable<TInput["projects"]>[num
     </p>
 
     <p className={"truncate text-sm text-muted-foreground"}>
-      {project.description || "No description yet"}
+      {stripHtmlTags(project.description || "No description yet")}
     </p>
   </>);
 }

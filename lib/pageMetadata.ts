@@ -52,7 +52,7 @@ export function createPageMetadata({
   description,
   path,
   image,
-  keywords = CoreConfig.seoKeywords,
+  keywords,
   type = "website",
   publishedTime,
   section,
@@ -67,10 +67,15 @@ export function createPageMetadata({
     ? title
     : title + " | " + siteName;
 
+  const coreKeywords = CoreConfig.seoKeywords || [];
+  const resolvedKeywords = keywords
+    ? [...keywords, ...coreKeywords]
+    : coreKeywords;
+
   return {
     title: title === siteName ? {absolute: title} : title,
     description: resolvedDescription,
-    keywords,
+    keywords: resolvedKeywords,
     authors: [{name: authorName}],
     alternates: canonical ? {canonical} : undefined,
     openGraph: {
