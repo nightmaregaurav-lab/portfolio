@@ -7,7 +7,7 @@
         "id": "skill-32b5f1a61279",
         "title": "C#",
         "image": "https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg",
-        "description": "<p>My journey with C# began during my academic years, where I developed a strong foundation in programming and object-oriented principles. Through continuous hands-on development, I deepened my understanding of the language, exploring its features and capabilities while building real-world software. Over time, working on complex applications and solving challenging engineering problems turned C# into one of my core programming languages.</p>",
+        "description": "<p>C# became one of my core programming languages through years of hands-on software development. Starting with programming fundamentals, I gradually explored its deeper capabilities, from object-oriented design and language features to building complex applications. Today, it remains central to my approach to solving engineering problems and developing reliable software.</p>",
         "associatedMilestoneIds": [
           "milestone-c3e95f8760e1",
           "milestone-48e00aa5d53d",
@@ -22,7 +22,7 @@
         "id": "skill-882f42efbd34",
         "title": ".NET",
         "image": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg",
-        "description": "<p>My experience with .NET grew through building and maintaining real-world applications, progressing from developing backend services to designing scalable application architectures. Working extensively with <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://ASP.NET\">ASP.NET</a> Core, Entity Framework Core, dependency injection, and the broader .NET ecosystem has given me practical experience in building robust, maintainable, and scalable software solutions.</p>",
+        "description": "<p>Working with the .NET ecosystem has shaped much of my backend engineering experience. I've used it to develop APIs, manage data persistence, implement application architectures, and build scalable backend systems. My experience spans technologies such as <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://ASP.NET\">ASP.NET</a> Core and Entity Framework Core, with an emphasis on maintainability and sound engineering practices.</p>",
         "associatedMilestoneIds": [
           "milestone-c3e95f8760e1",
           "milestone-48e00aa5d53d",
@@ -37,7 +37,7 @@
         "id": "skill-69f173d52645",
         "title": "Python",
         "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
-        "description": "<p>My journey with Python has been entirely self-driven, fueled by curiosity and a passion for exploring technology. Through independent learning and hands-on experimentation, I have developed practical programming skills, explored its versatile ecosystem, and used Python to solve problems, automate tasks, and bring ideas to life.</p>",
+        "description": "<p>Entirely self-taught, my experience with Python grew out of curiosity and a desire to explore beyond my primary development stack. Its versatility has allowed me to experiment with different programming concepts, automate repetitive tasks, and approach problems from new perspectives. I particularly enjoy its simplicity and flexibility when turning ideas into working solutions.</p>",
         "associatedMilestoneIds": [],
         "associatedProjectIds": [
           "project-fb7de64c1e61"
@@ -47,7 +47,7 @@
         "id": "skill-ae342be607e1",
         "title": "JavaScript",
         "image": "https://upload.wikimedia.org/wikipedia/commons/a/a4/JavaScript_code.png",
-        "description": "<p>My journey with JavaScript began through self-learning, driven by an early interest in web development, even before it became part of my BCA curriculum. Since then, it has remained an integral part of my development journey. From building interactive web interfaces to developing modern full-stack applications with React and Next.js, I continue to use JavaScript alongside TypeScript as a core part of my technology stack.</p>",
+        "description": "<p>I started exploring JavaScript independently out of an interest in making the web more interactive, even before encountering it in my BCA coursework. What began as curiosity evolved into a key part of my professional development toolkit. I actively use it alongside TypeScript, React, and Next.js to build modern frontend experiences and full-stack applications.</p>",
         "associatedMilestoneIds": [
           "milestone-c3e95f8760e1",
           "milestone-48e00aa5d53d",
@@ -55,6 +55,23 @@
           "milestone-ce00544993d4",
           "milestone-1353f03a14c5",
           "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-b6987ab35c1a"
+        ]
+      },
+      {
+        "id": "skill-b520b3d21466",
+        "title": "CSS",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/ab/Official_CSS_Logo.svg",
+        "description": "<p>CSS introduced me to the visual and experiential aspects of building for the web. Beyond basic styling, I've explored responsive design, layout systems, animations, and modern UI techniques to create interfaces that work seamlessly across devices. It remains an essential tool in translating design ideas into polished, usable web experiences.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c3e95f8760e1",
+          "milestone-48e00aa5d53d",
+          "milestone-da445a239107",
+          "milestone-1353f03a14c5",
+          "milestone-ce00544993d4",
+          "milestone-769ef323e4c5"
         ],
         "associatedProjectIds": [
           "project-b6987ab35c1a"
