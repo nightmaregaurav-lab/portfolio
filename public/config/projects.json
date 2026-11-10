@@ -2,6 +2,38 @@
   "version": 1,
   "configuration": {
     "summary": "<p>Building software is more than just writing code. It's about exploring ideas, solving problems, experimenting with technologies, and turning concepts into something useful.</p><p>Over the years, I've worked on a variety of projects, ranging from academic and personal experiments to practical applications and open-source tools. Some were built to solve real-world problems, others to explore an interesting idea or simply satisfy my curiosity.</p><p>I enjoy building things from scratch, understanding how things work under the hood, and occasionally reinventing the wheel just to see if I can make one myself.</p><p>Here is a collection of projects I've worked on, each representing a part of my journey as a software engineer.</p>",
-    "projects": []
+    "projects": [
+      {
+        "id": "project-fb7de64c1e61",
+        "slugs": [
+          {
+            "slug": "nepali-crime-news",
+            "isActive": true
+          }
+        ],
+        "title": "Nepali Crime News",
+        "links": [
+          {
+            "name": "GitHub",
+            "url": "https://github.com/nightmaregaurav/NepaliCrimeNews"
+          }
+        ],
+        "description": "<p>A simple project that crawls Nepal Police's official website every day and keeps the news in JSON format so any application can access it for free and use it.</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Nepali%20Crime%20News%20AI%20Generated%20Project%20Cover.jpg",
+        "images": [],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "News Scraper"
+          }
+        ],
+        "seoKeywords": [
+          "Nepali Crime News",
+          "News Crawler",
+          "News Scraper"
+        ],
+        "milestoneId": ""
+      }
+    ]
   }
 }
