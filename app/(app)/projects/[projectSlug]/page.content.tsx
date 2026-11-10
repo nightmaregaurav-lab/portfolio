@@ -49,7 +49,6 @@ function PageContent(
             <div className={styles.projectHeading}>
               <Badge variant="outline">Project</Badge>
               <h1>{project.title}</h1>
-              <p className={styles.projectId}>Project ID: {project.id}</p>
             </div>
           </header>
 

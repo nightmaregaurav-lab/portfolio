@@ -71,12 +71,6 @@
   overflow-wrap: anywhere;
 }
 
-.projectId {
-  margin: 0;
-  color: var(--muted-foreground);
-  font-size: 0.85rem;
-}
-
 .detailLayout {
   display: grid;
   grid-template-columns: minmax(0, 1.55fr) minmax(16rem, 0.8fr);

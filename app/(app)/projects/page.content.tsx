@@ -9,7 +9,6 @@ import {Button} from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -150,7 +149,6 @@ function PageContent(
                       </CardTitle>
                       <ArrowRight size={18} aria-hidden="true" className={styles.projectArrow} />
                     </div>
-                    <CardDescription className={styles.projectId}>Project #{project.id}</CardDescription>
                   </CardHeader>
                   <CardContent className={styles.projectCardContent}>
                     <HtmlRenderer className={styles.projectDescription}>{project.description}</HtmlRenderer>

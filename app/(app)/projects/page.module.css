@@ -162,10 +162,6 @@
   transform: translateX(3px);
 }
 
-.projectId {
-  font-size: 0.75rem;
-}
-
 .projectCardContent {
   display: grid;
   gap: 0.9rem;
