@@ -93,6 +93,17 @@
         "associatedProjectIds": [
           "project-b6987ab35c1a"
         ]
+      },
+      {
+        "id": "skill-2095e817a94d",
+        "title": "C Programming",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/7/72/C1stEdition.svg",
+        "description": "<p>C was my first encounter with programming, long before it became part of my formal education. Without access to a computer or school laboratory, I discovered a C programming book in the school library and became fascinated by what I could create with code. I began writing programs on paper, sometimes exceeding 300 lines, mentally tracing their execution using flowcharts and dry runs. Later, I found a way to install DOSBox on my father's Android phone, which finally allowed me to compile and run my programs. I continued learning independently until I eventually gained access to the school's computer lab. That early experience laid the foundation for everything that followed in my programming journey.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c25a71ed7573",
+          "milestone-c3e95f8760e1"
+        ],
+        "associatedProjectIds": []
       }
     ]
   }
