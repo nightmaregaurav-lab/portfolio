@@ -152,13 +152,13 @@ function PageContent(
                   </CardHeader>
                   <CardContent className={styles.projectCardContent}>
                     <HtmlRenderer className={styles.projectDescription}>{project.description}</HtmlRenderer>
-                    {!!project.keypoints?.length && (
+                    {!!project.seoKeywords?.length && (
                       <div className={styles.projectBadges}>
-                        {project.keypoints.slice(0, 3).map((point, index) => (
-                          <Badge variant="secondary" key={point.title + "-" + index}>{point.title}: {point.value}</Badge>
+                        {project.seoKeywords.slice(0, 3).map((keyword, index) => (
+                          <Badge variant="secondary" key={keyword + "-" + index}>{keyword}</Badge>
                         ))}
-                        {project.keypoints.length > 3 && (
-                          <Badge variant="outline">+{project.keypoints.length - 3} details</Badge>
+                        {project.seoKeywords.length > 3 && (
+                          <Badge variant="outline">+{project.seoKeywords.length - 3} more</Badge>
                         )}
                       </div>
                     )}
