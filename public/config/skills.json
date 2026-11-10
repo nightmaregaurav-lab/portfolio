@@ -42,6 +42,23 @@
         "associatedProjectIds": [
           "project-fb7de64c1e61"
         ]
+      },
+      {
+        "id": "skill-ae342be607e1",
+        "title": "JavaScript",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/a/a4/JavaScript_code.png",
+        "description": "<p>My journey with JavaScript began through self-learning, driven by an early interest in web development, even before it became part of my BCA curriculum. Since then, it has remained an integral part of my development journey. From building interactive web interfaces to developing modern full-stack applications with React and Next.js, I continue to use JavaScript alongside TypeScript as a core part of my technology stack.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c3e95f8760e1",
+          "milestone-48e00aa5d53d",
+          "milestone-769ef323e4c5",
+          "milestone-ce00544993d4",
+          "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-b6987ab35c1a"
+        ]
       }
     ]
   }
