@@ -19,6 +19,7 @@ import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {withConfigurationId} from "@/lib/configurationUtils";
 import {generateMilestoneLabel} from "@/lib/configurationUtils";
 import CheckboxList from "@/components/ui/CheckboxList";
+import {stripHtmlTags} from "@/lib/html";
 
 const emptySkill: NonNullable<TInput["skills"]>[number] = {
   id: "",
@@ -113,7 +114,7 @@ function SkillPreview({skill}: {skill: NonNullable<TInput["skills"]>[number]}) {
     </p>
 
     <p className={"truncate text-sm text-muted-foreground"}>
-      {skill.description || "No description yet"}
+      {stripHtmlTags(skill.description || "No description yet")}
     </p>
   </>);
 }
