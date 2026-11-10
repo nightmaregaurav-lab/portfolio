@@ -7,8 +7,8 @@
         "id": "project-fb7de64c1e61",
         "slugs": [
           {
-            "slug": "nepali-crime-news",
-            "isActive": true
+            "isActive": true,
+            "slug": "nepali-crime-news"
           }
         ],
         "title": "Nepali Crime News",
@@ -30,7 +30,63 @@
         "seoKeywords": [
           "Nepali Crime News",
           "News Crawler",
-          "News Scraper"
+          "News Scraper",
+          "Open Source",
+          "Open Data"
+        ],
+        "milestoneId": ""
+      },
+      {
+        "id": "project-b6987ab35c1a",
+        "slugs": [
+          {
+            "slug": "personal-website-cms",
+            "isActive": true
+          }
+        ],
+        "title": "Personal Website CMS",
+        "links": [
+          {
+            "name": "GitHub (Source)",
+            "url": "github.com/nightmaregaurav/personal-website-cms-source"
+          },
+          {
+            "name": "GitHub (Release)",
+            "url": "https://github.com/nightmaregaurav/personal-website-cms"
+          }
+        ],
+        "description": "<p>CMS may sound like a big word. But A content management system (CMS) is computer software used to manage the creation and modification of digital content (content management). Personal-Website-CMS does just that. It provides a CMS to publish a personal website with the bare minimum features. If CMS sounds inconvenient, you may call it Micro-CMS.</p><p>This was the initial prototype to test the theory that a dynamic website, in the sense that the content it shows can be updated by the user, can be hosted using static website deployment technologies.</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/personal-website-cms-1.png",
+        "images": [
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/personal-website-cms-1.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/personal-website-cms-2.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/personal-website-cms-3.png"
+        ],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "CMS"
+          },
+          {
+            "title": "Useful for",
+            "value": "Personal website, galery, project showcase etc."
+          },
+          {
+            "title": "Setup",
+            "value": "With GUI Form"
+          },
+          {
+            "title": "Successor",
+            "value": "https://github.com/nightmaregaurav/portfolio"
+          }
+        ],
+        "seoKeywords": [
+          "Personal Website CMS",
+          "Portfolio website CMS",
+          "Static website with dynamic content",
+          "Web",
+          "React",
+          "Open Source"
         ],
         "milestoneId": ""
       }
