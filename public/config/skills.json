@@ -7,7 +7,7 @@
         "id": "skill-32b5f1a61279",
         "title": "C#",
         "image": "https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg",
-        "description": "<p>My journey with C# began during my academic years and grew through hands-on software development. What started as learning programming fundamentals evolved into building complex, real-world applications using the .NET ecosystem. Over the years, working on diverse projects, designing software architectures, and taking on increasingly senior engineering responsibilities has helped me develop a strong command of C# and the .NET platform.</p>",
+        "description": "<p>My journey with C# began during my academic years, where I developed a strong foundation in programming and object-oriented principles. Through continuous hands-on development, I deepened my understanding of the language, exploring its features and capabilities while building real-world software. Over time, working on complex applications and solving challenging engineering problems turned C# into one of my core programming languages.</p>",
         "associatedMilestoneIds": [
           "milestone-c3e95f8760e1",
           "milestone-48e00aa5d53d",
@@ -17,6 +17,31 @@
           "milestone-1353f03a14c5"
         ],
         "associatedProjectIds": []
+      },
+      {
+        "id": "skill-882f42efbd34",
+        "title": ".NET",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/7/7d/Microsoft_.NET_logo.svg",
+        "description": "<p>My experience with .NET grew through building and maintaining real-world applications, progressing from developing backend services to designing scalable application architectures. Working extensively with <a target=\"_blank\" rel=\"noopener noreferrer nofollow\" href=\"http://ASP.NET\">ASP.NET</a> Core, Entity Framework Core, dependency injection, and the broader .NET ecosystem has given me practical experience in building robust, maintainable, and scalable software solutions.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c3e95f8760e1",
+          "milestone-48e00aa5d53d",
+          "milestone-769ef323e4c5",
+          "milestone-ce00544993d4",
+          "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": []
+      },
+      {
+        "id": "skill-69f173d52645",
+        "title": "Python",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/c/c3/Python-logo-notext.svg",
+        "description": "<p>My journey with Python has been entirely self-driven, fueled by curiosity and a passion for exploring technology. Through independent learning and hands-on experimentation, I have developed practical programming skills, explored its versatile ecosystem, and used Python to solve problems, automate tasks, and bring ideas to life.</p>",
+        "associatedMilestoneIds": [],
+        "associatedProjectIds": [
+          "project-fb7de64c1e61"
+        ]
       }
     ]
   }
