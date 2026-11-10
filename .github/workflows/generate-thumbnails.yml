@@ -84,6 +84,6 @@ jobs:
             echo "No thumbnail changes."
             exit 0
           fi
-          git pull --rebase
           git commit -m "Generate upload thumbnails"
+          git pull --rebase origin HEAD
           git push
