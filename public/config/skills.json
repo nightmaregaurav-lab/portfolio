@@ -2,6 +2,22 @@
   "version": 0,
   "configuration": {
     "summary": "<p>I see skills not just as items on a list, but as abilities developed through curiosity, practice, experience, and continuous learning. Some have grown through building projects, others through academic pursuits, professional responsibilities, or personal exploration.</p><p>This page brings together the technologies, tools, and areas of knowledge I've worked with, along with what each of them means to me. Where possible, I've connected a skill to the projects or milestones that helped me develop it. Others stand on their own, representing knowledge and abilities worth sharing in their own right.</p><p>More than a measure of proficiency, this is a reflection of what I've explored, what I've learned, and how I've grown along the way.</p>",
-    "skills": []
+    "skills": [
+      {
+        "id": "skill-32b5f1a61279",
+        "title": "C#",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/d/d2/C_Sharp_Logo_2023.svg",
+        "description": "<p>My journey with C# began during my academic years and grew through hands-on software development. What started as learning programming fundamentals evolved into building complex, real-world applications using the .NET ecosystem. Over the years, working on diverse projects, designing software architectures, and taking on increasingly senior engineering responsibilities has helped me develop a strong command of C# and the .NET platform.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c3e95f8760e1",
+          "milestone-48e00aa5d53d",
+          "milestone-769ef323e4c5",
+          "milestone-ce00544993d4",
+          "milestone-da445a239107",
+          "milestone-1353f03a14c5"
+        ],
+        "associatedProjectIds": []
+      }
+    ]
   }
 }
