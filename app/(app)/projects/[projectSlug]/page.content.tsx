@@ -13,6 +13,7 @@ import {cn} from "@/lib/utils";
 import {TModel as ProjectModel} from "@/configuration/projects";
 import {TModel as MilestoneModel} from "@/configuration/journey";
 import {TModel as SkillModel} from "@/configuration/skills";
+import SmartText from "@/components/ui/SmartText";
 
 function PageContent(
   {project, milestone, skills}: {
@@ -86,7 +87,7 @@ function PageContent(
                     {project.keypoints.map((point, index) => (
                       <div className={styles.keypoint} key={`${point.title}-${index}`}>
                         <dt>{point.title}</dt>
-                        <dd>{point.value}</dd>
+                        <dd><SmartText>{point.value}</SmartText></dd>
                       </div>
                     ))}
                   </dl>
