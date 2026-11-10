@@ -313,6 +313,48 @@
         "categories": [
           "Furry Friends"
         ]
+      },
+      {
+        "id": "photo-b841ee04fc5c",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_1209.JPG",
+        "title": "Up above the clouds",
+        "caption": "They say mountains change you. No, towering above the clouds, they kind of see everything. And then they just show you exactly what they've seen.",
+        "categories": [
+          "Nepal",
+          "The Himalayas"
+        ]
+      },
+      {
+        "id": "photo-e05b630fa6a2",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_20211225_070545.jpg",
+        "title": "Sun-kissed gold",
+        "caption": "Sunrise and The Himalayas. Perfect combination.",
+        "categories": [
+          "The Himalayas",
+          "Nepal",
+          "Mustang"
+        ]
+      },
+      {
+        "id": "photo-e57a91a1bd45",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_20211225_075557.jpg",
+        "title": "",
+        "caption": "Just a little above 3800m",
+        "categories": [
+          "Mustang",
+          "The Himalayas",
+          "Nepal"
+        ]
+      },
+      {
+        "id": "photo-2e5b302a38fc",
+        "url": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_5705.jpg",
+        "title": "",
+        "caption": "A view of the Himalayas from Manakamana Temple, Gorkha",
+        "categories": [
+          "Nepal",
+          "The Himalayas"
+        ]
       }
     ]
   }
