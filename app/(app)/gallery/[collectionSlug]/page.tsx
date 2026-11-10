@@ -35,7 +35,6 @@ function findCollection(collectionSlug: string) {
     return null;
   }
 
-  console.log("findCollection", collectionSlug, metadata, uncategorizedGalleryCategory);
   const cover = getCollectionCover(metadata.name, GalleryConfig.photos, metadata.coverImage);
   const photos = getCollectionPhotos(metadata.name, GalleryConfig.photos);
   return {
@@ -50,7 +49,6 @@ export async function generateMetadata(
 ) {
   const {collectionSlug} = await params;
   const collection = findCollection(collectionSlug);
-  console.log("generateMetadata", collectionSlug, collection);
   if (!collection) {
     return {};
   }
