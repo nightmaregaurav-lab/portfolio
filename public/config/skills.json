@@ -76,6 +76,23 @@
         "associatedProjectIds": [
           "project-b6987ab35c1a"
         ]
+      },
+      {
+        "id": "skill-0a9cdf2f056d",
+        "title": "HTML",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/6/61/HTML5_logo_and_wordmark.svg",
+        "description": "<p>HTML was my starting point in understanding how the web works and how its building blocks come together. Through continuous practice and project development, I've developed a solid understanding of semantic markup, document structure, accessibility, and modern web standards. It continues to be the foundation upon which I build structured, meaningful, and accessible web experiences.</p>",
+        "associatedMilestoneIds": [
+          "milestone-c3e95f8760e1",
+          "milestone-48e00aa5d53d",
+          "milestone-ce00544993d4",
+          "milestone-769ef323e4c5",
+          "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-b6987ab35c1a"
+        ]
       }
     ]
   }
