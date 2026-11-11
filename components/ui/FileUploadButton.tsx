@@ -13,7 +13,7 @@ function FileUploadButton(
     uploadFiles
   }: {
     uploadingFiles: boolean,
-    uploadFiles: (files: GitHubCreateFileRequest[]) => Promise<void>
+    uploadFiles: (files: GitHubCreateFileRequest[]) => Promise<number>
   }
 ) {
   const fileInputRef = useRef<HTMLInputElement>(null);
