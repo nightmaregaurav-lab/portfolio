@@ -18,6 +18,7 @@ import {
   useRecentUploads,
   recentUploadToGitHubContent,
 } from "@/lib/recentUploads";
+import {confirm} from "@/components/ui/Confirm";
 
 const EMPTY_FILES: GitHubContent[] = [];
 export function useGitHubFolder(
@@ -89,11 +90,35 @@ export function useGitHubFolder(
         }
       }
 
-      await uploadGitHubFiles(
+      const totalUploads = await uploadGitHubFiles(
         gitHubPat ?? "",
         gitHubSession!.repository!.full_name,
         normalizedFolderPath,
-        files
+        files,
+        {
+          beforeOverwrite: async (file) => await confirm({
+            title: "File Already Exists",
+            message: `${file.name} already exist and will be overwritten. Update may take a few seconds to reflect everywhere.\n\nDo you want to continue?`,
+            actions: [
+              {
+                label: "Cancel",
+                onClick: async () => false,
+                buttonProps: {
+                  variant: "outline",
+                  className: "cursor-pointer",
+                },
+              },
+              {
+                label: "Overwrite",
+                onClick: async () => true,
+                buttonProps: {
+                  className: "cursor-pointer",
+                },
+              },
+            ],
+          }),
+          onOverwriteCancelled: async (file) => toast.info(`Skipping ${file.name}.`),
+        }
       );
 
       if (gitHubSession?.repository) {
@@ -104,8 +129,13 @@ export function useGitHubFolder(
           gitHubSession.repository.default_branch,
         );
       }
+
+      return totalUploads;
     },
-    onSuccess: async () => {
+    onSuccess: async (totalUploads) => {
+      if(totalUploads === 0) {
+        return;
+      }
       await queryClient.invalidateQueries({queryKey: ["gitHub-folder", normalizedFolderPath]});
       toast.success("File(s) uploaded successfully!");
     },

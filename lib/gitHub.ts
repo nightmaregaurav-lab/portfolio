@@ -78,6 +78,11 @@ export interface GitHubCreateFileRequest {
   content: string | File;
 }
 
+export interface GitHubUploadOptions {
+  beforeOverwrite?: (file: GitHubCreateFileRequest) => Promise<boolean>;
+  onOverwriteCancelled?: (file: GitHubCreateFileRequest) => void;
+}
+
 function createGitHubHeaders(token: string): HeadersInit {
   return {
     Accept: "application/vnd.github+json",
@@ -192,15 +197,17 @@ export async function uploadGitHubFiles(
   repository: string,
   folderPath: string,
   files: GitHubCreateFileRequest[],
-): Promise<void> {
+  options?: GitHubUploadOptions,
+): Promise<number> {
   if (!pat || !repository || isNullOrWhitespace(pat) || isNullOrWhitespace(repository)) {
     throw new Error("You have not logged in yet. Please log in to use this feature.");
   }
 
   if (files.length === 0) {
-    return;
+    return 0;
   }
 
+  let uploadedCount = 0;
   for (const file of files) {
     const filePath = `${folderPath.replace(/\/+$/, "")}/${file.name.replace(/^\/+/, "")}`;
     const url = createGitHubContentsUrl(repository, filePath);
@@ -218,6 +225,14 @@ export async function uploadGitHubFiles(
       sha = existingFile.sha;
     } else if (existingFileResponse.status !== 404) {
       throw new Error(`Failed to fetch info for "${file.name}": ${existingFileResponse.status} ${existingFileResponse.statusText}`);
+    }
+
+    if(sha && options?.beforeOverwrite) {
+      const shouldOverwrite = await options.beforeOverwrite(file);
+      if(!shouldOverwrite) {
+        options?.onOverwriteCancelled?.(file);
+        continue;
+      }
     }
 
     const content = await encodeBase64(file.content);
@@ -248,7 +263,11 @@ export async function uploadGitHubFiles(
     if (!uploadResponse.ok) {
       throw new Error(`Failed to upload "${file.name}": ${uploadResponse.status} ${uploadResponse.statusText}`);
     }
+
+    uploadedCount++;
   }
+
+  return uploadedCount;
 }
 
 export async function validateGitHubToken(

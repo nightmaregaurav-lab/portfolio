@@ -22,7 +22,7 @@ type ButtonProps = Omit<ComponentProps<typeof Button>, "onClick" | "children">;
 
 export type ConfirmAction<TValue> = {
   label: string
-  onClick: () => Promise<TValue | null>
+  onClick: () => Promise<TValue>
   buttonProps?: ButtonProps
 }
 
@@ -38,7 +38,7 @@ type ConfirmRequest = {
   title: string
   message: string
   actions: InternalConfirmAction[]
-  resolve: (value: unknown | null) => void
+  resolve: (value: unknown) => void
 }
 
 const confirmStore = createExternalHook<ConfirmRequest | null>(null);
@@ -52,18 +52,18 @@ const confirmStore = createExternalHook<ConfirmRequest | null>(null);
  * The promise remains pending while the selected action
  * is running. If the action throws, the dialog remains open.
  */
-export function confirm<TValue>(options: ConfirmOptions<TValue>): Promise<TValue | null> {
+export function confirm<TValue>(options: ConfirmOptions<TValue>): Promise<TValue> {
   if (confirmStore.get() !== null) {
     return Promise.reject(new Error("A confirmation dialog is already active."));
   }
 
-  return new Promise<TValue | null>((resolve) => {
+  return new Promise<TValue>((resolve) => {
     confirmStore.update({
       title: options.title,
       message: options.message,
       actions: options.actions as InternalConfirmAction[],
       resolve: (value) => {
-        resolve(value as TValue | null)
+        resolve(value as TValue)
       }
     })
   });
