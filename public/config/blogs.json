@@ -2,6 +2,29 @@
   "version": 2,
   "configuration": {
     "summary": "<p>Explore articles, insights, and ideas on technology, software development, and beyond. A collection of thoughts, experiences, tutorials, and lessons learned along the way.</p>",
-    "posts": []
+    "posts": [
+      {
+        "id": "blog-a994f2720ccb",
+        "slugs": [
+          {
+            "slug": "i-built-a-portfolio-website-that-doubles-as-its-own-cms-no-backend-required",
+            "isActive": true
+          }
+        ],
+        "title": "I Built a Portfolio Website That Doubles as Its Own CMS. No Backend Required.",
+        "summary": "I built a configurable, forkable portfolio platform with Next.js, using GitHub as its CMS and GitHub Actions for deployment. Here's how its architecture, configuration system, migrations, and automation work without a custom backend.",
+        "date": "2026-11-11",
+        "categories": [
+          "Write ups"
+        ],
+        "tags": [
+          "Open Source Project",
+          "Portfolio",
+          "Write ups",
+          "No Backend CMS"
+        ],
+        "accentColor": "#3B82F6"
+      }
+    ]
   }
 }
