@@ -472,53 +472,65 @@
 }
 
 /* ── Typography & Content ── */
-.block-editor-content .ProseMirror h1 {
+/* Shared between the editor (.block-editor-content .ProseMirror) and the
+   read-only renderer (.html-renderer) so both look identical. */
+
+.block-editor-content .ProseMirror h1,
+.html-renderer h1 {
   font-size: 1.875rem;
   font-weight: 700;
   line-height: 1.2;
   margin: 0.5em 0 0.25em;
 }
 
-.block-editor-content .ProseMirror h2 {
+.block-editor-content .ProseMirror h2,
+.html-renderer h2 {
   font-size: 1.5rem;
   font-weight: 600;
   line-height: 1.25;
   margin: 0.5em 0 0.25em;
 }
 
-.block-editor-content .ProseMirror h3 {
+.block-editor-content .ProseMirror h3,
+.html-renderer h3 {
   font-size: 1.25rem;
   font-weight: 600;
   line-height: 1.3;
   margin: 0.5em 0 0.25em;
 }
 
-.block-editor-content .ProseMirror p {
+.block-editor-content .ProseMirror p,
+.html-renderer p {
   margin: 0.25em 0;
   line-height: 1.6;
 }
 
-.block-editor-content .ProseMirror ul {
+.block-editor-content .ProseMirror ul,
+.html-renderer ul {
   list-style-type: disc;
   padding-left: 1.5rem;
   margin: 0.25em 0;
 }
 
-.block-editor-content .ProseMirror ol {
+.block-editor-content .ProseMirror ol,
+.html-renderer ol {
   list-style-type: decimal;
   padding-left: 1.5rem;
   margin: 0.25em 0;
 }
 
-.block-editor-content .ProseMirror li {
+.block-editor-content .ProseMirror li,
+.html-renderer li {
   margin: 0.125em 0;
 }
 
-.block-editor-content .ProseMirror li p {
+.block-editor-content .ProseMirror li p,
+.html-renderer li p {
   margin: 0;
 }
 
-.block-editor-content .ProseMirror blockquote {
+.block-editor-content .ProseMirror blockquote,
+.html-renderer blockquote {
   border-left: 3px solid var(--border);
   padding-left: 1rem;
   color: var(--muted-foreground);
@@ -528,12 +540,14 @@
     background-color 150ms ease-out;
 }
 
-.block-editor-content .ProseMirror blockquote:hover {
+.block-editor-content .ProseMirror blockquote:hover,
+.html-renderer blockquote:hover {
   border-left-color: var(--primary);
   background-color: color-mix(in srgb, var(--primary) 3%, transparent);
 }
 
-.block-editor-content .ProseMirror pre {
+.block-editor-content .ProseMirror pre,
+.html-renderer pre {
   background: #1e1e2e;
   border-radius: var(--radius);
   border: 1px solid var(--border);
@@ -545,7 +559,8 @@
   color: #cdd6f4;
 }
 
-.block-editor-content .ProseMirror pre code {
+.block-editor-content .ProseMirror pre code,
+.html-renderer pre code {
   color: inherit;
   background: none;
   padding: 0;
@@ -554,101 +569,139 @@
 
 /* ── Syntax Highlighting (lowlight / highlight.js) ── */
 .block-editor-content .ProseMirror pre .hljs-comment,
-.block-editor-content .ProseMirror pre .hljs-quote {
+.html-renderer pre .hljs-comment,
+.block-editor-content .ProseMirror pre .hljs-quote,
+.html-renderer pre .hljs-quote {
   color: #6c7086;
 }
 
 .block-editor-content .ProseMirror pre .hljs-variable,
+.html-renderer pre .hljs-variable,
 .block-editor-content .ProseMirror pre .hljs-template-variable,
+.html-renderer pre .hljs-template-variable,
 .block-editor-content .ProseMirror pre .hljs-attribute,
+.html-renderer pre .hljs-attribute,
 .block-editor-content .ProseMirror pre .hljs-tag,
+.html-renderer pre .hljs-tag,
 .block-editor-content .ProseMirror pre .hljs-regexp,
+.html-renderer pre .hljs-regexp,
 .block-editor-content .ProseMirror pre .hljs-link,
+.html-renderer pre .hljs-link,
 .block-editor-content .ProseMirror pre .hljs-name,
+.html-renderer pre .hljs-name,
 .block-editor-content .ProseMirror pre .hljs-selector-id,
-.block-editor-content .ProseMirror pre .hljs-selector-class {
+.html-renderer pre .hljs-selector-id,
+.block-editor-content .ProseMirror pre .hljs-selector-class,
+.html-renderer pre .hljs-selector-class {
   color: #89b4fa;
 }
 
 .block-editor-content .ProseMirror pre .hljs-number,
+.html-renderer pre .hljs-number,
 .block-editor-content .ProseMirror pre .hljs-meta,
+.html-renderer pre .hljs-meta,
 .block-editor-content .ProseMirror pre .hljs-built_in,
+.html-renderer pre .hljs-built_in,
 .block-editor-content .ProseMirror pre .hljs-builtin-name,
+.html-renderer pre .hljs-builtin-name,
 .block-editor-content .ProseMirror pre .hljs-literal,
+.html-renderer pre .hljs-literal,
 .block-editor-content .ProseMirror pre .hljs-type,
-.block-editor-content .ProseMirror pre .hljs-params {
+.html-renderer pre .hljs-type,
+.block-editor-content .ProseMirror pre .hljs-params,
+.html-renderer pre .hljs-params {
   color: #fab387;
 }
 
 .block-editor-content .ProseMirror pre .hljs-string,
+.html-renderer pre .hljs-string,
 .block-editor-content .ProseMirror pre .hljs-symbol,
-.block-editor-content .ProseMirror pre .hljs-bullet {
+.html-renderer pre .hljs-symbol,
+.block-editor-content .ProseMirror pre .hljs-bullet,
+.html-renderer pre .hljs-bullet {
   color: #a6e3a1;
 }
 
 .block-editor-content .ProseMirror pre .hljs-title,
-.block-editor-content .ProseMirror pre .hljs-section {
+.html-renderer pre .hljs-title,
+.block-editor-content .ProseMirror pre .hljs-section,
+.html-renderer pre .hljs-section {
   color: #f9e2af;
 }
 
 .block-editor-content .ProseMirror pre .hljs-keyword,
-.block-editor-content .ProseMirror pre .hljs-selector-tag {
+.html-renderer pre .hljs-keyword,
+.block-editor-content .ProseMirror pre .hljs-selector-tag,
+.html-renderer pre .hljs-selector-tag {
   color: #cba6f7;
 }
 
 /* Object/JSON keys & HTML/XML attribute names (previously missing) */
-.block-editor-content .ProseMirror pre .hljs-attr {
+.block-editor-content .ProseMirror pre .hljs-attr,
+.html-renderer pre .hljs-attr {
   color: #89b4fa;
 }
 
 /* JSDoc-style tags, e.g. @param, @returns */
-.block-editor-content .ProseMirror pre .hljs-doctag {
+.block-editor-content .ProseMirror pre .hljs-doctag,
+.html-renderer pre .hljs-doctag {
   color: #f38ba8;
   font-weight: 600;
 }
 
 /* Operators & punctuation (finer-grained grammars) */
 .block-editor-content .ProseMirror pre .hljs-operator,
-.block-editor-content .ProseMirror pre .hljs-punctuation {
+.html-renderer pre .hljs-operator,
+.block-editor-content .ProseMirror pre .hljs-punctuation,
+.html-renderer pre .hljs-punctuation {
   color: #9399b2;
 }
 
 /* CSS selector attributes/pseudo-classes, e.g. [type="text"], :hover */
 .block-editor-content .ProseMirror pre .hljs-selector-attr,
-.block-editor-content .ProseMirror pre .hljs-selector-pseudo {
+.html-renderer pre .hljs-selector-attr,
+.block-editor-content .ProseMirror pre .hljs-selector-pseudo,
+.html-renderer pre .hljs-selector-pseudo {
   color: #94e2d5;
 }
 
 /* Language-level variables, e.g. this, super */
-.block-editor-content .ProseMirror pre .hljs-variable.language_ {
+.block-editor-content .ProseMirror pre .hljs-variable.language_,
+.html-renderer pre .hljs-variable.language_ {
   color: #cba6f7;
   font-style: italic;
 }
 
 /* Template literal substitutions, e.g. ${...} */
-.block-editor-content .ProseMirror pre .hljs-subst {
+.block-editor-content .ProseMirror pre .hljs-subst,
+.html-renderer pre .hljs-subst {
   color: #cdd6f4;
 }
 
-.block-editor-content .ProseMirror pre .hljs-emphasis {
+.block-editor-content .ProseMirror pre .hljs-emphasis,
+.html-renderer pre .hljs-emphasis {
   font-style: italic;
 }
 
-.block-editor-content .ProseMirror pre .hljs-strong {
+.block-editor-content .ProseMirror pre .hljs-strong,
+.html-renderer pre .hljs-strong {
   font-weight: 700;
 }
 
-.block-editor-content .ProseMirror pre .hljs-addition {
+.block-editor-content .ProseMirror pre .hljs-addition,
+.html-renderer pre .hljs-addition {
   color: #a6e3a1;
   background-color: color-mix(in srgb, #a6e3a1 10%, transparent);
 }
 
-.block-editor-content .ProseMirror pre .hljs-deletion {
+.block-editor-content .ProseMirror pre .hljs-deletion,
+.html-renderer pre .hljs-deletion {
   color: #f38ba8;
   background-color: color-mix(in srgb, #f38ba8 10%, transparent);
 }
 
-.block-editor-content .ProseMirror code {
+.block-editor-content .ProseMirror code,
+.html-renderer code {
   font-size: 0.875em;
   font-weight: 500;
   background: color-mix(in srgb, var(--muted) 70%, transparent);
@@ -657,13 +710,15 @@
   transition: background-color 150ms ease-out;
 }
 
-.block-editor-content .ProseMirror hr {
+.block-editor-content .ProseMirror hr,
+.html-renderer hr {
   border: none;
   border-top: 1px solid var(--border);
   margin: 1em 0;
 }
 
-.block-editor-content .ProseMirror img {
+.block-editor-content .ProseMirror img,
+.html-renderer img {
   max-width: 100%;
   display: block;
   border-radius: var(--radius);
@@ -675,7 +730,8 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  .block-editor-content .ProseMirror img {
+  .block-editor-content .ProseMirror img,
+  .html-renderer img {
     outline-color: oklch(1 0 0 / 0.1);
   }
 }
@@ -686,36 +742,43 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.block-editor-content .ProseMirror [data-resize-container][data-node="image"] {
+.block-editor-content .ProseMirror [data-resize-container][data-node="image"],
+.html-renderer [data-resize-container][data-node="image"] {
   position: relative;
   width: fit-content;
   max-width: 100%;
   margin-block: 0.5rem;
 }
 
-.block-editor-content .ProseMirror [data-resize-wrapper] {
+.block-editor-content .ProseMirror [data-resize-wrapper],
+.html-renderer [data-resize-wrapper] {
   max-width: 100%;
 }
 
-.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-align="center"]) {
+.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-align="center"]),
+.html-renderer [data-resize-container]:has(img[data-image-align="center"]) {
   margin-inline: auto;
 }
 
-.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-align="right"]) {
+.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-align="right"]),
+.html-renderer [data-resize-container]:has(img[data-image-align="right"]) {
   margin-left: auto;
 }
 
-.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-wrap="left"]) {
+.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-wrap="left"]),
+.html-renderer [data-resize-container]:has(img[data-image-wrap="left"]) {
   float: left;
   margin-right: 1.25rem;
 }
 
-.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-wrap="right"]) {
+.block-editor-content .ProseMirror [data-resize-container]:has(img[data-image-wrap="right"]),
+.html-renderer [data-resize-container]:has(img[data-image-wrap="right"]) {
   float: right;
   margin-left: 1.25rem;
 }
 
-.block-editor-content .ProseMirror img[data-image-crop="true"] {
+.block-editor-content .ProseMirror img[data-image-crop="true"],
+.html-renderer img[data-image-crop="true"] {
   object-fit: cover;
   aspect-ratio: 16 / 9;
 }
@@ -794,14 +857,17 @@
 }
 
 /* Tables */
-.block-editor-content .ProseMirror table {
+.block-editor-content .ProseMirror table,
+.html-renderer table {
   border-collapse: collapse;
   width: max-content;
   margin: 0.5em 0;
 }
 
 .block-editor-content .ProseMirror th,
-.block-editor-content .ProseMirror td {
+.html-renderer th,
+.block-editor-content .ProseMirror td,
+.html-renderer td {
   border: 1px solid var(--border);
   padding: 0.5rem;
   min-width: 100px;
@@ -810,12 +876,14 @@
   transition: background-color 100ms ease-out;
 }
 
-.block-editor-content .ProseMirror th {
+.block-editor-content .ProseMirror th,
+.html-renderer th {
   background: var(--muted);
   font-weight: 600;
 }
 
-.block-editor-content .ProseMirror a {
+.block-editor-content .ProseMirror a,
+.html-renderer a {
   color: var(--primary);
   text-decoration: underline;
   text-underline-offset: 4px;
@@ -825,7 +893,8 @@
     text-decoration-color 150ms ease-out;
 }
 
-.block-editor-content .ProseMirror a:hover {
+.block-editor-content .ProseMirror a:hover,
+.html-renderer a:hover {
   text-decoration-color: var(--primary);
 }
 
@@ -834,19 +903,22 @@
 }
 
 /* Task Lists */
-.block-editor-content .ProseMirror ul[data-type="taskList"] {
+.block-editor-content .ProseMirror ul[data-type="taskList"],
+.html-renderer ul[data-type="taskList"] {
   list-style: none;
   padding-left: 0;
 }
 
-.block-editor-content .ProseMirror ul[data-type="taskList"] li {
+.block-editor-content .ProseMirror ul[data-type="taskList"] li,
+.html-renderer ul[data-type="taskList"] li {
   display: flex;
   align-items: flex-start;
   gap: 0.5rem;
   transition: opacity 150ms ease-out;
 }
 
-.block-editor-content .ProseMirror ul[data-type="taskList"] li > label {
+.block-editor-content .ProseMirror ul[data-type="taskList"] li > label,
+.html-renderer ul[data-type="taskList"] li > label {
   flex-shrink: 0;
   margin-top: 0.25rem;
 }
@@ -856,7 +928,8 @@
   ul[data-type="taskList"]
   li
   > label
-  input[type="checkbox"] {
+  input[type="checkbox"],
+.html-renderer ul[data-type="taskList"] li > label input[type="checkbox"] {
   cursor: pointer;
   transition: transform 100ms ease-out;
 }
@@ -866,11 +939,13 @@
   ul[data-type="taskList"]
   li
   > label
-  input[type="checkbox"]:active {
+  input[type="checkbox"]:active,
+.html-renderer ul[data-type="taskList"] li > label input[type="checkbox"]:active {
   transform: scale(0.9);
 }
 
-.block-editor-content .ProseMirror ul[data-type="taskList"] li > div > p {
+.block-editor-content .ProseMirror ul[data-type="taskList"] li > div > p,
+.html-renderer ul[data-type="taskList"] li > div > p {
   transition:
     color 150ms ease-out,
     text-decoration-color 150ms ease-out;
@@ -881,7 +956,8 @@
   ul[data-type="taskList"]
   li[data-checked="true"]
   > div
-  > p {
+  > p,
+.html-renderer ul[data-type="taskList"] li[data-checked="true"] > div > p {
   text-decoration: line-through;
   color: var(--muted-foreground);
 }
@@ -1065,9 +1141,26 @@
 }
 
 /* Table wrapper for horizontal scroll */
-.block-editor-content .ProseMirror .tableWrapper {
+.block-editor-content .ProseMirror .tableWrapper,
+.html-renderer .tableWrapper {
   overflow-x: auto;
   scroll-behavior: smooth;
+}
+
+/* Text alignment (data-align attribute from TextAlign extension) */
+.html-renderer [data-align="center"] {
+  text-align: center;
+}
+
+.html-renderer [data-align="right"] {
+  text-align: right;
+}
+
+/* Inline code inside headings or other elements */
+.html-renderer h1 code,
+.html-renderer h2 code,
+.html-renderer h3 code {
+  font-size: 0.85em;
 }
 
 /* ── Bottom bar (touch devices) ── */
