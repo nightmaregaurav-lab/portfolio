@@ -36,6 +36,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { FileUrl } from "@/components/ui/FileUrl";
 import { cn } from "@/lib/utils";
 
 const BlogImage = Image.extend({
@@ -308,12 +309,10 @@ export function RichTextEditor({
               Paste the URL of the image you want to add.
             </DialogDescription>
           </DialogHeader>
-          <Input
-            autoFocus
-            type="url"
-            placeholder="https://example.com/image.jpg"
+          <FileUrl
             value={imageUrl}
-            onChange={(event) => setImageUrl(event.target.value)}
+            onChange={(value) => setImageUrl(value)}
+            placeholder="https://example.com/image.jpg"
             aria-label="Image URL"
           />
           <Input

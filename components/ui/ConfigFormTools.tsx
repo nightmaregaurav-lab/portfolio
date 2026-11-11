@@ -7,11 +7,10 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger
 } from "@/components/ui/dropdown-menu";
-import {Copy, Eye, Settings, File} from "lucide-react";
+import {Copy, Eye, Settings} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {toast} from "sonner";
 import ConfigPreviewDialog from "@/components/ui/ConfigPreviewDialog";
-import AssetManagerDialog from "@/components/ui/AssetManagerDialog";
 
 function stringify<T>(obj: T){
   return JSON.stringify(obj, null, "  ");
@@ -21,7 +20,6 @@ function ConfigFormTools<T>(
   {config}: { config: T }
 ) {
   const [showCode, setShowCode] = useState(false);
-  const [showAssetManager, setShowAssetManager] = useState(false);
 
   const copyToClipboard = async (text: string) => {
     await navigator.clipboard.writeText(text);
@@ -40,18 +38,13 @@ function ConfigFormTools<T>(
           <Copy size={14} />
           Copy config
         </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 cursor-pointer flex flex-no gap-2" onClick={() => setShowCode(true)}>
+        <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 pb-2 cursor-pointer flex flex-no gap-2" onClick={() => setShowCode(true)}>
           <Eye size={14} />
           View config
-        </DropdownMenuItem>
-        <DropdownMenuItem className="hover:bg-gray-100 py-1 px-4 pb-2 cursor-pointer flex flex-no gap-2" onClick={() => setShowAssetManager(true)}>
-          <File size={14} />
-          Asset manager
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
     <ConfigPreviewDialog show={showCode} setShow={setShowCode} configString={configString} />
-    <AssetManagerDialog show={showAssetManager} setShow={setShowAssetManager}/>
   </>);
 }
 
