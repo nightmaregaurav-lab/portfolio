@@ -4,10 +4,12 @@ import styles from "./page.module.css";
 import SmartLink from "@/components/ui/SmartLink";
 import {ArrowLeft} from "lucide-react";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import {formatDate} from "@/lib/utils";
 
 function PageContent(
-  {post}: {
-    post: BlogPost
+  {post, authorName}: {
+    post: BlogPost;
+    authorName: string;
   }
 ) {
   return (
@@ -18,7 +20,10 @@ function PageContent(
         </SmartLink>
         <header className={styles.articleHeader}>
           <h1>{post.title}</h1>
-          <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
+          <div className={styles.postMeta}>
+            <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>
+            <span className={styles.authorName}>{authorName}</span>
+          </div>
           <p className={styles.pageText}>{post.summary}</p>
           {!!post.categories.length && (
             <div className={styles.tagList}>

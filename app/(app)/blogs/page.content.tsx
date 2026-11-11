@@ -7,6 +7,7 @@ import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {Input} from "@/components/ui/input";
 import type {TModel as BlogsModel} from "@/configuration/blogs";
 import {getActiveSlug} from "@/lib/slugs";
+import {formatDate} from "@/lib/utils";
 import {useDebouncedState} from "@/hooks/useDebouncedState";
 import {useRouter, useSearchParams} from "next/navigation";
 import styles from "./page.module.css";
@@ -144,7 +145,7 @@ function BlogCard({post}: {post: BlogsModel["posts"][number]; index: number}) {
       aria-label={`Read ${post.title}`}
     >
       <article className={styles.postCard} style={style as React.CSSProperties}>
-        <time className={styles.postDate} dateTime={post.date}>{post.date}</time>
+        <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>
         <h2 className={styles.postTitle}>{post.title}</h2>
         <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>
         {!!post.categories.length && (

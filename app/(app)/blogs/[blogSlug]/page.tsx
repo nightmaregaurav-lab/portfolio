@@ -82,6 +82,7 @@ export default async function Page(
     <>
       <PageContent
         post={post}
+        authorName={CoreConfig.fullName}
       />
 
       <StructuredData data={{
