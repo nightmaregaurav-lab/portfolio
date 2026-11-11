@@ -1,5 +1,5 @@
 {
-  "version": 0,
+  "version": 1,
   "configuration": {
     "favicon": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_3043_SQ.ico",
     "websiteName": "Gaurav Nyaupane | Software Engineer",
@@ -24,6 +24,7 @@
       "Nepal Software Engineer",
       "Gaurav Neupane",
       "Neupane"
-    ]
+    ],
+    "template": "default"
   }
 }
