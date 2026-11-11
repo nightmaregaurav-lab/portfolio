@@ -55,6 +55,16 @@ export const schema = z.object({
         "Short search terms that describe the whole website. Enter plain words separated by commas; " +
         "avoid repeating the website name or writing complete sentences.",
     }),
+  template: z
+    .string()
+    .min(1, "Template is required.")
+    .default("default")
+    .meta({
+      title: "Template",
+      description:
+        "The visual template used for rendering content pages. " +
+        "Options are determined by the folders inside the templates directory.",
+    }),
 }).meta({
   title: "Core Configuration",
   description: "Site-wide identity and search metadata used throughout the portfolio.",
@@ -67,6 +77,7 @@ export const buildSchema = schema.extend({
   ]),
   websiteName: z.string(),
   fullName: z.string(),
+  template: z.string(),
 }).partial();
 
 export type TInput = z.input<typeof schema>;
@@ -79,4 +90,5 @@ export const defaultValues: TInput = {
   fullName: "",
   seoDescription: "",
   seoKeywords: [],
+  template: "default",
 };

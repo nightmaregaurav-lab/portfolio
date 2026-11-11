@@ -17,7 +17,7 @@ const staticRoutes = [
   {path: "/journey/", priority: 0.6, changeFrequency: "monthly" as const},
   {path: "/testimonials/", priority: 0.6, changeFrequency: "monthly" as const},
   {path: "/gallery/", priority: 0.6, changeFrequency: "monthly" as const},
-  {path: "/blogs/", priority: 0.8, changeFrequency: "weekly" as const},
+  {path: "/blogs/", priority: 0.8, changeFrequency: "daily" as const},
 ];
 
 function getSitemapSlug(slugs: {slug: string; isActive: boolean}[]) {
@@ -40,7 +40,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (url) {
       urls.push({
         url,
-        changeFrequency: "monthly",
+        changeFrequency: "weekly",
         priority: 0.7,
         images: project.previewImage ? [getAbsoluteUrl(project.previewImage)] : undefined,
       });
@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       urls.push({
         url,
         lastModified: post.date,
-        changeFrequency: "monthly",
+        changeFrequency: "weekly",
         priority: 0.7,
       });
     }
@@ -66,7 +66,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     if (url) {
       urls.push({
         url,
-        changeFrequency: "monthly",
+        changeFrequency: "weekly",
         priority: 0.5,
       });
     }

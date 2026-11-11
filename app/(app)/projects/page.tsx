@@ -1,9 +1,19 @@
+import dynamic from "next/dynamic";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, JourneyConfig, ProjectsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import PageContent from "./page.content";
 import {Suspense} from "react";
+import type {TModel as ProjectsModel} from "@/configuration/projects";
+import type {TModel as JourneyModel} from "@/configuration/journey";
+
+const PageContent = dynamic<{
+  projectsConfig: ProjectsModel;
+  journeyConfig: JourneyModel;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/projects/page.content`),
+  {ssr: true}
+);
 
 const description = stripHtmlTags(ProjectsConfig.summary).slice(0, 300);
 

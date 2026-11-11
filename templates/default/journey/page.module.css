@@ -1,0 +1,405 @@
+.page {
+  min-height: 100dvh;
+  width: 100%;
+  padding: 2rem;
+}
+
+.intro {
+}
+
+.pageHeader {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.summary {
+  margin-top: 1.25rem;
+  margin-bottom: 1.25rem;
+  color: var(--muted-foreground);
+  line-height: 1.7;
+}
+
+.summary > :first-child,
+.description > :first-child {
+  margin-top: 0;
+}
+
+.summary > :last-child,
+.description > :last-child {
+  margin-bottom: 0;
+}
+
+.timelineSection {
+  width: min(100%, 72rem);
+  margin: 0 auto;
+}
+
+.timeline {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 0.5rem 0 2rem;
+}
+
+.timeline::before {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  content: "";
+  background: linear-gradient(to bottom, var(--primary), var(--border) 18%, var(--border) 82%, var(--primary));
+  transform: translateX(-50%);
+}
+
+.timelineItem {
+  position: relative;
+  display: grid;
+  width: 50%;
+  padding-right: 3.5rem;
+  animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.timelineItem:nth-child(2) { animation-delay: 50ms; }
+.timelineItem:nth-child(3) { animation-delay: 100ms; }
+.timelineItem:nth-child(4) { animation-delay: 150ms; }
+.timelineItem:nth-child(5) { animation-delay: 200ms; }
+
+.timelineItem[data-side="right"] {
+  align-self: flex-end;
+  padding-right: 0;
+  padding-left: 3.5rem;
+}
+
+.marker {
+  position: absolute;
+  z-index: 1;
+  top: 1.5rem;
+  right: -0.7rem;
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 0.35rem solid var(--background);
+  border-radius: 999px;
+  color: white;
+  background: var(--marker-color);
+  box-shadow: 0 0.5rem 1rem color-mix(in oklch, var(--marker-color) 25%, transparent);
+}
+
+.timelineItem[data-side="right"] .marker {
+  right: auto;
+  left: -0.7rem;
+}
+
+.marker[data-type="Academic"],
+.timelineCard[data-type="Academic"] {
+  --marker-color: oklch(0.62 0.16 250);
+}
+
+.marker[data-type="Professional"],
+.timelineCard[data-type="Professional"] {
+  --marker-color: oklch(0.62 0.16 155);
+}
+
+.marker[data-type="Personal"],
+.timelineCard[data-type="Personal"] {
+  --marker-color: oklch(0.65 0.17 35);
+}
+
+.timelineCard {
+  position: relative;
+  min-width: 0;
+  overflow: hidden;
+  border-top: 3px solid var(--marker-color);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.timelineCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 12%);
+}
+
+.cardHeader {
+  gap: 0.55rem;
+}
+
+.timelineCard[data-kind="complete"] .cardHeader {
+  padding-right: 7rem;
+}
+
+.cardTopline,
+.organisation,
+.typeLabel,
+.date {
+  display: flex;
+  align-items: center;
+}
+
+.cardTopline {
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.typeLabel,
+.date {
+  gap: 0.35rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
+.typeLabel {
+  color: var(--marker-color);
+  font-weight: 650;
+  text-transform: uppercase;
+}
+
+.date {
+  justify-content: flex-end;
+  text-align: right;
+}
+
+.date svg {
+  color: var(--marker-color);
+}
+
+.dateRange {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  color: var(--muted-foreground);
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.35;
+  text-align: right;
+}
+
+.dateRange > div {
+  display: grid;
+  gap: 0.15rem;
+  justify-items: end;
+}
+
+.dateRangeIcon {
+  flex: 0 0 auto;
+  color: var(--marker-color);
+}
+
+.cardTitle {
+  font-size: clamp(1.25rem, 2vw, 1.65rem);
+  letter-spacing: -0.035em;
+}
+
+.organisation {
+  gap: 0.25rem;
+  color: var(--foreground);
+  font-size: 0.95rem;
+  font-weight: 650;
+}
+
+.organisation a {
+  color: var(--muted-foreground);
+}
+
+.department {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin: -0.25rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.85rem;
+}
+
+.department a {
+  color: inherit;
+}
+
+.cardContent {
+  display: grid;
+  gap: 1rem;
+}
+
+.description,
+.points,
+.achievements,
+.partingNote {
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.points {
+  display: grid;
+  gap: 0.4rem;
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.points li::marker {
+  color: var(--marker-color);
+}
+
+.achievements {
+  display: grid;
+  gap: 0.6rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid var(--border);
+}
+
+.achievements h3 {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0;
+  color: var(--foreground);
+  font-size: 0.8rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+.achievements h3 svg {
+  color: var(--marker-color);
+}
+
+.achievements ul {
+  display: grid;
+  gap: 0.7rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.achievements li {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.achievements strong {
+  color: var(--foreground);
+  font-size: 0.9rem;
+}
+
+.achievements time,
+.achievements span {
+  font-size: 0.82rem;
+}
+
+.partingNote {
+  padding: 0.85rem 1rem;
+  border-radius: 0.65rem;
+  background: color-mix(in oklch, var(--marker-color) 10%, var(--card));
+}
+
+.partingNote span {
+  display: block;
+  margin-bottom: 0.25rem;
+  color: var(--marker-color);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.partingNote p {
+  margin: 0;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 18rem;
+  place-content: center;
+  justify-items: center;
+  gap: 0.7rem;
+  padding: 2rem;
+  border: 1px dashed var(--border);
+  border-radius: 1rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+.emptyState h2 {
+  margin: 0.35rem 0 0;
+  color: var(--foreground);
+  font-size: 1.25rem;
+}
+
+.emptyState p {
+  max-width: 42ch;
+  margin: 0;
+  line-height: 1.6;
+}
+
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .timelineItem {
+    animation: none;
+  }
+
+  .timelineCard {
+    transition: none;
+  }
+}
+
+@media (max-width: 700px) {
+  .page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .timeline::before {
+    left: 1.1rem;
+    transform: none;
+  }
+
+  .timelineItem,
+  .timelineItem[data-side="right"] {
+    grid-column: auto;
+    width: 100%;
+    align-self: stretch;
+    padding-right: 0;
+    padding-left: 3.5rem;
+  }
+
+  .marker,
+  .timelineItem[data-side="right"] .marker {
+    right: auto;
+    left: -0.3rem;
+  }
+
+  .cardTopline {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+
+  .dateRange {
+    position: static;
+    align-items: flex-start;
+    margin-top: -0.25rem;
+    text-align: left;
+  }
+
+  .dateRange > div {
+    justify-items: start;
+  }
+
+  .timelineCard[data-kind="complete"] .cardHeader {
+    padding-right: 1.5rem;
+  }
+}

@@ -1,0 +1,271 @@
+.page {
+  min-height: 100dvh;
+  padding: 2rem;
+  width: 100%;
+}
+
+.pageHeader {
+  display: block;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.pageText {
+  display: block;
+  margin: 1rem 0 1.5rem;
+  color: var(--muted-foreground);
+  line-height: 1.6;
+}
+
+.pageContent {
+  display: grid;
+  gap: 1.25rem;
+}
+
+.searchAndActionsStrip {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  background: var(--card);
+}
+
+.searchBox {
+  display: flex;
+  width: min(100%, 28rem);
+  align-items: center;
+  gap: 0.625rem;
+  color: var(--muted-foreground);
+}
+
+.searchBox input {
+  min-width: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.searchBox input:focus-visible {
+  outline: none;
+  box-shadow: none;
+}
+
+.quickActionButtons {
+  display: flex;
+  flex: 0 0 auto;
+  gap: 0.5rem;
+}
+
+.projectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr));
+  align-items: stretch;
+  gap: 1rem;
+}
+
+.projectLink {
+  min-width: 0;
+  color: inherit;
+  text-decoration: none;
+}
+
+.projectLink:focus-visible {
+  border-radius: 0.85rem;
+  outline: 2px solid var(--ring);
+  outline-offset: 3px;
+}
+
+.projectCard {
+  height: 100%;
+  border-top: 3px solid var(--accent-tone);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.projectCard[data-type="Academic"] {
+  --accent-tone: oklch(0.62 0.16 250);
+}
+
+.projectCard[data-type="Professional"] {
+  --accent-tone: oklch(0.62 0.16 155);
+}
+
+.projectCard[data-type="Personal"] {
+  --accent-tone: oklch(0.65 0.17 35);
+}
+
+.projectLink:hover .projectCard {
+  transform: translateY(-4px);
+  box-shadow: 0 1.25rem 2.5rem rgb(0 0 0 / 12%);
+}
+
+.projectCover {
+  display: flex;
+  aspect-ratio: 16 / 10;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--muted);
+  color: var(--muted-foreground);
+}
+
+.projectCover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 200ms ease;
+}
+
+.projectLink:hover .projectCover img {
+  transform: scale(1.025);
+}
+
+.projectCover svg {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.projectCardHeader {
+  gap: 0.35rem;
+}
+
+.projectTitleRow {
+  display: flex;
+  min-width: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.projectTitle {
+  min-width: 0;
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.projectTitle h2 {
+  margin: 0;
+  font: inherit;
+}
+
+.projectArrow {
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  color: var(--muted-foreground);
+  transition: transform 150ms ease;
+}
+
+.projectLink:hover .projectArrow {
+  transform: translateX(3px);
+}
+
+.projectCardContent {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.projectDescription {
+  display: -webkit-box;
+  overflow: hidden;
+  color: var(--muted-foreground);
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.projectDescription > :first-child {
+  margin-top: 0;
+}
+
+.projectDescription > :last-child {
+  margin-bottom: 0;
+}
+
+.projectBadges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.projectBadges > span {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.listView {
+  grid-template-columns: 1fr;
+}
+
+.listView .projectCard {
+  display: grid;
+  grid-template-columns: minmax(10rem, 15rem) minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  align-items: start;
+  column-gap: 0;
+}
+
+.listView .projectCover {
+  grid-row: span 2;
+  aspect-ratio: 4 / 3;
+  height: 100%;
+  max-height: 13rem;
+}
+
+.listView .projectCardHeader {
+  padding-bottom: 0.25rem;
+}
+
+.listView .projectCardContent {
+  padding-top: 0;
+}
+
+.emptyState {
+  display: grid;
+  min-height: 12rem;
+  place-content: center;
+  padding: 1.5rem;
+  border: 1px dashed var(--border);
+  border-radius: 0.75rem;
+  color: var(--muted-foreground);
+  text-align: center;
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 1.25rem 1rem 2rem;
+  }
+
+  .pageHeader {
+    font-size: 1.75rem;
+  }
+
+  .searchAndActionsStrip {
+    align-items: stretch;
+  }
+
+  .searchBox {
+    flex: 1 1 auto;
+  }
+
+  .listView .projectCard {
+    grid-template-columns: 1fr;
+  }
+
+  .listView .projectCover {
+    grid-row: auto;
+    aspect-ratio: 16 / 9;
+    max-height: none;
+  }
+
+  .listView .projectCardHeader {
+    padding-bottom: 1rem;
+  }
+
+  .listView .projectCardContent {
+    padding-top: 1rem;
+  }
+}

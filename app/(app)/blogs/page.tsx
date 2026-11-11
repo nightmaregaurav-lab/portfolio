@@ -1,9 +1,17 @@
+import dynamic from "next/dynamic";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, BlogsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import PageContent from "./page.content";
 import {Suspense} from "react";
+import type {TModel as BlogsModel} from "@/configuration/blogs";
+
+const PageContent = dynamic<{
+  blogsConfig: BlogsModel;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/blogs/page.content`),
+  {ssr: true}
+);
 
 const description = stripHtmlTags(BlogsConfig.summary).slice(0, 300);
 

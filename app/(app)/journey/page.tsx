@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import {CoreConfig, JourneyConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import StructuredData from "@/components/StructuredData";
-import PageContent from "./page.content";
+import type {TModel as JourneyModel} from "@/configuration/journey";
+
+const PageContent = dynamic<{
+  journeyConfig: JourneyModel;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/journey/page.content`),
+  {ssr: true}
+);
 
 const description = stripHtmlTags(JourneyConfig.summary).slice(0, 300);
 

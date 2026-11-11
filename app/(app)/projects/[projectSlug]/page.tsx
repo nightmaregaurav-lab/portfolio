@@ -1,9 +1,21 @@
+import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, JourneyConfig, ProjectsConfig, SkillsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import PageContent from "./page.content";
+import type {TModel as ProjectsModel} from "@/configuration/projects";
+import type {TModel as JourneyModel} from "@/configuration/journey";
+import type {TModel as SkillsModel} from "@/configuration/skills";
+
+const PageContent = dynamic<{
+  project: ProjectsModel["projects"][number];
+  milestone?: JourneyModel["milestones"][number];
+  skills: SkillsModel["skills"];
+}>(
+  () => import(`@/templates/${CoreConfig.template}/projects/[projectSlug]/page.content`),
+  {ssr: true}
+);
 
 export const dynamicParams = false;
 

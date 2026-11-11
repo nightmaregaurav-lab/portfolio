@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import {CoreConfig, ServicesConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import StructuredData from "@/components/StructuredData";
-import PageContent from "./page.content";
+import type {TModel as ServicesModel} from "@/configuration/services";
+
+const PageContent = dynamic<{
+  servicesConfig: ServicesModel;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/services/page.content`),
+  {ssr: true}
+);
 
 const description = stripHtmlTags(ServicesConfig.services.length
   ? ServicesConfig.services.map((service) => service.title).join(", ")

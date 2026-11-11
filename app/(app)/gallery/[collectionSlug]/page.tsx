@@ -1,15 +1,22 @@
+import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, GalleryConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import PageContent from "./page.content";
 import type {GalleryCollection} from "./page.types";
 import {
   getCollectionCover,
   getCollectionPhotos,
   uncategorizedGalleryCategory
 } from "@/app/(app)/gallery/[collectionSlug]/page.utils";
+
+const PageContent = dynamic<{
+  collection: GalleryCollection;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/gallery/[collectionSlug]/page.content`),
+  {ssr: true}
+);
 
 export const dynamicParams = false;
 

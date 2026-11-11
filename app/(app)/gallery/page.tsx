@@ -1,8 +1,16 @@
+import dynamic from "next/dynamic";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, GalleryConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import PageContent from "./page.content";
+import type {TModel as GalleryModel} from "@/configuration/gallery";
+
+const PageContent = dynamic<{
+  galleryConfig: GalleryModel;
+}>(
+  () => import(`@/templates/${CoreConfig.template}/gallery/page.content`),
+  {ssr: true}
+);
 
 const description = stripHtmlTags(GalleryConfig.summary).slice(0, 300);
 
