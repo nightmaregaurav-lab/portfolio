@@ -7,8 +7,8 @@
         "id": "blog-a994f2720ccb",
         "slugs": [
           {
-            "slug": "i-built-a-portfolio-website-that-doubles-as-its-own-cms-no-backend-required",
-            "isActive": true
+            "isActive": true,
+            "slug": "i-built-a-portfolio-website-that-doubles-as-its-own-cms-no-backend-required"
           }
         ],
         "title": "I Built a Portfolio Website That Doubles as Its Own CMS. No Backend Required.",
