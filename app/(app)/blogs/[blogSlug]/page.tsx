@@ -1,4 +1,3 @@
-import {readFileSync} from "node:fs";
 import {join} from "node:path";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
@@ -7,8 +6,9 @@ import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import PageContent from "./page.content";
 import type {BlogPost} from "./page.types";
-import {TModel as BlogModel} from "@/configuration/blog";
-import {getConfigurationDirectory} from "@/configuration/configurationFiles";
+import {readConfigurationFile} from "@/configuration/configurationFiles";
+import {buildSchema as blogSchema, type TOutput as BlogOutput} from "@/configuration/blog";
+import {migrateConfiguration} from "@/migrations/configurationMigrationManager";
 
 export const dynamicParams = false;
 
@@ -24,7 +24,7 @@ export function generateStaticParams() {
   ];
 }
 
-const emptyBlog: BlogModel = {content: ""};
+const emptyBlog: BlogOutput = {content: ""};
 function findBlogPost(postSlug: string){
   const metadata = BlogsConfig
     .posts
@@ -33,11 +33,9 @@ function findBlogPost(postSlug: string){
     return null;
   }
 
-  const blogContentDirectory = join(getConfigurationDirectory(), "blogs");
-  let content: BlogModel;
+  let content: BlogOutput;
   try {
-    const fileContent = readFileSync(join(blogContentDirectory, metadata.id + ".json"), "utf8");
-    content = JSON.parse(fileContent) as BlogModel;
+    content = blogSchema.parse(migrateConfiguration("blog", readConfigurationFile(join("blogs", metadata.id + ".json"))).configuration) as BlogOutput;
   } catch {
     content = emptyBlog;
   }

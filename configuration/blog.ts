@@ -10,6 +10,9 @@ export const schema = z.object({
   description: "Actual blog post content."
 });
 
+export const buildSchema = schema.extend({
+}).partial();
+
 export type TInput = z.input<typeof schema>;
 export type TOutput = z.output<typeof schema>;
 export type TModel = TOutput;
