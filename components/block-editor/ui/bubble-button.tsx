@@ -14,7 +14,7 @@ const BubbleButton = React.forwardRef<HTMLButtonElement, BubbleButtonProps>(
       .filter(Boolean)
       .join(" ");
 
-    return <button ref={ref} type="button" className={cls} {...props} />;
+    return <button ref={ref} className={cls} {...props} type={props.type ?? "button"} />;
   }
 );
 BubbleButton.displayName = "BubbleButton";

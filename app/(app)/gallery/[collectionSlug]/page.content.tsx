@@ -74,6 +74,7 @@ function PageContent(
                   </div>
                 )}
                 <button
+                  type="button"
                   className={styles.viewButton}
                   onClick={(event) => {
                     event.stopPropagation();

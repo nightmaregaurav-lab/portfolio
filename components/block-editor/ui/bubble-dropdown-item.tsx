@@ -21,10 +21,10 @@ const BubbleDropdownItem = React.forwardRef<
   return (
     <button
       ref={ref}
-      type="button"
       data-dropdown-item
       className={cls}
       {...props}
+      type={props.type ?? "button"}
     />
   );
 });
