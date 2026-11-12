@@ -10,18 +10,10 @@ import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import SmartLink from "@/components/ui/SmartLink";
 import {cn} from "@/lib/utils";
-import {TModel as ProjectModel} from "@/configuration/projects";
-import {TModel as MilestoneModel} from "@/configuration/journey";
-import {TModel as SkillModel} from "@/configuration/skills";
 import SmartText from "@/components/ui/SmartText";
+import type {PageContentProps} from "@/app/(app)/projects/[projectSlug]/page.types";
 
-function PageContent(
-  {project, milestone, skills}: {
-    project: ProjectModel["projects"][number];
-    milestone?: MilestoneModel["milestones"][number];
-    skills: SkillModel["skills"];
-  }
-) {
+function PageContent({project, milestone, skills}: PageContentProps) {
   const links = (project.links || []);
   const images = (project.images || []).filter(Boolean);
 

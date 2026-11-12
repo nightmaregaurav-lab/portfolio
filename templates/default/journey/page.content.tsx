@@ -5,8 +5,9 @@ import {ArrowUpRight, Award, BriefcaseBusiness, CalendarDays, GraduationCap, Hea
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import type {TModel as JourneyModel} from "@/configuration/journey";
 import styles from "./page.module.css";
+import type {PageContentProps} from "@/app/(app)/journey/page.types";
+import type {TModel as JourneyModel} from "@/configuration/journey";
 
 type Milestone = JourneyModel["milestones"][number];
 type EventKind = "complete" | "start" | "end";
@@ -178,7 +179,7 @@ function TimelineCard({event}: {event: TimelineEvent}) {
   );
 }
 
-function PageContent({journeyConfig}: {journeyConfig: JourneyModel}) {
+function PageContent({journeyConfig}: PageContentProps) {
   const events = useMemo(() => getTimelineEvents(journeyConfig.milestones || []), [journeyConfig.milestones]);
   const summary = journeyConfig.summary || "Every chapter has a beginning, a lesson, and a direction. Here are the moments that shaped the way I work and what I care about.";
 

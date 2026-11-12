@@ -15,11 +15,12 @@ import {
 import {Input} from "@/components/ui/input";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {cn} from "@/lib/utils";
-import type {TModel as JourneyModel} from "@/configuration/journey";
-import type {TModel as ProjectsModel} from "@/configuration/projects";
 import {getActiveSlug} from "@/lib/slugs";
 import {useDebouncedState} from "@/hooks/useDebouncedState";
 import {useRouter, useSearchParams} from "next/navigation";
+import type {PageContentProps} from "@/app/(app)/projects/page.types";
+import type {TModel as JourneyModel} from "@/configuration/journey";
+import type {TModel as ProjectsModel} from "@/configuration/projects";
 
 type MilestoneType = JourneyModel["milestones"][number]["type"];
 
@@ -34,12 +35,7 @@ function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
   ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
 }
 
-function PageContent(
-  {projectsConfig, journeyConfig}: {
-    projectsConfig: ProjectsModel;
-    journeyConfig: JourneyModel;
-  }
-) {
+function PageContent({projectsConfig, journeyConfig}: PageContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword") || "";

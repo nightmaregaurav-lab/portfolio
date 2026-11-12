@@ -6,14 +6,10 @@ import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import SmartLink from "@/components/ui/SmartLink";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import type {TModel as ServicesModel} from "@/configuration/services";
 import styles from "./page.module.css";
+import type {PageContentProps} from "@/app/(app)/services/page.types";
 
-function PageContent(
-  {servicesConfig}: {
-    servicesConfig: ServicesModel
-  }
-) {
+function PageContent({servicesConfig}: PageContentProps) {
   return (
     <main className={styles.page} aria-label="Services">
       <header className={styles.intro}>

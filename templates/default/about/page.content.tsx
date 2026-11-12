@@ -7,16 +7,10 @@ import SmartText from "@/components/ui/SmartText";
 import {AspectRatio} from "@/components/ui/aspect-ratio";
 import {cn} from "@/lib/utils";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import {TModel as CoreModel} from "@/configuration/core";
-import {TModel as AboutModel} from "@/configuration/about";
 import ImageLightbox from "@/components/ui/ImageLightbox";
+import type {PageContentProps} from "@/app/(app)/about/page.types";
 
-function PageContent(
-  {coreConfig, aboutConfig}: {
-    coreConfig: CoreModel;
-    aboutConfig: AboutModel;
-  }
-) {
+function PageContent({coreConfig, aboutConfig}: PageContentProps) {
   return (
     <main className={cn(styles.page)} aria-label="About">
       <h1 className={styles.pageHeader}>About</h1>

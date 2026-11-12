@@ -5,12 +5,13 @@ import {NotebookPen, Search} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {Input} from "@/components/ui/input";
-import type {TModel as BlogsModel} from "@/configuration/blogs";
 import {getActiveSlug} from "@/lib/slugs";
 import {formatDate} from "@/lib/utils";
 import {useDebouncedState} from "@/hooks/useDebouncedState";
 import {useRouter, useSearchParams} from "next/navigation";
 import styles from "./page.module.css";
+import type {PageContentProps} from "@/app/(app)/blogs/page.types";
+import type {TModel as BlogsModel} from "@/configuration/blogs";
 
 const RECENT_COUNT = 3;
 
@@ -25,11 +26,7 @@ function getSearchablePostText(post: BlogsModel["posts"][number]) {
   ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
 }
 
-function PageContent(
-  {blogsConfig}: {
-    blogsConfig: BlogsModel
-  }
-) {
+function PageContent({blogsConfig}: PageContentProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const keyword = searchParams.get("keyword") || "";

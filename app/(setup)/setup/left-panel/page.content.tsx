@@ -160,7 +160,7 @@ function PageContent() {
               <div>
                 <Label htmlFor={"enabledMenus"}>Enabled Menus</Label>
                 <p className={"text-sm text-muted-foreground"}>
-                  Select the menus that should be visible on your website.
+                  Select the navigation paths that should be enabled on your website. The template you select still controls which paths are actually navigable, but this setting allows you to hide or show certain paths from SEO.
                 </p>
               </div>
               <CheckboxList id={"enabledMenus"} options={availableMenus} value={field.value || []} onValueChange={field.onChange}/>

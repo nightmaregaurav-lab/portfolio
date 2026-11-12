@@ -36,10 +36,12 @@ The portfolio uses a template system to separate visual presentation from config
 ### How it works
 
 1. The `template` field in `configuration/core.ts` stores the active template name (default: `"default"`).
-2. Each content page in `app/(app)/` uses `next/dynamic` with string interpolation to import its template-specific component:
+2. Each content page in `app/(app)/` uses `next/dynamic` with the `PageContentProps` type from its `page.types.ts` to import the template component:
    ```ts
-   const PageContent = dynamic(
-     () => import(`@/templates/${CoreConfig.template}/about/page.content`),
+   import type {PageContentProps} from "./page.types";
+
+   const PageContent = dynamic<PageContentProps>(
+     () => import(`@/templates/${CoreConfig.template}/<component-name>/page.content`),
      {ssr: true}
    );
    ```
@@ -49,6 +51,7 @@ The portfolio uses a template system to separate visual presentation from config
 
 The following routes have template content pages:
 
+- `home/page.content.tsx`
 - `about/page.content.tsx`
 - `blogs/page.content.tsx`
 - `blogs/[blogSlug]/page.content.tsx`
@@ -71,8 +74,15 @@ The following routes have template content pages:
 **Important rules:**
 
 - Each template page must export a default client component named `PageContent` with `"use client"` directive.
-- The component interface (props) must match the corresponding app page's dynamic import — check `app/(app)/<route>/page.tsx` for the prop types passed to the template component.
-- Template components receive configuration props typed from the `configuration/` modules (e.g., `CoreModel`, `AboutModel`).
+- The `page.content.tsx` template must import and use `PageContentProps` from the app folder:
+  ```ts
+  import type {PageContentProps} from "@/app/(app)/<route>/page.types";
+
+  function PageContent(props: PageContentProps) {
+    // ...
+  }
+  ```
+- If you change the props passed to a template, update `PageContentProps` in `app/(app)/<route>/page.types.ts` — both the app page and all templates use this central type.
 - Do not rename or remove `page.content.tsx` files — the dynamic import path is fixed by the app route.
 - Dynamic imports require `{ssr: true}` for static generation to work correctly.
 

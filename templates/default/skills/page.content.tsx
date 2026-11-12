@@ -6,11 +6,12 @@ import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import SmartLink from "@/components/ui/SmartLink";
+import styles from "./page.module.css";
+import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import type {PageContentProps} from "@/app/(app)/skills/page.types";
 import type {TModel as SkillsModel} from "@/configuration/skills";
 import type {TModel as JourneyModel} from "@/configuration/journey";
 import type {TModel as ProjectsModel} from "@/configuration/projects";
-import styles from "./page.module.css";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
 
 function getSkillMilestoneType(skill: SkillsModel["skills"][number], journeyConfig: JourneyModel): JourneyModel["milestones"][number]["type"] {
   const relatedMilestones = skill.associatedMilestoneIds
@@ -48,13 +49,7 @@ function getRelatedWorks(skill: SkillsModel["skills"][number], journeyConfig: Jo
   return relatedWorks;
 }
 
-function PageContent(
-  {skillsConfig, journeyConfig, projectsConfig}: {
-    skillsConfig: SkillsModel;
-    journeyConfig: JourneyModel;
-    projectsConfig: ProjectsModel;
-  }
-) {
+function PageContent({skillsConfig, journeyConfig, projectsConfig}: PageContentProps) {
   return (
     <main className={styles.page} aria-label="Skills">
       <header className={styles.intro}>

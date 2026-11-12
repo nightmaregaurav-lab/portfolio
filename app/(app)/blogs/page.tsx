@@ -1,14 +1,16 @@
+import {join} from "node:path";
+import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
+import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, BlogsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import {Suspense} from "react";
-import type {TModel as BlogsModel} from "@/configuration/blogs";
+import type {PageContentProps} from "./page.types";
 
-const PageContent = dynamic<{
-  blogsConfig: BlogsModel;
-}>(
+const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "blogs", "page.content.tsx"));
+const PageContent = dynamic<PageContentProps>(
   () => import(`@/templates/${CoreConfig.template}/blogs/page.content`),
   {ssr: true}
 );
@@ -23,6 +25,9 @@ export const metadata = createPageMetadata({
 });
 
 export default function Page() {
+  if (!contentExists) {
+    notFound();
+  }
   const canonical = getCanonicalUrl("/blogs/");
   return (
     <>

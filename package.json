@@ -6,6 +6,7 @@
     "dev": "next dev",
     "migrate-config": "tsx scripts/migrate-config.ts",
     "migrate-config:dev": "NODE_ENV=development tsx scripts/migrate-config.ts",
+    "mktemp": "tsx scripts/mktemp.ts",
     "build": "next build && rm -rf build/config build/uploads build/uploads_thumbs",
     "start": "next start",
     "lint": "eslint"

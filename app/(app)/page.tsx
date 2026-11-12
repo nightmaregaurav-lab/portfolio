@@ -1,8 +1,10 @@
-import React from "react";
-import styles from "./page.module.css";
-import {cn} from "@/lib/utils";
+import {join} from "node:path";
+import {existsSync} from "node:fs";
+import dynamic from "next/dynamic";
+import {notFound} from "next/navigation";
 import {CoreConfig, HomeConfig} from "@/configuration";
 import {createPageMetadata, getSiteName} from "@/lib/pageMetadata";
+import type {PageContentProps} from "./page.types";
 
 export const metadata = createPageMetadata({
   title: getSiteName(),
@@ -12,21 +14,21 @@ export const metadata = createPageMetadata({
   keywords: CoreConfig.seoKeywords,
 });
 
+const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "home", "page.content.tsx"));
+const PageContent = dynamic<PageContentProps>(
+  () => import(`@/templates/${CoreConfig.template}/home/page.content`),
+  {ssr: true}
+);
+
 function Page() {
+  if (!contentExists) {
+    notFound();
+  }
   return (
-    <main className={styles.page} aria-label="Home">
-      <div
-        className={styles.heroImage}
-        style={{backgroundImage: `url("${HomeConfig.coverPicture}")`}}
-        role="img"
-        aria-label={`Hero image of ${CoreConfig.fullName}`}
-      />
-      <div className={styles.heroText}>
-        <h1 className={cn(styles.heroTextPrimary, "text-white")}>{CoreConfig.fullName}</h1>
-        <br/><br/>
-        <p className={cn(styles.heroTextSecondary, "text-white")}>{HomeConfig.bio}</p>
-      </div>
-    </main>
+    <PageContent
+      coreConfig={CoreConfig}
+      homeConfig={HomeConfig}
+    />
   );
 }
 

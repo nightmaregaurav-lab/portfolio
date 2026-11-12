@@ -5,14 +5,10 @@ import {ArrowLeft, Eye, Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
-import type {GalleryCollection} from "./page.types";
 import styles from "./page.module.css";
+import type {PageContentProps} from "@/app/(app)/gallery/[collectionSlug]/page.types";
 
-function PageContent(
-  {collection}: {
-    collection: GalleryCollection
-  }
-) {
+function PageContent({collection}: PageContentProps) {
   return (
     <main className={styles.page} aria-label={`${collection.name} collection`}>
       <header className={styles.intro}>

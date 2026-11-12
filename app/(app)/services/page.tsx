@@ -1,13 +1,15 @@
+import {join} from "node:path";
+import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
+import {notFound} from "next/navigation";
 import {CoreConfig, ServicesConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import StructuredData from "@/components/StructuredData";
-import type {TModel as ServicesModel} from "@/configuration/services";
+import type {PageContentProps} from "./page.types";
 
-const PageContent = dynamic<{
-  servicesConfig: ServicesModel;
-}>(
+const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "services", "page.content.tsx"));
+const PageContent = dynamic<PageContentProps>(
   () => import(`@/templates/${CoreConfig.template}/services/page.content`),
   {ssr: true}
 );
@@ -25,6 +27,9 @@ export const metadata = createPageMetadata({
 });
 
 function Page() {
+  if (!contentExists) {
+    notFound();
+  }
   const canonical = getCanonicalUrl("/services/");
 
   return (

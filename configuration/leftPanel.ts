@@ -40,13 +40,20 @@ export const schema = z.object({
   enabledMenus: z
     .array(z.string().min(1, "Menu name is required.").meta({
       title: "Menu Name",
-      description: "The name of the menu.",
+      description:
+        "The menu key (e.g., home, about, projects, blogs). " +
+        "When disabled, the menu item is hidden from the left panel, " +
+        "the page is removed from the sitemap, and the path is disallowed in robots.txt " +
+        "(including child routes for blogs, projects, and gallery).",
     }))
     .default([])
     .meta({
       title: "Enabled Menus",
       description:
-        "A list of enabled menus in to show in the left panel.",
+        "Controls which sections are visible in the left panel navigation, " +
+        "included in the sitemap, and allowed by search engine crawlers. " +
+        "Disabling a menu hides it from navigation, removes it from the sitemap, " +
+        "and blocks crawlers from indexing that page and its child routes.",
     }),
 }).meta({
   title: "Left Panel Configuration",

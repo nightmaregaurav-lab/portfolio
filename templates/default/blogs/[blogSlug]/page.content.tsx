@@ -1,17 +1,14 @@
+"use client"
+
 import React from 'react';
-import type {BlogPost} from "./page.types";
 import styles from "./page.module.css";
 import SmartLink from "@/components/ui/SmartLink";
 import {ArrowLeft} from "lucide-react";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import {formatDate} from "@/lib/utils";
+import type {PageContentProps} from "@/app/(app)/blogs/[blogSlug]/page.types";
 
-function PageContent(
-  {post, authorName}: {
-    post: BlogPost;
-    authorName: string;
-  }
-) {
+function PageContent({post, authorName}: PageContentProps) {
   return (
     <main className={styles.page}>
       <article className={styles.article}>
