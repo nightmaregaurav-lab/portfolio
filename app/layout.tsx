@@ -4,7 +4,7 @@ import "./globals.css";
 import "@/components/block-editor/style.css";
 import Providers from "@/app/Providers";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, HomeConfig, LeftPanelConfig} from "@/configuration";
+import {CoreConfig, HomeConfig, NavigationConfig} from "@/configuration";
 import {
   getAbsoluteUrl,
   getAuthorName,
@@ -89,7 +89,7 @@ function RootLayout({children}: LayoutProps<"/">) {
                 name: authorName,
                 image: socialImage,
                 ...(canonical ? {url: canonical} : {}),
-                sameAs: LeftPanelConfig.socials.map((social) => social.url),
+                sameAs: NavigationConfig.socials.map((social) => social.url),
               },
               {
                 "@type": "WebSite",

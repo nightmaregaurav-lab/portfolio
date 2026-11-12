@@ -7,9 +7,8 @@ import {CoreConfig, BlogsConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import type {BlogPost, PageContentProps} from "./page.types";
-import {readConfigurationFile} from "@/configuration/configurationFiles";
+import {readConfigurationFromFile} from "@/configuration/configurationFiles";
 import {buildSchema as blogSchema, type TOutput as BlogOutput} from "@/configuration/blog";
-import {migrateConfiguration} from "@/migrations/configurationMigrationManager";
 
 const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "blogs", "[blogSlug]", "page.content.tsx"));
 const PageContent = dynamic<PageContentProps>(
@@ -42,7 +41,7 @@ function findBlogPost(postSlug: string){
 
   let content: BlogOutput;
   try {
-    content = blogSchema.parse(migrateConfiguration("blog", readConfigurationFile(join("blogs", metadata.id + ".json"))).configuration) as BlogOutput;
+    content = blogSchema.parse(readConfigurationFromFile(join("blogs", metadata.id + ".json"))) as BlogOutput;
   } catch {
     content = emptyBlog;
   }

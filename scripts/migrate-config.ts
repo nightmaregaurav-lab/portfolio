@@ -1,7 +1,7 @@
-import {readdirSync, readFileSync, writeFileSync} from "node:fs";
+import {existsSync, readdirSync, readFileSync, writeFileSync} from "node:fs";
 import {join} from "node:path";
 import {getConfigurationDirectory} from "@/configuration/configurationFiles";
-import {migrateConfiguration, serializeMigratedConfiguration} from "@/migrations/configurationMigrationManager";
+import {migrateConfiguration} from "@/migrations/configurationMigrationManager";
 
 type ConfigurationFile = {
   identifier: string;
@@ -17,7 +17,7 @@ const configurationFiles: ConfigurationFile[] = [
   {identifier: "gallery", path: "gallery.json"},
   {identifier: "home", path: "home.json"},
   {identifier: "journey", path: "journey.json"},
-  {identifier: "leftPanel", path: "left-panel.json"},
+  {identifier: "navigation", path: "navigation.json"},
   {identifier: "projects", path: "projects.json"},
   {identifier: "quickLinks", path: "quick-links.json"},
   {identifier: "services", path: "services.json"},
@@ -39,12 +39,18 @@ function getConfigurationFiles(): ConfigurationFile[] {
 
 for (const file of getConfigurationFiles()) {
   const filePath = join(configurationDirectory, file.path);
-  const source = readFileSync(filePath, "utf8");
-  const configuration = JSON.parse(source) as unknown;
-  const migratedConfiguration = migrateConfiguration(file.identifier, configuration);
-  const output = serializeMigratedConfiguration(migratedConfiguration);
 
-  if (source !== output) {
+  let configuration = null;
+  let source = "";
+  if(existsSync(filePath)){
+    source = readFileSync(filePath, "utf8");
+    configuration = JSON.parse(source) as unknown;
+  }
+
+  const migratedConfiguration = migrateConfiguration(file.identifier, configuration);
+  const output = `${JSON.stringify(migratedConfiguration, null, 2)}\n`;
+
+  if (source != output) {
     writeFileSync(filePath, output);
     console.log(`Migrated ${file.path} to version ${migratedConfiguration.version}.`);
   }

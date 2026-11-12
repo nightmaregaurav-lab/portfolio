@@ -7,7 +7,7 @@ import type {LayoutContentProps} from "@/app/(app)/layout.types";
 import styles from "./layout.module.css";
 import LeftPanel from "@/templates/default/LeftPanel";
 
-export default function ShellTemplate({children, coreConfig, leftPanelConfig, quickLinksConfig}: LayoutContentProps) {
+export default function ShellTemplate({children, coreConfig, navigationConfig, quickLinksConfig}: LayoutContentProps) {
   return (
     <SidebarProvider defaultOpen={false} data-template={coreConfig.template}>
       <a href="#main-content" className={styles.skipLink}>
@@ -15,7 +15,7 @@ export default function ShellTemplate({children, coreConfig, leftPanelConfig, qu
       </a>
       <LeftPanel
         coreConfig={coreConfig}
-        leftPanelConfig={leftPanelConfig}
+        navigationConfig={navigationConfig}
         quickLinksConfig={quickLinksConfig}
       />
       <div id="main-content" tabIndex={-1} className={styles.mainLandmark} role="main" aria-label="Main content">

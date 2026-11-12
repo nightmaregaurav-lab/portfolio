@@ -4,7 +4,7 @@ import React from "react";
 import styles from "./page.module.css";
 import {Identifier} from "@/hooks/useConfig";
 import { Controller, useFieldArray } from "react-hook-form";
-import { TOutput, schema, defaultValues } from "@/configuration/leftPanel";
+import { TOutput, schema, defaultValues } from "@/configuration/navigation";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,7 @@ function PageContent() {
     handleSubmit,
     formValues
   } = useConfigurationForm(
-    Identifier.LeftPanel,
+    Identifier.Navigation,
     schema,
     defaultValues
   );
@@ -62,7 +62,7 @@ function PageContent() {
   }
 
   return (
-    <ConfigurationFormWrapper className={styles.page} title={"Left Panel Configuration"} config={formValues} form={form}>
+    <ConfigurationFormWrapper className={styles.page} title={"Navigation Configuration"} config={formValues} form={form}>
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid gap-6 max-w-3xl")}>
         <Controller
           control={control}

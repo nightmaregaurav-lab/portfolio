@@ -18,7 +18,7 @@ import {cn} from "@/lib/utils";
 import SmartLink from "@/components/ui/SmartLink";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import type {TModel as CoreModel} from "@/configuration/core";
-import type {TModel as LeftPanelModel} from "@/configuration/leftPanel";
+import type {TModel as NavigationModel} from "@/configuration/navigation";
 import type {TModel as QuickLinksModel} from "@/configuration/quickLinks";
 import SidebarCustomMenuItem from "@/templates/default/SidebarCustomMenuItem";
 
@@ -92,19 +92,19 @@ const getMenuItems = (
 
 function LeftPanel({
   coreConfig,
-  leftPanelConfig,
+  navigationConfig,
   quickLinksConfig,
 }: {
   coreConfig: CoreModel;
-  leftPanelConfig: LeftPanelModel;
+  navigationConfig: NavigationModel;
   quickLinksConfig: QuickLinksModel;
 }) {
   const pathname = usePathname();
   const {open} = useSidebar();
 
   const menuItems = useMemo(
-    () => getMenuItems(leftPanelConfig.enabledNavigations),
-    [leftPanelConfig.enabledNavigations]
+    () => getMenuItems(navigationConfig.enabledNavigations),
+    [navigationConfig.enabledNavigations]
   );
 
   return (<>
@@ -114,15 +114,15 @@ function LeftPanel({
 
     <Sidebar>
       <SidebarHeader>
-        {(leftPanelConfig.profilePicture || coreConfig.fullName) && <div className={styles.avatarBlock}>
-          {leftPanelConfig.profilePicture ? (
+        {(navigationConfig.profilePicture || coreConfig.fullName) && <div className={styles.avatarBlock}>
+          {navigationConfig.profilePicture ? (
             <ImageLightbox
-              src={leftPanelConfig.profilePicture}
+              src={navigationConfig.profilePicture}
               name={`${coreConfig.fullName}`}
               trigger={
                 <div className="flex justify-center">
                   <Avatar className={styles.avatar}>
-                    <AvatarImage src={leftPanelConfig.profilePicture} alt={coreConfig.fullName} style={{objectFit: 'cover'}}/>
+                    <AvatarImage src={navigationConfig.profilePicture} alt={coreConfig.fullName} style={{objectFit: 'cover'}}/>
                   </Avatar>
                 </div>
               }
@@ -146,7 +146,7 @@ function LeftPanel({
           <XIcon aria-hidden="true"/>
         </SidebarTrigger>
 
-        <SocialLinks links={leftPanelConfig.socials}/>
+        <SocialLinks links={navigationConfig.socials}/>
       </SidebarHeader>
 
       <SidebarContent>

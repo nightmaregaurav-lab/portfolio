@@ -7,7 +7,7 @@ export const schema = z.object({
     .meta({
       title: "Profile Picture",
       description:
-        "An image that will be used as the profile picture in the left panel. " +
+        "An image that will be used as the profile picture in the navigation panel. " +
         "It is recommended to use a square image of size 512x512px.",
     }),
   socials: z
@@ -35,7 +35,7 @@ export const schema = z.object({
     .default([])
     .meta({
       title: "Social Media Accounts",
-      description: "A list of social media accounts to show in the left panel.",
+      description: "A list of social media accounts to show in the navigation panel.",
     }),
   enabledNavigations: z
     .array(z.string().min(1, "Navigation name is required.").meta({
@@ -54,8 +54,8 @@ export const schema = z.object({
         "and blocks crawlers from indexing that page and its child routes.",
     }),
 }).meta({
-  title: "Left Panel Configuration",
-  description: "Configuration for the profile, social links, and menu shown in the left panel.",
+  title: "Navigation Configuration",
+  description: "Configuration for the profile, social links, and menu shown in the navigation panel.",
 });
 
 export const buildSchema = schema.extend({

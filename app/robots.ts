@@ -1,5 +1,5 @@
 import type {MetadataRoute} from "next";
-import {LeftPanelConfig} from "@/configuration";
+import {NavigationConfig} from "@/configuration";
 import {getCanonicalUrl} from "@/lib/pageMetadata";
 
 export const dynamic = "force-static";
@@ -20,7 +20,7 @@ const MENU_PATH_MAP = [
 const CHILD_MENU_KEYS = new Set(["blogs", "projects", "gallery"]);
 
 const disabledPaths = MENU_PATH_MAP.filter(
-  (item) => !LeftPanelConfig.enabledNavigations.includes(item.menu)
+  (item) => !NavigationConfig.enabledNavigations.includes(item.menu)
 ).flatMap((item) => {
   const paths = [item.path];
   // If the disabled menu has children, also disallow the wildcard child path

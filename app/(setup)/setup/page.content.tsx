@@ -41,9 +41,9 @@ function PageContent() {
         />
         <ConfigurationGroupCard
           icon={<AlignJustify/>}
-          title="Left Panel"
-          description="Customize the left panel."
-          pagePath="/setup/left-panel"
+          title="Navigation"
+          description="Customize the navigation panel."
+          pagePath="/setup/navigation"
         />
         <ConfigurationGroupCard
           icon={<Link/>}

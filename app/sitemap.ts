@@ -2,7 +2,7 @@ import type {MetadataRoute} from "next";
 import {
   BlogsConfig,
   GalleryConfig,
-  LeftPanelConfig,
+  NavigationConfig,
   ProjectsConfig,
 } from "@/configuration";
 import {getAbsoluteUrl, getCanonicalUrl} from "@/lib/pageMetadata";
@@ -22,7 +22,7 @@ const MENU_PATH_MAP = [
 ];
 
 const staticRoutes = MENU_PATH_MAP.filter(
-  (item) => LeftPanelConfig.enabledNavigations.includes(item.menu)
+  (item) => NavigationConfig.enabledNavigations.includes(item.menu)
 );
 
 function getSitemapSlug(slugs: {slug: string; isActive: boolean}[]) {
@@ -39,7 +39,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }] : [];
   });
 
-  if (LeftPanelConfig.enabledNavigations.includes("projects")) {
+  if (NavigationConfig.enabledNavigations.includes("projects")) {
     for (const project of ProjectsConfig.projects) {
       const slug = getSitemapSlug(project.slugs);
       const url = slug ? getCanonicalUrl("/projects/" + slug + "/") : undefined;
@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  if (LeftPanelConfig.enabledNavigations.includes("blogs")) {
+  if (NavigationConfig.enabledNavigations.includes("blogs")) {
     for (const post of BlogsConfig.posts) {
       const slug = getSitemapSlug(post.slugs);
       const url = slug ? getCanonicalUrl("/blogs/" + slug + "/") : undefined;
@@ -69,7 +69,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  if (LeftPanelConfig.enabledNavigations.includes("gallery")) {
+  if (NavigationConfig.enabledNavigations.includes("gallery")) {
     for (const collection of GalleryConfig.categories) {
       const slug = getSitemapSlug(collection.slugs);
       const url = slug ? getCanonicalUrl("/gallery/" + slug + "/") : undefined;

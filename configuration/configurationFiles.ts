@@ -12,7 +12,12 @@ export function getConfigurationDirectory(): string {
   return trackedConfigurationDirectory;
 }
 
-export function readConfigurationFile(filePath: string): unknown {
+export function readConfigurationFromFile(filePath: string): unknown {
   const absolutePath = join(getConfigurationDirectory(), filePath);
-  return JSON.parse(readFileSync(absolutePath, "utf8")) as unknown;
+  const exists = existsSync(absolutePath);
+  if (!exists) {
+    throw new Error(`Configuration file "${filePath}" does not exist.`);
+  }
+  const config = JSON.parse(readFileSync(absolutePath, "utf8")) as { configuration: unknown };
+  return config["configuration"] as unknown;
 }

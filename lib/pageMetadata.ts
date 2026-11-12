@@ -26,9 +26,7 @@ type PageMetadataOptions = {
 };
 
 export function getSiteUrl() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim();
-  if (!siteUrl) return undefined;
-
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://localhost:3000";
   return new URL(siteUrl.endsWith("/") ? siteUrl : siteUrl + "/");
 }
 

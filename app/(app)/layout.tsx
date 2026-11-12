@@ -1,7 +1,7 @@
 import {join} from "node:path";
 import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
-import {CoreConfig, LeftPanelConfig, QuickLinksConfig} from "@/configuration";
+import {CoreConfig, NavigationConfig, QuickLinksConfig} from "@/configuration";
 import type {LayoutContentProps} from "@/app/(app)/layout.types";
 
 const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "layout.content.tsx"));
@@ -15,7 +15,7 @@ function Layout({children}: LayoutProps<"/">) {
     <>
       {LayoutContent ? <LayoutContent
         coreConfig={CoreConfig}
-        leftPanelConfig={LeftPanelConfig}
+        navigationConfig={NavigationConfig}
         quickLinksConfig={QuickLinksConfig}
       >
         {children}
