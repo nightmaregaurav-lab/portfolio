@@ -1,0 +1,187 @@
+body:has([data-template="minimol"]) #main-content {
+  /* Shared templates expose cards through slots and their existing content attributes. */
+  :is([data-slot="card"], article[style*="--accent-tone"], a[data-featured], article[data-hovered], section[aria-labelledby^="project-"]),
+  [aria-label$=" project details"] > div > article > header {
+    min-width: 0;
+    min-height: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--minimol-card-radius);
+    background: var(--card);
+    box-shadow: none;
+    animation: none;
+    transform: none;
+    transition: border-color 160ms ease;
+  }
+
+  [data-slot="card"] {
+    --card-spacing: var(--minimol-card-padding);
+    padding-block: var(--minimol-card-padding);
+  }
+
+  [data-slot="card"]:not(figure) {
+    gap: 0.875rem;
+  }
+
+  [data-slot="card"]:has(> div > img) {
+    padding-top: 0;
+  }
+
+  [data-slot="card"] > div:has(> img) {
+    aspect-ratio: 16 / 10;
+  }
+
+  [data-slot="card"] :is([data-slot="card-header"], [data-slot="card-content"]) {
+    padding-inline: var(--minimol-card-padding);
+  }
+
+  :is([data-slot="card-title"], [data-slot="card"] h2, article[style*="--accent-tone"] h2, article[data-hovered] h2) {
+    font-family: inherit;
+    font-size: 1rem;
+    font-weight: var(--minimol-heading-weight);
+    letter-spacing: -0.02em;
+    line-height: 1.5;
+  }
+
+  [data-slot="card-title"] h2 {
+    font: inherit;
+  }
+
+  [data-slot="card"] a {
+    font-size: 0.8125rem;
+    font-weight: 400;
+  }
+
+  :is([data-slot="card"], section[aria-labelledby^="project-"]) :is(.html-renderer, [data-slot="card-description"]),
+  article[style*="--accent-tone"] > p {
+    color: var(--muted-foreground);
+    font-size: var(--minimol-card-body-size);
+    font-weight: var(--minimol-body-weight);
+    line-height: 1.75;
+  }
+
+  article[style*="--accent-tone"],
+  section[aria-labelledby^="project-"] {
+    padding: var(--minimol-card-padding);
+  }
+
+  [aria-label$=" project details"] > div > article > header > div:last-child {
+    padding: var(--minimol-card-padding);
+  }
+
+  section[aria-labelledby^="project-"] :is(dl > div, div:has(> span[role="button"])) {
+    border-radius: var(--minimol-card-radius);
+  }
+
+  article[style*="--accent-tone"] {
+    gap: 0.875rem;
+    font-size: var(--minimol-body-size);
+  }
+
+  [data-slot="card"][data-tone] > [data-slot="card-header"],
+  [data-slot="card"] > div:has(> img) > [aria-hidden="true"] {
+    display: none;
+  }
+
+  :is([data-slot="card"], a[data-featured], article[data-hovered]) img {
+    transform: none;
+    transition: none;
+  }
+
+  article[style*="--accent-tone"] time {
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  :is(section[aria-label="Photo collections"], section[aria-label$=" photos"]) {
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+    gap: var(--minimol-card-gap);
+  }
+
+  :is(a[data-featured], article[data-hovered]) {
+    display: flex;
+    grid-column: auto;
+    min-height: 0;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  a[data-featured] > span:first-child {
+    position: relative;
+    inset: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  a[data-featured] > span:last-child,
+  article[data-hovered] > div {
+    position: static;
+    padding: var(--minimol-card-padding);
+    background: var(--card);
+    color: var(--foreground);
+    opacity: 1;
+    transform: none;
+  }
+
+  a[data-featured] > span:last-child {
+    align-items: baseline;
+    border-top: 1px solid var(--border);
+  }
+
+  a[data-featured] > span:last-child > span:first-child {
+    font-size: 1rem;
+    font-weight: var(--minimol-heading-weight);
+    line-height: 1.5;
+  }
+
+  a[data-featured] > span:last-child > span:last-child {
+    padding: 0;
+    color: var(--muted-foreground);
+    font-size: 0.75rem;
+    font-weight: 400;
+  }
+
+  article[data-hovered] > img {
+    height: auto;
+    aspect-ratio: 16 / 10;
+  }
+
+  article[data-hovered] > div :is(p, span) {
+    border-color: var(--border);
+    background: var(--card);
+    color: var(--muted-foreground);
+    font-weight: 400;
+    backdrop-filter: none;
+  }
+
+  article[data-hovered] > div p {
+    font-size: var(--minimol-card-body-size);
+    font-weight: var(--minimol-body-weight);
+    line-height: 1.75;
+  }
+
+  article[data-hovered] > button {
+    top: 1rem;
+    right: 1rem;
+    left: auto;
+    transform: none;
+  }
+
+  article[data-hovered] > button:focus-visible {
+    opacity: 1;
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  a:focus-visible,
+  a:has(> [data-slot="card"]):focus-visible {
+    border-radius: var(--minimol-card-radius);
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  body:has([data-template="minimol"]) #main-content :is([data-slot="card"], article[style*="--accent-tone"], a[data-featured], article[data-hovered]) {
+    transition: none;
+  }
+}
