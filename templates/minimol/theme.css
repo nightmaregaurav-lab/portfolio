@@ -1,0 +1,256 @@
+/* Geist Mono from vercel/geist-font, distributed under fonts/OFL.txt. */
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./fonts/GeistMono.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("./fonts/GeistMono-Italic.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+body:has([data-template="minimol"]) {
+  --background: #fff;
+  --foreground: #262626;
+  --template-body: #525252;
+  --muted: var(--background);
+  --muted-foreground: #737373;
+  --border: #e5e5e5;
+  --ring: #525252;
+  --card: var(--background);
+  --card-foreground: var(--foreground);
+  --popover: var(--background);
+  --popover-foreground: var(--foreground);
+  --primary: var(--foreground);
+  --primary-foreground: var(--background);
+  --secondary: var(--background);
+  --secondary-foreground: var(--foreground);
+  --accent: #f5f5f5;
+  --accent-foreground: var(--foreground);
+  --accent-tone: var(--foreground);
+  --input: var(--border);
+  --sidebar: var(--background);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-accent: var(--accent);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-ring: var(--ring);
+  --minimol-card-radius: 0.25rem;
+  --minimol-card-padding: 1.25rem;
+  --minimol-card-gap: 1rem;
+  --minimol-body-size: 0.875rem;
+  --minimol-card-body-size: 0.8125rem;
+  --minimol-body-weight: 350;
+  --minimol-heading-weight: 450;
+  --minimol-meta-size: 0.75rem;
+  --minimol-reading-width: 64ch;
+  --minimol-page-space: clamp(3rem, 7vw, 5rem);
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-sans: var(--font-mono);
+  color: var(--foreground);
+  color-scheme: light;
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: var(--minimol-body-weight);
+  line-height: 1.75;
+}
+
+body:has([data-template="minimol"]) [data-tone],
+body:has([data-template="minimol"]) [data-type],
+body:has([data-template="minimol"]) [style*="--accent-tone"] {
+  /* Shared blog cards set their accent inline. */
+  --accent-tone: var(--foreground) !important;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-wrapper"] {
+  background: var(--background);
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-container"] {
+  border-color: var(--border);
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-header"] > div:has([data-slot="avatar"]) {
+  justify-content: flex-start;
+  padding: 1rem 0;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-header"] [data-slot="avatar"] {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-menu"] button {
+  min-height: 2.75rem;
+  border-radius: 0;
+  font-size: 0.8125rem;
+  font-weight: 400;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-menu"] button[aria-current="page"] {
+  background: var(--background);
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-menu"] svg[aria-hidden="true"] {
+  display: none;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-footer"] {
+  margin-top: auto;
+  padding: 1.5rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted-foreground);
+  font-size: 0.6875rem;
+  line-height: 1.7;
+  text-align: left;
+}
+
+body:has([data-template="minimol"]) [data-slot="sidebar-trigger"],
+body:has([data-template="minimol"]) [aria-label="Back to top"] {
+  width: 2.75rem;
+  height: 2.75rem;
+  border: 1px solid var(--border);
+  border-radius: var(--minimol-card-radius);
+  background: var(--background);
+  color: var(--foreground);
+  box-shadow: none;
+}
+
+body:has([data-template="minimol"]) [role="group"][aria-label="Floating controls"] {
+  right: max(1.25rem, env(safe-area-inset-right));
+  bottom: max(1.25rem, env(safe-area-inset-bottom));
+}
+
+body:has([data-template="minimol"]) #main-content {
+  max-width: 68rem;
+  margin-inline: auto;
+  padding: 0 clamp(1.25rem, 5vw, 3rem) 4rem;
+
+  > :is(main, article) {
+    min-height: 0;
+    padding: var(--minimol-page-space) 0 0;
+  }
+
+  > :is(main, article) > header {
+    max-width: var(--minimol-reading-width);
+    margin: 0 0 2.5rem;
+  }
+
+  > :is(main, article) > .html-renderer {
+    max-width: var(--minimol-reading-width);
+    margin: 1rem 0 2.5rem;
+  }
+
+  > :is(main, article) > header .html-renderer {
+    margin-top: 1rem;
+  }
+
+  > main:not([aria-label]) > article {
+    max-width: var(--minimol-reading-width);
+  }
+
+  h1 {
+    font-size: clamp(1.75rem, 3.5vw, 2.5rem);
+    font-weight: var(--minimol-heading-weight);
+    letter-spacing: -0.04em;
+    line-height: 1.2;
+  }
+
+  h2 {
+    font-size: 1.125rem;
+    font-weight: var(--minimol-heading-weight);
+    line-height: 1.5;
+  }
+
+  h3 {
+    font-size: 0.9375rem;
+    font-weight: var(--minimol-heading-weight);
+    line-height: 1.5;
+  }
+
+  .html-renderer {
+    max-width: var(--minimol-reading-width);
+    font-size: var(--minimol-body-size);
+    font-weight: var(--minimol-body-weight);
+    line-height: 1.75;
+  }
+
+  .html-renderer p {
+    line-height: inherit;
+  }
+
+  .html-renderer p + p {
+    margin-top: 1em;
+  }
+
+  .html-renderer :is(h1, h2, h3) {
+    margin-block: 1.75em 0.75em;
+  }
+
+  .html-renderer h1 {
+    font-size: 1.375rem;
+  }
+
+  .html-renderer :is(b, strong) {
+    font-weight: 500;
+  }
+
+  .html-renderer blockquote {
+    margin-block: 1.5em;
+    padding: 0.25em 0 0.25em 1.25rem;
+    border: 0;
+    border-left: 1px solid var(--border);
+    background: transparent;
+    color: var(--template-body);
+    box-shadow: none;
+    transform: none;
+  }
+
+  :is(time, [data-slot="badge"]) {
+    font-size: var(--minimol-meta-size);
+    font-weight: 400;
+    letter-spacing: 0;
+  }
+
+  [data-slot="badge"] {
+    border-color: var(--border);
+    border-radius: 0.125rem;
+    background: var(--background);
+    color: var(--muted-foreground);
+  }
+
+  :is([data-slot="button"], [data-slot="input"]) {
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    border-radius: var(--minimol-card-radius);
+    box-shadow: none;
+    transform: none;
+  }
+
+  [data-slot="input"]:focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 3px;
+  }
+
+  article[data-kind] h2 {
+    font-size: 1rem;
+  }
+
+  [aria-label^="Highlights for"] > h3 {
+    font-size: var(--minimol-meta-size);
+    letter-spacing: 0;
+    text-transform: none;
+  }
+}

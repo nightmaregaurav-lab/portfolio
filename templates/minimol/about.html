@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Minimol is a minimal portfolio template built around Geist Mono, white space, and a clear typographic hierarchy.">
+  <title>Minimol Template</title>
+  <style>
+    /* This standalone page is served outside the template's bundled styles. */
+    @font-face {
+      font-family: "Geist Mono";
+      src: url("https://raw.githubusercontent.com/vercel/geist-font/ef2597cfc42f4797676df105517ccc0a1cfa6569/fonts/GeistMono/webfonts/GeistMono%5Bwght%5D.woff2") format("woff2");
+      font-style: normal;
+      font-weight: 100 900;
+      font-display: swap;
+    }
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      padding: clamp(2rem, 7vw, 5rem) 1.25rem;
+      background: #ffffff;
+      color: #525252;
+      font-family: "Geist Mono", ui-monospace, monospace;
+      font-size: 14px;
+      font-weight: 350;
+      line-height: 1.75;
+    }
+    main {
+      max-width: 64ch;
+      margin: 0 auto;
+    }
+    h1, h2 {
+      color: #262626;
+      font-weight: 450;
+      line-height: 1.4;
+    }
+    h1 {
+      margin: 0 0 1rem;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      letter-spacing: -0.04em;
+    }
+    h2 {
+      margin: 2.5rem 0 0.75rem;
+      font-size: 1rem;
+      letter-spacing: -0.02em;
+    }
+    p {
+      margin: 0 0 1rem;
+    }
+    ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    li + li {
+      margin-top: 0.5rem;
+    }
+    a {
+      color: inherit;
+      text-decoration-color: #a3a3a3;
+      text-underline-offset: 3px;
+    }
+    a:hover {
+      color: #262626;
+      text-decoration-color: currentColor;
+    }
+    a:focus-visible {
+      outline: 2px solid #525252;
+      outline-offset: 4px;
+    }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e5e5e5;
+      color: #737373;
+      font-size: 0.75rem;
+    }
+  </style>
+</head>
+<body>
+  <main aria-label="About the Minimol template">
+    <header>
+      <h1>Minimol</h1>
+      <p>A minimal portfolio template that lets the content lead.</p>
+    </header>
+
+    <p>Geist Mono, a white canvas, and a restrained type scale give your work a clear hierarchy. Spacing and readable line lengths keep the focus on what you have to say.</p>
+
+    <section aria-label="Design approach">
+      <h2>Design approach</h2>
+      <ul>
+        <li>Light body text, considered headings, and quiet metadata.</li>
+        <li>Consistent white cards with subtle borders and compact descriptions.</li>
+        <li>Simple navigation and responsive layouts.</li>
+        <li>Understated controls, visible keyboard focus, and image lightboxes.</li>
+      </ul>
+    </section>
+
+    <section aria-label="Included pages">
+      <h2>What’s included</h2>
+      <p>Home, About, Journey, Projects, Skills, Services, Testimonials, Gallery, and Blog, including project, photo collection, and article detail pages.</p>
+      <p>Home, About, Journey, and Testimonials have their own Minimol layouts. Other pages use the shared portfolio components with the same typography and card styling.</p>
+    </section>
+
+    <section aria-label="Getting started">
+      <h2>Using Minimol</h2>
+      <p>Select Minimol under Setup → Core, then manage your content through the existing Setup pages. The template uses the portfolio’s existing configuration, so your content stays independent of its presentation.</p>
+    </section>
+
+    <footer>
+      <p>Minimol by <a href="https://github.com/misterbista" target="_blank" rel="noopener noreferrer">misterbista</a>.</p>
+    </footer>
+  </main>
+</body>
+</html>
