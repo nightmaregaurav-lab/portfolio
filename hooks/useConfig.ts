@@ -181,5 +181,5 @@ async function getConfig<T extends Identifier>(
     filePath
   );
 
-  return configurationSchemas[configIdentifier].parse(JSON.parse(response)) as ConfigurationModel<T>;
+  return configurationSchemas[configIdentifier].parse(JSON.parse(response).configuration) as ConfigurationModel<T>;
 }
