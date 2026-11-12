@@ -1,5 +1,5 @@
 {
-  "version": 0,
+  "version": 1,
   "configuration": {
     "profilePicture": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG_3043_SQ.jpg",
     "socials": [
@@ -28,7 +28,7 @@
         "url": "https://www.paypal.com/donate/?hosted_button_id=LG8Q32VA2VHT6"
       }
     ],
-    "enabledMenus": [
+    "enabledNavigations": [
       "about",
       "home",
       "journey",
@@ -37,7 +37,6 @@
       "projects",
       "services",
       "gallery",
-      "quickLinks",
       "blogs"
     ]
   }
