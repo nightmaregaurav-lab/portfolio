@@ -9,7 +9,7 @@ import LeftPanel from "@/templates/default/LeftPanel";
 
 export default function ShellTemplate({children, coreConfig, leftPanelConfig, quickLinksConfig}: LayoutContentProps) {
   return (
-    <SidebarProvider defaultOpen={false}>
+    <SidebarProvider defaultOpen={false} data-template={coreConfig.template}>
       <a href="#main-content" className={styles.skipLink}>
         Skip to main content
       </a>

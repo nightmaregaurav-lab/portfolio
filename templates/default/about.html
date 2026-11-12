@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Default Template</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      line-height: 1.7;
+      color: #1a1a2e;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container {
+      max-width: 720px;
+      margin: 2rem auto;
+      background: #ffffff;
+      border-radius: 12px;
+      padding: 3rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    }
+    h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #16213e;
+    }
+    .tagline {
+      font-size: 1.1rem;
+      color: #6b7280;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.25rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+      color: #16213e;
+    }
+    p {
+      margin-bottom: 1rem;
+      color: #4a4a68;
+    }
+    ul {
+      margin: 0.5rem 0 1rem 1.5rem;
+      color: #4a4a68;
+    }
+    li {
+      margin-bottom: 0.4rem;
+    }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin: 1.5rem 0;
+    }
+    .feature-card {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 1.25rem;
+    }
+    .feature-card h3 {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      color: #16213e;
+    }
+    .feature-card p {
+      font-size: 0.875rem;
+      margin-bottom: 0;
+      color: #6b7280;
+    }
+    .author {
+      margin-top: 2.5rem;
+      padding-top: 1.5rem;
+      border-top: 2px solid #e0e0e0;
+      font-size: 0.875rem;
+      color: #6b7280;
+    }
+    .author a {
+      color: #667eea;
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .author a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Default Template</h1>
+    <p class="tagline">A fully-featured portfolio template, ready to customize and make yours.</p>
+
+    <p>The Default Template is the initial design for this portfolio project. It provides a complete, polished starting point with a cohesive design system — so you can focus on your content instead of building from scratch.</p>
+
+    <h2>What's Included</h2>
+    <div class="features">
+      <div class="feature-card">
+        <h3>🏠 Home</h3>
+        <p>Hero section with cover image, name, and bio — the first impression visitors see.</p>
+      </div>
+      <div class="feature-card">
+        <h3>👤 About</h3>
+        <p>Personal introduction page to share your story and background.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🛤️ Journey</h3>
+        <p>Timeline view to showcase your career path, education, and milestones.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📁 Projects</h3>
+        <p>Project gallery with detail pages to display your work and case studies.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🧠 Skills</h3>
+        <p>Visual skill showcase to highlight your technical and professional abilities.</p>
+      </div>
+      <div class="feature-card">
+        <h3>💼 Services</h3>
+        <p>Services page to offer and describe what you can do for clients.</p>
+      </div>
+      <div class="feature-card">
+        <h3>💬 Testimonials</h3>
+        <p>Social proof section featuring client and colleague endorsements.</p>
+      </div>
+      <div class="feature-card">
+        <h3>🖼️ Gallery</h3>
+        <p>Photo collections with lightbox support for visual portfolios.</p>
+      </div>
+      <div class="feature-card">
+        <h3>📝 Blogs</h3>
+        <p>Blog listing and detail pages for sharing articles and thoughts.</p>
+      </div>
+    </div>
+
+    <h2>Design Features</h2>
+    <ul>
+      <li><strong>Sidebar Navigation</strong> — Collapsible left panel with profile picture, social links, and configurable menu items.</li>
+      <li><strong>Accessibility First</strong> — Skip-to-content links, ARIA labels, keyboard navigation, and semantic HTML throughout.</li>
+      <li><strong>Responsive Design</strong> — Adapts seamlessly from mobile to desktop screens.</li>
+      <li><strong>Configurable Content</strong> — All content driven by configuration files, not hardcoded — easy to personalize.</li>
+      <li><strong>Quick Links</strong> — Custom quick link section in the sidebar for important external resources.</li>
+      <li><strong>Go to Top Button</strong> — Convenience button for long pages.</li>
+      <li><strong>Image Lightbox</strong> — Click-to-expand image viewer for profile pictures and gallery items.</li>
+    </ul>
+
+    <p>Everything is built with Next.js and styled with CSS modules, keeping performance and maintainability in mind. The template is designed to be extended — add new pages, customize styles, or integrate new features as your needs grow.</p>
+
+    <div class="author">
+      Authored by Gaurav Nyaupane — <a href="https://gauravnyaupane.com.np" target="_blank" rel="noopener noreferrer">gauravnyaupane.com.np</a>
+    </div>
+  </div>
+</body>
+</html>

@@ -17,8 +17,9 @@ import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
 import FullScreenMessage from "@/components/ui/FullScreenMessage";
 import {Spinner} from "@/components/ui/spinner";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
+import SmartLink from "@/components/ui/SmartLink";
 
-export default function PageContent({templates}: {templates: string[]}) {
+export default function PageContent({templates, templatesWithAboutPages}: {templates: string[]; templatesWithAboutPages: string[]}) {
   const {
     isLoadingConfig,
     saveConfig,
@@ -127,6 +128,16 @@ export default function PageContent({templates}: {templates: string[]}) {
                 </SelectContent>
               </Select>
               {error && <small className={"text-destructive"}>{error.message}</small>}
+              {field.value && templatesWithAboutPages.includes(field.value) && (
+                <SmartLink
+                  href={`/setup/template/${field.value}/about.html`}
+                  target={"_blank"}
+                  className={"text-primary underline hover:text-primary/80"}
+                  aria-label={`Read about the ${field.value} template`}
+                >
+                  Read about this template.
+                </SmartLink>
+              )}
             </div>
           )}
         />

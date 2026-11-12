@@ -46,23 +46,8 @@ The portfolio uses a template system to separate visual presentation from config
    );
    ```
 3. The template folder mirrors the app route structure, containing `page.content.tsx` (client component) and `page.module.css` (styles) for each route.
-
-### Available template pages
-
-The following routes have template content pages:
-
-- `home/page.content.tsx`
-- `about/page.content.tsx`
-- `blogs/page.content.tsx`
-- `blogs/[blogSlug]/page.content.tsx`
-- `gallery/page.content.tsx`
-- `gallery/[collectionSlug]/page.content.tsx`
-- `journey/page.content.tsx`
-- `projects/page.content.tsx`
-- `projects/[projectSlug]/page.content.tsx`
-- `services/page.content.tsx`
-- `skills/page.content.tsx`
-- `testimonials/page.content.tsx`
+4. Templates can provide `layout.content.tsx` with the shared `LayoutContentProps` from `app/(app)/layout.types.ts`. The app loads that layout around public content; Setup pages remain outside it. Import shared template styles from this layout entry.
+5. Template can omit the folder for a route, in which case the app will treat that route as inactive and return a 404 page. The Setup pages are always active and do not require a template.
 
 ### Adding a new template
 
@@ -70,6 +55,7 @@ The following routes have template content pages:
 2. Copy the `templates/default/` folder structure into your new template folder as a starting point.
 3. Customize the `page.content.tsx` and `page.module.css` files in each route.
 4. Set the `template` value in the core configuration via the Setup page at `/setup/core` (dropdown will automatically list available template folders).
+5. Add `about.html` to the root of new template folders to provide a description of the template and its author.
 
 **Important rules:**
 
