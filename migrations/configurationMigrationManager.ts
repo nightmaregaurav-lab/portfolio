@@ -3,6 +3,7 @@ import {migrateBlogsToV1} from "@/migrations/blogs/v1";
 import {migrateBlogsToV2} from "@/migrations/blogs/v2";
 import {migrateCoreToV1} from "@/migrations/core/v1";
 import {migrateGalleryToV1} from "@/migrations/gallery/v1";
+import {migrateLeftPanelToV1} from "@/migrations/leftPanel/v1";
 import {migrateProjectsToV1} from "@/migrations/projects/v1";
 
 export type ConfigurationMigration = (configuration: unknown) => unknown;
@@ -24,7 +25,7 @@ const currentConfigurationVersions: Record<string, number> = {
   gallery: 1,
   home: initialConfigurationVersion,
   journey: initialConfigurationVersion,
-  leftPanel: initialConfigurationVersion,
+  leftPanel: 1,
   projects: 1,
   quickLinks: initialConfigurationVersion,
   services: initialConfigurationVersion,
@@ -49,7 +50,9 @@ const configurationMigrationManager: Record<string, ConfigurationMigrationMap> =
   },
   home: {},
   journey: {},
-  leftPanel: {},
+  leftPanel: {
+    1: migrateLeftPanelToV1,
+  },
   projects: {
     1: migrateProjectsToV1,
   },

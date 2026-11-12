@@ -17,17 +17,16 @@ import CheckboxList from "@/components/ui/CheckboxList";
 import { FileUrl } from "@/components/ui/FileUrl";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 
-const availableMenus = [
+const availableNavigations = [
   { value: "home", label: "Home" },
   { value: "about", label: "About" },
   { value: "journey", label: "Journey" },
   { value: "projects", label: "Projects" },
   { value: "skills", label: "Skills" },
-  { value: "services", label: "services" },
+  { value: "services", label: "Services" },
   { value: "testimonials", label: "Testimonials" },
   { value: "gallery", label: "Gallery" },
   { value: "blogs", label: "Blogs" },
-  { value: "quickLinks", label: "Quick Links" },
 ];
 
 function PageContent() {
@@ -154,16 +153,16 @@ function PageContent() {
 
         <Controller
           control={control}
-          name={"enabledMenus"}
+          name={"enabledNavigations"}
           render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-3"}>
               <div>
-                <Label htmlFor={"enabledMenus"}>Enabled Menus</Label>
+                <Label htmlFor={"enabledNavigations"}>Enabled Navigations</Label>
                 <p className={"text-sm text-muted-foreground"}>
                   Select the navigation paths that should be enabled on your website. The template you select still controls which paths are actually navigable, but this setting allows you to hide or show certain paths from SEO.
                 </p>
               </div>
-              <CheckboxList id={"enabledMenus"} options={availableMenus} value={field.value || []} onValueChange={field.onChange}/>
+              <CheckboxList id={"enabledNavigations"} options={availableNavigations} value={field.value || []} onValueChange={field.onChange}/>
               {error && (
                 <small className={"text-destructive"}>
                   {error.message}

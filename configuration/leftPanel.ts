@@ -37,22 +37,20 @@ export const schema = z.object({
       title: "Social Media Accounts",
       description: "A list of social media accounts to show in the left panel.",
     }),
-  enabledMenus: z
-    .array(z.string().min(1, "Menu name is required.").meta({
-      title: "Menu Name",
+  enabledNavigations: z
+    .array(z.string().min(1, "Navigation name is required.").meta({
+      title: "Navigation Name",
       description:
-        "The menu key (e.g., home, about, projects, blogs). " +
-        "When disabled, the menu item is hidden from the left panel, " +
-        "the page is removed from the sitemap, and the path is disallowed in robots.txt " +
+        "The navigation key (e.g., home, about, projects, blogs). " +
+        "When disabled, the page is removed from the sitemap, and the path is disallowed in robots.txt " +
         "(including child routes for blogs, projects, and gallery).",
     }))
     .default([])
     .meta({
-      title: "Enabled Menus",
+      title: "Enabled Navigations",
       description:
-        "Controls which sections are visible in the left panel navigation, " +
-        "included in the sitemap, and allowed by search engine crawlers. " +
-        "Disabling a menu hides it from navigation, removes it from the sitemap, " +
+        "Controls which sections are included in the sitemap and allowed by search engine crawlers. " +
+        "Disabling a navigation removes it from the sitemap " +
         "and blocks crawlers from indexing that page and its child routes.",
     }),
 }).meta({
@@ -74,5 +72,5 @@ export type TModel = TOutput;
 export const defaultValues: TInput = {
   profilePicture: "",
   socials: [],
-  enabledMenus: [],
+  enabledNavigations: [],
 };

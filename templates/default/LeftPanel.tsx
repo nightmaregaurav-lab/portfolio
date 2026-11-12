@@ -103,8 +103,8 @@ function LeftPanel({
   const {open} = useSidebar();
 
   const menuItems = useMemo(
-    () => getMenuItems(leftPanelConfig.enabledMenus),
-    [leftPanelConfig.enabledMenus]
+    () => getMenuItems(leftPanelConfig.enabledNavigations),
+    [leftPanelConfig.enabledNavigations]
   );
 
   return (<>
@@ -174,9 +174,7 @@ function LeftPanel({
         }
 
         {/* quick links */}
-        {leftPanelConfig.enabledMenus.includes('quickLinks') &&
-          quickLinksConfig?.links?.length &&
-          quickLinksConfig?.links?.length > 0 &&
+        {quickLinksConfig?.links?.length > 0 &&
           <SidebarGroup>
             <SidebarGroupLabel>Quick Links</SidebarGroupLabel>
             <SidebarGroupContent>
