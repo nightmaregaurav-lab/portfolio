@@ -78,8 +78,8 @@ function PageContent({skillsConfig, journeyConfig, projectsConfig}: PageContentP
                     <span>Related work</span>
                   </div>
                   <div className={styles.badges}>
-                    {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(0, 3).map((work) =>
-                      <SmartLink href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
+                    {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(0, 3).map((work, index) =>
+                      <SmartLink key={work.label + "-" + index} href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"} >{work.label}</Badge></SmartLink>
                     )}
                     <Tooltip>
                       <TooltipTrigger>
@@ -88,8 +88,8 @@ function PageContent({skillsConfig, journeyConfig, projectsConfig}: PageContentP
                         }
                       </TooltipTrigger>
                       <TooltipContent className={"flex flex-col w-auto"}>
-                        {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(3).map((work) =>
-                          <SmartLink href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"} key={work.label}>{work.label}</Badge></SmartLink>
+                        {getRelatedWorks(skill, journeyConfig, projectsConfig).slice(3).map((work, index) =>
+                          <SmartLink key={work.label + "-" + index} href={work.url} aria-label={`View ${work.label}`}><Badge variant="secondary" className={"truncate"}>{work.label}</Badge></SmartLink>
                         )}
                       </TooltipContent>
                     </Tooltip>
