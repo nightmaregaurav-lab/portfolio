@@ -57,7 +57,8 @@
           "milestone-da445a239107"
         ],
         "associatedProjectIds": [
-          "project-b6987ab35c1a"
+          "project-b6987ab35c1a",
+          "project-d1a926a3dda7"
         ]
       },
       {
@@ -92,7 +93,8 @@
           "milestone-da445a239107"
         ],
         "associatedProjectIds": [
-          "project-b6987ab35c1a"
+          "project-b6987ab35c1a",
+          "project-d1a926a3dda7"
         ]
       },
       {
@@ -113,6 +115,32 @@
         "description": "<p>I was introduced to TypeScript during my time at Premium Technologies, where I quickly picked it up as part of my professional development work. Its strong typing system and tooling made it a natural extension of my JavaScript experience. What started as a new technology to learn soon became a regular part of my development workflow, and I've continued using it extensively for building modern web applications ever since.</p>",
         "associatedMilestoneIds": [
           "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-d1a926a3dda7"
+        ]
+      },
+      {
+        "id": "skill-894bb66f29a7",
+        "title": "React",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg",
+        "description": "<p>My introduction to React came through independent exploration of modern frontend development. As I became more comfortable with its component-based architecture and declarative approach to building interfaces, I transitioned from experimenting with it to using it professionally at Premium Technologies. Since then, React has remained a staple of my frontend development work, powering a wide range of interactive and component-driven applications.</p>",
+        "associatedMilestoneIds": [
+          "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-b6987ab35c1a",
+          "project-d1a926a3dda7"
+        ]
+      },
+      {
+        "id": "skill-cdd392b87272",
+        "title": "Next.js",
+        "image": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/nextjs-logo.jpg",
+        "description": "<p>Next.js entered my development journey through the PlanCare project at Tekkon, marking my move into a more integrated approach to React development. Working with its rendering strategies, file-based routing, server-side capabilities, and full-stack features gave me a broader perspective on modern web architecture. Since then, I've incorporated it into my toolkit for developing production-ready web applications.</p>",
+        "associatedMilestoneIds": [
           "milestone-da445a239107"
         ],
         "associatedProjectIds": [
