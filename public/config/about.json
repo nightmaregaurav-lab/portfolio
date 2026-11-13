@@ -1,6 +1,7 @@
 {
   "version": 1,
   "configuration": {
+    "summary": "<p>I'm a software engineer passionate about building meaningful software, solving complex problems, and exploring the possibilities of technology. I enjoy turning ideas into practical solutions, experimenting with emerging technologies, and continuously improving my craft.</p><p>Beyond writing code, I value knowledge sharing and community building. I enjoy helping aspiring developers learn, exchanging ideas, and contributing to communities that bring people together through technology.</p><p>I'm driven by curiosity, continuous learning, and the desire to build things that make a difference.</p>",
     "heroPicture": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/IMG-20251109-WA0021.jpg",
     "keypoints": [
       {
@@ -24,14 +25,6 @@
         "value": "Bachelors"
       },
       {
-        "title": "Freelance Rate",
-        "value": "$30 - $75 Hourly (Flexible based on challenge)"
-      },
-      {
-        "title": "Salary Expectation",
-        "value": "Nrs 250K - 300K (Flexible based on other benefits and work culture)"
-      },
-      {
         "title": "Birth",
         "value": "December 19, 2000"
       },
@@ -46,17 +39,8 @@
       {
         "title": "Language",
         "value": "Nepali, English, Hindi"
-      },
-      {
-        "title": "Freelance",
-        "value": "Unavailable"
-      },
-      {
-        "title": "Looking for",
-        "value": "Full-time Position (Not actively)"
       }
     ],
-    "additionalInformation": "<p>Thanks for stopping by!</p><p>I'm always interested in connecting with curious minds, exchanging ideas, exploring new technologies, and working on meaningful projects. Whether you have an interesting idea, a collaboration opportunity, or simply want to talk about technology, I'd love to hear from you.</p><p>Let's connect and build something meaningful.</p>",
-    "summary": "<p>I'm a software engineer passionate about building meaningful software, solving complex problems, and exploring the possibilities of technology. I enjoy turning ideas into practical solutions, experimenting with emerging technologies, and continuously improving my craft.</p><p>Beyond writing code, I value knowledge sharing and community building. I enjoy helping aspiring developers learn, exchanging ideas, and contributing to communities that bring people together through technology.</p><p>I'm driven by curiosity, continuous learning, and the desire to build things that make a difference.</p>"
+    "additionalInformation": "<p>Thanks for stopping by!</p><p>I'm always interested in connecting with curious minds, exchanging ideas, exploring new technologies, and working on meaningful projects. Whether you have an interesting idea, a collaboration opportunity, or simply want to talk about technology, I'd love to hear from you.</p><p>Let's connect and build something meaningful.</p>"
   }
 }
