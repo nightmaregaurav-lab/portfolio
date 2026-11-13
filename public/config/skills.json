@@ -104,6 +104,19 @@
           "milestone-c3e95f8760e1"
         ],
         "associatedProjectIds": []
+      },
+      {
+        "id": "skill-6d0cf605a571",
+        "title": "Typescript",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg",
+        "description": "<p>I was introduced to TypeScript during my time at Premium Technologies, where I quickly picked it up as part of my professional development work. Its strong typing system and tooling made it a natural extension of my JavaScript experience. What started as a new technology to learn soon became a regular part of my development workflow, and I've continued using it extensively for building modern web applications ever since.</p>",
+        "associatedMilestoneIds": [
+          "milestone-1353f03a14c5",
+          "milestone-da445a239107"
+        ],
+        "associatedProjectIds": [
+          "project-d1a926a3dda7"
+        ]
       }
     ]
   }
