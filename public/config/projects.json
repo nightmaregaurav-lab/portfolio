@@ -89,6 +89,80 @@
           "Open Source"
         ],
         "milestoneId": ""
+      },
+      {
+        "id": "project-d1a926a3dda7",
+        "slugs": [
+          {
+            "slug": "portfolio",
+            "isActive": true
+          }
+        ],
+        "title": "Portfolio",
+        "links": [
+          {
+            "name": "GitHub",
+            "url": "https://github.com/nightmaregaurav/portfolio"
+          },
+          {
+            "name": "Demo",
+            "url": "https://gauravnyaupane.com.np"
+          },
+          {
+            "name": "Write Up",
+            "url": "https://gauravnyaupane.com.np/blogs/i-built-a-portfolio-website-that-doubles-as-its-own-cms-no-backend-required/"
+          }
+        ],
+        "description": "<p>A portfolio website that doubles as its own CMS. No application backend, no database, and no separate admin server. Manage your website through a built-in setup interface, with content stored directly in your GitHub repository and deployed as a static website.</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - logo.jpg",
+        "images": [
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Setup Page.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Login.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Journey COnfig.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Home Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Gallery Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Core Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Blog Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - About Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Testimonials Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Skills Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Services Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - QuickLinks Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Projects Config.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Portfolio - Navigation Config.png"
+        ],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "CMS without a backend"
+          },
+          {
+            "title": "Useful for",
+            "value": "Personal website, galery, project showcase etc."
+          },
+          {
+            "title": "Setup",
+            "value": "Fully GUI"
+          },
+          {
+            "title": "Predecessor",
+            "value": "https://github.com/nightmaregaurav/personal-website-cms-source"
+          }
+        ],
+        "seoKeywords": [
+          "Open Source",
+          "Web",
+          "React",
+          "Next.js",
+          "Portfolio",
+          "Portfolio Website",
+          "Portfolio Project",
+          "Portfolio Template",
+          "Portfolio CMS",
+          "Portfolio Management",
+          "Static website with dynamic content"
+        ],
+        "milestoneId": ""
       }
     ]
   }
