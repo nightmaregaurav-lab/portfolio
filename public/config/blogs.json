@@ -26,6 +26,26 @@
           "No Backend CMS"
         ],
         "accentColor": "#3B82F6"
+      },
+      {
+        "id": "blog-c7dee1920006",
+        "slugs": [
+          {
+            "slug": "merging-multiple-drives-into-a-single-storage-pool-with-mergerfs",
+            "isActive": true
+          }
+        ],
+        "title": "Merging Multiple Drives Into a Single Storage Pool With mergerfs",
+        "summary": "Having multiple external drives connected to a home server is useful, but managing them individually can get a little inconvenient. I wanted to get rid of that inconvenience and have everything accessible through a single directory. Read how I did it.",
+        "date": "2026-11-16",
+        "categories": [
+          "Technical"
+        ],
+        "tags": [
+          "mergerfs",
+          "how to use mergerfs"
+        ],
+        "accentColor": "#14B8A6"
       }
     ]
   }
