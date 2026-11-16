@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
 import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
@@ -36,7 +36,12 @@ const emptyPost: NonNullable<TInput["posts"]>[number] = {
 };
 
 
-function BlogMetadataFields({control, index}: {control: Control<TInput>; index: number}) {
+function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions}: {
+  control: Control<TInput>;
+  index: number;
+  categorySuggestions: string[];
+  tagSuggestions: string[];
+}) {
   return (
     <>
       <div className={"grid gap-3 md:grid-cols-2"}>
@@ -85,7 +90,7 @@ function BlogMetadataFields({control, index}: {control: Control<TInput>; index: 
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.categories`}>Categories</Label>
-              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.categories`} placeholder={"Type a category and press Enter"} className={cn("w-full", error && "border-destructive")}/>
+              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.categories`} placeholder={"Type a category and press Enter"} suggestions={categorySuggestions} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }
@@ -97,7 +102,7 @@ function BlogMetadataFields({control, index}: {control: Control<TInput>; index: 
           render={({field, fieldState: {error}}) =>
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.tags`}>Tags</Label>
-              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.tags`} placeholder={"Type a tag and press Enter"} className={cn("w-full", error && "border-destructive")}/>
+              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.tags`} placeholder={"Type a tag and press Enter"} suggestions={tagSuggestions} className={cn("w-full", error && "border-destructive")}/>
               {error && <small className={"text-destructive"}>{error.message}</small>}
             </div>
           }
@@ -122,7 +127,7 @@ function BlogMetadataFields({control, index}: {control: Control<TInput>; index: 
 
 function BlogForm(
   {
-    postIndex, onClose, onSave, onDelete, saving, deleting
+    postIndex, onClose, onSave, onDelete, saving, deleting, categorySuggestions, tagSuggestions
   }: {
     postIndex: number;
     onClose: () => void;
@@ -130,6 +135,8 @@ function BlogForm(
     onDelete: (index: number) => Promise<void>;
     saving: boolean;
     deleting: boolean;
+    categorySuggestions: string[];
+    tagSuggestions: string[];
   }
 ) {
   const {
@@ -208,7 +215,7 @@ function BlogForm(
           {deleting ? <Spinner /> : <Trash2 />}
         </Button>
       </div>
-      <BlogMetadataFields control={control} index={postIndex}/>
+      <BlogMetadataFields control={control} index={postIndex} categorySuggestions={categorySuggestions} tagSuggestions={tagSuggestions}/>
     </div>
 
     <div className={"grid gap-2"}>
@@ -307,6 +314,20 @@ function PageContent() {
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
   const {fields: posts, append, remove} = useFieldArray({control, name: "posts", keyName: "fieldArrayId"});
   const postsWatch = useWatch({control, name: "posts"}) || [];
+
+  const categorySuggestions = useMemo(() => {
+    const names = postsWatch.flatMap((post) => post.categories || []);
+    return names.filter((name, index) =>
+      name.trim() && names.findIndex((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) === index
+    );
+  }, [postsWatch]);
+
+  const tagSuggestions = useMemo(() => {
+    const names = postsWatch.flatMap((post) => post.tags || []);
+    return names.filter((name, index) =>
+      name.trim() && names.findIndex((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) === index
+    );
+  }, [postsWatch]);
 
   const [deletingPost, setDeletingPost] = useState<boolean>(false);
 
@@ -457,6 +478,8 @@ function PageContent() {
             onDelete={async (index) => await deletePost(index)}
             saving={isSavingConfig}
             deleting={deletingPost}
+            categorySuggestions={categorySuggestions}
+            tagSuggestions={tagSuggestions}
           />
         )}
       </form>
