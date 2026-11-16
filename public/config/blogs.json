@@ -15,7 +15,9 @@
         "summary": "I built a configurable, forkable portfolio platform with Next.js, using GitHub as its CMS and GitHub Actions for deployment. Here's how its architecture, configuration system, migrations, and automation work without a custom backend.",
         "date": "2026-11-11",
         "categories": [
-          "Write ups"
+          "Write ups",
+          "Project",
+          "Technical"
         ],
         "tags": [
           "Open Source Project",
