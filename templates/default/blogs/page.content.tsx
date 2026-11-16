@@ -13,7 +13,9 @@ import styles from "./page.module.css";
 import type {PageContentProps} from "@/app/(app)/blogs/page.types";
 import type {TModel as BlogsModel} from "@/configuration/blogs";
 
-const RECENT_COUNT = 3;
+const ITEMS_PER_SECTION = 10;
+const MIN_SECTION_THRESHOLD = 3;
+const MAX_CATEGORIES_SHOWN = 3;
 
 function getSearchablePostText(post: BlogsModel["posts"][number]) {
   return [
@@ -57,13 +59,25 @@ function PageContent({blogsConfig}: PageContentProps) {
     });
   }, [posts]);
 
-  const recentPosts = useMemo(() => sortedPosts.slice(0, RECENT_COUNT), [sortedPosts]);
+  const recentPosts = useMemo(() => sortedPosts.slice(0, ITEMS_PER_SECTION), [sortedPosts]);
 
   const allPosts = useMemo(() => {
     const query = debouncedSearchTerm.trim().toLocaleLowerCase();
     if (!query) return sortedPosts;
     return sortedPosts.filter((post) => getSearchablePostText(post).includes(query));
   }, [sortedPosts, debouncedSearchTerm]);
+
+  const postsByCategory = useMemo(() => {
+    const map = new Map<string, typeof sortedPosts>();
+    for (const post of sortedPosts) {
+      for (const category of post.categories || []) {
+        const existing = map.get(category) || [];
+        existing.push(post);
+        map.set(category, existing);
+      }
+    }
+    return map;
+  }, [sortedPosts]);
 
   return (
     <main className={styles.page} aria-label="Blogs">
@@ -74,16 +88,44 @@ function PageContent({blogsConfig}: PageContentProps) {
 
       {hasPosts ? (
         <section className={styles.content} aria-label="Blog posts">
-          {recentPosts.length > 0 && (
+          {recentPosts.length > MIN_SECTION_THRESHOLD && (
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>Recent Blogs</h2>
-              <div className={styles.postGrid}>
+              <div className={styles.categoryScroll}>
                 {recentPosts.map((post, index) => (
                   <BlogCard post={post} index={index} key={post.id} />
                 ))}
               </div>
             </div>
           )}
+
+          {(() => {
+            const categories = Array.from(postsByCategory.entries())
+              .filter(([, posts]) => posts.length > MIN_SECTION_THRESHOLD)
+              .sort(([, a], [, b]) => b.length - a.length)
+              .slice(0, MAX_CATEGORIES_SHOWN);
+
+            if (categories.length === 0) return null;
+
+            return (
+              <div className={styles.section}>
+                <h2 className={styles.sectionTitle}>Categories</h2>
+                {categories.map(([category, categoryPosts]) => {
+                  const shownPosts = categoryPosts.slice(0, ITEMS_PER_SECTION);
+                  return (
+                    <div key={category} className={styles.categoryGroup}>
+                      <h3 className={styles.categoryTitle}>{category}</h3>
+                      <div className={styles.categoryScroll}>
+                        {shownPosts.map((post, index) => (
+                          <BlogCard post={post} index={index} key={post.id} />
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            );
+          })()}
 
           <div className={styles.section}>
             <div className={styles.sectionHeader}>
