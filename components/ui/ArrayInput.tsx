@@ -63,7 +63,18 @@ function ArrayInput({className, value, onChange, suggestions = [], onValueAdded,
             className
           )}
           onChange={(event) => {
-            setInputValue(event.target.value);
+            const newValue = event.target.value;
+
+            // On mobile keyboards without an Enter key, double-space acts as "Enter"
+            if (newValue.endsWith("  ")) {
+              const trimmed = newValue.trim();
+              if (trimmed) {
+                addValue(trimmed);
+                return;
+              }
+            }
+
+            setInputValue(newValue);
             setActiveSuggestionIndex(-1);
           }}
           onKeyDown={(event) => {
