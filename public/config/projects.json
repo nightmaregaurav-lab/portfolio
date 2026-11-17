@@ -168,8 +168,8 @@
         "id": "project-88dc6fd3331e",
         "slugs": [
           {
-            "slug": "bagh-chal",
-            "isActive": true
+            "isActive": true,
+            "slug": "bagh-chal"
           }
         ],
         "title": "Bagh Chal",
@@ -192,7 +192,8 @@
           "BaghChal",
           "PyQt",
           "Python Game",
-          "Classic Games"
+          "Classic Games",
+          "Open Source"
         ],
         "milestoneId": ""
       }
