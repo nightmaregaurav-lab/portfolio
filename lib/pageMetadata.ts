@@ -93,7 +93,7 @@ export function createPageMetadata({
     : coreKeywords;
 
   return {
-    title: title === siteName ? {absolute: title} : title,
+    title: title === siteName ? {absolute: title} : fullTitle,
     description: resolvedDescription,
     keywords: resolvedKeywords,
     authors: [{name: authorName}],
