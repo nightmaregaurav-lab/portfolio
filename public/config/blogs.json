@@ -53,8 +53,8 @@
         "id": "blog-0594f82c8595",
         "slugs": [
           {
-            "slug": "kbitaa-bnaulaa",
-            "isActive": true
+            "isActive": true,
+            "slug": "kbitaa-bnaulaa"
           }
         ],
         "title": "कबिता बनौला",
