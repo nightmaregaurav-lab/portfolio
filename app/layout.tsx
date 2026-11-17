@@ -12,13 +12,15 @@ import {
   getSiteDescription,
   getSiteName,
   getSiteUrl,
+  getTwitterHandle,
+  truncateDescription,
 } from "@/lib/pageMetadata";
 
 const siteUrl = getSiteUrl();
 const canonical = getCanonicalUrl("/");
 const siteName = getSiteName();
 const authorName = getAuthorName();
-const siteDescription = getSiteDescription();
+const siteDescription = truncateDescription(getSiteDescription());
 const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || CoreConfig.favicon || "/favicon.ico");
 
 export const metadata: Metadata = {
@@ -32,7 +34,12 @@ export const metadata: Metadata = {
   authors: [{
     name: authorName
   }],
-  alternates: canonical ? {canonical} : undefined,
+  alternates: {
+    canonical: canonical,
+    languages: {
+      'en': canonical || '/',
+    },
+  },
   icons: {
     icon: CoreConfig.favicon || "/favicon.ico",
     apple: CoreConfig.favicon || "/favicon.ico",
@@ -60,14 +67,17 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [{
       url: socialImage,
+      width: 1200,
+      height: 630,
       alt: CoreConfig.websiteName,
     }],
   },
   twitter: {
     card: "summary_large_image",
+    ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
     title: siteName,
     description: siteDescription,
-    images: [socialImage],
+    images: [{url: socialImage, alt: siteDescription}],
   },
 };
 

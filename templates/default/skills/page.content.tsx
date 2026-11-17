@@ -60,7 +60,8 @@ function PageContent({skillsConfig, journeyConfig, projectsConfig}: PageContentP
       </header>
 
       {skillsConfig.skills && skillsConfig.skills.length > 0 ? (
-        <section className={styles.skillGrid} aria-label="Skills and capabilities">
+        <section className={styles.skillGrid}>
+          <h2 className="sr-only">Skills and capabilities</h2>
           {skillsConfig.skills.map((skill, index) => (
             <Card className={styles.skillCard} data-type={getSkillMilestoneType(skill, journeyConfig)} key={skill.id}>
               <div className={styles.skillImage}>

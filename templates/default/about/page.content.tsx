@@ -15,7 +15,8 @@ function PageContent({coreConfig, aboutConfig}: PageContentProps) {
     <main className={cn(styles.page)} aria-label="About">
       <h1 className={styles.pageHeader}>About</h1>
       <HtmlRenderer className={styles.pageText}>{aboutConfig.summary}</HtmlRenderer>
-      <section className={styles.pageContent} aria-label="Profile details">
+      <section className={styles.pageContent}>
+        <h2 className="sr-only">Profile details</h2>
         <AspectRatio ratio={16 / 9} className="w-full max-w-sm rounded-lg bg-muted">
           <ImageLightbox
             src={aboutConfig.heroPicture}
@@ -42,7 +43,8 @@ function PageContent({coreConfig, aboutConfig}: PageContentProps) {
         </div>
       </section>
       {aboutConfig.additionalInformation && (
-        <section className={styles.additional} aria-label="Additional information">
+        <section className={styles.additional}>
+          <h2 className="sr-only">Additional information</h2>
           <HtmlRenderer className={styles.additionalText}>{aboutConfig.additionalInformation}</HtmlRenderer>
         </section>
       )}

@@ -34,7 +34,8 @@ export default function PageContent({coreConfig, aboutConfig}: PageContentProps)
         </div>)}
       </dl>}
 
-      {aboutConfig.additionalInformation && <section className={styles.additional} aria-label="Additional information">
+      {aboutConfig.additionalInformation && <section className={styles.additional}>
+        <h2 className="sr-only">Additional information</h2>
         <HtmlRenderer>{aboutConfig.additionalInformation}</HtmlRenderer>
       </section>}
     </article>

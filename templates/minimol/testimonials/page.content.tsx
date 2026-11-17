@@ -21,13 +21,14 @@ export default function PageContent({testimonialsConfig}: PageContentProps) {
         {testimonialsConfig.summary && <HtmlRenderer className={styles.summary}>{testimonialsConfig.summary}</HtmlRenderer>}
       </header>
 
-      {testimonials.length > 0 ? <section className={styles.grid} aria-label="Recommendations">
+      {testimonials.length > 0 ? <section className={styles.grid}>
+        <h2 className="sr-only">Recommendations</h2>
         {testimonials.map((testimonial, index) => (
           <figure data-slot="card" className={styles.card} key={testimonial.by + "-" + testimonial.date + "-" + index}>
             <div className={styles.cardHeader}>
               <time dateTime={testimonial.date}>{testimonial.date}</time>
             </div>
-            {testimonial.title && <h2 className={styles.title}>{testimonial.title}</h2>}
+            {testimonial.title && <h3 className={styles.title}>{testimonial.title}</h3>}
             <blockquote className={styles.quote}>
               <HtmlRenderer>{testimonial.text}</HtmlRenderer>
             </blockquote>

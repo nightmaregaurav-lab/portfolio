@@ -36,7 +36,8 @@ function PageContent({galleryConfig}: PageContentProps) {
         <HtmlRenderer className={styles.summary}>{galleryConfig.summary}</HtmlRenderer>
       </header>
 
-      <section className={styles.collectionGrid} aria-label="Photo collections">
+      <section className={styles.collectionGrid}>
+        <h2 className="sr-only">Photo collections</h2>
         {collections.map((collection, index) => {
           const cover = getCollectionCover(collection.name, galleryConfig.photos, collection.coverImage);
           const photoCount = getCollectionPhotos(collection.name, galleryConfig.photos).length;
