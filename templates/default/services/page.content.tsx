@@ -17,7 +17,8 @@ function PageContent({servicesConfig}: PageContentProps) {
       </header>
 
       {servicesConfig.services && servicesConfig.services.length > 0 ? (
-        <section className={styles.serviceGrid} aria-label="Services offered">
+        <section className={styles.serviceGrid}>
+          <h2 className="sr-only">Services offered</h2>
           {servicesConfig.services.map((service, index) => (
             <Card
               className={styles.serviceCard}

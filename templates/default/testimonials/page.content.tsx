@@ -25,7 +25,8 @@ function PageContent({testimonialsConfig}: PageContentProps) {
       </header>
 
       {testimonialsConfig.testimonials && testimonialsConfig.testimonials.length > 0 ? (
-        <section className={styles.quoteGrid} aria-label="Testimonials">
+        <section className={styles.quoteGrid}>
+          <h2 className="sr-only">Testimonials</h2>
           {testimonialsConfig.testimonials.map((testimonial, index) => (
             <Card
               className={index === 0 ? styles.featuredQuote : styles.quoteCard}
@@ -54,7 +55,7 @@ function PageContent({testimonialsConfig}: PageContentProps) {
                 <time dateTime={testimonial.date}>{testimonial.date}</time>
               </CardHeader>
               <CardContent className={styles.quoteContent}>
-                {testimonial.title && <h2 className={styles.quoteTitle}>{testimonial.title}</h2>}
+                {testimonial.title && <h3 className={styles.quoteTitle}>{testimonial.title}</h3>}
                 <HtmlRenderer className={styles.quoteText}>{testimonial.text}</HtmlRenderer>
               </CardContent>
             </Card>
