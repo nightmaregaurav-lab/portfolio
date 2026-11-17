@@ -53,10 +53,6 @@
         "id": "blog-0594f82c8595",
         "slugs": [
           {
-            "isActive": false,
-            "slug": "kbitaa-bnaulaa"
-          },
-          {
             "slug": "kbitaa-bnaulaa",
             "isActive": true
           }
