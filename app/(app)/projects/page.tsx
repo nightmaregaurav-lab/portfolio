@@ -3,7 +3,7 @@ import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, JourneyConfig, ProjectsConfig} from "@/configuration";
+import {CoreConfig, JourneyConfig, ProjectsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import {Suspense} from "react";
@@ -21,7 +21,7 @@ export const metadata = createPageMetadata({
   title: "Projects",
   description,
   path: "/projects/",
-  image: CoreConfig.favicon
+  image: NavigationConfig.profilePicture || CoreConfig.favicon
 });
 
 function Page() {

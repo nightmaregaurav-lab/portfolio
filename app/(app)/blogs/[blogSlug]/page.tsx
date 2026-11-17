@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import {join} from "node:path";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, BlogsConfig} from "@/configuration";
+import {CoreConfig, BlogsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import type {BlogPost, PageContentProps} from "./page.types";
@@ -65,7 +65,7 @@ export async function generateMetadata(
     title: post.title,
     description: stripHtmlTags(post.summary || post.content).slice(0, 300),
     path: "/blogs/" + blogSlug + "/",
-    image: post.coverImage || CoreConfig.favicon,
+    image: post.coverImage || NavigationConfig.profilePicture || CoreConfig.favicon,
     keywords: post.tags,
     type: "article",
     publishedTime: post.date,

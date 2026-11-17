@@ -3,7 +3,7 @@ import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, GalleryConfig} from "@/configuration";
+import {CoreConfig, GalleryConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import type {PageContentProps} from "./page.types";
@@ -20,7 +20,7 @@ export const metadata = createPageMetadata({
   title: "Gallery",
   description,
   path: "/gallery/",
-  image: CoreConfig.favicon,
+  image: NavigationConfig.profilePicture || CoreConfig.favicon,
 });
 
 function Page() {
