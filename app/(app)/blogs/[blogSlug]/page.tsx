@@ -65,7 +65,7 @@ export async function generateMetadata(
     title: post.title,
     description: stripHtmlTags(post.summary || post.content).slice(0, 300),
     path: "/blogs/" + blogSlug + "/",
-    image: CoreConfig.favicon,
+    image: post.coverImage || CoreConfig.favicon,
     keywords: post.tags,
     type: "article",
     publishedTime: post.date,

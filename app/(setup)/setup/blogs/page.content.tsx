@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
 import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
 import {Input} from "@/components/ui/input";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
@@ -33,6 +34,7 @@ const emptyPost: NonNullable<TInput["posts"]>[number] = {
   categories: [],
   tags: [],
   accentColor: "#FFFFFF",
+  coverImage: "",
 };
 
 
@@ -117,6 +119,18 @@ function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions
             <Label htmlFor={`posts.${index}.accentColor`}>Accent Color</Label>
             <ColorPicker value={field.value || "#FFFFFF"} onChange={field.onChange} id={`posts.${index}.accentColor`} className={cn(error && "border-destructive")}/>
             <p className={"text-xs text-muted-foreground"}>Used as the top border color on the blog card.</p>
+            {error && <small className={"text-destructive"}>{error.message}</small>}
+          </div>
+        }
+      />
+
+      <Controller
+        control={control}
+        name={`posts.${index}.coverImage`}
+        render={({field, fieldState: {error}}) =>
+          <div className={"grid gap-2"}>
+            <Label htmlFor={`posts.${index}.coverImage`}>Cover Image (optional)</Label>
+            <FileUrl {...field} id={`posts.${index}.coverImage`} placeholder={"URL of the cover image"} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
@@ -400,7 +414,7 @@ function PageContent() {
   }
 
   return (
-    <ConfigurationFormWrapper className={styles.page} title={"Blog Configuration"} config={formValues} form={form}>
+    <ConfigurationFormWrapper className={styles.page} title={"Blogs Configuration"} config={formValues} form={form}>
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
         <Controller
           control={control}
@@ -431,7 +445,7 @@ function PageContent() {
             }}
             className="cursor-pointer hover:-translate-y-px"
           >
-            <Plus /> Add blog
+            <Plus /> Add post
           </Button>
         </div>
 

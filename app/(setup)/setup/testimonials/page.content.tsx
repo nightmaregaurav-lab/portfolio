@@ -183,7 +183,7 @@ function TestimonialCardHeader(
           size={"icon-sm"}
           variant={"ghost"}
           onClick={onEdit}
-          aria-label={"Edit milestone"}
+          aria-label={"Edit testimonial"}
           className="cursor-pointer hover:-translate-y-px"
         >
           <Pencil/>
@@ -195,7 +195,7 @@ function TestimonialCardHeader(
           variant={"ghost"}
           className={"text-destructive cursor-pointer hover:-translate-y-px"}
           onClick={onDelete}
-          aria-label={"Delete milestone"}
+          aria-label={"Delete testimonial"}
         >
           <Trash2 />
         </Button>
