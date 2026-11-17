@@ -73,10 +73,10 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    ...(getTwitterHandle() ? {site: getTwitterHandle()} : {}),
+    ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
     title: siteName,
     description: siteDescription,
-    images: [socialImage],
+    images: [{url: socialImage, alt: siteDescription}],
   },
 };
 

@@ -112,10 +112,10 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      ...(getTwitterHandle() ? {site: getTwitterHandle()} : {}),
+      ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
       title: fullTitle,
       description: resolvedDescription,
-      images: [imageUrl],
+      images: [{url: imageUrl, alt: resolvedDescription}],
     },
     robots: {index: true, follow: true},
   };
