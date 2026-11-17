@@ -32,8 +32,8 @@
         "id": "blog-c7dee1920006",
         "slugs": [
           {
-            "slug": "merging-multiple-drives-into-a-single-storage-pool-with-mergerfs",
-            "isActive": true
+            "isActive": true,
+            "slug": "merging-multiple-drives-into-a-single-storage-pool-with-mergerfs"
           }
         ],
         "title": "Merging Multiple Drives Into a Single Storage Pool With mergerfs",
@@ -47,6 +47,28 @@
           "how to use mergerfs"
         ],
         "accentColor": "#14B8A6",
+        "coverImage": ""
+      },
+      {
+        "id": "blog-0594f82c8595",
+        "slugs": [
+          {
+            "slug": "",
+            "isActive": true
+          }
+        ],
+        "title": "कबिता बनौला",
+        "summary": "माया पूरा हुन सकेन भने के भयो र? सँगै हुन नसके पनि, कविता बनेर त बाँच्न सकिन्छ नि!",
+        "date": "2026-11-17",
+        "categories": [
+          "Literature"
+        ],
+        "tags": [
+          "Penned by Gaurav",
+          "Nepali Literature",
+          "Nepali Poem"
+        ],
+        "accentColor": "#EF4444",
         "coverImage": ""
       }
     ]
