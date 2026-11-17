@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {CoreConfig} from "@/configuration";
+import {CoreConfig, NavigationConfig} from "@/configuration";
 
 export function getSiteName() {
   return CoreConfig.websiteName?.trim() || CoreConfig.fullName?.trim() || "Portfolio";
@@ -11,6 +11,18 @@ export function getAuthorName() {
 
 export function getSiteDescription() {
   return CoreConfig.seoDescription?.trim() || "A personal portfolio website.";
+}
+
+export function getTwitterHandle() {
+  const twitterSocial = NavigationConfig.socials.find((s) =>
+    /twitter\.com|x\.com/i.test(s.url)
+  );
+  if (twitterSocial) {
+    const match = twitterSocial.url.match(/(?:twitter\.com|x\.com)\/([^/]+)/);
+    if (match) return "@" + match[1];
+  }
+
+  return undefined;
 }
 
 type PageMetadataOptions = {
@@ -75,15 +87,21 @@ export function createPageMetadata({
     description: resolvedDescription,
     keywords: resolvedKeywords,
     authors: [{name: authorName}],
-    alternates: canonical ? {canonical} : undefined,
+    alternates: canonical ? {
+      canonical,
+      languages: {'en': canonical},
+    } : undefined,
     openGraph: {
       type,
       url: canonical,
       title: fullTitle,
       description: resolvedDescription,
       siteName,
+      locale: "en_US",
       images: [{
         url: imageUrl,
+        width: 1200,
+        height: 630,
         alt: fullTitle,
       }],
       ...(type === "article" ? {
@@ -94,6 +112,7 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
+      ...(getTwitterHandle() ? {site: getTwitterHandle()} : {}),
       title: fullTitle,
       description: resolvedDescription,
       images: [imageUrl],

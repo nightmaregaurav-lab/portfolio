@@ -12,6 +12,7 @@ import {
   getSiteDescription,
   getSiteName,
   getSiteUrl,
+  getTwitterHandle,
 } from "@/lib/pageMetadata";
 
 const siteUrl = getSiteUrl();
@@ -32,7 +33,12 @@ export const metadata: Metadata = {
   authors: [{
     name: authorName
   }],
-  alternates: canonical ? {canonical} : undefined,
+  alternates: {
+    canonical: canonical,
+    languages: {
+      'en': canonical || '/',
+    },
+  },
   icons: {
     icon: CoreConfig.favicon || "/favicon.ico",
     apple: CoreConfig.favicon || "/favicon.ico",
@@ -60,11 +66,14 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [{
       url: socialImage,
+      width: 1200,
+      height: 630,
       alt: CoreConfig.websiteName,
     }],
   },
   twitter: {
     card: "summary_large_image",
+    ...(getTwitterHandle() ? {site: getTwitterHandle()} : {}),
     title: siteName,
     description: siteDescription,
     images: [socialImage],
