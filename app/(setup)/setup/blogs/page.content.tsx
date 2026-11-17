@@ -414,7 +414,7 @@ function PageContent() {
   }
 
   return (
-    <ConfigurationFormWrapper className={styles.page} title={"Blog Configuration"} config={formValues} form={form}>
+    <ConfigurationFormWrapper className={styles.page} title={"Blogs Configuration"} config={formValues} form={form}>
       <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
         <Controller
           control={control}
@@ -445,7 +445,7 @@ function PageContent() {
             }}
             className="cursor-pointer hover:-translate-y-px"
           >
-            <Plus /> Add blog
+            <Plus /> Add post
           </Button>
         </div>
 

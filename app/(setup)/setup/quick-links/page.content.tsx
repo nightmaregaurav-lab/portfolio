@@ -98,7 +98,7 @@ function LinkCardHeader(
           size={"icon-sm"}
           variant={"ghost"}
           onClick={onEdit}
-          aria-label={"Edit milestone"}
+          aria-label={"Edit link"}
           className="cursor-pointer hover:-translate-y-px"
         >
           <Pencil/>
@@ -110,7 +110,7 @@ function LinkCardHeader(
           variant={"ghost"}
           className={"text-destructive cursor-pointer hover:-translate-y-px"}
           onClick={onDelete}
-          aria-label={"Delete milestone"}
+          aria-label={"Delete link"}
         >
           <Trash2 />
         </Button>
