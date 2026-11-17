@@ -1,5 +1,13 @@
+import {transliterate} from "transliteration";
+
 function normalizeSearchText(value: string) {
-  return value
+  // Transliterate non-Latin characters (Devanagari, Greek, Chinese, Cyrillic, etc.) before processing
+  const transliterated = value
+    .split("")
+    .map(ch => ch.charCodeAt(0) > 127 ? transliterate(ch) : ch)
+    .join("");
+
+  return transliterated
     .replace(/([a-z0-9])([A-Z])/g, "$1 $2")
     .replace(/([A-Z])([A-Z][a-z])/g, "$1 $2")
     .replace(/[^a-zA-Z0-9]+/g, " ")
