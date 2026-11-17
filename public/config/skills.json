@@ -146,6 +146,16 @@
         "associatedProjectIds": [
           "project-d1a926a3dda7"
         ]
+      },
+      {
+        "id": "skill-165e0a73d5cf",
+        "title": "Shell Scripting",
+        "image": "https://upload.wikimedia.org/wikipedia/commons/f/f3/Termux_2.png",
+        "description": "<p>Driven by an interest in understanding and automating system-level tasks, I taught myself shell scripting through hands-on experimentation. Working primarily with sh, Bash, and Zsh, I've developed the ability to automate repetitive workflows, manage system operations, and streamline development tasks. Much of this knowledge comes from practical necessity, curiosity, and exploring the command-line environment beyond everyday usage.</p>",
+        "associatedMilestoneIds": [],
+        "associatedProjectIds": [
+          "project-1c6b34c61ec7"
+        ]
       }
     ]
   }
