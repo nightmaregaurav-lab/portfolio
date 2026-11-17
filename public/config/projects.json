@@ -94,8 +94,8 @@
         "id": "project-d1a926a3dda7",
         "slugs": [
           {
-            "slug": "portfolio",
-            "isActive": true
+            "isActive": true,
+            "slug": "portfolio"
           }
         ],
         "title": "Portfolio",
@@ -161,6 +161,38 @@
           "Portfolio CMS",
           "Portfolio Management",
           "Static website with dynamic content"
+        ],
+        "milestoneId": ""
+      },
+      {
+        "id": "project-88dc6fd3331e",
+        "slugs": [
+          {
+            "slug": "bagh-chal",
+            "isActive": true
+          }
+        ],
+        "title": "Bagh Chal",
+        "links": [
+          {
+            "name": "GitHub",
+            "url": "https://github.com/nightmaregaurav/BaghChal"
+          }
+        ],
+        "description": "<p>Baghchal is one of Nepal's most famous traditional strategy board games. It's often called the “Game of Tigers and Goats.”</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot 2021-05-31 20_47_49.png",
+        "images": [],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "Classic Game"
+          }
+        ],
+        "seoKeywords": [
+          "BaghChal",
+          "PyQt",
+          "Python Game",
+          "Classic Games"
         ],
         "milestoneId": ""
       }
