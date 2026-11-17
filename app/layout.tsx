@@ -21,7 +21,7 @@ const canonical = getCanonicalUrl("/");
 const siteName = getSiteName();
 const authorName = getAuthorName();
 const siteDescription = truncateDescription(getSiteDescription());
-const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || CoreConfig.favicon || "/favicon.ico");
+const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || NavigationConfig.profilePicture || CoreConfig.favicon || "/favicon.ico");
 
 export const metadata: Metadata = {
   metadataBase: siteUrl,
