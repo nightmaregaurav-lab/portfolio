@@ -196,6 +196,51 @@
           "Open Source"
         ],
         "milestoneId": ""
+      },
+      {
+        "id": "project-1c6b34c61ec7",
+        "slugs": [
+          {
+            "slug": "xfreerdp-gui",
+            "isActive": true
+          }
+        ],
+        "title": "XFreeRDP-GUI",
+        "links": [
+          {
+            "name": "GitHub",
+            "url": "https://github.com/nightmaregaurav/XFreeRDP-GUI"
+          }
+        ],
+        "description": "<p>XFreeRDP-GUI is a lightweight graphical interface for XFreeRDP on Linux. It simplifies Remote Desktop Protocol (RDP) connections by allowing users to connect to remote systems without manually entering command-line options.</p><p></p><p>Key features include:</p><ul><li><p>Easy-to-use graphical interface.</p></li><li><p>Save and manage RDP connections.</p></li><li><p>Access previously saved connections.</p></li><li><p>Quickly reconnect to recent or latest sessions.</p></li><li><p>Simple installation and uninstallation scripts.</p></li></ul><p></p><p>It uses Zenity and AWK and works alongside XFreeRDP rather than replacing it.</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot from 2024-02-09 20-47-34.png",
+        "images": [
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot from 2024-02-09 20-47-34.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot from 2024-02-09 20-47-44.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot from 2024-02-09 20-47-51.png",
+          "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/Screenshot from 2024-02-09 20-48-08.png"
+        ],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "GUI"
+          },
+          {
+            "title": "Platform",
+            "value": "Linux"
+          },
+          {
+            "title": "Requires",
+            "value": "XFreeRDP, Zenity, awk"
+          }
+        ],
+        "seoKeywords": [
+          "XFreeRDP",
+          "XFreeRDP GUI",
+          "Linux RDP",
+          "Open Source"
+        ],
+        "milestoneId": ""
       }
     ]
   }
