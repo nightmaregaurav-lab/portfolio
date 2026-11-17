@@ -57,6 +57,10 @@ export const schema = z.object({
         title: "Accent Color",
         description: "A color used to accentuate the blog card and other UI elements.",
       }),
+      coverImage: z.string().optional().meta({
+        title: "Cover Image",
+        description: "An optional cover image shown on the blog card. And when blog is shared to social media.",
+      }),
     }).meta({
       title: "Blog Post Metadata",
       description: "Metadata that identifies a blog post whose rich-text HTML is stored in a file named after its ID.",

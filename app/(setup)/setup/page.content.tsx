@@ -95,7 +95,7 @@ function PageContent() {
         />
         <ConfigurationGroupCard
           icon={<NotebookPen/>}
-          title="Blog"
+          title="Blogs"
           description="Write blog posts."
           pagePath="/setup/blogs"
         />

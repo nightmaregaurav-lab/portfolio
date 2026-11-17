@@ -11,13 +11,13 @@ export const dynamic = "force-static";
 
 const MENU_PATH_MAP = [
   {menu: "home", path: "/", priority: 1, changeFrequency: "monthly" as const},
-  {menu: "about", path: "/about/", priority: 0.8, changeFrequency: "monthly" as const},
+  {menu: "about", path: "/about/", priority: 0.9, changeFrequency: "monthly" as const},
   {menu: "projects", path: "/projects/", priority: 0.8, changeFrequency: "daily" as const},
   {menu: "services", path: "/services/", priority: 0.7, changeFrequency: "monthly" as const},
   {menu: "skills", path: "/skills/", priority: 0.7, changeFrequency: "monthly" as const},
-  {menu: "journey", path: "/journey/", priority: 0.6, changeFrequency: "monthly" as const},
+  {menu: "journey", path: "/journey/", priority: 0.8, changeFrequency: "monthly" as const},
   {menu: "testimonials", path: "/testimonials/", priority: 0.6, changeFrequency: "monthly" as const},
-  {menu: "gallery", path: "/gallery/", priority: 0.6, changeFrequency: "daily" as const},
+  {menu: "gallery", path: "/gallery/", priority: 0.7, changeFrequency: "daily" as const},
   {menu: "blogs", path: "/blogs/", priority: 0.8, changeFrequency: "daily" as const},
 ];
 
@@ -64,6 +64,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
           lastModified: post.date,
           changeFrequency: "weekly",
           priority: 0.7,
+          images: post.coverImage ? [getAbsoluteUrl(post.coverImage)] : undefined,
         });
       }
     }
