@@ -5,6 +5,7 @@ import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
 import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
 import {Input} from "@/components/ui/input";
+import {FileUrl} from "@/components/ui/FileUrl";
 import {DatePicker} from "@/components/ui/DatePicker";
 import {ArrayInput} from "@/components/ui/ArrayInput";
 import {Label} from "@/components/ui/label";
@@ -129,7 +130,7 @@ function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions
         render={({field, fieldState: {error}}) =>
           <div className={"grid gap-2"}>
             <Label htmlFor={`posts.${index}.coverImage`}>Cover Image (optional)</Label>
-            <Input {...field} id={`posts.${index}.coverImage`} placeholder={"URL of the cover image"} className={cn("w-full", error && "border-destructive")}/>
+            <FileUrl {...field} id={`posts.${index}.coverImage`} placeholder={"URL of the cover image"} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }
