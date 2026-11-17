@@ -1,13 +1,19 @@
+import {transliterate} from "transliteration";
+
+
+
 export function slugify(value: string, exhaustedSet: Set<string>): string {
   if(!value) {
     return "";
   }
 
   const candidate = value
-    .normalize("NFKD")
-    .replace(/[\u0300-\u036f]/g, "")
-    .toLowerCase()
     .replace(/&/g, " and ")
+    .toLowerCase()
+    // Transliterate any non-Latin script (Devanagari, Greek, Chinese, Cyrillic, etc.) to Latin
+    .split("")
+    .map(ch => ch.charCodeAt(0) > 127 ? transliterate(ch) : ch)
+    .join("")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
 
