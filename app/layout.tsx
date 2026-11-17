@@ -14,12 +14,11 @@ import {
   getSiteUrl,
   getTwitterHandle,
   truncateDescription,
-  truncateTitle,
 } from "@/lib/pageMetadata";
 
 const siteUrl = getSiteUrl();
 const canonical = getCanonicalUrl("/");
-const siteName = truncateTitle(getSiteName());
+const siteName = getSiteName();
 const authorName = getAuthorName();
 const siteDescription = truncateDescription(getSiteDescription());
 const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || CoreConfig.favicon || "/favicon.ico");

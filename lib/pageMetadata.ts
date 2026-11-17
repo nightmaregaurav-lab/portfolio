@@ -18,10 +18,6 @@ export function truncateDescription(text: string): string {
   return text.slice(0, 157) + "...";
 }
 
-export function truncateTitle(text: string): string {
-  if (text.length <= 60) return text;
-  return text.slice(0, 57) + "...";
-}
 
 export function getTwitterHandle() {
   const twitterSocial = NavigationConfig.socials.find((s) =>
@@ -83,9 +79,6 @@ export function createPageMetadata({
   const siteName = getSiteName();
   const authorName = getAuthorName();
   const resolvedDescription = truncateDescription(description?.trim() || getSiteDescription());
-  const fullTitle = truncateTitle(title === siteName
-    ? title
-    : title + " | " + siteName);
 
   const coreKeywords = CoreConfig.seoKeywords || [];
   const resolvedKeywords = keywords
@@ -93,7 +86,7 @@ export function createPageMetadata({
     : coreKeywords;
 
   return {
-    title: title === siteName ? {absolute: title} : fullTitle,
+    title,
     description: resolvedDescription,
     keywords: resolvedKeywords,
     authors: [{name: authorName}],
@@ -104,7 +97,7 @@ export function createPageMetadata({
     openGraph: {
       type,
       url: canonical,
-      title: fullTitle,
+      title,
       description: resolvedDescription,
       siteName,
       locale: "en_US",
@@ -112,7 +105,7 @@ export function createPageMetadata({
         url: imageUrl,
         width: 1200,
         height: 630,
-        alt: fullTitle,
+        alt: title,
       }],
       ...(type === "article" ? {
         publishedTime,
@@ -123,7 +116,7 @@ export function createPageMetadata({
     twitter: {
       card: "summary_large_image",
       ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
-      title: fullTitle,
+      title,
       description: resolvedDescription,
       images: [{url: imageUrl, alt: resolvedDescription}],
     },
