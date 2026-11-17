@@ -2,7 +2,7 @@ import {join} from "node:path";
 import {existsSync} from "node:fs";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
-import {CoreConfig, ServicesConfig} from "@/configuration";
+import {CoreConfig, ServicesConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import StructuredData from "@/components/StructuredData";
@@ -23,7 +23,7 @@ export const metadata = createPageMetadata({
   title: "Services",
   description,
   path: "/services/",
-  image: CoreConfig.favicon,
+  image: NavigationConfig.profilePicture || CoreConfig.favicon,
 });
 
 function Page() {

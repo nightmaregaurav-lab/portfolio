@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 import {join} from "node:path";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
-import {CoreConfig, JourneyConfig, ProjectsConfig, SkillsConfig} from "@/configuration";
+import {CoreConfig, JourneyConfig, ProjectsConfig, SkillsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import type {PageContentProps} from "./page.types";
@@ -47,7 +47,7 @@ export async function generateMetadata(
     title: project.title,
     description: stripHtmlTags(project.description).slice(0, 300),
     path: "/projects/" + projectSlug + "/",
-    image: project.previewImage || CoreConfig.favicon,
+    image: project.previewImage || NavigationConfig.profilePicture || CoreConfig.favicon,
     keywords: project.seoKeywords || [],
     type: "article",
   });
