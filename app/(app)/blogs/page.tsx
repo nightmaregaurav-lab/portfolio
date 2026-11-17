@@ -18,7 +18,7 @@ const PageContent = dynamic<PageContentProps>(
 const description = stripHtmlTags(BlogsConfig.summary).slice(0, 300);
 
 export const metadata = createPageMetadata({
-  title: "Blog",
+  title: "Blogs",
   description,
   path: "/blogs/",
   image: CoreConfig.favicon,
