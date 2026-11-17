@@ -505,6 +505,11 @@
   line-height: 1.6;
 }
 
+.block-editor-content .ProseMirror p:empty::after,
+.html-renderer p:empty::after {
+  content: "\00a0";
+}
+
 .block-editor-content .ProseMirror ul,
 .html-renderer ul {
   list-style-type: disc;
