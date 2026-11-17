@@ -13,13 +13,15 @@ import {
   getSiteName,
   getSiteUrl,
   getTwitterHandle,
+  truncateDescription,
+  truncateTitle,
 } from "@/lib/pageMetadata";
 
 const siteUrl = getSiteUrl();
 const canonical = getCanonicalUrl("/");
-const siteName = getSiteName();
+const siteName = truncateTitle(getSiteName());
 const authorName = getAuthorName();
-const siteDescription = getSiteDescription();
+const siteDescription = truncateDescription(getSiteDescription());
 const socialImage = getAbsoluteUrl(HomeConfig.coverPicture || CoreConfig.favicon || "/favicon.ico");
 
 export const metadata: Metadata = {

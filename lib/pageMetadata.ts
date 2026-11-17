@@ -13,6 +13,16 @@ export function getSiteDescription() {
   return CoreConfig.seoDescription?.trim() || "A personal portfolio website.";
 }
 
+export function truncateDescription(text: string): string {
+  if (text.length <= 160) return text;
+  return text.slice(0, 157) + "...";
+}
+
+export function truncateTitle(text: string): string {
+  if (text.length <= 60) return text;
+  return text.slice(0, 57) + "...";
+}
+
 export function getTwitterHandle() {
   const twitterSocial = NavigationConfig.socials.find((s) =>
     /twitter\.com|x\.com/i.test(s.url)
@@ -72,10 +82,10 @@ export function createPageMetadata({
   const imageUrl = getAbsoluteUrl(image || "/favicon.ico");
   const siteName = getSiteName();
   const authorName = getAuthorName();
-  const resolvedDescription = description?.trim() || getSiteDescription();
-  const fullTitle = title === siteName
+  const resolvedDescription = truncateDescription(description?.trim() || getSiteDescription());
+  const fullTitle = truncateTitle(title === siteName
     ? title
-    : title + " | " + siteName;
+    : title + " | " + siteName);
 
   const coreKeywords = CoreConfig.seoKeywords || [];
   const resolvedKeywords = keywords
