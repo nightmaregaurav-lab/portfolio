@@ -191,7 +191,8 @@ function PageContent({journeyConfig}: PageContentProps) {
       </header>
 
       {events.length > 0 ? (
-        <section className={styles.timelineSection} aria-label="Journey milestones">
+        <section className={styles.timelineSection}>
+          <h2 className="sr-only">Journey milestones</h2>
           <div className={styles.timeline} aria-live="polite">
             {events.map((event, index) => (
               <article className={styles.timelineItem} data-side={index % 2 === 0 ? "left" : "right"} key={event.id}>

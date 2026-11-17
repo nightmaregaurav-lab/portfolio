@@ -190,7 +190,7 @@ function BlogCard({post}: {post: BlogsModel["posts"][number]; index: number}) {
           </div>
         )}
         <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>
-        <h2 className={styles.postTitle}>{post.title}</h2>
+        <h3 className={styles.postTitle}>{post.title}</h3>
         <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>
         {!!post.categories.length && (
           <div className={styles.tagList}>

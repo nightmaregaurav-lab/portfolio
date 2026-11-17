@@ -65,7 +65,7 @@ function PageContent({collection}: PageContentProps) {
                         ))}
                       </div>
                     )}
-                    {photo.title && <h2 className={styles.photoTitle}>{photo.title}</h2>}
+                    {photo.title && <h3 className={styles.photoTitle}>{photo.title}</h3>}
                     {photo.caption && <p className={styles.photoCaption}>{photo.caption}</p>}
                   </div>
                 )}

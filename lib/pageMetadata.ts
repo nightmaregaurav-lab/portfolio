@@ -1,5 +1,5 @@
 import type {Metadata} from "next";
-import {CoreConfig} from "@/configuration";
+import {CoreConfig, NavigationConfig} from "@/configuration";
 
 export function getSiteName() {
   return CoreConfig.websiteName?.trim() || CoreConfig.fullName?.trim() || "Portfolio";
@@ -11,6 +11,24 @@ export function getAuthorName() {
 
 export function getSiteDescription() {
   return CoreConfig.seoDescription?.trim() || "A personal portfolio website.";
+}
+
+export function truncateDescription(text: string): string {
+  if (text.length <= 160) return text;
+  return text.slice(0, 157) + "...";
+}
+
+
+export function getTwitterHandle() {
+  const twitterSocial = NavigationConfig.socials.find((s) =>
+    /twitter\.com|x\.com/i.test(s.url)
+  );
+  if (twitterSocial) {
+    const match = twitterSocial.url.match(/(?:twitter\.com|x\.com)\/([^/]+)/);
+    if (match) return "@" + match[1];
+  }
+
+  return undefined;
 }
 
 type PageMetadataOptions = {
@@ -60,10 +78,7 @@ export function createPageMetadata({
   const imageUrl = getAbsoluteUrl(image || "/favicon.ico");
   const siteName = getSiteName();
   const authorName = getAuthorName();
-  const resolvedDescription = description?.trim() || getSiteDescription();
-  const fullTitle = title === siteName
-    ? title
-    : title + " | " + siteName;
+  const resolvedDescription = truncateDescription(description?.trim() || getSiteDescription());
 
   const coreKeywords = CoreConfig.seoKeywords || [];
   const resolvedKeywords = keywords
@@ -71,20 +86,26 @@ export function createPageMetadata({
     : coreKeywords;
 
   return {
-    title: title === siteName ? {absolute: title} : title,
+    title,
     description: resolvedDescription,
     keywords: resolvedKeywords,
     authors: [{name: authorName}],
-    alternates: canonical ? {canonical} : undefined,
+    alternates: canonical ? {
+      canonical,
+      languages: {'en': canonical},
+    } : undefined,
     openGraph: {
       type,
       url: canonical,
-      title: fullTitle,
+      title,
       description: resolvedDescription,
       siteName,
+      locale: "en_US",
       images: [{
         url: imageUrl,
-        alt: fullTitle,
+        width: 1200,
+        height: 630,
+        alt: title,
       }],
       ...(type === "article" ? {
         publishedTime,
@@ -94,9 +115,10 @@ export function createPageMetadata({
     },
     twitter: {
       card: "summary_large_image",
-      title: fullTitle,
+      ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
+      title,
       description: resolvedDescription,
-      images: [imageUrl],
+      images: [{url: imageUrl, alt: resolvedDescription}],
     },
     robots: {index: true, follow: true},
   };

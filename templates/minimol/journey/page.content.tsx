@@ -101,7 +101,7 @@ function TimelineEntry({event}: {event: TimelineEvent}) {
       <div className={styles.context}>
         <p className={styles.type}>{typeLabels[milestone.type]}</p>
         <time className={styles.date} dateTime={event.date}>{kind === "start" ? "Started · " : kind === "end" ? "Ended · " : ""}{formatDate(event.date)}</time>
-        <h2>{milestone.title}</h2>
+        <h3>{milestone.title}</h3>
         {organisation && <p className={styles.organisation}>
           {organisationUrl
             ? <SmartLink href={organisationUrl} target="_blank" rel="noreferrer" aria-label={`Visit ${organisationLabel}`}>{organisation}<ArrowUpRight size={13} aria-hidden="true"/></SmartLink>
@@ -133,7 +133,8 @@ export default function PageContent({journeyConfig}: PageContentProps) {
         <h1>My journey.</h1>
         {journeyConfig.summary && <HtmlRenderer className={styles.summary}>{journeyConfig.summary}</HtmlRenderer>}
       </header>
-      {events.length > 0 ? <section className={styles.timeline} aria-label="Journey milestones">
+      {events.length > 0 ? <section className={styles.timeline}>
+        <h2 className="sr-only">Journey milestones</h2>
         {events.map((event) => <TimelineEntry event={event} key={event.id}/>) }
       </section> : <section className={styles.empty} aria-label="Journey milestones">
         <p>No milestones added yet.</p>
