@@ -184,6 +184,11 @@ function BlogCard({post}: {post: BlogsModel["posts"][number]; index: number}) {
       aria-label={`Read ${post.title}`}
     >
       <article className={styles.postCard} style={style as React.CSSProperties}>
+        {post.coverImage && (
+          <div className={styles.postCoverImage}>
+            <img src={post.coverImage} alt="" aria-hidden="true" />
+          </div>
+        )}
         <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>
         <h2 className={styles.postTitle}>{post.title}</h2>
         <p className={styles.postExcerpt}>{post.summary || "Click to read this post..."}</p>

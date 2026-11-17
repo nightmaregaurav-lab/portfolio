@@ -3,6 +3,7 @@ import {migrateAboutToV1} from "@/migrations/about/v1";
 import {initialBlogsMigration} from "@/migrations/blogs/initial";
 import {migrateBlogsToV1} from "@/migrations/blogs/v1";
 import {migrateBlogsToV2} from "@/migrations/blogs/v2";
+import {migrateBlogsToV3} from "@/migrations/blogs/v3";
 import {initialCoreMigration} from "@/migrations/core/initial";
 import {migrateCoreToV1} from "@/migrations/core/v1";
 import {initialGalleryMigration} from "@/migrations/gallery/initial";
@@ -54,6 +55,7 @@ const configurationMigrationManager: Record<string, ConfigurationMigrationMap> =
   blogs: {
     1: migrateBlogsToV1,
     2: migrateBlogsToV2,
+    3: migrateBlogsToV3,
   },
   core: {
     1: migrateCoreToV1,

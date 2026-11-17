@@ -33,6 +33,7 @@ const emptyPost: NonNullable<TInput["posts"]>[number] = {
   categories: [],
   tags: [],
   accentColor: "#FFFFFF",
+  coverImage: "",
 };
 
 
@@ -117,6 +118,18 @@ function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions
             <Label htmlFor={`posts.${index}.accentColor`}>Accent Color</Label>
             <ColorPicker value={field.value || "#FFFFFF"} onChange={field.onChange} id={`posts.${index}.accentColor`} className={cn(error && "border-destructive")}/>
             <p className={"text-xs text-muted-foreground"}>Used as the top border color on the blog card.</p>
+            {error && <small className={"text-destructive"}>{error.message}</small>}
+          </div>
+        }
+      />
+
+      <Controller
+        control={control}
+        name={`posts.${index}.coverImage`}
+        render={({field, fieldState: {error}}) =>
+          <div className={"grid gap-2"}>
+            <Label htmlFor={`posts.${index}.coverImage`}>Cover Image (optional)</Label>
+            <Input {...field} id={`posts.${index}.coverImage`} placeholder={"URL of the cover image"} className={cn("w-full", error && "border-destructive")}/>
             {error && <small className={"text-destructive"}>{error.message}</small>}
           </div>
         }

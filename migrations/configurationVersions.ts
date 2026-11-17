@@ -1,7 +1,7 @@
 export const currentConfigurationVersions: Record<string, number> = {
   about: 1,
   blog: 0,
-  blogs: 2,
+  blogs: 3,
   core: 1,
   gallery: 1,
   home: 0,
