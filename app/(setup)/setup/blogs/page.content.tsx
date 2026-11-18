@@ -372,6 +372,7 @@ function PageContent() {
     handleSubmit,
     formValues,
     hasChanges,
+    originalConfig
   } = useConfigurationForm(
     Identifier.Blogs,
     schema,
@@ -420,8 +421,11 @@ function PageContent() {
     }
 
     const deletedPostId = post.id;
+    const wasPreviouslySaved = originalConfig?.posts?.some(p => p.id === deletedPostId) ?? false;
     remove(index);
-    await save(schema.parse(form.getValues()));
+    if (wasPreviouslySaved) {
+      await save(schema.parse(form.getValues()));
+    }
     if(editingBlogId === deletedPostId) {
       setEditingBlogId(null);
     }
