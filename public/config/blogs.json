@@ -70,6 +70,28 @@
         ],
         "accentColor": "#EF4444",
         "coverImage": ""
+      },
+      {
+        "id": "blog-ef8236cdf144",
+        "slugs": [
+          {
+            "slug": "ghr",
+            "isActive": true
+          }
+        ],
+        "title": "घर",
+        "summary": "घर इँटा, सिमेन्ट र बालुवाले मात्र बन्दैन रहेछ। कहिलेकाहीँ त्यसलाई घर बनाइदिने मान्छेको अनुपस्थितिले जीवनभर एउटा भवनलाई भवनमै सीमित गरिदिँदो रहेछ।",
+        "date": "2026-11-18",
+        "categories": [
+          "Literature"
+        ],
+        "tags": [
+          "Penned by Gaurav",
+          "Nepali Literature",
+          "Nepali Poem"
+        ],
+        "accentColor": "#EAB308",
+        "coverImage": ""
       }
     ]
   }
