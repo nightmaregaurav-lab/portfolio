@@ -272,7 +272,17 @@ function BlogForm(
       }
       {contentError && <small className={"text-destructive"}>{contentError}</small>}
 
-      <div className={"flex justify-end"}>
+      <div className={"flex justify-end gap-2"}>
+        <Button
+          type={"button"}
+          size={"sm"}
+          variant={"outline"}
+          onClick={onClose}
+          className={"cursor-pointer hover:-translate-y-px mt-2"}
+          disabled={hasContentChanges || hasMetadataChanges}
+        >
+          Close
+        </Button>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger type="button" disabled={isSavingChildContent || isLoadingChildContent || !hasContentChanges}>
@@ -362,7 +372,6 @@ function PageContent() {
     handleSubmit,
     formValues,
     hasChanges,
-    originalConfig
   } = useConfigurationForm(
     Identifier.Blogs,
     schema,
