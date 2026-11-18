@@ -18,6 +18,7 @@ import {withConfigurationId} from "@/lib/configurationUtils";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {LucideReactIconPicker} from "@/components/ui/LucideReactIconPicker";
 import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 import {stripHtmlTags} from "@/lib/html";
 
 const emptyService: NonNullable<TInput["services"]>[number] = {
@@ -147,7 +148,8 @@ function PageContent() {
     form,
     control,
     handleSubmit,
-    formValues
+    formValues,
+    hasChanges
   } = useConfigurationForm(
     Identifier.Services,
     schema,
@@ -233,15 +235,24 @@ function PageContent() {
         }
 
         <div className={"flex justify-end"}>
-          <Button
-            type={"submit"}
-            size={"sm"}
-            variant={"outline"}
-            className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
-            disabled={isSavingConfig}
-          >
-            {isSavingConfig ? <Spinner /> : "Save"}
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+                <Button
+                  type={"submit"}
+                  size={"sm"}
+                  variant={"outline"}
+                  className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                  disabled={isSavingConfig || !hasChanges}
+                >
+                  {isSavingConfig ? <Spinner /> : "Save"}
+                </Button>
+              </TooltipTrigger>
+              {!hasChanges && !isSavingConfig && (
+                <TooltipContent>No changes to save</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </form>
     </ConfigurationFormWrapper>

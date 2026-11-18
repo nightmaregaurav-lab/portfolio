@@ -16,6 +16,7 @@ import {Plus, Trash2} from "lucide-react";
 import {RichTextEditor} from "@/components/ui/RichTextEditor";
 import {cn} from "@/lib/utils";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 function PageContent() {
   const {
@@ -25,7 +26,8 @@ function PageContent() {
     form,
     control,
     handleSubmit,
-    formValues
+    formValues,
+    hasChanges
   } = useConfigurationForm(
     Identifier.About,
     schema,
@@ -117,15 +119,24 @@ function PageContent() {
         />
 
         <div className={"flex justify-end"}>
-          <Button
-            type={"submit"}
-            size={"sm"}
-            variant={"outline"}
-            className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
-            disabled={isSavingConfig}
-          >
-            {isSavingConfig ? <Spinner /> : "Save"}
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+                <Button
+                  type={"submit"}
+                  size={"sm"}
+                  variant={"outline"}
+                  className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                  disabled={isSavingConfig || !hasChanges}
+                >
+                  {isSavingConfig ? <Spinner /> : "Save"}
+                </Button>
+              </TooltipTrigger>
+              {!hasChanges && !isSavingConfig && (
+                <TooltipContent>No changes to save</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </form>
     </ConfigurationFormWrapper>

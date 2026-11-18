@@ -18,6 +18,7 @@ import FullScreenMessage from "@/components/ui/FullScreenMessage";
 import {Spinner} from "@/components/ui/spinner";
 import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import SmartLink from "@/components/ui/SmartLink";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 export default function PageContent({templates, templatesWithAboutPages}: {templates: string[]; templatesWithAboutPages: string[]}) {
   const {
@@ -27,7 +28,8 @@ export default function PageContent({templates, templatesWithAboutPages}: {templ
     form,
     control,
     handleSubmit,
-    formValues
+    formValues,
+    hasChanges
   } = useConfigurationForm(
     Identifier.Core,
     schema,
@@ -143,15 +145,24 @@ export default function PageContent({templates, templatesWithAboutPages}: {templ
         />
 
         <div className={"flex justify-end"}>
-          <Button
-            type={"submit"}
-            size={"sm"}
-            variant={"outline"}
-            className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
-            disabled={isSavingConfig}
-          >
-            {isSavingConfig ? <Spinner /> : "Save"}
-          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+                <Button
+                  type={"submit"}
+                  size={"sm"}
+                  variant={"outline"}
+                  className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                  disabled={isSavingConfig || !hasChanges}
+                >
+                  {isSavingConfig ? <Spinner /> : "Save"}
+                </Button>
+              </TooltipTrigger>
+              {!hasChanges && !isSavingConfig && (
+                <TooltipContent>No changes to save</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
         </div>
       </form>
     </ConfigurationFormWrapper>

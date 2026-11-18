@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
@@ -44,6 +44,14 @@ export function useConfigurationForm<
 
   const formValues = watch();
 
+  // Detect whether the current form values differ from the originally loaded config
+  const hasChanges = useMemo(() => {
+    if (!config) {
+      return false;
+    }
+    return JSON.stringify(formValues) !== JSON.stringify(config);
+  }, [formValues, config]);
+
   return {
     isLoadingConfig,
     saveConfig,
@@ -51,6 +59,8 @@ export function useConfigurationForm<
     form,
     control,
     handleSubmit,
-    formValues
+    formValues,
+    hasChanges,
+    originalConfig: config
   };
 }
