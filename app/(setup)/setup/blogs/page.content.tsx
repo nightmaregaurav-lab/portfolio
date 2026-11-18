@@ -24,6 +24,7 @@ import {useConfigurationForm} from "@/hooks/useConfigurationForm";
 import {confirm} from "@/components/ui/Confirm";
 import {isNullOrWhitespace} from "@/lib/string";
 import {slugify} from "@/lib/slugs";
+import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
 
 const emptyPost: NonNullable<TInput["posts"]>[number] = {
   id: "",
@@ -141,7 +142,7 @@ function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions
 
 function BlogForm(
   {
-    postIndex, onClose, onSave, onDelete, saving, deleting, categorySuggestions, tagSuggestions
+    postIndex, onClose, onSave, onDelete, saving, deleting, categorySuggestions, tagSuggestions, hasMetadataChanges
   }: {
     postIndex: number;
     onClose: () => void;
@@ -151,6 +152,7 @@ function BlogForm(
     deleting: boolean;
     categorySuggestions: string[];
     tagSuggestions: string[];
+    hasMetadataChanges: boolean;
   }
 ) {
   const {
@@ -185,13 +187,23 @@ function BlogForm(
     }
   }, [content, contentError]);
 
-  async function save() {
+  const hasContentChanges = content !== (config?.content || "");
+
+  async function saveContent() {
     if (!selectedPost) {
       return;
     }
 
-    if(isNullOrWhitespace(content)) {
+    if (isNullOrWhitespace(content)) {
       setContentError("Content cannot be empty.");
+      return;
+    }
+
+    await saveChildContent({ content });
+  }
+
+  async function saveMetadata() {
+    if (!selectedPost) {
       return;
     }
 
@@ -200,9 +212,7 @@ function BlogForm(
       return;
     }
 
-    await saveChildContent({ content });
     await onSave();
-    onClose();
   }
 
   if (!selectedPost){
@@ -230,6 +240,28 @@ function BlogForm(
         </Button>
       </div>
       <BlogMetadataFields control={control} index={postIndex} categorySuggestions={categorySuggestions} tagSuggestions={tagSuggestions}/>
+
+      <div className={"flex justify-end border-t pt-4"}>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger type="button" disabled={saving || deleting || !hasMetadataChanges}>
+              <Button
+                type={"button"}
+                size={"sm"}
+                variant={"outline"}
+                onClick={async() => await saveMetadata()}
+                className={"cursor-pointer hover:-translate-y-px bg-primary text-secondary"}
+                disabled={saving || deleting || !hasMetadataChanges}
+              >
+                {saving ? <Spinner /> : "Save"}
+              </Button>
+            </TooltipTrigger>
+            {!hasMetadataChanges && !saving && (
+              <TooltipContent>No metadata changes to save</TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
 
     <div className={"grid gap-2"}>
@@ -239,19 +271,38 @@ function BlogForm(
         : <RichTextEditor key={selectedPost.id} value={content} onChange={setContent} className={cn("min-h-40", contentError && "border-destructive")}/>
       }
       {contentError && <small className={"text-destructive"}>{contentError}</small>}
-    </div>
 
-    <div className={"flex justify-end"}>
-      <Button
-        type={"button"}
-        size={"sm"}
-        variant={"outline"}
-        onClick={async() => await save()}
-        className={"cursor-pointer hover:-translate-y-px mt-2 bg-primary text-secondary"}
-        disabled={saving || deleting || isSavingChildContent || isLoadingChildContent}
-      >
-        {saving || isSavingChildContent ? <Spinner /> : "Save"}
-      </Button>
+      <div className={"flex justify-end gap-2"}>
+        <Button
+          type={"button"}
+          size={"sm"}
+          variant={"outline"}
+          onClick={onClose}
+          className={"cursor-pointer hover:-translate-y-px mt-2"}
+          disabled={hasContentChanges || hasMetadataChanges}
+        >
+          Close
+        </Button>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger type="button" disabled={isSavingChildContent || isLoadingChildContent || !hasContentChanges}>
+              <Button
+                type={"button"}
+                size={"sm"}
+                variant={"outline"}
+                onClick={async() => await saveContent()}
+                className={"cursor-pointer hover:-translate-y-px mt-2 bg-primary text-secondary"}
+                disabled={isSavingChildContent || isLoadingChildContent || !hasContentChanges}
+              >
+                {isSavingChildContent ? <Spinner /> : "Save"}
+              </Button>
+            </TooltipTrigger>
+            {!hasContentChanges && !isSavingChildContent && (
+              <TooltipContent>No content changes to save</TooltipContent>
+            )}
+          </Tooltip>
+        </TooltipProvider>
+      </div>
     </div>
   </>);
 }
@@ -319,7 +370,9 @@ function PageContent() {
     form,
     control,
     handleSubmit,
-    formValues
+    formValues,
+    hasChanges,
+    originalConfig
   } = useConfigurationForm(
     Identifier.Blogs,
     schema,
@@ -368,8 +421,11 @@ function PageContent() {
     }
 
     const deletedPostId = post.id;
+    const wasPreviouslySaved = originalConfig?.posts?.some(p => p.id === deletedPostId) ?? false;
     remove(index);
-    await save(schema.parse(form.getValues()));
+    if (wasPreviouslySaved) {
+      await save(schema.parse(form.getValues()));
+    }
     if(editingBlogId === deletedPostId) {
       setEditingBlogId(null);
     }
@@ -473,15 +529,24 @@ function PageContent() {
             }
 
             <div className={"flex justify-end"}>
-              <Button
-                type={"submit"}
-                size={"sm"}
-                variant={"outline"}
-                className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
-                disabled={isSavingConfig}
-              >
-                {isSavingConfig ? <Spinner /> : "Save"}
-              </Button>
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+                    <Button
+                      type={"submit"}
+                      size={"sm"}
+                      variant={"outline"}
+                      className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                      disabled={isSavingConfig || !hasChanges}
+                    >
+                      {isSavingConfig ? <Spinner /> : "Save"}
+                    </Button>
+                  </TooltipTrigger>
+                  {!hasChanges && !isSavingConfig && (
+                    <TooltipContent>No changes to save</TooltipContent>
+                  )}
+                </Tooltip>
+              </TooltipProvider>
             </div>
           </>
         ) : (
@@ -494,6 +559,7 @@ function PageContent() {
             deleting={deletingPost}
             categorySuggestions={categorySuggestions}
             tagSuggestions={tagSuggestions}
+            hasMetadataChanges={hasChanges}
           />
         )}
       </form>
