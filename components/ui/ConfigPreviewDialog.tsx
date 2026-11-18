@@ -1,7 +1,9 @@
 "use client"
 
-import React, {useMemo} from 'react';
-import {Dialog, DialogContent, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import React, {useMemo, useState} from 'react';
+import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
+import {Button} from "@/components/ui/button";
+import {Copy, Check} from "lucide-react";
 import {common, createLowlight} from "lowlight";
 
 const lowlight = createLowlight(common);
@@ -39,32 +41,56 @@ function ConfigPreviewDialog(
     configString: string
   }
 ) {
+  const [copied, setCopied] = useState(false);
   const highlightedConfig = useMemo(
     () => lowlight.highlight("json", configString),
     [configString]
   );
+
+  const handleCopy = async () => {
+    await navigator.clipboard.writeText(configString);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
+
   return (
     <Dialog open={show} onOpenChange={setShow}>
-      <DialogContent
-        style={{
-          width: 'auto', maxWidth: '100%',
-          height: 'auto', maxHeight: '100%'
-        }}
-      >
+      <DialogContent className="max-w-lg" showCloseButton>
         <DialogHeader>
-          <DialogTitle><b>JSON Preview</b></DialogTitle>
+          <DialogTitle>Configuration</DialogTitle>
+          <DialogDescription>
+            Current configuration in JSON format. Copy it to use elsewhere.
+          </DialogDescription>
         </DialogHeader>
-        <pre
-          className="hljs"
-          style={{
-            width: "100%",
-            height: "100%",
-            marginTop: 0,
-            marginBottom: 0,
-          }}
-        >
-          <code>{renderHighlightNode(highlightedConfig as HighlightNode, "json")}</code>
-        </pre>
+        <div className="relative rounded-lg border bg-muted/30 overflow-hidden">
+          <pre
+            className="hljs max-h-[300px] overflow-auto p-4 text-xs leading-relaxed"
+            style={{margin: 0}}
+          >
+            <code>{renderHighlightNode(highlightedConfig as HighlightNode, "json")}</code>
+          </pre>
+        </div>
+        <DialogFooter>
+          <Button
+            type="button"
+            variant="outline"
+            size="sm"
+            className="cursor-pointer hover:-translate-y-px gap-1.5"
+            onClick={handleCopy}
+          >
+            {copied ? (
+              <>
+                <Check size={14} />
+                Copied
+              </>
+            ) : (
+              <>
+                <Copy size={14} />
+                Copy config
+              </>
+            )}
+          </Button>
+        </DialogFooter>
       </DialogContent>
     </Dialog>
   );

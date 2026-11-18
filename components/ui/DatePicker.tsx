@@ -48,6 +48,7 @@ function DatePicker({className, value, onChange, ...props}: DatePickerProps) {
           endMonth={new Date(currentYear + 100, 11)}
           mode="single"
           selected={date}
+          defaultMonth={date}
           onSelect={(selectedDate) =>
             onChange(selectedDate ? format(selectedDate, "yyyy-MM-dd") : "")
           }
