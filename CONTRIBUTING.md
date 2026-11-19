@@ -12,6 +12,10 @@ Thanks for helping improve the portfolio project.
 
 The project uses Node.js `26.13.0` and pnpm `12.18.0`. See `package.json` for the supported versions and available scripts.
 
+### Importing configuration from another repository
+
+You can quickly populate `local-config/` from a public GitHub repository. Run `pnpm import-from <github-repo-url> [branch-or-tag]` to download the contents of the remote `public/config/` directory into your local `local-config/` folder. This is useful for testing with someone else's configuration or seeding your own setup.
+
 ## Make a contribution
 
 1. Create a focused change in your fork.

@@ -6,6 +6,7 @@
     "migrate-config": "tsx scripts/migrate-config.ts",
     "migrate-config:dev": "NODE_ENV=development tsx scripts/migrate-config.ts",
     "mktemp": "tsx scripts/mktemp.ts",
+    "import-config": "tsx scripts/import-config.ts",
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check . --max-diagnostics 1000",
