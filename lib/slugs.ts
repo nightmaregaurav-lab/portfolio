@@ -1,7 +1,6 @@
 import {transliterate} from "transliteration";
 
 
-
 export function slugify(value: string, exhaustedSet: Set<string>): string {
   if(!value) {
     return "";

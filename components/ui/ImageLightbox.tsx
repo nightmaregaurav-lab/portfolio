@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useState, useRef} from "react";
 import {Download, RotateCcw, ZoomIn, ZoomOut} from "lucide-react";
 import {Button} from "@/components/ui/button";
 import {
@@ -34,9 +34,13 @@ function ImageLightbox({src, name, trigger, open: controlledOpen, onOpenChange, 
 
   const [uncontrolledOpen, setUncontrolledOpen] = useState(false);
   const open = controlledOpen ?? uncontrolledOpen;
+  const prevOpenRef = useRef(open);
 
   useEffect(() => {
-    if (!open) setZoom(1);
+    if (!open && prevOpenRef.current) {
+      setZoom(1);
+    }
+    prevOpenRef.current = open;
   }, [open]);
 
   useEffect(() => {

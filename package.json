@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "migrate-config": "tsx scripts/migrate-config.ts",
     "migrate-config:dev": "NODE_ENV=development tsx scripts/migrate-config.ts",
     "mktemp": "tsx scripts/mktemp.ts",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check .",
+    "check:fix": "biome check --write .",
+    "dev": "next dev",
     "build": "next build && rm -rf build/config build/uploads build/uploads_thumbs",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -59,14 +62,12 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.8",
     "@tailwindcss/postcss": "^4.3.5",
-    "@tanstack/eslint-plugin-query": "^5.107.1",
     "@types/node": "^26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "10.14.0",
-    "eslint-config-next": "16.4.5",
     "shadcn": "^4.23.0",
     "tailwindcss": "^4.3.5",
     "tsx": "^4.23.15",

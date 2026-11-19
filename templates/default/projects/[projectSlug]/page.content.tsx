@@ -1,9 +1,7 @@
-"use client"
-
-import React from "react";
 import {ArrowLeft, ArrowUpRight, ExternalLink, Image as ImageIcon} from "lucide-react";
 import styles from "./page.module.css";
 import {Badge} from "@/components/ui/badge";
+import {buttonVariants} from "@/components/ui/buttonVariants";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
@@ -11,7 +9,6 @@ import SmartLink from "@/components/ui/SmartLink";
 import {cn} from "@/lib/utils";
 import SmartText from "@/components/ui/SmartText";
 import type {PageContentProps} from "@/app/(app)/projects/[projectSlug]/page.types";
-import {buttonVariants} from "@/components/ui/buttonVariants";
 
 function PageContent({project, milestone, skills}: PageContentProps) {
   const links = (project.links || []);
@@ -99,7 +96,7 @@ function PageContent({project, milestone, skills}: PageContentProps) {
                       key={`${link.url}-${index}`}
                       href={link.url}
                       external
-                      className={cn("inline-flex h-8 items-center gap-2 rounded-lg border border-border bg-background px-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted", styles.projectLinkButton)}
+                      className={cn(buttonVariants({variant: "outline"}), styles.projectLinkButton)}
                       aria-label={`Open ${link.name} (opens in new tab)`}
                     >
                       <ExternalLink aria-hidden="true" /> {link.name} <ArrowUpRight className={styles.externalArrow} aria-hidden="true" />
