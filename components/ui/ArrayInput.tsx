@@ -167,7 +167,7 @@ function ArrayInput({
         <div className={"flex flex-wrap gap-2"}>
           {value.map((item, index) => (
             <span
-              key={`${item}-${index}`}
+              key={item}
               className={
                 "inline-flex max-w-full items-center gap-1 rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground"
               }

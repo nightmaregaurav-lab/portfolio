@@ -120,7 +120,7 @@ export function ConfirmDialog() {
                 const isLoading = loadingIndex === index;
                 return (
                   <Button
-                    key={index}
+                    key={action.label}
                     {...action.buttonProps}
                     type="button"
                     disabled={loading || action.buttonProps?.disabled}

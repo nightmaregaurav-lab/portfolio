@@ -177,8 +177,8 @@ function LeftPanel({
                 <SidebarMenu>
                   {menuItems
                     .filter((item) => item.show)
-                    .map((item, index) => (
-                      <SidebarMenuItem key={index}>
+                    .map((item) => (
+                      <SidebarMenuItem key={item.label}>
                         <SidebarMenuButton
                           render={
                             <SidebarCustomMenuItem
@@ -203,8 +203,8 @@ function LeftPanel({
               <SidebarGroupLabel>Quick Links</SidebarGroupLabel>
               <SidebarGroupContent>
                 <SidebarMenu>
-                  {quickLinksConfig.links.map((link, index) => (
-                    <SidebarMenuItem key={index}>
+                  {quickLinksConfig.links.map((link) => (
+                    <SidebarMenuItem key={link.title}>
                       <SidebarMenuButton
                         render={
                           <SidebarCustomMenuItem

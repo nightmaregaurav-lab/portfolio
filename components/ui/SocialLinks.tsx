@@ -833,7 +833,7 @@ function SocialLinks({
 
   return (
     <div className="flex flex-row flex-wrap justify-center gap-2.5">
-      {links.map((link, index) => {
+      {links.map((link) => {
         const normalizedName = link.name.trim().toLowerCase();
         const config = socialMediaIconConfig.find((config) =>
           config.names.includes(normalizedName),
@@ -843,7 +843,7 @@ function SocialLinks({
         }
         return (
           <SmartLink
-            key={`${normalizedName}-${link.url}-${index}`}
+            key={`${normalizedName}-${link.url}`}
             href={link.url}
             target="_blank"
             rel="noopener noreferrer"

@@ -863,7 +863,7 @@ function PageContent() {
           >
             {photosWatch.map((photo, index) => (
               <GalleryPhotoCard
-                key={index}
+                key={photo.id}
                 photo={photo}
                 index={index}
                 onEdit={() => openEditor(index)}

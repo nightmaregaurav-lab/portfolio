@@ -201,9 +201,9 @@ function GitHubFileManager({
           </div>
         )}
       <div className={"flex flex-row gap-2 overflow-x-auto py-1 mb-3"}>
-        {Object.entries(fileTypes ?? {}).map(([type, count], i) => (
+        {Object.entries(fileTypes ?? {}).map(([type, count]) => (
           <Badge
-            key={i}
+            key={type}
             variant={"secondary"}
             onClick={() =>
               setSelectedFileType(selectedFileType === type ? undefined : type)
@@ -283,10 +283,10 @@ function GitHubFileManager({
               "flex flex-col": viewMode === "list",
             })}
           >
-            {filteredRecentUploads.map((file, i) =>
+            {filteredRecentUploads.map((file) =>
               viewMode === "grid" ? (
                 <GitHubFileGridCard
-                  key={`recent-${i}`}
+                  key={`recent-${file.name}`}
                   file={file}
                   isAnySelected={selectedFiles.length > 0}
                   isSelected={selectedFiles.includes(file.name)}
@@ -307,7 +307,7 @@ function GitHubFileManager({
                 />
               ) : (
                 <GitHubFileListCard
-                  key={`recent-${i}`}
+                  key={`recent-${file.name}`}
                   file={file}
                   isAnySelected={selectedFiles.length > 0}
                   isSelected={selectedFiles.includes(file.name)}
@@ -341,10 +341,10 @@ function GitHubFileManager({
           "max-h-100": viewMode === "list",
         })}
       >
-        {filteredFiles?.map((file, i) =>
+        {filteredFiles?.map((file) =>
           viewMode === "grid" ? (
             <GitHubFileGridCard
-              key={i}
+              key={file.name}
               file={file}
               isAnySelected={selectedFiles.length > 0}
               isSelected={selectedFiles.includes(file.name)}
@@ -363,7 +363,7 @@ function GitHubFileManager({
             />
           ) : (
             <GitHubFileListCard
-              key={i}
+              key={file.name}
               file={file}
               isAnySelected={selectedFiles.length > 0}
               isSelected={selectedFiles.includes(file.name)}

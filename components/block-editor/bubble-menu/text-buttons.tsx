@@ -25,30 +25,35 @@ interface ToggleableChain {
 
 const textItems = [
   {
+    name: "bold",
     command: (e: Editor) =>
       (e.chain().focus() as unknown as ToggleableChain).toggleBold().run(),
     icon: DEFAULT_ICONS.boldIcon,
     isActive: (s: TextSelectorResult) => s.isBold,
   },
   {
+    name: "italic",
     command: (e: Editor) =>
       (e.chain().focus() as unknown as ToggleableChain).toggleItalic().run(),
     icon: DEFAULT_ICONS.italicIcon,
     isActive: (s: TextSelectorResult) => s.isItalic,
   },
   {
+    name: "underline",
     command: (e: Editor) =>
       (e.chain().focus() as unknown as ToggleableChain).toggleUnderline().run(),
     icon: DEFAULT_ICONS.underlineIcon,
     isActive: (s: TextSelectorResult) => s.isUnderline,
   },
   {
+    name: "strike",
     command: (e: Editor) =>
       (e.chain().focus() as unknown as ToggleableChain).toggleStrike().run(),
     icon: DEFAULT_ICONS.strikethroughIcon,
     isActive: (s: TextSelectorResult) => s.isStrike,
   },
   {
+    name: "code",
     command: (e: Editor) =>
       (e.chain().focus() as unknown as ToggleableChain).toggleCode().run(),
     icon: DEFAULT_ICONS.codeIcon,
@@ -71,9 +76,9 @@ export const TextButtons = ({ editor }: { editor: Editor }) => {
 
   return (
     <BubbleButtonGroup>
-      {textItems.map((item, i) => (
+      {textItems.map((item) => (
         <BubbleButton
-          key={i}
+          key={item.name}
           active={item.isActive(editorState)}
           onMouseDown={(e) => e.preventDefault()}
           onClick={() => item.command(editor)}

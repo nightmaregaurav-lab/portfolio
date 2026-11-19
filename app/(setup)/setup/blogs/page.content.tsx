@@ -694,16 +694,19 @@ function PageContent() {
 
         {editingBlogId === null ? (
           <>
-            {postsWatch.map((post, index) => (
+            {postsWatch.map((post) => (
               <div
-                key={index}
+                key={post.id}
                 className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}
               >
                 <BlogCardHeader
                   post={post}
                   isCurrentlyEditing={false}
                   onEdit={() => setEditingBlogId(post.id)}
-                  onDelete={() => deletePost(index)}
+                  onDelete={() => {
+                    const idx = posts.findIndex((p) => p.id === post.id);
+                    if (idx !== -1) deletePost(idx);
+                  }}
                 />
 
                 <div className={"grid gap-1 border-t pt-4"}>
