@@ -1,4 +1,5 @@
 import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
@@ -6,6 +7,7 @@ import {CoreConfig, HomeConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl, getSiteName} from "@/lib/pageMetadata";
 import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "./PageLoading";
 
 const templateType = getTemplateType("home");
 const PageContent = templateType === Templates.Client
@@ -32,10 +34,13 @@ function Page() {
   const canonical = getCanonicalUrl("/");
   return (
     <>
-      <PageContent
-        coreConfig={CoreConfig}
-        homeConfig={HomeConfig}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          coreConfig={CoreConfig}
+          homeConfig={HomeConfig}
+        />
+      </Suspense>
+
       <StructuredData data={{
         "@context": "https://schema.org",
         "@type": "WebPage",

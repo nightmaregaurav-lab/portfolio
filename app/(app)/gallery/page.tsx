@@ -1,4 +1,4 @@
-import React, {Suspense} from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
@@ -7,6 +7,7 @@ import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../PageLoading";
 
 const templateType = getTemplateType("gallery");
 const PageContent = templateType === Templates.Client
@@ -34,7 +35,7 @@ function Page() {
   const canonical = getCanonicalUrl("/gallery/");
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoading />}>
         <PageContent
           galleryConfig={GalleryConfig}
         />

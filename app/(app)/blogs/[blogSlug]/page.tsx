@@ -1,4 +1,5 @@
 import type React from "react";
+import {Suspense} from "react";
 import {join} from "node:path";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
@@ -10,6 +11,7 @@ import {getTemplateType, Templates} from "@/lib/templates";
 import type {BlogPost, PageContentProps} from "./page.types";
 import {readConfigurationFromFile} from "@/configuration/configurationFiles";
 import {buildSchema as blogSchema, type TOutput as BlogOutput} from "@/configuration/blog";
+import PageLoading from "../../PageLoading";
 
 const templateType = getTemplateType("blogs/[blogSlug]");
 const PageContent = templateType === Templates.Client
@@ -94,10 +96,12 @@ async function Page(
   const canonical = getCanonicalUrl("/blogs/" + blogSlug + "/");
   return (
     <>
-      <PageContent
-        post={post}
-        authorName={CoreConfig.fullName}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          post={post}
+          authorName={CoreConfig.fullName}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",

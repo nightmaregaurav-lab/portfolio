@@ -1,4 +1,5 @@
 import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
@@ -12,6 +13,7 @@ import {
   getCollectionPhotos,
   uncategorizedGalleryCategory
 } from "@/app/(app)/gallery/[collectionSlug]/page.utils";
+import PageLoading from "../../PageLoading";
 
 const templateType = getTemplateType("gallery/[collectionSlug]");
 const PageContent = templateType === Templates.Client
@@ -88,9 +90,11 @@ export default async function Page(
   const canonical = getCanonicalUrl("/gallery/" + collectionSlug + "/");
   return (
     <>
-      <PageContent
-        collection={collection}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          collection={collection}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",
