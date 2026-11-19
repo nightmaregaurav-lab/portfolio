@@ -4,7 +4,6 @@ import React from "react";
 import {ArrowLeft, ArrowUpRight, ExternalLink, Image as ImageIcon} from "lucide-react";
 import styles from "./page.module.css";
 import {Badge} from "@/components/ui/badge";
-import {buttonVariants} from "@/components/ui/button";
 import {Card, CardContent, CardDescription, CardHeader, CardTitle} from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
@@ -12,6 +11,7 @@ import SmartLink from "@/components/ui/SmartLink";
 import {cn} from "@/lib/utils";
 import SmartText from "@/components/ui/SmartText";
 import type {PageContentProps} from "@/app/(app)/projects/[projectSlug]/page.types";
+import {buttonVariants} from "@/components/ui/buttonVariants";
 
 function PageContent({project, milestone, skills}: PageContentProps) {
   const links = (project.links || []);
