@@ -1,8 +1,9 @@
 import type React from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
+import StructuredData from "@/components/StructuredData";
 import {CoreConfig, HomeConfig, NavigationConfig} from "@/configuration";
-import {createPageMetadata, getSiteName} from "@/lib/pageMetadata";
+import {createPageMetadata, getCanonicalUrl, getSiteName} from "@/lib/pageMetadata";
 import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
 
@@ -28,11 +29,28 @@ function Page() {
   if (!PageContent) {
     notFound();
   }
+  const canonical = getCanonicalUrl("/");
   return (
-    <PageContent
-      coreConfig={CoreConfig}
-      homeConfig={HomeConfig}
-    />
+    <>
+      <PageContent
+        coreConfig={CoreConfig}
+        homeConfig={HomeConfig}
+      />
+      <StructuredData data={{
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        name: CoreConfig.fullName,
+        description: CoreConfig.seoDescription || HomeConfig.bio,
+        ...(canonical ? {url: canonical} : {}),
+        image: HomeConfig.coverPicture || NavigationConfig.profilePicture || CoreConfig.favicon,
+        mainEntity: {
+          "@type": "Person",
+          name: CoreConfig.fullName,
+          image: HomeConfig.coverPicture || NavigationConfig.profilePicture || CoreConfig.favicon,
+          description: HomeConfig.bio,
+        },
+      }} />
+    </>
   );
 }
 
