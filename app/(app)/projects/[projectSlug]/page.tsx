@@ -1,18 +1,24 @@
-import {existsSync} from "node:fs";
+import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
-import {join} from "node:path";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, JourneyConfig, ProjectsConfig, SkillsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../../PageLoading";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "projects", "[projectSlug]", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/projects/[projectSlug]/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("projects/[projectSlug]");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/projects/[projectSlug]/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/projects/[projectSlug]/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 export const dynamicParams = false;
 
@@ -57,7 +63,7 @@ async function Page(
   {params}: { params: Promise<{projectSlug: string}>; }
 ) {
   const {projectSlug} = await params;
-  if (!contentExists) {
+  if (!PageContent) {
     notFound();
   }
   const project = findProject(projectSlug);
@@ -76,11 +82,13 @@ async function Page(
   const canonical = getCanonicalUrl("/projects/" + projectSlug + "/");
   return (
     <>
-      <PageContent
-        project={project}
-        milestone={milestone}
-        skills={linkedSkills}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          project={project}
+          milestone={milestone}
+          skills={linkedSkills}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",

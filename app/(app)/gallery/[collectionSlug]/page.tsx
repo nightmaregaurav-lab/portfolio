@@ -1,23 +1,29 @@
-import {existsSync} from "node:fs";
+import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
-import {join} from "node:path";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, GalleryConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {GalleryCollection, PageContentProps} from "./page.types";
 import {
   getCollectionCover,
   getCollectionPhotos,
   uncategorizedGalleryCategory
 } from "@/app/(app)/gallery/[collectionSlug]/page.utils";
+import PageLoading from "../../PageLoading";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "gallery", "[collectionSlug]", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/gallery/[collectionSlug]/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("gallery/[collectionSlug]");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/gallery/[collectionSlug]/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/gallery/[collectionSlug]/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 export const dynamicParams = false;
 
@@ -73,7 +79,7 @@ export default async function Page(
   {params}: { params: Promise<{collectionSlug: string}>; }
 ) {
   const {collectionSlug} = await params;
-  if (!contentExists) {
+  if (!PageContent) {
     notFound();
   }
   const collection = findCollection(collectionSlug);
@@ -84,9 +90,11 @@ export default async function Page(
   const canonical = getCanonicalUrl("/gallery/" + collectionSlug + "/");
   return (
     <>
-      <PageContent
-        collection={collection}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          collection={collection}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",

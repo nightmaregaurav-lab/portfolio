@@ -1,18 +1,24 @@
-import {join} from "node:path";
-import {existsSync} from "node:fs";
+import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
+import StructuredData from "@/components/StructuredData";
 import {CoreConfig, SkillsConfig, JourneyConfig, ProjectsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import StructuredData from "@/components/StructuredData";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../PageLoading";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "skills", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/skills/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("skills");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/skills/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/skills/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 const description = stripHtmlTags(SkillsConfig.summary).slice(0, 300);
 
@@ -24,17 +30,19 @@ export const metadata = createPageMetadata({
 });
 
 function Page() {
-  if (!contentExists) {
+  if (!PageContent) {
     notFound();
   }
   const canonical = getCanonicalUrl("/skills/");
   return (
     <>
-      <PageContent
-        skillsConfig={SkillsConfig}
-        journeyConfig={JourneyConfig}
-        projectsConfig={ProjectsConfig}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          skillsConfig={SkillsConfig}
+          journeyConfig={JourneyConfig}
+          projectsConfig={ProjectsConfig}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",

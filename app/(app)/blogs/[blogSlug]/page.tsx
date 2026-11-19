@@ -1,20 +1,27 @@
-import {existsSync} from "node:fs";
-import dynamic from "next/dynamic";
+import type React from "react";
+import {Suspense} from "react";
 import {join} from "node:path";
+import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
 import {CoreConfig, BlogsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {BlogPost, PageContentProps} from "./page.types";
 import {readConfigurationFromFile} from "@/configuration/configurationFiles";
 import {buildSchema as blogSchema, type TOutput as BlogOutput} from "@/configuration/blog";
+import PageLoading from "../../PageLoading";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "blogs", "[blogSlug]", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/blogs/[blogSlug]/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("blogs/[blogSlug]");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/blogs/[blogSlug]/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/blogs/[blogSlug]/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 export const dynamicParams = false;
 
@@ -74,11 +81,11 @@ export async function generateMetadata(
   });
 }
 
-export default async function Page(
+async function Page(
   {params}: { params: Promise<{blogSlug: string}>; }
 ) {
   const {blogSlug} = await params;
-  if (!contentExists) {
+  if (!PageContent) {
     notFound();
   }
   const post = findBlogPost(blogSlug);
@@ -89,10 +96,12 @@ export default async function Page(
   const canonical = getCanonicalUrl("/blogs/" + blogSlug + "/");
   return (
     <>
-      <PageContent
-        post={post}
-        authorName={CoreConfig.fullName}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          post={post}
+          authorName={CoreConfig.fullName}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",
@@ -108,3 +117,5 @@ export default async function Page(
     </>
   );
 }
+
+export default Page;

@@ -1,5 +1,4 @@
-import {join} from "node:path";
-import {existsSync} from "node:fs";
+import type React from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import StructuredData from "@/components/StructuredData";
@@ -7,13 +6,19 @@ import {CoreConfig, BlogsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import {Suspense} from "react";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../PageLoading";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "blogs", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/blogs/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("blogs");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/blogs/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/blogs/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 const description = stripHtmlTags(BlogsConfig.summary).slice(0, 300);
 
@@ -24,14 +29,14 @@ export const metadata = createPageMetadata({
   image: NavigationConfig.profilePicture || CoreConfig.favicon,
 });
 
-export default function Page() {
-  if (!contentExists) {
+function Page() {
+  if (!PageContent) {
     notFound();
   }
   const canonical = getCanonicalUrl("/blogs/");
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoading />}>
         <PageContent
           blogsConfig={BlogsConfig}
         />
@@ -48,3 +53,5 @@ export default function Page() {
     </>
   );
 }
+
+export default Page;

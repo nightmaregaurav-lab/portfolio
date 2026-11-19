@@ -4,22 +4,22 @@ type StructuredDataProps = {
   data: Record<string, unknown>;
 };
 
-function renderMicrodataItem(item: Record<string, unknown>, itemType: string, key?: string) {
+function renderMicrodataItem(item: Record<string, unknown>, itemType: string, rootKey?: string) {
   const children: React.ReactNode[] = [];
   let childIndex = 0;
 
-  for (const [key, value] of Object.entries(item)) {
-    if (key.startsWith("@")) continue;
+  for (const [propKey, value] of Object.entries(item)) {
+    if (propKey.startsWith("@")) continue;
 
     const items = Array.isArray(value) ? value : [value];
     for (const v of items) {
       if (typeof v === "object" && v !== null && !Array.isArray(v)) {
         const nestedType = (v as Record<string, unknown>)["@type"] as string | undefined;
         if (nestedType) {
-          children.push(renderMicrodataItem(v as Record<string, unknown>, nestedType));
+          children.push(renderMicrodataItem(v as Record<string, unknown>, nestedType, childKey(propKey, childIndex++)));
         } else {
           children.push(
-            <div key={childKey(key, childIndex - (items.length - 1))} itemProp={key}>
+            <div key={childKey(propKey, childIndex++)} itemProp={propKey}>
               {Object.entries(v as Record<string, unknown>).map(([k, val]) => (
                 <span key={childKey(k, 0)} itemProp={k}>{String(val)}</span>
               ))}
@@ -27,13 +27,13 @@ function renderMicrodataItem(item: Record<string, unknown>, itemType: string, ke
           );
         }
       } else {
-        children.push(<meta key={childKey(key, childIndex++)} itemProp={key} content={String(v)} />);
+        children.push(<meta key={childKey(propKey, childIndex++)} itemProp={propKey} content={String(v)} />);
       }
     }
   }
 
   return (
-    <div key={key} itemScope itemType={`https://schema.org/${itemType}`} style={{display: "none"}} aria-hidden="true">
+    <div key={rootKey ?? itemType} itemScope itemType={`https://schema.org/${itemType}`} style={{display: "none"}} aria-hidden="true">
       {children}
     </div>
   );
