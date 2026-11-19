@@ -1,6 +1,3 @@
-"use client";
-
-import React, {useMemo} from "react";
 import {ArrowUpRight} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
@@ -125,7 +122,7 @@ function TimelineEntry({event}: {event: TimelineEvent}) {
 }
 
 export default function PageContent({journeyConfig}: PageContentProps) {
-  const events = useMemo(() => getTimelineEvents(journeyConfig.milestones || []), [journeyConfig.milestones]);
+  const events = getTimelineEvents(journeyConfig.milestones || []);
 
   return (
     <article className={styles.page} aria-label="My journey">

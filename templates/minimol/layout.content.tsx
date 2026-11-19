@@ -1,5 +1,3 @@
-"use client"
-
 import "./theme.css";
 import "./cards.css";
 

@@ -1,5 +1,3 @@
-"use client"
-
 import {ArrowUpRight} from "lucide-react";
 import {Avatar, AvatarFallback, AvatarImage} from "@/components/ui/avatar";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
