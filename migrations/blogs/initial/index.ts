@@ -1,14 +1,16 @@
-import {join} from "node:path";
-import {existsSync} from "node:fs";
-import {getConfigurationDirectory} from "@/configuration/configurationFiles";
-import {defaultValues} from "@/configuration/blogs";
+import { existsSync } from "node:fs";
+import { join } from "node:path";
+import { defaultValues } from "@/configuration/blogs";
+import { getConfigurationDirectory } from "@/configuration/configurationFiles";
 
 export function initialBlogsMigration(): unknown {
   const configDirectory = getConfigurationDirectory();
 
   const configPath = join(configDirectory, "blogs.json");
   if (existsSync(configPath)) {
-    throw new Error(`Configuration file "blogs.json" already exists. Initial migration cannot be performed.`);
+    throw new Error(
+      `Configuration file "blogs.json" already exists. Initial migration cannot be performed.`,
+    );
   }
 
   return defaultValues;

@@ -1,1 +1,1 @@
-export {default} from "@/templates/default/services/page.content";
+export { default } from "@/templates/default/services/page.content";

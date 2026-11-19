@@ -257,10 +257,10 @@ You can also run the application locally for development and customization.
 
 ### Prerequisites
 
-| Dependency | Version |
-|---|---|
-| Node.js | `26.13.0` |
-| pnpm | `12.18.0` |
+| Dependency | Version   |
+| ---------- | --------- |
+| Node.js    | `26.13.0` |
+| pnpm       | `12.18.0` |
 
 ### Installation
 
@@ -297,14 +297,14 @@ The `local-config/` directory is ignored by Git and should never be committed.
 
 ### Available scripts
 
-| Command | Description |
-|---|---|
-| `pnpm dev` | Start the development server. |
-| `pnpm build` | Generate the static production build. |
-| `pnpm start` | Start the Next.js production server. |
-| `pnpm lint` | Run ESLint. |
-| `pnpm migrate-config` | Migrate configuration files to their latest supported versions. |
-| `pnpm migrate-config:dev` | Run configuration migrations in development mode. |
+| Command                   | Description                                                     |
+| ------------------------- | --------------------------------------------------------------- |
+| `pnpm dev`                | Start the development server.                                   |
+| `pnpm build`              | Generate the static production build.                           |
+| `pnpm start`              | Start the Next.js production server.                            |
+| `pnpm lint`               | Run ESLint.                                                     |
+| `pnpm migrate-config`     | Migrate configuration files to their latest supported versions. |
+| `pnpm migrate-config:dev` | Run configuration migrations in development mode.               |
 
 ---
 
@@ -312,20 +312,20 @@ The `local-config/` directory is ignored by Git and should never be committed.
 
 The project uses a modern React and TypeScript ecosystem.
 
-| Technology | Purpose |
-|---|---|
-| [Next.js](https://nextjs.org/) | Application framework and static site generation. |
-| [React](https://react.dev/) | Component-based user interface. |
-| [TypeScript](https://www.typescriptlang.org/) | Type-safe application development. |
-| [Tailwind CSS](https://tailwindcss.com/) | Utility-first styling. |
-| [Base UI](https://base-ui.com/) | Accessible UI primitives. |
-| [TanStack Query](https://tanstack.com/query) | Client-side data fetching and mutations. |
-| [React Hook Form](https://react-hook-form.com/) | Form state management. |
-| [Zod](https://zod.dev/) | Configuration and form validation. |
-| [Tiptap](https://tiptap.dev/) | Rich-text editing. |
-| [GitHub REST API](https://docs.github.com/en/rest) | Content storage and management. |
-| [GitHub Actions](https://github.com/features/actions) | Automated builds, deployments, and maintenance. |
-| [GitHub Pages](https://pages.github.com/) | Static website hosting. |
+| Technology                                            | Purpose                                           |
+| ----------------------------------------------------- | ------------------------------------------------- |
+| [Next.js](https://nextjs.org/)                        | Application framework and static site generation. |
+| [React](https://react.dev/)                           | Component-based user interface.                   |
+| [TypeScript](https://www.typescriptlang.org/)         | Type-safe application development.                |
+| [Tailwind CSS](https://tailwindcss.com/)              | Utility-first styling.                            |
+| [Base UI](https://base-ui.com/)                       | Accessible UI primitives.                         |
+| [TanStack Query](https://tanstack.com/query)          | Client-side data fetching and mutations.          |
+| [React Hook Form](https://react-hook-form.com/)       | Form state management.                            |
+| [Zod](https://zod.dev/)                               | Configuration and form validation.                |
+| [Tiptap](https://tiptap.dev/)                         | Rich-text editing.                                |
+| [GitHub REST API](https://docs.github.com/en/rest)    | Content storage and management.                   |
+| [GitHub Actions](https://github.com/features/actions) | Automated builds, deployments, and maintenance.   |
+| [GitHub Pages](https://pages.github.com/)             | Static website hosting.                           |
 
 ---
 

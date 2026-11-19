@@ -1,13 +1,13 @@
-import {slugify} from "@/lib/slugs";
-import {isNullOrWhitespace} from "@/lib/string";
-import {createConfigurationId} from "@/lib/configurationUtils";
+import { createConfigurationId } from "@/lib/configurationUtils";
+import { slugify } from "@/lib/slugs";
+import { isNullOrWhitespace } from "@/lib/string";
 
 export function migrateProjectsToV1(configuration: unknown): unknown {
   if (typeof configuration !== "object" || configuration === null) {
     throw new Error("Invalid configuration format for migration.");
   }
 
-  const value = configuration as {projects?: unknown};
+  const value = configuration as { projects?: unknown };
   if (!Array.isArray(value.projects)) {
     return configuration;
   }
@@ -17,13 +17,16 @@ export function migrateProjectsToV1(configuration: unknown): unknown {
       project.id = createConfigurationId("project");
     }
 
-    const exhaustedSlugsExceptThisProject = new Set(value
-      .projects
-      .filter(x => x.id != project.id)
-      .flatMap(x => x.slugs)
-      .map(x => x.slug)
+    const exhaustedSlugsExceptThisProject = new Set(
+      value.projects
+        .filter((x) => x.id !== project.id)
+        .flatMap((x) => x.slugs)
+        .map((x) => x.slug),
     );
-    const activeSlugCandidate = slugify(project.title, exhaustedSlugsExceptThisProject);
+    const activeSlugCandidate = slugify(
+      project.title,
+      exhaustedSlugsExceptThisProject,
+    );
     let foundActiveSlug = false;
     for (const slugEntry of project.slugs) {
       if (slugEntry.slug === activeSlugCandidate) {
@@ -33,10 +36,10 @@ export function migrateProjectsToV1(configuration: unknown): unknown {
       }
       slugEntry.isActive = false;
     }
-    if(!foundActiveSlug){
+    if (!foundActiveSlug) {
       project.slugs.push({
         slug: activeSlugCandidate,
-        isActive: true
+        isActive: true,
       });
     }
   }

@@ -1,10 +1,18 @@
-import {ArrowUpRight, Award, BriefcaseBusiness, CalendarDays, GraduationCap, Heart, Milestone as MilestoneIcon} from "lucide-react";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import SmartLink from "@/components/ui/SmartLink";
+import {
+  ArrowUpRight,
+  Award,
+  BriefcaseBusiness,
+  CalendarDays,
+  GraduationCap,
+  Heart,
+  Milestone as MilestoneIcon,
+} from "lucide-react";
+import type { PageContentProps } from "@/app/(app)/journey/page.types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import SmartLink from "@/components/ui/SmartLink";
+import type { TModel as JourneyModel } from "@/configuration/journey";
 import styles from "./page.module.css";
-import type {PageContentProps} from "@/app/(app)/journey/page.types";
-import type {TModel as JourneyModel} from "@/configuration/journey";
 
 type Milestone = JourneyModel["milestones"][number];
 type EventKind = "complete" | "start" | "end";
@@ -17,24 +25,31 @@ type TimelineEvent = {
 };
 
 const typeMeta = {
-  Academic: {icon: GraduationCap, label: "Academic"},
-  Professional: {icon: BriefcaseBusiness, label: "Professional"},
-  Personal: {icon: Heart, label: "Personal"},
+  Academic: { icon: GraduationCap, label: "Academic" },
+  Professional: { icon: BriefcaseBusiness, label: "Professional" },
+  Personal: { icon: Heart, label: "Personal" },
 } as const;
 
 function formatDate(value: string) {
   if (!value) return "Ongoing";
-  return new Intl.DateTimeFormat("en", {month: "short", year: "numeric"}).format(new Date(value + "T00:00:00"));
+  return new Intl.DateTimeFormat("en", {
+    month: "short",
+    year: "numeric",
+  }).format(new Date(`${value}T00:00:00`));
 }
 
 function overlaps(milestone: Milestone, milestones: Milestone[]) {
   const start = new Date(milestone.start).getTime();
-  const end = milestone.end ? new Date(milestone.end).getTime() : Number.POSITIVE_INFINITY;
+  const end = milestone.end
+    ? new Date(milestone.end).getTime()
+    : Number.POSITIVE_INFINITY;
 
   return milestones.some((other) => {
     if (other.id === milestone.id) return false;
     const otherStart = new Date(other.start).getTime();
-    const otherEnd = other.end ? new Date(other.end).getTime() : Number.POSITIVE_INFINITY;
+    const otherEnd = other.end
+      ? new Date(other.end).getTime()
+      : Number.POSITIVE_INFINITY;
     return start <= otherEnd && otherStart <= end;
   });
 }
@@ -44,51 +59,83 @@ function getTimelineEvents(milestones: Milestone[]) {
 
   milestones.forEach((milestone) => {
     if (overlaps(milestone, milestones) && milestone.end) {
-      events.push({id: milestone.id, milestone, kind: "start", date: milestone.start});
-      events.push({id: milestone.id + "-end", milestone, kind: "end", date: milestone.end});
+      events.push({
+        id: milestone.id,
+        milestone,
+        kind: "start",
+        date: milestone.start,
+      });
+      events.push({
+        id: `${milestone.id}-end`,
+        milestone,
+        kind: "end",
+        date: milestone.end,
+      });
       return;
     }
 
-    events.push({id: milestone.id, milestone, kind: "complete", date: milestone.end || milestone.start});
+    events.push({
+      id: milestone.id,
+      milestone,
+      kind: "complete",
+      date: milestone.end || milestone.start,
+    });
   });
 
   return events.sort((a, b) => {
-    const dateDifference = new Date(b.date).getTime() - new Date(a.date).getTime();
+    const dateDifference =
+      new Date(b.date).getTime() - new Date(a.date).getTime();
     if (dateDifference !== 0) return dateDifference;
     if (a.kind === b.kind) return 0;
     return a.kind === "end" ? -1 : 1;
   });
 }
 
-function EventIcon({type}: {type: Milestone["type"]}) {
+function EventIcon({ type }: { type: Milestone["type"] }) {
   const Icon = typeMeta[type].icon;
-  return <Icon size={18} aria-hidden="true"/>;
+  return <Icon size={18} aria-hidden="true" />;
 }
 
-function EventDetails({milestone, kind}: {milestone: Milestone; kind: EventKind}) {
+function EventDetails({
+  milestone,
+  kind,
+}: {
+  milestone: Milestone;
+  kind: EventKind;
+}) {
   const showDetails = kind !== "end";
 
   return (
     <>
       {showDetails && (
         <>
-          <HtmlRenderer className={styles.description}>{milestone.description}</HtmlRenderer>
+          <HtmlRenderer className={styles.description}>
+            {milestone.description}
+          </HtmlRenderer>
 
           {!!milestone.points?.length && (
             <ul className={styles.points}>
-              {milestone.points.map((point) => <li key={point}>{point}</li>)}
+              {milestone.points.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
             </ul>
           )}
 
           {!!milestone.achievements?.length && (
             <div className={styles.achievements}>
-              <h3><Award size={15} aria-hidden="true"/> Highlights</h3>
+              <h3>
+                <Award size={15} aria-hidden="true" /> Highlights
+              </h3>
               <ul>
                 {milestone.achievements.map((achievement) => (
                   <li key={achievement.title + achievement.on}>
                     <strong>{achievement.title}</strong>
                     <span>{achievement.description}</span>
-                    {achievement.on && <time dateTime={achievement.on}>{formatDate(achievement.on)}</time>}
+                    {achievement.on && (
+                      <time dateTime={achievement.on}>
+                        {formatDate(achievement.on)}
+                      </time>
+                    )}
                   </li>
                 ))}
               </ul>
@@ -107,19 +154,31 @@ function EventDetails({milestone, kind}: {milestone: Milestone; kind: EventKind}
   );
 }
 
-function TimelineCard({event}: {event: TimelineEvent}) {
-  const {milestone, kind} = event;
+function TimelineCard({ event }: { event: TimelineEvent }) {
+  const { milestone, kind } = event;
   const organisation = milestone.organisation || milestone.department;
 
   return (
-    <Card id={event.id} className={styles.timelineCard} data-type={milestone.type} data-kind={kind}>
+    <Card
+      id={event.id}
+      className={styles.timelineCard}
+      data-type={milestone.type}
+      data-kind={kind}
+    >
       <CardHeader className={styles.cardHeader}>
         <div className={styles.cardTopline}>
-          <span className={styles.typeLabel}><EventIcon type={milestone.type}/>{typeMeta[milestone.type].label}</span>
+          <span className={styles.typeLabel}>
+            <EventIcon type={milestone.type} />
+            {typeMeta[milestone.type].label}
+          </span>
           {kind !== "complete" && (
             <time className={styles.date} dateTime={event.date}>
-              <CalendarDays size={16} aria-hidden="true"/>
-              {kind === "start" ? "Started: " : kind === "end" ? "Ended: " : "Started: "}
+              <CalendarDays size={16} aria-hidden="true" />
+              {kind === "start"
+                ? "Started: "
+                : kind === "end"
+                  ? "Ended: "
+                  : "Started: "}
               {formatDate(event.date)}
             </time>
           )}
@@ -127,11 +186,19 @@ function TimelineCard({event}: {event: TimelineEvent}) {
         <CardTitle className={styles.cardTitle}>{milestone.title}</CardTitle>
         {kind === "complete" && (
           <div className={styles.dateRange}>
-            <CalendarDays className={styles.dateRangeIcon} size={22} aria-hidden="true"/>
+            <CalendarDays
+              className={styles.dateRangeIcon}
+              size={22}
+              aria-hidden="true"
+            />
             <div>
-              <time dateTime={milestone.start}>Started: {formatDate(milestone.start)}</time>
+              <time dateTime={milestone.start}>
+                Started: {formatDate(milestone.start)}
+              </time>
               {milestone.end ? (
-                <time dateTime={milestone.end}>Ended: {formatDate(milestone.end)}</time>
+                <time dateTime={milestone.end}>
+                  Ended: {formatDate(milestone.end)}
+                </time>
               ) : (
                 <span>PRESENT</span>
               )}
@@ -146,9 +213,9 @@ function TimelineCard({event}: {event: TimelineEvent}) {
                 href={milestone.organizationWebsite}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={"Visit " + milestone.organisation}
+                aria-label={`Visit ${milestone.organisation}`}
               >
-                <ArrowUpRight size={14} aria-hidden="true"/>
+                <ArrowUpRight size={14} aria-hidden="true" />
               </SmartLink>
             )}
           </div>
@@ -161,24 +228,26 @@ function TimelineCard({event}: {event: TimelineEvent}) {
                 href={milestone.departmentWebsite}
                 target="_blank"
                 rel="noreferrer"
-                aria-label={"Visit " + milestone.department}
+                aria-label={`Visit ${milestone.department}`}
               >
-                <ArrowUpRight size={14} aria-hidden="true"/>
+                <ArrowUpRight size={14} aria-hidden="true" />
               </SmartLink>
             )}
           </div>
         )}
       </CardHeader>
       <CardContent className={styles.cardContent}>
-        <EventDetails milestone={milestone} kind={kind}/>
+        <EventDetails milestone={milestone} kind={kind} />
       </CardContent>
     </Card>
   );
 }
 
-function PageContent({journeyConfig}: PageContentProps) {
+function PageContent({ journeyConfig }: PageContentProps) {
   const events = getTimelineEvents(journeyConfig.milestones || []);
-  const summary = journeyConfig.summary || "Every chapter has a beginning, a lesson, and a direction. Here are the moments that shaped the way I work and what I care about.";
+  const summary =
+    journeyConfig.summary ||
+    "Every chapter has a beginning, a lesson, and a direction. Here are the moments that shaped the way I work and what I care about.";
 
   return (
     <main className={styles.page} aria-label="My Journey">
@@ -192,20 +261,27 @@ function PageContent({journeyConfig}: PageContentProps) {
           <h2 className="sr-only">Journey milestones</h2>
           <div className={styles.timeline} aria-live="polite">
             {events.map((event, index) => (
-              <article className={styles.timelineItem} data-side={index % 2 === 0 ? "left" : "right"} key={event.id}>
+              <article
+                className={styles.timelineItem}
+                data-side={index % 2 === 0 ? "left" : "right"}
+                key={event.id}
+              >
                 <div className={styles.marker} data-type={event.milestone.type}>
-                  <EventIcon type={event.milestone.type}/>
+                  <EventIcon type={event.milestone.type} />
                 </div>
-                <TimelineCard event={event}/>
+                <TimelineCard event={event} />
               </article>
             ))}
           </div>
         </section>
       ) : (
         <section className={styles.emptyState} aria-label="Journey milestones">
-          <MilestoneIcon size={28} aria-hidden="true"/>
+          <MilestoneIcon size={28} aria-hidden="true" />
           <h2>The next chapter is taking shape.</h2>
-          <p>Milestones will appear here once they are added from the journey settings.</p>
+          <p>
+            Milestones will appear here once they are added from the journey
+            settings.
+          </p>
         </section>
       )}
     </main>

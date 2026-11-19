@@ -1,5 +1,5 @@
-import {encodeBase64} from "@/lib/encodings";
-import {isNullOrWhitespace} from "@/lib/string";
+import { encodeBase64 } from "@/lib/encodings";
+import { isNullOrWhitespace } from "@/lib/string";
 
 export type GitHubUser = {
   login: string;
@@ -48,29 +48,40 @@ export async function getGitHubFileContent(
   repository: string,
   filePath: string,
 ): Promise<string> {
-  if (!pat || !repository || isNullOrWhitespace(pat) || isNullOrWhitespace(repository)) {
-    throw new Error("You have not logged in yet. Please log in to use this feature.");
+  if (
+    !pat ||
+    !repository ||
+    isNullOrWhitespace(pat) ||
+    isNullOrWhitespace(repository)
+  ) {
+    throw new Error(
+      "You have not logged in yet. Please log in to use this feature.",
+    );
   }
 
   const url = createGitHubContentsUrl(repository, filePath);
-  const response = await fetch(
-    url,
-    {
-      method: "GET",
-      headers: createGitHubHeaders(pat),
-    }
-  );
+  const response = await fetch(url, {
+    method: "GET",
+    headers: createGitHubHeaders(pat),
+  });
 
   if (response.status === 404) return "";
   if (!response.ok) {
-    throw new Error(`Failed to read "${filePath}": ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Failed to read "${filePath}": ${response.status} ${response.statusText}`,
+    );
   }
 
-  const file = await response.json() as GitHubContent & {content?: string; encoding?: string};
+  const file = (await response.json()) as GitHubContent & {
+    content?: string;
+    encoding?: string;
+  };
   if (!file.content || file.encoding !== "base64") return "";
 
   const binary = atob(file.content.replace(/\s/g, ""));
-  return new TextDecoder().decode(Uint8Array.from(binary, (character) => character.charCodeAt(0)));
+  return new TextDecoder().decode(
+    Uint8Array.from(binary, (character) => character.charCodeAt(0)),
+  );
 }
 
 export interface GitHubCreateFileRequest {
@@ -91,10 +102,7 @@ function createGitHubHeaders(token: string): HeadersInit {
   };
 }
 
-function createGitHubContentsUrl(
-  repo: string,
-  path: string,
-): string {
+function createGitHubContentsUrl(repo: string, path: string): string {
   const normalizedPath = path.replace(/^\/+|\/+$/g, "");
   const ownerRepo = repo.trim().split("/").filter(Boolean);
   if (ownerRepo.length !== 2) {
@@ -109,21 +117,27 @@ export async function listGitHubFiles(
   repository: string,
   folderPath: string,
 ): Promise<GitHubContent[]> {
-  if (!pat || !repository || isNullOrWhitespace(pat) || isNullOrWhitespace(repository)) {
-    throw new Error("You have not logged in yet. Please log in to use this feature.");
+  if (
+    !pat ||
+    !repository ||
+    isNullOrWhitespace(pat) ||
+    isNullOrWhitespace(repository)
+  ) {
+    throw new Error(
+      "You have not logged in yet. Please log in to use this feature.",
+    );
   }
 
   const url = createGitHubContentsUrl(repository, folderPath);
-  const response = await fetch(
-    url,
-    {
-      method: "GET",
-      headers: createGitHubHeaders(pat),
-    },
-  );
+  const response = await fetch(url, {
+    method: "GET",
+    headers: createGitHubHeaders(pat),
+  });
 
   if (!response.ok) {
-    throw new Error(`Failed to list files in the folder "${folderPath}": ${response.status} ${response.statusText}`);
+    throw new Error(
+      `Failed to list files in the folder "${folderPath}": ${response.status} ${response.statusText}`,
+    );
   }
 
   const items = (await response.json()) as GitHubContent[];
@@ -131,7 +145,9 @@ export async function listGitHubFiles(
     return [];
   }
 
-  return items.filter((item) => item.type === "file" && item.name !== ".gitkeep");
+  return items.filter(
+    (item) => item.type === "file" && item.name !== ".gitkeep",
+  );
 }
 
 export async function deleteGitHubFiles(
@@ -140,8 +156,15 @@ export async function deleteGitHubFiles(
   folderPath: string,
   fileNames: string[],
 ): Promise<void> {
-  if (!pat || !repository || isNullOrWhitespace(pat) || isNullOrWhitespace(repository)) {
-    throw new Error("You have not logged in yet. Please log in to use this feature.");
+  if (
+    !pat ||
+    !repository ||
+    isNullOrWhitespace(pat) ||
+    isNullOrWhitespace(repository)
+  ) {
+    throw new Error(
+      "You have not logged in yet. Please log in to use this feature.",
+    );
   }
 
   if (fileNames.length === 0) {
@@ -153,41 +176,39 @@ export async function deleteGitHubFiles(
   for (const fileName of uniqueFileNames) {
     const filePath = `${folderPath.replace(/\/+$/, "")}/${fileName.replace(/^\/+/, "")}`;
     const url = createGitHubContentsUrl(repository, filePath);
-    const fileResponse = await fetch(
-      url,
-      {
-        method: "GET",
-        headers: createGitHubHeaders(pat),
-      },
-    );
+    const fileResponse = await fetch(url, {
+      method: "GET",
+      headers: createGitHubHeaders(pat),
+    });
 
     if (fileResponse.status === 404) {
       continue;
     }
 
     if (!fileResponse.ok) {
-      throw new Error(`Failed to fetch info for "${fileName}": ${fileResponse.status} ${fileResponse.statusText}`);
+      throw new Error(
+        `Failed to fetch info for "${fileName}": ${fileResponse.status} ${fileResponse.statusText}`,
+      );
     }
 
     const file = (await fileResponse.json()) as GitHubContent;
 
-    const deleteResponse = await fetch(
-      url,
-      {
-        method: "DELETE",
-        headers: {
-          ...createGitHubHeaders(pat),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          message: `Delete ${filePath}`,
-          sha: file.sha,
-        }),
+    const deleteResponse = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        ...createGitHubHeaders(pat),
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify({
+        message: `Delete ${filePath}`,
+        sha: file.sha,
+      }),
+    });
 
     if (!deleteResponse.ok) {
-      throw new Error(`Failed to delete "${fileName}": ${deleteResponse.status} ${deleteResponse.statusText}`);
+      throw new Error(
+        `Failed to delete "${fileName}": ${deleteResponse.status} ${deleteResponse.statusText}`,
+      );
     }
   }
 }
@@ -199,8 +220,15 @@ export async function uploadGitHubFiles(
   files: GitHubCreateFileRequest[],
   options?: GitHubUploadOptions,
 ): Promise<number> {
-  if (!pat || !repository || isNullOrWhitespace(pat) || isNullOrWhitespace(repository)) {
-    throw new Error("You have not logged in yet. Please log in to use this feature.");
+  if (
+    !pat ||
+    !repository ||
+    isNullOrWhitespace(pat) ||
+    isNullOrWhitespace(repository)
+  ) {
+    throw new Error(
+      "You have not logged in yet. Please log in to use this feature.",
+    );
   }
 
   if (files.length === 0) {
@@ -211,25 +239,24 @@ export async function uploadGitHubFiles(
   for (const file of files) {
     const filePath = `${folderPath.replace(/\/+$/, "")}/${file.name.replace(/^\/+/, "")}`;
     const url = createGitHubContentsUrl(repository, filePath);
-    const existingFileResponse = await fetch(
-      url,
-      {
-        method: "GET",
-        headers: createGitHubHeaders(pat),
-      },
-    );
+    const existingFileResponse = await fetch(url, {
+      method: "GET",
+      headers: createGitHubHeaders(pat),
+    });
 
     let sha: string | undefined;
     if (existingFileResponse.ok) {
       const existingFile = (await existingFileResponse.json()) as GitHubContent;
       sha = existingFile.sha;
     } else if (existingFileResponse.status !== 404) {
-      throw new Error(`Failed to fetch info for "${file.name}": ${existingFileResponse.status} ${existingFileResponse.statusText}`);
+      throw new Error(
+        `Failed to fetch info for "${file.name}": ${existingFileResponse.status} ${existingFileResponse.statusText}`,
+      );
     }
 
-    if(sha && options?.beforeOverwrite) {
+    if (sha && options?.beforeOverwrite) {
       const shouldOverwrite = await options.beforeOverwrite(file);
-      if(!shouldOverwrite) {
+      if (!shouldOverwrite) {
         options?.onOverwriteCancelled?.(file);
         continue;
       }
@@ -248,20 +275,19 @@ export async function uploadGitHubFiles(
       body.sha = sha;
     }
 
-    const uploadResponse = await fetch(
-      url,
-      {
-        method: "PUT",
-        headers: {
-          ...createGitHubHeaders(pat),
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+    const uploadResponse = await fetch(url, {
+      method: "PUT",
+      headers: {
+        ...createGitHubHeaders(pat),
+        "Content-Type": "application/json",
       },
-    );
+      body: JSON.stringify(body),
+    });
 
     if (!uploadResponse.ok) {
-      throw new Error(`Failed to upload "${file.name}": ${uploadResponse.status} ${uploadResponse.statusText}`);
+      throw new Error(
+        `Failed to upload "${file.name}": ${uploadResponse.status} ${uploadResponse.statusText}`,
+      );
     }
 
     uploadedCount++;
@@ -272,34 +298,32 @@ export async function uploadGitHubFiles(
 
 export async function validateGitHubToken(
   token: string,
-  expectedRepositoryName?: string
+  expectedRepositoryName?: string,
 ) {
-  if(!expectedRepositoryName) {
+  if (!expectedRepositoryName) {
     return {
       valid: false,
-      error: 'No repository name was provided. Aborting due to security reasons.'
+      error:
+        "No repository name was provided. Aborting due to security reasons.",
     };
   }
 
-  const userResponse = await fetch(
-    "https://api.github.com/user",
-    {
-      headers: createGitHubHeaders(token)
-    },
-  );
+  const userResponse = await fetch("https://api.github.com/user", {
+    headers: createGitHubHeaders(token),
+  });
 
   if (userResponse.status === 401) {
     return {
       valid: false,
       error: "Invalid or expired GitHub token.",
-    }
+    };
   }
 
   if (!userResponse.ok) {
     return {
       valid: false,
       error: `Failed to identify GitHub user: HTTP ${userResponse.status}`,
-    }
+    };
   }
 
   const user = (await userResponse.json()) as GitHubUser;
@@ -321,14 +345,15 @@ export async function validateGitHubToken(
   } else {
     return {
       valid: false,
-      error: "Repository must be in the form 'repository' or 'owner/repository'.",
-    }
+      error:
+        "Repository must be in the form 'repository' or 'owner/repository'.",
+    };
   }
 
   const repositoryResponse = await fetch(
     `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repository)}`,
     {
-      headers: createGitHubHeaders(token)
+      headers: createGitHubHeaders(token),
     },
   );
 
@@ -336,21 +361,21 @@ export async function validateGitHubToken(
     return {
       valid: false,
       error: `Repository '${owner}/${repository}' was not found or is not accessible with this token.`,
-    }
+    };
   }
 
   if (repositoryResponse.status === 403) {
     return {
       valid: false,
       error: `GitHub denied access to repository '${owner}/${repository}'.`,
-    }
+    };
   }
 
   if (!repositoryResponse.ok) {
     return {
       valid: false,
       error: `Failed to access repository: HTTP ${repositoryResponse.status}`,
-    }
+    };
   }
 
   const repositoryData = (await repositoryResponse.json()) as GitHubRepo;
@@ -358,6 +383,6 @@ export async function validateGitHubToken(
   return {
     valid: true,
     repository: repositoryData,
-    user: user
+    user: user,
   };
 }

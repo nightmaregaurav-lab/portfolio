@@ -5,14 +5,14 @@ type SmartLinkProps = ComponentProps<typeof Link> & {
   external?: boolean;
 };
 
-export default function SmartLink(
-  {
-    href,
-    external,
-    ...props
-  }: SmartLinkProps
-) {
-  const isExternal = external ?? (typeof href === "string" && /^(https?:\/\/|mailto:|tel:)/i.test(href));
+export default function SmartLink({
+  href,
+  external,
+  ...props
+}: SmartLinkProps) {
+  const isExternal =
+    external ??
+    (typeof href === "string" && /^(https?:\/\/|mailto:|tel:)/i.test(href));
 
   if (isExternal) {
     return (

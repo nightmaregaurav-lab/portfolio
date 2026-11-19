@@ -1,13 +1,17 @@
-"use client"
+"use client";
 
-import React from "react";
-import {SidebarProvider} from "@/components/ui/sidebar";
+import type { LayoutContentProps } from "@/app/(app)/layout.types";
 import GoToTopButton from "@/components/ui/GoToTopButton";
-import type {LayoutContentProps} from "@/app/(app)/layout.types";
-import styles from "./layout.module.css";
+import { SidebarProvider } from "@/components/ui/sidebar";
 import LeftPanel from "@/templates/default/LeftPanel";
+import styles from "./layout.module.css";
 
-export default function ShellTemplate({children, coreConfig, navigationConfig, quickLinksConfig}: LayoutContentProps) {
+export default function ShellTemplate({
+  children,
+  coreConfig,
+  navigationConfig,
+  quickLinksConfig,
+}: LayoutContentProps) {
   return (
     <SidebarProvider defaultOpen={false} data-template={coreConfig.template}>
       <a href="#main-content" className={styles.skipLink}>
@@ -18,7 +22,13 @@ export default function ShellTemplate({children, coreConfig, navigationConfig, q
         navigationConfig={navigationConfig}
         quickLinksConfig={quickLinksConfig}
       />
-      <div id="main-content" tabIndex={-1} className={styles.mainLandmark} role="main" aria-label="Main content">
+      <div
+        id="main-content"
+        tabIndex={-1}
+        className={styles.mainLandmark}
+        role="main"
+        aria-label="Main content"
+      >
         {children}
       </div>
       <GoToTopButton />

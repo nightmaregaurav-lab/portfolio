@@ -53,7 +53,8 @@ body:has([data-template="minimol"]) {
   --minimol-meta-size: 0.75rem;
   --minimol-reading-width: 64ch;
   --minimol-page-space: clamp(3rem, 7vw, 5rem);
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-mono:
+    "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-sans: var(--font-mono);
   color: var(--foreground);
   color-scheme: light;
@@ -78,12 +79,16 @@ body:has([data-template="minimol"]) [data-slot="sidebar-container"] {
   border-color: var(--border);
 }
 
-body:has([data-template="minimol"]) [data-slot="sidebar-header"] > div:has([data-slot="avatar"]) {
+body:has([data-template="minimol"])
+  [data-slot="sidebar-header"]
+  > div:has([data-slot="avatar"]) {
   justify-content: flex-start;
   padding: 1rem 0;
 }
 
-body:has([data-template="minimol"]) [data-slot="sidebar-header"] [data-slot="avatar"] {
+body:has([data-template="minimol"])
+  [data-slot="sidebar-header"]
+  [data-slot="avatar"] {
   width: 3rem;
   height: 3rem;
   border-radius: 50%;
@@ -96,13 +101,17 @@ body:has([data-template="minimol"]) [data-slot="sidebar-menu"] button {
   font-weight: 400;
 }
 
-body:has([data-template="minimol"]) [data-slot="sidebar-menu"] button[aria-current="page"] {
+body:has([data-template="minimol"])
+  [data-slot="sidebar-menu"]
+  button[aria-current="page"] {
   background: var(--background);
   text-decoration: underline;
   text-underline-offset: 0.35rem;
 }
 
-body:has([data-template="minimol"]) [data-slot="sidebar-menu"] svg[aria-hidden="true"] {
+body:has([data-template="minimol"])
+  [data-slot="sidebar-menu"]
+  svg[aria-hidden="true"] {
   display: none;
 }
 
@@ -127,7 +136,8 @@ body:has([data-template="minimol"]) [aria-label="Back to top"] {
   box-shadow: none;
 }
 
-body:has([data-template="minimol"]) [role="group"][aria-label="Floating controls"] {
+body:has([data-template="minimol"])
+  [role="group"][aria-label="Floating controls"] {
   right: max(1.25rem, env(safe-area-inset-right));
   bottom: max(1.25rem, env(safe-area-inset-bottom));
 }

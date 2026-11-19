@@ -1,13 +1,17 @@
-import {Check, FileIcon} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import {cn} from "@/lib/utils";
-import {GitHubContent} from "@/lib/gitHub";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
+import { Check, FileIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import type { GitHubContent } from "@/lib/gitHub";
+import { cn } from "@/lib/utils";
 
 export default function GithubFilePickerCard({
   file,
   onSelect,
-  isSelected
+  isSelected,
 }: {
   file: GitHubContent;
   onSelect: (file: GitHubContent) => void;
@@ -21,7 +25,7 @@ export default function GithubFilePickerCard({
             "flex items-center gap-2 rounded-lg border p-2 transition-all duration-150",
             isSelected
               ? "border-ring bg-ring/10 opacity-60 cursor-default"
-              : "cursor-pointer hover:bg-muted hover:shadow-sm"
+              : "cursor-pointer hover:bg-muted hover:shadow-sm",
           )}
           onClick={() => {
             if (!isSelected) {
@@ -49,7 +53,12 @@ export default function GithubFilePickerCard({
             type="button"
             size="icon-xs"
             variant="ghost"
-            className={cn("shrink-0", isSelected ? "cursor-default" : "cursor-pointer hover:-translate-y-px")}
+            className={cn(
+              "shrink-0",
+              isSelected
+                ? "cursor-default"
+                : "cursor-pointer hover:-translate-y-px",
+            )}
             onClick={(e) => {
               e.stopPropagation();
               if (!isSelected) {

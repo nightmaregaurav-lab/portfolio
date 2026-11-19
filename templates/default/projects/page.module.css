@@ -82,7 +82,9 @@
 .projectCard {
   height: 100%;
   border-top: 3px solid var(--accent-tone);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
 }
 
 .projectCard[data-type="Academic"] {

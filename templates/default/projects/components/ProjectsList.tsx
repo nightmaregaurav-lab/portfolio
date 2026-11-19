@@ -1,14 +1,14 @@
 "use client";
 
-import {useMemo, useState} from "react";
-import {Grid2X2, List, Search} from "lucide-react";
+import { Grid2X2, List, Search } from "lucide-react";
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import type { TModel as JourneyModel } from "@/configuration/journey";
+import type { TModel as ProjectsModel } from "@/configuration/projects";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { cn } from "@/lib/utils";
 import styles from "../page.module.css";
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {cn} from "@/lib/utils";
-import {useDebouncedState} from "@/hooks/useDebouncedState";
-import type {TModel as JourneyModel} from "@/configuration/journey";
-import type {TModel as ProjectsModel} from "@/configuration/projects";
 import ProjectCard from "./ProjectCard";
 
 function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
@@ -16,17 +16,26 @@ function getSearchableProjectText(project: ProjectsModel["projects"][number]) {
     project.title,
     project.description,
     project.id,
-    ...project.slugs.map(({slug}) => slug),
-    ...(project.keypoints || []).flatMap(({title, value}) => [title, value]),
+    ...project.slugs.map(({ slug }) => slug),
+    ...(project.keypoints || []).flatMap(({ title, value }) => [title, value]),
     ...(project.seoKeywords || []),
-  ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
+  ]
+    .join(" ")
+    .replaceAll(/<[^>]*>/g, " ")
+    .toLocaleLowerCase();
 }
 
-function ProjectsList({projects, milestonesById}: {projects: ProjectsModel["projects"]; milestonesById: Map<string, JourneyModel["milestones"][number]>}) {
+function ProjectsList({
+  projects,
+  milestonesById,
+}: {
+  projects: ProjectsModel["projects"];
+  milestonesById: Map<string, JourneyModel["milestones"][number]>;
+}) {
   const {
     state: searchTerm,
     debouncedState: debouncedSearchTerm,
-    setState: setSearchTerm
+    setState: setSearchTerm,
   } = useDebouncedState("", 300);
 
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
@@ -34,7 +43,9 @@ function ProjectsList({projects, milestonesById}: {projects: ProjectsModel["proj
   const visibleProjects = useMemo(() => {
     const query = debouncedSearchTerm.trim().toLocaleLowerCase();
     if (!query) return projects;
-    return projects.filter((project) => getSearchableProjectText(project).includes(query));
+    return projects.filter((project) =>
+      getSearchableProjectText(project).includes(query),
+    );
   }, [projects, debouncedSearchTerm]);
 
   return (
@@ -50,7 +61,11 @@ function ProjectsList({projects, milestonesById}: {projects: ProjectsModel["proj
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </div>
-        <div className={styles.quickActionButtons} role="group" aria-label="Project layout">
+        <div
+          className={styles.quickActionButtons}
+          role="group"
+          aria-label="Project layout"
+        >
           <Button
             size="icon-sm"
             type="button"
@@ -77,20 +92,30 @@ function ProjectsList({projects, milestonesById}: {projects: ProjectsModel["proj
       </div>
 
       <div className="sr-only" aria-live="polite">
-        {visibleProjects.length} {visibleProjects.length === 1 ? "project" : "projects"} shown
-        {searchTerm.trim() ? " for \"" + searchTerm.trim() + "\"" : ""}
+        {visibleProjects.length}{" "}
+        {visibleProjects.length === 1 ? "project" : "projects"} shown
+        {searchTerm.trim() ? ' for "' + searchTerm.trim() + '"' : ""}
       </div>
 
       {visibleProjects.length > 0 ? (
-        <div className={cn(styles.projectGrid, viewMode === "list" && styles.listView)}>
+        <div
+          className={cn(
+            styles.projectGrid,
+            viewMode === "list" && styles.listView,
+          )}
+        >
           {visibleProjects.map((project) => (
-            <ProjectCard project={project} milestonesById={milestonesById} key={project.id} />
+            <ProjectCard
+              project={project}
+              milestonesById={milestonesById}
+              key={project.id}
+            />
           ))}
         </div>
       ) : (
         <div className={styles.emptyState} role="status">
           {searchTerm.trim()
-            ? "No projects match \"" + searchTerm.trim() + "\"."
+            ? 'No projects match "' + searchTerm.trim() + '".'
             : "No projects to show yet."}
         </div>
       )}

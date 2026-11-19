@@ -1,5 +1,5 @@
 export function stripHtmlTags(str?: string | null): string {
-  if(!str) {
+  if (!str) {
     return "";
   }
 

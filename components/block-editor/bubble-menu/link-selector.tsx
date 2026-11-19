@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
-import { useState, useRef, useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import { DEFAULT_ICONS } from "../icons";
 import {
@@ -58,7 +58,7 @@ export const LinkSelector = ({ editor }: { editor: Editor }) => {
         .run();
       setOpen(false);
     },
-    [editor]
+    [editor],
   );
 
   const handleUnlink = useCallback(() => {
@@ -94,7 +94,6 @@ export const LinkSelector = ({ editor }: { editor: Editor }) => {
                 className="block-editor-link-input"
                 placeholder="Paste a link..."
                 defaultValue={linkUrl}
-                autoFocus
               />
               <div className="block-editor-link-actions">
                 {isLink && (

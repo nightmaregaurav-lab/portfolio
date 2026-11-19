@@ -1,17 +1,28 @@
-"use client"
+"use client";
 
-import * as React from "react"
-import { Slider as SliderPrimitive } from "@base-ui/react/slider"
+import { Slider as SliderPrimitive } from "@base-ui/react/slider";
+import type * as React from "react";
 
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-type SliderProps = Omit<React.ComponentProps<typeof SliderPrimitive.Root>, "value" | "defaultValue" | "onValueChange"> & {
-  value?: number
-  defaultValue?: number
-  onValueChange?: (value: number) => void
-}
+type SliderProps = Omit<
+  React.ComponentProps<typeof SliderPrimitive.Root>,
+  "value" | "defaultValue" | "onValueChange"
+> & {
+  value?: number;
+  defaultValue?: number;
+  onValueChange?: (value: number) => void;
+};
 
-function Slider({ className, value, defaultValue, onValueChange, min = 0, max = 100, ...props }: SliderProps) {
+function Slider({
+  className,
+  value,
+  defaultValue,
+  onValueChange,
+  min = 0,
+  max = 100,
+  ...props
+}: SliderProps) {
   return (
     <SliderPrimitive.Root
       {...props}
@@ -20,7 +31,10 @@ function Slider({ className, value, defaultValue, onValueChange, min = 0, max = 
       value={value}
       defaultValue={defaultValue}
       onValueChange={(nextValue) => onValueChange?.(nextValue as number)}
-      className={cn("relative flex w-full touch-none select-none items-center", className)}
+      className={cn(
+        "relative flex w-full touch-none select-none items-center",
+        className,
+      )}
     >
       <SliderPrimitive.Control className="flex w-full items-center py-2">
         <SliderPrimitive.Track className="relative h-1.5 w-full grow overflow-hidden rounded-full bg-muted">
@@ -29,7 +43,7 @@ function Slider({ className, value, defaultValue, onValueChange, min = 0, max = 
         </SliderPrimitive.Track>
       </SliderPrimitive.Control>
     </SliderPrimitive.Root>
-  )
+  );
 }
 
-export { Slider }
+export { Slider };

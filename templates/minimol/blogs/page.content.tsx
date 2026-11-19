@@ -1,1 +1,1 @@
-export {default} from "@/templates/default/blogs/page.content";
+export { default } from "@/templates/default/blogs/page.content";

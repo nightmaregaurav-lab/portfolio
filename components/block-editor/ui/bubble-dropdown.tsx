@@ -1,7 +1,8 @@
 import * as React from "react";
 import { useCallback, useRef, useState } from "react";
 
-export interface BubbleDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface BubbleDropdownProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   align?: "default" | "align" | "language";
 }
 
@@ -14,7 +15,7 @@ const alignClass: Record<string, string> = {
 const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
   (
     { className = "", align = "default", children, onMouseLeave, ...props },
-    ref
+    ref,
   ) => {
     const containerRef = useRef<HTMLDivElement | null>(null);
     const [pill, setPill] = useState<{
@@ -26,7 +27,7 @@ const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
 
     const handleItemEnter = useCallback((target: EventTarget | null) => {
       const item = (target as HTMLElement).closest<HTMLElement>(
-        "[data-dropdown-item]"
+        "[data-dropdown-item]",
       );
       if (!item) {
         return;
@@ -43,14 +44,14 @@ const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
       (event: React.MouseEvent<HTMLDivElement>) => {
         handleItemEnter(event.target);
       },
-      [handleItemEnter]
+      [handleItemEnter],
     );
 
     const handleFocus = useCallback(
       (event: React.FocusEvent<HTMLDivElement>) => {
         handleItemEnter(event.target);
       },
-      [handleItemEnter]
+      [handleItemEnter],
     );
 
     const handleMouseLeave = useCallback(
@@ -58,7 +59,7 @@ const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
         setPill(null);
         onMouseLeave?.(event);
       },
-      [onMouseLeave]
+      [onMouseLeave],
     );
 
     const cls = ["block-editor-bubble-dropdown", alignClass[align], className]
@@ -103,7 +104,7 @@ const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
         {children}
       </div>
     );
-  }
+  },
 );
 BubbleDropdown.displayName = "BubbleDropdown";
 

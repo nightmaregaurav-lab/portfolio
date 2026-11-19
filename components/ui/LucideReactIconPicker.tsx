@@ -1,16 +1,19 @@
-"use client"
+"use client";
 
-import {useMemo, useState} from "react";
-import type {ComponentProps} from "react";
+import type { LucideIcon } from "lucide-react";
 import * as Icons from "lucide-react";
-import type {LucideIcon} from "lucide-react";
-
-import {Button} from "@/components/ui/button";
-import {Input} from "@/components/ui/input";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {fuzzySearch} from "@/lib/fuzzySearch";
-import {cn} from "@/lib/utils";
-import {ChevronsUpDown, Search} from "lucide-react";
+import { ChevronsUpDown, Search } from "lucide-react";
+import type { ComponentProps } from "react";
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { fuzzySearch } from "@/lib/fuzzySearch";
+import { cn } from "@/lib/utils";
 
 type PickerIconName = keyof typeof Icons.icons;
 
@@ -27,8 +30,9 @@ function isLucideIcon(icon: unknown): icon is LucideIcon {
   return typeof icon === "object" && icon !== null && "$$typeof" in icon;
 }
 
-const iconOptions = (Object.keys(Icons.icons) as PickerIconName[])
-  .sort((first, second) => first.localeCompare(second));
+const iconOptions = (Object.keys(Icons.icons) as PickerIconName[]).sort(
+  (first, second) => first.localeCompare(second),
+);
 
 function LucideReactIconPicker({
   className,
@@ -39,9 +43,10 @@ function LucideReactIconPicker({
 }: LucideReactIconPickerProps) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
-  const selectedIcon = value && Object.prototype.hasOwnProperty.call(Icons, value)
-    ? Icons[value as keyof typeof Icons]
-    : undefined;
+  const selectedIcon =
+    value && Object.hasOwn(Icons, value)
+      ? Icons[value as keyof typeof Icons]
+      : undefined;
   const SelectedIcon = isLucideIcon(selectedIcon) ? selectedIcon : undefined;
   const selectedIconName = SelectedIcon ? value : undefined;
 
@@ -68,18 +73,25 @@ function LucideReactIconPicker({
             type="button"
             variant="outline"
             title={value ? `Change ${value} icon` : "Choose a Lucide icon"}
-            aria-label={value ? `Change icon, currently ${value}` : "Choose a Lucide icon"}
-            className={cn("w-full justify-between gap-2 text-left font-normal cursor-pointer hover:-translate-y-px", className)}
+            aria-label={
+              value ? `Change icon, currently ${value}` : "Choose a Lucide icon"
+            }
+            className={cn(
+              "w-full justify-between gap-2 text-left font-normal cursor-pointer hover:-translate-y-px",
+              className,
+            )}
           />
         }
       >
         <span className="flex min-w-0 items-center gap-2">
-          {SelectedIcon
-            ? <SelectedIcon className="size-4 shrink-0 text-muted-foreground" />
-            : <span className="size-4 shrink-0" />
-          }
+          {SelectedIcon ? (
+            <SelectedIcon className="size-4 shrink-0 text-muted-foreground" />
+          ) : (
+            <span className="size-4 shrink-0" />
+          )}
           <span className={cn("truncate", !value && "text-muted-foreground")}>
-            {selectedIconName || (!value ? emptyLabel : `Unknown icon: ${value}`)}
+            {selectedIconName ||
+              (!value ? emptyLabel : `Unknown icon: ${value}`)}
           </span>
         </span>
         <span className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
@@ -88,7 +100,10 @@ function LucideReactIconPicker({
         </span>
       </PopoverTrigger>
       {open && (
-        <PopoverContent align="start" className="w-80 max-w-[calc(100vw-2rem)] gap-2 p-2">
+        <PopoverContent
+          align="start"
+          className="w-80 max-w-[calc(100vw-2rem)] gap-2 p-2"
+        >
           <div className="relative">
             <Search className="pointer-events-none absolute top-1/2 left-2.5 size-4 -translate-y-1/2 text-muted-foreground" />
             <Input
@@ -156,4 +171,4 @@ function LucideReactIconPicker({
   );
 }
 
-export {LucideReactIconPicker};
+export { LucideReactIconPicker };

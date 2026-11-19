@@ -1,9 +1,11 @@
-"use client"
+"use client";
 
-import {createContext, ReactNode, useContext, useState} from "react";
-import {GitHubPatValidation, validateGitHubToken} from "@/lib/gitHub";
+import { createContext, type ReactNode, useContext, useState } from "react";
+import { type GitHubPatValidation, validateGitHubToken } from "@/lib/gitHub";
 
-const GitHubPatContext = createContext<ReturnType<typeof useGitHubPatAuthInternal> | null>(null);
+const GitHubPatContext = createContext<ReturnType<
+  typeof useGitHubPatAuthInternal
+> | null>(null);
 
 export function GitHubPatProvider({ children }: { children: ReactNode }) {
   const auth = useGitHubPatAuthInternal();
@@ -14,9 +16,7 @@ export function GitHubPatProvider({ children }: { children: ReactNode }) {
   );
 }
 
-
-export function useGitHubPatAuth(
-) {
+export function useGitHubPatAuth() {
   const context = useContext(GitHubPatContext);
   if (!context) {
     throw new Error("useGitHubPatAuth must be used inside GitHubPatProvider");
@@ -24,8 +24,7 @@ export function useGitHubPatAuth(
   return context;
 }
 
-function useGitHubPatAuthInternal(
-) {
+function useGitHubPatAuthInternal() {
   const [updating, setUpdating] = useState(false);
 
   const [token, setToken] = useState<string | null>(() => {
@@ -42,7 +41,10 @@ function useGitHubPatAuthInternal(
     return JSON.parse(localStorage.getItem("ghSession") ?? "null");
   });
 
-  const setGitHubPat = async (newToken: string | null, expectedRepositoryName?: string) => {
+  const setGitHubPat = async (
+    newToken: string | null,
+    expectedRepositoryName?: string,
+  ) => {
     setTimeout(() => setUpdating(true), 1);
     if (!newToken) {
       if (typeof window !== "undefined") {
@@ -55,7 +57,10 @@ function useGitHubPatAuthInternal(
       return;
     }
 
-    const validation = await validateGitHubToken(newToken, expectedRepositoryName);
+    const validation = await validateGitHubToken(
+      newToken,
+      expectedRepositoryName,
+    );
 
     if (!validation.valid) {
       setTimeout(() => setUpdating(false), 1);
@@ -76,6 +81,6 @@ function useGitHubPatAuthInternal(
     gitHubSession: session,
     setGitHubPat,
     updatingPat: updating,
-    clearGitHubPat: () => setGitHubPat(null)
+    clearGitHubPat: () => setGitHubPat(null),
   };
 }
