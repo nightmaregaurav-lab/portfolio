@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import {Images} from "lucide-react";
 import SmartLink from "@/components/ui/SmartLink";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";

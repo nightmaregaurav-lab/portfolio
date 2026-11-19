@@ -1,6 +1,6 @@
 "use client"
 
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo, useRef, useState} from "react";
 import styles from "./page.module.css";
 import {Identifier, useConfig} from "@/hooks/useConfig";
 import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
@@ -172,20 +172,20 @@ function BlogForm(
     {id: selectedPostId}
   );
 
-  const [content, setContent] = useState<string>(config?.content || "");
+  const [content, setContent] = useState<string>("");
   const [contentError, setContentError] = useState<string | null>(null);
+  const prevConfigRef = useRef<typeof config | undefined>(undefined);
 
   useEffect(() => {
-    if (config !== undefined) {
+    if (config !== undefined && config !== prevConfigRef.current) {
       setContent(config.content || "");
+      prevConfigRef.current = config;
     }
   }, [config]);
 
-  useEffect(() => {
-    if (contentError && !isNullOrWhitespace(content)) {
-      setContentError(null);
-    }
-  }, [content, contentError]);
+  if (contentError && !isNullOrWhitespace(content)) {
+    setContentError(null);
+  }
 
   const hasContentChanges = content !== (config?.content || "");
 

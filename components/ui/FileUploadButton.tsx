@@ -24,7 +24,7 @@ function FileUploadButton(
     const files = event.target.files;
     if (!files || files.length === 0) return;
 
-    let ghFiles: GitHubCreateFileRequest[] = [];
+    const ghFiles: GitHubCreateFileRequest[] = [];
     for (let i = 0; i < files.length; i++) {
       const file = files[i];
       ghFiles.push({
@@ -33,7 +33,7 @@ function FileUploadButton(
       });
     }
 
-    let returned = await confirm({
+    const returned = await confirm({
       title: "Confirm Upload",
       message: `Are you sure you want to upload ${ghFiles.length} files? This will make these files publicly available.`,
       actions: [

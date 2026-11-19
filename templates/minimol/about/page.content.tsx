@@ -1,5 +1,3 @@
-"use client"
-
 import Image from "next/image";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";

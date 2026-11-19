@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import {Brain, Compass} from "lucide-react";
 import {Badge} from "@/components/ui/badge";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
@@ -12,6 +9,7 @@ import type {PageContentProps} from "@/app/(app)/skills/page.types";
 import type {TModel as SkillsModel} from "@/configuration/skills";
 import type {TModel as JourneyModel} from "@/configuration/journey";
 import type {TModel as ProjectsModel} from "@/configuration/projects";
+import {getActiveSlug} from "@/lib/slugs";
 
 function getSkillMilestoneType(skill: SkillsModel["skills"][number], journeyConfig: JourneyModel): JourneyModel["milestones"][number]["type"] {
   const relatedMilestones = skill.associatedMilestoneIds
@@ -32,10 +30,13 @@ function getRelatedWorks(skill: SkillsModel["skills"][number], journeyConfig: Jo
   const relatedWorks: {label: string, url: string}[] = [];
   relatedProjects.forEach((project) => {
     if (project) {
-      relatedWorks.push({
-        label: project.title,
-        url: `/projects/?keyword=${encodeURIComponent(project.slugs.find((slug) => slug.isActive)?.slug || project.title)}`,
-      });
+      const activeSlug = getActiveSlug(project.slugs);
+      if (activeSlug) {
+        relatedWorks.push({
+          label: project.title,
+          url: `/projects/${activeSlug}/`,
+        });
+      }
     }
   });
   relatedMilestones.forEach((milestone) => {

@@ -1,6 +1,3 @@
-"use client";
-
-import React from "react";
 import {ArrowUpRight, BriefcaseBusiness, CheckCircle2} from "lucide-react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import SmartLink from "@/components/ui/SmartLink";
@@ -51,7 +48,7 @@ function PageContent({servicesConfig}: PageContentProps) {
         <section className={styles.emptyState} aria-label="Services">
           <CheckCircle2 size={26} aria-hidden="true"/>
           <h2>This page is taking shape.</h2>
-          <p>Once it's finalized, services offered will appear here.</p>
+          <p>Once it&apos;s finalized, services offered will appear here.</p>
         </section>
       )}
     </main>

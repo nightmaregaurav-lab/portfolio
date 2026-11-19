@@ -1,6 +1,3 @@
-"use client";
-
-import React, {useMemo} from "react";
 import {ArrowUpRight, Award, BriefcaseBusiness, CalendarDays, GraduationCap, Heart, Milestone as MilestoneIcon} from "lucide-react";
 import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
 import SmartLink from "@/components/ui/SmartLink";
@@ -180,7 +177,7 @@ function TimelineCard({event}: {event: TimelineEvent}) {
 }
 
 function PageContent({journeyConfig}: PageContentProps) {
-  const events = useMemo(() => getTimelineEvents(journeyConfig.milestones || []), [journeyConfig.milestones]);
+  const events = getTimelineEvents(journeyConfig.milestones || []);
   const summary = journeyConfig.summary || "Every chapter has a beginning, a lesson, and a direction. Here are the moments that shaped the way I work and what I care about.";
 
   return (
