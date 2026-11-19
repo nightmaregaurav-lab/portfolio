@@ -94,10 +94,7 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                   </div>
                   <div className={styles.imageGrid}>
                     {images.map((src, index) => (
-                      <div
-                        className={styles.imageFrame}
-                        key={`${src}-${index}`}
-                      >
+                      <div className={styles.imageFrame} key={src}>
                         <ImageLightbox
                           src={src}
                           name={`${project.title} image ${index + 1}`}
@@ -121,11 +118,8 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                 >
                   <h2 id="project-details-heading">Project details</h2>
                   <dl className={styles.keypointGrid}>
-                    {project.keypoints.map((point, index) => (
-                      <div
-                        className={styles.keypoint}
-                        key={`${point.title}-${index}`}
-                      >
+                    {project.keypoints.map((point) => (
+                      <div className={styles.keypoint} key={point.title}>
                         <dt>{point.title}</dt>
                         <dd>
                           <SmartText>{point.value}</SmartText>
@@ -149,9 +143,9 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                 </CardHeader>
                 <CardContent className={styles.linkList}>
                   {links.length ? (
-                    links.map((link, index) => (
+                    links.map((link) => (
                       <SmartLink
-                        key={`${link.url}-${index}`}
+                        key={`${link.name}-${link.url}`}
                         href={link.url}
                         external
                         className={cn(
@@ -247,8 +241,8 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                     </CardTitle>
                   </CardHeader>
                   <CardContent className={styles.keywordList}>
-                    {project.seoKeywords.map((keyword, index) => (
-                      <Badge variant="outline" key={`${keyword}-${index}`}>
+                    {project.seoKeywords.map((keyword) => (
+                      <Badge variant="outline" key={keyword}>
                         {keyword}
                       </Badge>
                     ))}

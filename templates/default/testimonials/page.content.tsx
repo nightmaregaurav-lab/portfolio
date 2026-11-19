@@ -38,11 +38,10 @@ function PageContent({ testimonialsConfig }: PageContentProps) {
       testimonialsConfig.testimonials.length > 0 ? (
         <section className={styles.quoteGrid}>
           <h2 className="sr-only">Testimonials</h2>
-          {testimonialsConfig.testimonials.map((testimonial, index) => (
+          {testimonialsConfig.testimonials.map((testimonial) => (
             <Card
-              className={index === 0 ? styles.featuredQuote : styles.quoteCard}
-              data-tone={String(index % 3)}
-              key={`${testimonial.by}-${index}`}
+              className={styles.quoteCard}
+              key={`${testimonial.by}-${testimonial.date}`}
             >
               <CardHeader className={styles.quoteHeader}>
                 <div className={styles.author}>

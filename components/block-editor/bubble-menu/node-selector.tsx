@@ -166,9 +166,9 @@ export const NodeSelector = ({ editor }: { editor: Editor }) => {
             }}
           />
           <BubbleDropdown>
-            {nodeItems.map((item, i) => (
+            {nodeItems.map((item) => (
               <BubbleDropdownItem
-                key={i}
+                key={item.name}
                 active={item.isActive(editorState)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => {

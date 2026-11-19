@@ -60,7 +60,7 @@ function PageContent({ galleryConfig }: PageContentProps) {
           return (
             <SmartLink
               href={`/gallery/${getActiveSlug(collection.slugs)}/`}
-              key={`${getActiveSlug(collection.slugs)}-${index}`}
+              key={getActiveSlug(collection.slugs)}
               className={styles.collectionCard}
               data-featured={index === 0 ? "true" : "false"}
               aria-label={`View ${collection.name} collection, ${photoCount} ${photoCount === 1 ? "photo" : "photos"}`}

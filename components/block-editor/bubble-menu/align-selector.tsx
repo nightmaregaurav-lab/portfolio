@@ -92,9 +92,9 @@ export const TextAlignSelector = ({ editor }: { editor: Editor }) => {
             }}
           />
           <BubbleDropdown align="align" style={{ left: "auto", right: 0 }}>
-            {alignItems.map((item, i) => (
+            {alignItems.map((item) => (
               <BubbleDropdownItem
-                key={i}
+                key={item.label}
                 active={item.isActive(editorState)}
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={() => {
