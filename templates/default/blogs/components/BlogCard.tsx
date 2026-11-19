@@ -6,13 +6,7 @@ import { getActiveSlug } from "@/lib/slugs";
 import { formatDate } from "@/lib/utils";
 import styles from "../page.module.css";
 
-function BlogCard({
-  post,
-  index,
-}: {
-  post: BlogsModel["posts"][number];
-  index: number;
-}) {
+function BlogCard({ post }: { post: BlogsModel["posts"][number] }) {
   const accentColor = post.accentColor || "#FFFFFF";
   const style: Record<string, string> = {};
   style["--accent-tone"] = accentColor;
@@ -25,7 +19,12 @@ function BlogCard({
       <article className={styles.postCard} style={style as React.CSSProperties}>
         {post.coverImage && (
           <div className={styles.postCoverImage}>
-            <ResponsiveImage src={post.coverImage} alt="" aria-hidden="true" />
+            <ResponsiveImage
+              src={post.coverImage}
+              alt=""
+              aria-hidden="true"
+              style={{ width: "100%", height: "100%" }}
+            />
           </div>
         )}
         <time className={styles.postDate} dateTime={post.date}>

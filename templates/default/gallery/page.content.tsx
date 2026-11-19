@@ -71,6 +71,7 @@ function PageContent({ galleryConfig }: PageContentProps) {
                     src={cover}
                     alt={`${collection.name} collection cover`}
                     className={styles.collectionImage}
+                    style={{ width: "100%", height: "100%" }}
                   />
                 ) : (
                   <span

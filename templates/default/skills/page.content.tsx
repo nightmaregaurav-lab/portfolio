@@ -100,6 +100,7 @@ function PageContent({
                   src={skill.image}
                   alt={`${skill.title} icon`}
                   loading={index > 1 ? "lazy" : "eager"}
+                  style={{ width: "100%", height: "100%" }}
                 />
                 <span className={styles.skillIndex} aria-hidden="true">
                   0{index + 1}

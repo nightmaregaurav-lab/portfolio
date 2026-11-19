@@ -61,9 +61,8 @@ function ProjectsList({
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </div>
-        <div
+        <fieldset
           className={styles.quickActionButtons}
-          role="group"
           aria-label="Project layout"
         >
           <Button
@@ -88,7 +87,7 @@ function ProjectsList({
           >
             <List />
           </Button>
-        </div>
+        </fieldset>
       </div>
 
       <div className="sr-only" aria-live="polite">

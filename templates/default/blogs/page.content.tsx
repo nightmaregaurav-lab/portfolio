@@ -48,8 +48,8 @@ function PageContent({ blogsConfig }: PageContentProps) {
             <div className={styles.section}>
               <h2 className={styles.sectionTitle}>Recent Blogs</h2>
               <div className={styles.categoryScroll}>
-                {recentPosts.map((post, index) => (
-                  <BlogCard post={post} index={index} key={post.id} />
+                {recentPosts.map((post) => (
+                  <BlogCard post={post} key={post.id} />
                 ))}
               </div>
             </div>
@@ -72,8 +72,8 @@ function PageContent({ blogsConfig }: PageContentProps) {
                     <div key={category} className={styles.categoryGroup}>
                       <h3 className={styles.categoryTitle}>{category}</h3>
                       <div className={styles.categoryScroll}>
-                        {shownPosts.map((post, index) => (
-                          <BlogCard post={post} index={index} key={post.id} />
+                        {shownPosts.map((post) => (
+                          <BlogCard post={post} key={post.id} />
                         ))}
                       </div>
                     </div>

@@ -97,7 +97,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
   };
 
   return (
-    <div className="rich-text-image-toolbar" aria-label="Image options">
+    <div className="rich-text-image-toolbar">
       <span className="rich-text-image-toolbar-label">Image</span>
       {(["left", "center", "right"] as const).map((align) => (
         <Button

@@ -22,15 +22,14 @@ export default function ShellTemplate({
         navigationConfig={navigationConfig}
         quickLinksConfig={quickLinksConfig}
       />
-      <div
+      <main
         id="main-content"
         tabIndex={-1}
         className={styles.mainLandmark}
-        role="main"
         aria-label="Main content"
       >
         {children}
-      </div>
+      </main>
       <GoToTopButton />
     </SidebarProvider>
   );

@@ -43,6 +43,7 @@ function PhotoCard({
           className={styles.photoImage}
           src={imageUrl}
           alt={imageName}
+          style={{ width: "100%", height: "100%" }}
           onClick={() => setLightboxOpen(true)}
         />
       </ImageLightbox>

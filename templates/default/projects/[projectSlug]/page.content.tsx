@@ -218,6 +218,7 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                             src={skill.image}
                             alt={`${skill.title} icon`}
                             className={styles.skillImage}
+                            style={{ width: 40, height: 40 }}
                           />
                         )}
                         <div className={styles.skillText}>

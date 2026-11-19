@@ -97,14 +97,23 @@ function ImageLightbox({
       {children
         ? children
         : trigger && (
+            // biome-ignore lint/a11y/useFocusableInteractive: this is a custom trigger for the sheet, so we need to handle focus and keyboard events manually
+            // biome-ignore lint/a11y/useSemanticElements: this is a custom trigger for the sheet, so we need to handle focus and keyboard events manually
             <span
+              role="button"
               className={"cursor-pointer"}
               onClick={(event) => {
                 event.stopPropagation();
                 setUncontrolledOpen(true);
                 onOpenChange?.(true);
               }}
-              aria-label={`View ${name}`}
+              onKeyDown={(event) => {
+                if (event.key === "Enter" || event.key === " ") {
+                  event.preventDefault();
+                  setUncontrolledOpen(true);
+                  onOpenChange?.(true);
+                }
+              }}
             >
               {trigger}
             </span>
@@ -187,6 +196,7 @@ function ImageLightbox({
               <ZoomIn aria-hidden="true" />
             </Button>
             <label
+              htmlFor={"zoom-in"}
               className={
                 "ml-2 flex min-w-40 items-center gap-2 text-xs text-muted-foreground"
               }
