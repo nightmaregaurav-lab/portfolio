@@ -45,6 +45,7 @@ function LucideReactIconPicker({
   const [query, setQuery] = useState("");
   const selectedIcon =
     value && Object.hasOwn(Icons, value)
+      // biome-ignore lint/performance/noDynamicNamespaceImportAccess: We need to dynamically access the icon component based on the value prop
       ? Icons[value as keyof typeof Icons]
       : undefined;
   const SelectedIcon = isLucideIcon(selectedIcon) ? selectedIcon : undefined;
