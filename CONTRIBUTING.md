@@ -15,7 +15,7 @@ The project uses Node.js `26.13.0` and pnpm `12.18.0`. See `package.json` for th
 ## Make a contribution
 
 1. Create a focused change in your fork.
-2. Run `pnpm lint` and, when relevant, `pnpm build`.
+2. Run `pnpm check` to lint, format, and sort imports (all in one command), and ensure everything passes. When relevant, also run `pnpm build`.
 3. Push your branch to your fork.
 4. Open a pull request against `nightmaregaurav/portfolio`.
 
@@ -31,52 +31,26 @@ The project uses Node.js `26.13.0` and pnpm `12.18.0`. See `package.json` for th
 
 ## Templates
 
-The portfolio uses a template system to separate visual presentation from configuration and routing. Content pages are loaded from the `templates/` directory based on the `template` value in the core configuration.
+Content pages are loaded from `templates/` based on the `template` value in the core configuration. Each template folder mirrors the app route structure with `page.content.tsx` and optional `page.module.css` per route.
 
-### How it works
+### Server vs Client templates
 
-1. The `template` field in `configuration/core.ts` stores the active template name (default: `"default"`).
-2. Each content page in `app/(app)/` uses `next/dynamic` with the `PageContentProps` type from its `page.types.ts` to import the template component:
+Templates can be either server or client components. The app checks for a `"use client"` directive at the top of each `page.content.tsx`:
 
-   ```ts
-   import type {PageContentProps} from "./page.types";
-
-   const PageContent = dynamic<PageContentProps>(
-     () => import(`@/templates/${CoreConfig.template}/<component-name>/page.content`),
-     {ssr: true}
-   );
-   ```
-3. The template folder mirrors the app route structure, containing `page.content.tsx` (client component) and `page.module.css` (styles) for each route.
-4. Templates can provide `layout.content.tsx` with the shared `LayoutContentProps` from `app/(app)/layout.types.ts`. The app loads that layout around public content; Setup pages remain outside it. Import shared template styles from this layout entry.
-5. Template can omit the folder for a route, in which case the app will treat that route as inactive and return a 404 page. The Setup pages are always active and do not require a template.
+- **Server components** (no directive) — statically imported. Recommended for static export and better performance.
+- **Client components** (`"use client"` directive) — dynamically imported via `next/dynamic`.
 
 ### Adding a new template
 
-1. Create a new folder inside `templates/` using a lowercase, hyphenated name (e.g., `templates/minimal/`).
-2. Copy the `templates/default/` folder structure into your new template folder as a starting point.
-3. Customize the `page.content.tsx` and `page.module.css` files in each route.
-4. Set the `template` value in the core configuration via the Setup page at `/setup/core` (dropdown will automatically list available template folders).
-5. Add `about.html` to the root of new template folders to provide a description of the template and its author.
+1. Run `pnpm mktemp <name>` to scaffold a new template folder and copy the default structure, or manually create a folder inside `templates/` with a lowercase, hyphenated name and copy `templates/default/` as a starting point.
+2. Customize each `page.content.tsx` and its styles. Prefer server components where possible.
+3. Add `about.html` to the root of the template folder - it is a standalone HTML page with embedded styles that describes the template and its author.
 
-**Important rules:**
+### Rules
 
-- Each template page must export a default client component named `PageContent` with `"use client"` directive.
-- The `page.content.tsx` template must import and use `PageContentProps` from the app folder:
-
-  ```ts
-  import type {PageContentProps} from "@/app/(app)/<route>/page.types";
-
-  function PageContent(props: PageContentProps) {
-    // ...
-  }
-  ```
-- If you change the props passed to a template, update `PageContentProps` in `app/(app)/<route>/page.types.ts` — both the app page and all templates use this central type.
-- Do not rename or remove `page.content.tsx` files — the dynamic import path is fixed by the app route.
-- Dynamic imports require `{ssr: true}` for static generation to work correctly.
-
-### Updating an existing template
-
-- When adding a new route to the app, create the corresponding template page in **all** existing template folders, not just the active one.
-- If you change the props passed to a template component from an app page, update the same component across all template folders.
-- After changing a template's component interface, verify the build with `pnpm build` to catch type mismatches.
-- The Setup page at `/setup/core` reads available templates from the `templates/` directory using `node:fs` — new folders appear automatically in the dropdown.
+- Each `page.content.tsx` must export a default component `PageContent` typed with `PageContentProps` from the corresponding `page.types.ts`.
+- Templates may provide `layout.content.tsx` (typed with `LayoutContentProps`) wrapping all content pages.
+- Missing template folders for a route return 404. Setup pages are always active.
+- When adding a new route, create the template page in **all** template folders.
+- Run `pnpm build` after changes to catch type mismatches.
+- Run `pnpm check` to lint, format, and sort imports before submitting.
