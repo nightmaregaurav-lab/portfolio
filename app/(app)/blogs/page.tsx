@@ -8,6 +8,7 @@ import {stripHtmlTags} from "@/lib/html";
 import {Suspense} from "react";
 import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../PageLoading";
 
 const templateType = getTemplateType("blogs");
 const PageContent = templateType === Templates.Client
@@ -35,7 +36,7 @@ function Page() {
   const canonical = getCanonicalUrl("/blogs/");
   return (
     <>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<PageLoading />}>
         <PageContent
           blogsConfig={BlogsConfig}
         />

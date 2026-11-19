@@ -1,12 +1,14 @@
 import type React from "react";
+import {Suspense} from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
+import StructuredData from "@/components/StructuredData";
 import {CoreConfig, ServicesConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
-import StructuredData from "@/components/StructuredData";
 import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
+import PageLoading from "../PageLoading";
 
 const templateType = getTemplateType("services");
 const PageContent = templateType === Templates.Client
@@ -37,9 +39,11 @@ function Page() {
   const canonical = getCanonicalUrl("/services/");
   return (
     <>
-      <PageContent
-        servicesConfig={ServicesConfig}
-      />
+      <Suspense fallback={<PageLoading />}>
+        <PageContent
+          servicesConfig={ServicesConfig}
+        />
+      </Suspense>
 
       <StructuredData data={{
         "@context": "https://schema.org",
