@@ -1248,7 +1248,7 @@
   }
 
   .block-editor-bottom-bar-scroll > div {
-    position: static !important;
+    position: static;
   }
 
   .block-editor-bottom-bar .block-editor-bubble-dropdown {
@@ -1289,5 +1289,5 @@
 .block-editor-theme-transitioning *,
 .block-editor-theme-transitioning *::before,
 .block-editor-theme-transitioning *::after {
-  transition: none !important;
+  transition: none;
 }

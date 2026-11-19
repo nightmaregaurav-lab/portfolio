@@ -1,16 +1,24 @@
 import { ArrowLeft } from "lucide-react";
 import type { PageContentProps } from "@/app/(app)/blogs/[blogSlug]/page.types";
+import { buttonVariants } from "@/components/ui/buttonVariants";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import SmartLink from "@/components/ui/SmartLink";
-import { formatDate } from "@/lib/utils";
+import { cn, formatDate } from "@/lib/utils";
 import styles from "./page.module.css";
 
 function PageContent({ post, authorName }: PageContentProps) {
   return (
     <main className={styles.page}>
       <article className={styles.article}>
-        <SmartLink href="/blogs/" className={styles.backLink}>
-          <ArrowLeft size={16} /> All posts
+        <SmartLink
+          href="/blogs/"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "sm" }),
+            styles.backLink,
+          )}
+          aria-label="Back to all posts"
+        >
+          <ArrowLeft aria-hidden="true" /> All posts
         </SmartLink>
         <header className={styles.articleHeader}>
           <h1>{post.title}</h1>

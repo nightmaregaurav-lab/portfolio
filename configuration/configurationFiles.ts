@@ -24,5 +24,5 @@ export function readConfigurationFromFile(filePath: string): unknown {
   const config = JSON.parse(readFileSync(absolutePath, "utf8")) as {
     configuration: unknown;
   };
-  return config["configuration"] as unknown;
+  return config.configuration as unknown;
 }

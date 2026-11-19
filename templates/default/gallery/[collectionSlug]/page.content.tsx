@@ -1,7 +1,9 @@
 import { ArrowLeft, Images } from "lucide-react";
 import type { PageContentProps } from "@/app/(app)/gallery/[collectionSlug]/page.types";
+import { buttonVariants } from "@/components/ui/buttonVariants";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import SmartLink from "@/components/ui/SmartLink";
+import { cn } from "@/lib/utils";
 import PhotoCard from "@/templates/default/gallery/[collectionSlug]/components/PhotoCard";
 import styles from "./page.module.css";
 
@@ -9,8 +11,15 @@ function PageContent({ collection }: PageContentProps) {
   return (
     <main className={styles.page} aria-label={`${collection.name} collection`}>
       <header className={styles.intro}>
-        <SmartLink href="/gallery/" className={styles.backLink}>
-          <ArrowLeft size={16} aria-hidden="true" /> Back to gallery
+        <SmartLink
+          href="/gallery/"
+          className={cn(
+            buttonVariants({ variant: "outline", size: "sm" }),
+            styles.backLink,
+          )}
+          aria-label="Back to gallery"
+        >
+          <ArrowLeft aria-hidden="true" /> Back to gallery
         </SmartLink>
         <h1 className={styles.pageHeader}>{collection.name}</h1>
         {collection.description?.trim() && (

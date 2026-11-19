@@ -20,6 +20,7 @@ function CheckboxList({
     <div className={"grid gap-2 sm:grid-cols-2"} id={id}>
       {options.map((option) => (
         <label
+          htmlFor={option.value}
           key={option.value}
           className={
             "flex cursor-pointer items-center gap-3 rounded-lg border p-3 transition-colors hover:bg-muted/50"

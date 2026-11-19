@@ -33,7 +33,7 @@ export function useGitHubFolder(folderPath?: string) {
       try {
         const result = await listGitHubFiles(
           gitHubPat ?? "",
-          gitHubSession!.repository!.full_name ?? "",
+          gitHubSession?.repository?.full_name ?? "",
           normalizedFolderPath,
         );
         removeRecentUploads(result.map((f: GitHubContent) => f.name));
@@ -52,15 +52,15 @@ export function useGitHubFolder(folderPath?: string) {
     enabled:
       !!gitHubPat &&
       !!gitHubSession &&
-      gitHubSession!.user &&
-      !!gitHubSession!.repository,
+      gitHubSession?.user &&
+      !!gitHubSession?.repository,
   });
 
   const { mutateAsync: deleteFiles, isPending: deletingFiles } = useMutation({
     mutationFn: async (fileNames: string[]) =>
       await deleteGitHubFiles(
         gitHubPat ?? "",
-        gitHubSession!.repository!.full_name ?? "",
+        gitHubSession?.repository?.full_name ?? "",
         normalizedFolderPath,
         fileNames,
       ),
@@ -93,7 +93,7 @@ export function useGitHubFolder(folderPath?: string) {
 
       const totalUploads = await uploadGitHubFiles(
         gitHubPat ?? "",
-        gitHubSession!.repository!.full_name,
+        gitHubSession?.repository?.full_name ?? "",
         normalizedFolderPath,
         files,
         {

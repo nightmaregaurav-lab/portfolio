@@ -94,7 +94,7 @@ function ProjectsList({
       <div className="sr-only" aria-live="polite">
         {visibleProjects.length}{" "}
         {visibleProjects.length === 1 ? "project" : "projects"} shown
-        {searchTerm.trim() ? ' for "' + searchTerm.trim() + '"' : ""}
+        {searchTerm.trim() ? ` for "${searchTerm.trim()}"` : ""}
       </div>
 
       {visibleProjects.length > 0 ? (
@@ -115,7 +115,7 @@ function ProjectsList({
       ) : (
         <div className={styles.emptyState} role="status">
           {searchTerm.trim()
-            ? 'No projects match "' + searchTerm.trim() + '".'
+            ? `No projects match "${searchTerm.trim()}".`
             : "No projects to show yet."}
         </div>
       )}

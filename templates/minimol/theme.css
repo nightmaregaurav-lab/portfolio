@@ -68,7 +68,7 @@ body:has([data-template="minimol"]) [data-tone],
 body:has([data-template="minimol"]) [data-type],
 body:has([data-template="minimol"]) [style*="--accent-tone"] {
   /* Shared blog cards set their accent inline. */
-  --accent-tone: var(--foreground) !important;
+  --accent-tone: var(--foreground);
 }
 
 body:has([data-template="minimol"]) [data-slot="sidebar-wrapper"] {

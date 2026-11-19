@@ -4,10 +4,7 @@ import { initialBlogsMigration } from "@/migrations/blogs/initial";
 import { migrateBlogsToV1 } from "@/migrations/blogs/v1";
 import { migrateBlogsToV2 } from "@/migrations/blogs/v2";
 import { migrateBlogsToV3 } from "@/migrations/blogs/v3";
-import {
-  currentConfigurationVersions,
-  serializeConfiguration,
-} from "@/migrations/configurationVersions";
+import { currentConfigurationVersions } from "@/migrations/configurationVersions";
 import { initialCoreMigration } from "@/migrations/core/initial";
 import { migrateCoreToV1 } from "@/migrations/core/v1";
 import { initialGalleryMigration } from "@/migrations/gallery/initial";

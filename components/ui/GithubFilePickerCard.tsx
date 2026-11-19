@@ -20,7 +20,7 @@ export default function GithubFilePickerCard({
   return (
     <Tooltip>
       <TooltipTrigger type="button" delay={2000}>
-        <div
+        <fieldset
           className={cn(
             "flex items-center gap-2 rounded-lg border p-2 transition-all duration-150",
             isSelected
@@ -32,10 +32,7 @@ export default function GithubFilePickerCard({
               onSelect(file);
             }
           }}
-          role="button"
-          tabIndex={0}
           aria-label={`Select ${file.name}`}
-          aria-pressed={isSelected}
           onKeyDown={(e) => {
             if (!isSelected && (e.key === "Enter" || e.key === " ")) {
               e.preventDefault();
@@ -69,7 +66,7 @@ export default function GithubFilePickerCard({
           >
             <Check size={12} aria-hidden="true" />
           </Button>
-        </div>
+        </fieldset>
       </TooltipTrigger>
       <TooltipContent side={"bottom"}>
         <p>{file.name}</p>

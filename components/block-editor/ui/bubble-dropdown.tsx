@@ -67,7 +67,9 @@ const BubbleDropdown = React.forwardRef<HTMLDivElement, BubbleDropdownProps>(
       .join(" ");
 
     return (
+      // biome-ignore lint/a11y/useSemanticElements: if we use fieldset here, the type of event handlers will have to be changed which will cascade to the component itself
       <div
+        role="group"
         ref={(node) => {
           containerRef.current = node;
           if (typeof ref === "function") {

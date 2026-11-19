@@ -23,7 +23,7 @@ function ConfigurationFormWrapper<T extends FieldValues>({
   config: T;
   children: React.ReactNode;
   className?: string;
-  form: UseFormReturn<T, any, T>;
+  form: UseFormReturn<T, unknown, T>;
 }) {
   const router = useRouter();
 
