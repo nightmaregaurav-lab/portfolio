@@ -74,7 +74,9 @@ export function createExternalHook<T>(initialValue: T) {
   }
 
   function notify() {
-    listeners.forEach((listener) => listener());
+    listeners.forEach((listener) => {
+      listener();
+    });
   }
 
   function update(next: SetStateAction<T>) {
@@ -86,6 +88,7 @@ export function createExternalHook<T>(initialValue: T) {
     return value;
   }
 
+  // biome-ignore lint/correctness/noComponentHookFactories: this is only named similarly to React's useState for familiarity, but it is not a component hook factory
   function useState() {
     return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   }

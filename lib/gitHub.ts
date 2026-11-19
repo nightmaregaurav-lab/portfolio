@@ -333,8 +333,8 @@ export async function validateGitHubToken(
     .split("/")
     .filter(Boolean);
 
-  let owner;
-  let repository;
+  let owner: string | undefined;
+  let repository: string | undefined;
 
   if (repositoryParts.length === 1) {
     owner = user.login;

@@ -62,16 +62,7 @@
 }
 
 .backLink {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.4rem;
   margin-bottom: 1.5rem;
-  color: var(--muted-foreground);
-  text-decoration: none;
-}
-
-.backLink:hover {
-  color: var(--foreground);
 }
 
 .articleHeader {

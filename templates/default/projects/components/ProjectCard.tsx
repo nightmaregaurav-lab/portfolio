@@ -42,6 +42,7 @@ function ProjectCard({
             <ResponsiveImage
               src={project.previewImage}
               alt={`${project.title} preview`}
+              style={{ width: "100%", height: "100%" }}
             />
           ) : (
             <ImageIcon aria-hidden="true" />

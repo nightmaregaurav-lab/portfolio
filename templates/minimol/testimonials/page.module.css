@@ -71,6 +71,11 @@
   line-height: 1.75;
 }
 
+.empty p {
+  font-size: 0.85rem;
+  line-height: 1.9;
+}
+
 .card .quote p {
   line-height: inherit;
 }
@@ -141,11 +146,6 @@
   color: var(--foreground);
   font-size: 1rem;
   font-weight: 500;
-}
-
-.empty p {
-  font-size: 0.85rem;
-  line-height: 1.9;
 }
 
 @container (max-width: 40rem) {

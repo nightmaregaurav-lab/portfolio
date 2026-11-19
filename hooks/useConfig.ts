@@ -113,7 +113,7 @@ const configurationPaths: Record<Identifier, (query?: ConfigQuery) => string> =
     [Identifier.QuickLinks]: (_) => `public/config/quick-links.json`,
     [Identifier.Blogs]: (_) => `public/config/blogs.json`,
     [Identifier.Blog]: (query) =>
-      `public/config/blogs/${query ? query["id"] : "empty"}.json`,
+      `public/config/blogs/${query ? query.id : "empty"}.json`,
     [Identifier.Services]: (_) => `public/config/services.json`,
   };
 

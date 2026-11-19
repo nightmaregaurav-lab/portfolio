@@ -61,9 +61,8 @@ function ProjectsList({
             onChange={(event) => setSearchTerm(event.target.value)}
           />
         </div>
-        <div
+        <fieldset
           className={styles.quickActionButtons}
-          role="group"
           aria-label="Project layout"
         >
           <Button
@@ -88,13 +87,13 @@ function ProjectsList({
           >
             <List />
           </Button>
-        </div>
+        </fieldset>
       </div>
 
       <div className="sr-only" aria-live="polite">
         {visibleProjects.length}{" "}
         {visibleProjects.length === 1 ? "project" : "projects"} shown
-        {searchTerm.trim() ? ' for "' + searchTerm.trim() + '"' : ""}
+        {searchTerm.trim() ? ` for "${searchTerm.trim()}"` : ""}
       </div>
 
       {visibleProjects.length > 0 ? (
@@ -115,7 +114,7 @@ function ProjectsList({
       ) : (
         <div className={styles.emptyState} role="status">
           {searchTerm.trim()
-            ? 'No projects match "' + searchTerm.trim() + '".'
+            ? `No projects match "${searchTerm.trim()}".`
             : "No projects to show yet."}
         </div>
       )}

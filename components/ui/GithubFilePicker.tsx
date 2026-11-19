@@ -271,7 +271,7 @@ function PickerImageCard({
   return (
     <Tooltip>
       <TooltipTrigger type="button" delay={2000}>
-        <div
+        <fieldset
           className={cn(
             "group relative aspect-square rounded-lg border overflow-hidden transition-all duration-150",
             isSelected
@@ -286,10 +286,7 @@ function PickerImageCard({
               onSelect(file);
             }
           }}
-          role="button"
-          tabIndex={0}
           aria-label={`Select ${file.name}`}
-          aria-pressed={isSelected}
           onKeyDown={(e) => {
             if (!isSelected && (e.key === "Enter" || e.key === " ")) {
               e.preventDefault();
@@ -350,7 +347,7 @@ function PickerImageCard({
               </Button>
             </div>
           )}
-        </div>
+        </fieldset>
       </TooltipTrigger>
       <TooltipContent side={"bottom"}>
         <p>{file.name}</p>

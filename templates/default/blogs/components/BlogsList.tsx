@@ -58,8 +58,8 @@ function BlogsList({ posts }: { posts: BlogsModel["posts"] }) {
 
       {allPosts.length > 0 ? (
         <div className={styles.postGrid}>
-          {allPosts.map((post, index) => (
-            <BlogCard post={post} index={index} key={post.id} />
+          {allPosts.map((post) => (
+            <BlogCard post={post} key={post.id} />
           ))}
         </div>
       ) : (

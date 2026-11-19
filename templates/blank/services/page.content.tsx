@@ -1,6 +1,6 @@
 import type { PageContentProps } from "@/app/(app)/services/page.types";
-import styles from "./page.module.css";
 
+// biome-ignore lint/correctness/noEmptyPattern: this is a template file, REMOVE THIS COMMENT AFTER ADDING PROPS
 function PageContent({}: PageContentProps) {
   return null;
 }

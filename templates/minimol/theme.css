@@ -68,7 +68,7 @@ body:has([data-template="minimol"]) [data-tone],
 body:has([data-template="minimol"]) [data-type],
 body:has([data-template="minimol"]) [style*="--accent-tone"] {
   /* Shared blog cards set their accent inline. */
-  --accent-tone: var(--foreground) !important;
+  --accent-tone: var(--foreground);
 }
 
 body:has([data-template="minimol"]) [data-slot="sidebar-wrapper"] {
@@ -157,6 +157,13 @@ body:has([data-template="minimol"]) #main-content {
     margin: 0 0 2.5rem;
   }
 
+  .html-renderer {
+    max-width: var(--minimol-reading-width);
+    font-size: var(--minimol-body-size);
+    font-weight: var(--minimol-body-weight);
+    line-height: 1.75;
+  }
+
   > :is(main, article) > .html-renderer {
     max-width: var(--minimol-reading-width);
     margin: 1rem 0 2.5rem;
@@ -187,13 +194,6 @@ body:has([data-template="minimol"]) #main-content {
     font-size: 0.9375rem;
     font-weight: var(--minimol-heading-weight);
     line-height: 1.5;
-  }
-
-  .html-renderer {
-    max-width: var(--minimol-reading-width);
-    font-size: var(--minimol-body-size);
-    font-weight: var(--minimol-body-weight);
-    line-height: 1.75;
   }
 
   .html-renderer p {
