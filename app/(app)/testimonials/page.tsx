@@ -1,18 +1,22 @@
-import {join} from "node:path";
-import {existsSync} from "node:fs";
+import type React from "react";
 import dynamic from "next/dynamic";
 import {notFound} from "next/navigation";
 import {CoreConfig, TestimonialsConfig, NavigationConfig} from "@/configuration";
 import {createPageMetadata, getCanonicalUrl} from "@/lib/pageMetadata";
 import {stripHtmlTags} from "@/lib/html";
 import StructuredData from "@/components/StructuredData";
+import {getTemplateType, Templates} from "@/lib/templates";
 import type {PageContentProps} from "./page.types";
 
-const contentExists = existsSync(join(process.cwd(), "templates", CoreConfig.template, "testimonials", "page.content.tsx"));
-const PageContent = dynamic<PageContentProps>(
-  () => import(`@/templates/${CoreConfig.template}/testimonials/page.content`),
-  {ssr: true}
-);
+const templateType = getTemplateType("testimonials");
+const PageContent = templateType === Templates.Client
+  ? dynamic<PageContentProps>(
+      () => import(`@/templates/${CoreConfig.template}/testimonials/page.content`),
+      {ssr: true}
+    )
+  : templateType === Templates.Server
+    ? ((await import(`@/templates/${CoreConfig.template}/testimonials/page.content`)).default as React.ComponentType<PageContentProps>)
+    : null;
 
 const description = stripHtmlTags(TestimonialsConfig.summary).slice(0, 300);
 
@@ -24,7 +28,7 @@ export const metadata = createPageMetadata({
 });
 
 function Page() {
-  if (!contentExists) {
+  if (!PageContent) {
     notFound();
   }
   const canonical = getCanonicalUrl("/testimonials/");
