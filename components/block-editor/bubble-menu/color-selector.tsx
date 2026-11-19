@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { chainFocus } from "../lib/commands";
 import {
@@ -11,7 +11,7 @@ import {
   ColorSwatch,
   DropdownOverlay,
 } from "../ui";
-import { useEditorState, shallowEqual } from "./utils";
+import { shallowEqual, useEditorState } from "./utils";
 
 type SwatchType = "text" | "highlight";
 
@@ -104,14 +104,14 @@ export const ColorSelector = ({ editor }: { editor: Editor }) => {
         ? (ed.getAttributes("textStyle").color as string | undefined)
         : undefined,
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const hasColor = editor.extensionManager.extensions.some(
-    (ext) => ext.name === "color"
+    (ext) => ext.name === "color",
   );
   const hasHighlight = editor.extensionManager.extensions.some(
-    (ext) => ext.name === "highlight"
+    (ext) => ext.name === "highlight",
   );
 
   const rememberColor = useCallback(
@@ -120,14 +120,14 @@ export const ColorSelector = ({ editor }: { editor: Editor }) => {
         const next = [
           { color, label, type },
           ...prev.filter(
-            (item) => !(item.type === type && item.color === color)
+            (item) => !(item.type === type && item.color === color),
           ),
         ].slice(0, RECENT_LIMIT);
         storage.set(next);
         return next;
       });
     },
-    []
+    [],
   );
 
   const selectColor = useCallback(
@@ -146,7 +146,7 @@ export const ColorSelector = ({ editor }: { editor: Editor }) => {
         chainFocus(editor).setHighlight({ color }).run();
       }
     },
-    [editor, textColor, highlightColor, rememberColor]
+    [editor, textColor, highlightColor, rememberColor],
   );
 
   if (!hasColor && !hasHighlight) {
@@ -170,6 +170,7 @@ export const ColorSelector = ({ editor }: { editor: Editor }) => {
             strokeWidth={2}
             strokeLinecap="round"
             strokeLinejoin="round"
+            aria-label="color"
           >
             <path d="M4 20h16" />
             <path d="m6 16 6-12 6 12" />

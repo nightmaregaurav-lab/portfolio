@@ -1,10 +1,8 @@
+import type { PageContentProps } from "@/app/(app)/about/page.types";
 import styles from "./page.module.css";
-import type {PageContentProps} from "@/app/(app)/about/page.types";
 
 function PageContent({}: PageContentProps) {
-  return (<>
-
-  </>);
+  return null;
 }
 
 export default PageContent;

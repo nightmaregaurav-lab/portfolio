@@ -1,25 +1,24 @@
-"use client"
+"use client";
 
-import React, {useRef} from 'react';
-import {Button} from "@/components/ui/button";
-import {FileUp} from "lucide-react";
-import {Spinner} from "@/components/ui/spinner";
-import {GitHubCreateFileRequest} from "@/lib/gitHub";
-import {confirm} from "@/components/ui/Confirm";
+import { FileUp } from "lucide-react";
+import type React from "react";
+import { useRef } from "react";
+import { Button } from "@/components/ui/button";
+import { confirm } from "@/components/ui/Confirm";
+import { Spinner } from "@/components/ui/spinner";
+import type { GitHubCreateFileRequest } from "@/lib/gitHub";
 
-function FileUploadButton(
-  {
-    uploadingFiles,
-    uploadFiles
-  }: {
-    uploadingFiles: boolean,
-    uploadFiles: (files: GitHubCreateFileRequest[]) => Promise<number>
-  }
-) {
+function FileUploadButton({
+  uploadingFiles,
+  uploadFiles,
+}: {
+  uploadingFiles: boolean;
+  uploadFiles: (files: GitHubCreateFileRequest[]) => Promise<number>;
+}) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleFileSelect = async (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const files = event.target.files;
     if (!files || files.length === 0) return;
@@ -56,7 +55,7 @@ function FileUploadButton(
     });
 
     try {
-      if(returned) {
+      if (returned) {
         await uploadFiles(ghFiles);
       }
     } finally {
@@ -66,27 +65,31 @@ function FileUploadButton(
     }
   };
 
-  return (<div className={"flex flex-col gap-1"}>
-    <input
-      ref={fileInputRef}
-      type="file"
-      multiple
-      className="hidden"
-      onChange={handleFileSelect}
-    />
-    <Button
-      type="button"
-      size={"lg"}
-      className={"cursor-pointer hover:-translate-y-px"}
-      disabled={uploadingFiles}
-      onClick={() => fileInputRef.current?.click()}
-    >
-      <FileUp/> Upload Files
-    </Button>
-    {uploadingFiles && <span className={"flex flex-nowrap gap-1 align-center items-center"}>
-      <Spinner/> Uploading...
-    </span>}
-  </div>);
+  return (
+    <div className={"flex flex-col gap-1"}>
+      <input
+        ref={fileInputRef}
+        type="file"
+        multiple
+        className="hidden"
+        onChange={handleFileSelect}
+      />
+      <Button
+        type="button"
+        size={"lg"}
+        className={"cursor-pointer hover:-translate-y-px"}
+        disabled={uploadingFiles}
+        onClick={() => fileInputRef.current?.click()}
+      >
+        <FileUp /> Upload Files
+      </Button>
+      {uploadingFiles && (
+        <span className={"flex flex-nowrap gap-1 align-center items-center"}>
+          <Spinner /> Uploading...
+        </span>
+      )}
+    </div>
+  );
 }
 
 export default FileUploadButton;

@@ -1,13 +1,17 @@
-"use client"
+"use client";
 
-import React from "react";
-import {format, isValid, parseISO} from "date-fns";
-import {Calendar as CalendarIcon} from "lucide-react";
+import { format, isValid, parseISO } from "date-fns";
+import { Calendar as CalendarIcon } from "lucide-react";
+import type React from "react";
 
-import {Button} from "@/components/ui/button";
-import {Calendar} from "@/components/ui/calendar";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {cn} from "@/lib/utils";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 type DatePickerProps = Omit<
   React.ComponentProps<typeof Button>,
@@ -17,7 +21,7 @@ type DatePickerProps = Omit<
   onChange: (value: string) => void;
 };
 
-function DatePicker({className, value, onChange, ...props}: DatePickerProps) {
+function DatePicker({ className, value, onChange, ...props }: DatePickerProps) {
   const parsedDate = value ? parseISO(value) : undefined;
   const date = parsedDate && isValid(parsedDate) ? parsedDate : undefined;
   const currentYear = new Date().getFullYear();
@@ -33,7 +37,7 @@ function DatePicker({className, value, onChange, ...props}: DatePickerProps) {
             data-empty={!date}
             className={cn(
               "w-full justify-start text-left font-normal data-[empty=true]:text-muted-foreground cursor-pointer hover:-translate-y-px",
-              className
+              className,
             )}
           />
         }
@@ -58,4 +62,4 @@ function DatePicker({className, value, onChange, ...props}: DatePickerProps) {
   );
 }
 
-export {DatePicker};
+export { DatePicker };

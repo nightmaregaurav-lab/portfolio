@@ -1,40 +1,32 @@
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {Identifier, useConfig} from "@/hooks/useConfig";
+import type { z } from "zod";
+import { type Identifier, useConfig } from "@/hooks/useConfig";
 
 export function useConfigurationForm<
   TSchema extends z.ZodObject<any> | z.ZodArray<any>,
-  TIdentifier extends Identifier
+  TIdentifier extends Identifier,
 >(
   identifier: TIdentifier,
   schema: TSchema,
   defaultValues: z.input<TSchema>,
-  query?: Record<string, string | number | null>
+  query?: Record<string, string | number | null>,
 ) {
-
   type TInput = z.input<TSchema>;
   type TOutput = z.output<TSchema>;
 
-  const {
-    config,
-    isLoadingConfig,
-    saveConfig,
-    isSavingConfig,
-  } = useConfig(identifier, query);
+  const { config, isLoadingConfig, saveConfig, isSavingConfig } = useConfig(
+    identifier,
+    query,
+  );
 
   const form = useForm<TInput, any, TOutput>({
     resolver: zodResolver(schema) as any,
     defaultValues: defaultValues as any,
   });
 
-  const {
-    control,
-    reset,
-    handleSubmit,
-    watch
-  } = form;
+  const { control, reset, handleSubmit, watch } = form;
 
   useEffect(() => {
     if (config) {
@@ -61,6 +53,6 @@ export function useConfigurationForm<
     handleSubmit,
     formValues,
     hasChanges,
-    originalConfig: config
+    originalConfig: config,
   };
 }

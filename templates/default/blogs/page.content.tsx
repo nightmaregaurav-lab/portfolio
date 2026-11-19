@@ -1,15 +1,15 @@
-import {NotebookPen} from "lucide-react";
+import { NotebookPen } from "lucide-react";
+import type { PageContentProps } from "@/app/(app)/blogs/page.types";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import {BlogsList} from "./components/BlogsList";
 import BlogCard from "./components/BlogCard";
+import { BlogsList } from "./components/BlogsList";
 import styles from "./page.module.css";
-import type {PageContentProps} from "@/app/(app)/blogs/page.types";
 
 const ITEMS_PER_SECTION = 10;
 const MIN_SECTION_THRESHOLD = 3;
 const MAX_CATEGORIES_SHOWN = 3;
 
-function PageContent({blogsConfig}: PageContentProps) {
+function PageContent({ blogsConfig }: PageContentProps) {
   const posts = blogsConfig.posts || [];
   const hasPosts = posts.length > 0;
 
@@ -37,7 +37,9 @@ function PageContent({blogsConfig}: PageContentProps) {
     <main className={styles.page} aria-label="Blogs">
       <header className={styles.intro}>
         <h1 className={styles.pageHeader}>Blogs</h1>
-        <HtmlRenderer className={styles.summary}>{blogsConfig.summary}</HtmlRenderer>
+        <HtmlRenderer className={styles.summary}>
+          {blogsConfig.summary}
+        </HtmlRenderer>
       </header>
 
       {hasPosts ? (
@@ -87,7 +89,7 @@ function PageContent({blogsConfig}: PageContentProps) {
         </section>
       ) : (
         <section className={styles.emptyState} aria-label="Blog posts">
-          <NotebookPen size={26} aria-hidden="true"/>
+          <NotebookPen size={26} aria-hidden="true" />
           <h2>No blog posts yet.</h2>
           <p>Published writing will appear here once posts are added.</p>
         </section>

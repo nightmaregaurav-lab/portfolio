@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
 import { Plus } from "lucide-react";
@@ -28,7 +28,7 @@ export const BottomBar = ({ editor }: BottomBarProps) => {
       const inset = window.innerHeight - viewport.height - viewport.offsetTop;
       bar.style.setProperty(
         "--block-editor-keyboard-inset",
-        `${Math.max(0, inset)}px`
+        `${Math.max(0, inset)}px`,
       );
     };
     update();
@@ -53,7 +53,7 @@ export const BottomBar = ({ editor }: BottomBarProps) => {
   };
 
   const hasTextAlign = editor.extensionManager.extensions.some(
-    (ext) => ext.name === "textAlign"
+    (ext) => ext.name === "textAlign",
   );
 
   return (

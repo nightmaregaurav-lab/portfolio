@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type {
   SuggestionKeyDownProps,
@@ -8,15 +8,15 @@ import {
   forwardRef,
   useEffect,
   useImperativeHandle,
-  useState,
   useRef,
+  useState,
 } from "react";
 
 import { DEFAULT_ICONS } from "../../icons";
 import {
   SlashMenu,
-  SlashMenuList,
   SlashMenuItem,
+  SlashMenuList,
   SlashMenuSearch,
   SlashMenuSearchInput,
 } from "../../ui";
@@ -55,7 +55,7 @@ const SuggestionList = forwardRef<SuggestionListHandle, SuggestionListProps>(
 
     const upHandler = () => {
       setSelectedIndex(
-        (selectedIndex + filteredItems.length - 1) % filteredItems.length
+        (selectedIndex + filteredItems.length - 1) % filteredItems.length,
       );
     };
 
@@ -178,7 +178,7 @@ const SuggestionList = forwardRef<SuggestionListHandle, SuggestionListProps>(
         </SlashMenuList>
       </SlashMenu>
     );
-  }
+  },
 );
 
 SuggestionList.displayName = "SuggestionList";

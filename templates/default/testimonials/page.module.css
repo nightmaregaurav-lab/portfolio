@@ -51,21 +51,56 @@
   min-height: 15rem;
   overflow: hidden;
   border-top: 3px solid var(--accent-tone);
-  transition: transform 180ms ease, box-shadow 180ms ease;
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease;
   animation: rise-in 500ms cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.quoteCard:nth-child(2), .featuredQuote:nth-child(2) { animation-delay: 50ms; }
-.quoteCard:nth-child(3), .featuredQuote:nth-child(3) { animation-delay: 100ms; }
-.quoteCard:nth-child(4), .featuredQuote:nth-child(4) { animation-delay: 150ms; }
-.quoteCard:nth-child(5), .featuredQuote:nth-child(5) { animation-delay: 200ms; }
-.quoteCard:nth-child(6), .featuredQuote:nth-child(6) { animation-delay: 250ms; }
-.quoteCard:nth-child(7), .featuredQuote:nth-child(7) { animation-delay: 300ms; }
-.quoteCard:nth-child(8), .featuredQuote:nth-child(8) { animation-delay: 350ms; }
-.quoteCard:nth-child(9), .featuredQuote:nth-child(9) { animation-delay: 400ms; }
-.quoteCard:nth-child(10), .featuredQuote:nth-child(10) { animation-delay: 450ms; }
-.quoteCard:nth-child(11), .featuredQuote:nth-child(11) { animation-delay: 500ms; }
-.quoteCard:nth-child(12), .featuredQuote:nth-child(12) { animation-delay: 550ms; }
+.quoteCard:nth-child(2),
+.featuredQuote:nth-child(2) {
+  animation-delay: 50ms;
+}
+.quoteCard:nth-child(3),
+.featuredQuote:nth-child(3) {
+  animation-delay: 100ms;
+}
+.quoteCard:nth-child(4),
+.featuredQuote:nth-child(4) {
+  animation-delay: 150ms;
+}
+.quoteCard:nth-child(5),
+.featuredQuote:nth-child(5) {
+  animation-delay: 200ms;
+}
+.quoteCard:nth-child(6),
+.featuredQuote:nth-child(6) {
+  animation-delay: 250ms;
+}
+.quoteCard:nth-child(7),
+.featuredQuote:nth-child(7) {
+  animation-delay: 300ms;
+}
+.quoteCard:nth-child(8),
+.featuredQuote:nth-child(8) {
+  animation-delay: 350ms;
+}
+.quoteCard:nth-child(9),
+.featuredQuote:nth-child(9) {
+  animation-delay: 400ms;
+}
+.quoteCard:nth-child(10),
+.featuredQuote:nth-child(10) {
+  animation-delay: 450ms;
+}
+.quoteCard:nth-child(11),
+.featuredQuote:nth-child(11) {
+  animation-delay: 500ms;
+}
+.quoteCard:nth-child(12),
+.featuredQuote:nth-child(12) {
+  animation-delay: 550ms;
+}
 
 .featuredQuote {
   grid-column: span 2;
@@ -158,7 +193,8 @@
   gap: 1rem;
   margin-top: auto;
   padding-top: 1rem;
-  border-top: 1px solid color-mix(in oklch, var(--accent-tone) 18%, var(--border));
+  border-top: 1px solid
+    color-mix(in oklch, var(--accent-tone) 18%, var(--border));
   color: var(--muted-foreground);
   font-size: 0.78rem;
 }

@@ -1,12 +1,14 @@
-import {ArrowUpRight, BriefcaseBusiness, CheckCircle2} from "lucide-react";
-import {Card, CardContent, CardHeader, CardTitle} from "@/components/ui/card";
-import SmartLink from "@/components/ui/SmartLink";
-import DynamicLucideReactIcon, {LucideReactIconName} from "@/components/ui/DynamicLucideReactIcon";
+import { ArrowUpRight, BriefcaseBusiness, CheckCircle2 } from "lucide-react";
+import type { PageContentProps } from "@/app/(app)/services/page.types";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import DynamicLucideReactIcon, {
+  type LucideReactIconName,
+} from "@/components/ui/DynamicLucideReactIcon";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
+import SmartLink from "@/components/ui/SmartLink";
 import styles from "./page.module.css";
-import type {PageContentProps} from "@/app/(app)/services/page.types";
 
-function PageContent({servicesConfig}: PageContentProps) {
+function PageContent({ servicesConfig }: PageContentProps) {
   return (
     <main className={styles.page} aria-label="Services">
       <header className={styles.intro}>
@@ -25,19 +27,32 @@ function PageContent({servicesConfig}: PageContentProps) {
               <CardHeader className={styles.cardHeader}>
                 <div className={styles.iconFrame} aria-hidden="true">
                   {service.icon ? (
-                    <DynamicLucideReactIcon name={service.icon as LucideReactIconName} size={22} aria-hidden="true"/>
+                    <DynamicLucideReactIcon
+                      name={service.icon as LucideReactIconName}
+                      size={22}
+                      aria-hidden="true"
+                    />
                   ) : (
-                    <BriefcaseBusiness size={22} aria-hidden="true"/>
+                    <BriefcaseBusiness size={22} aria-hidden="true" />
                   )}
                 </div>
                 <span className={styles.indexBadge}>0{index + 1}</span>
               </CardHeader>
               <CardContent className={styles.cardContent}>
-                <CardTitle className={styles.serviceTitle}>{service.title}</CardTitle>
-                <HtmlRenderer className={styles.serviceDescription}>{service.description}</HtmlRenderer>
+                <CardTitle className={styles.serviceTitle}>
+                  {service.title}
+                </CardTitle>
+                <HtmlRenderer className={styles.serviceDescription}>
+                  {service.description}
+                </HtmlRenderer>
                 {service.link && (
-                  <SmartLink className={styles.serviceLink} href={service.link} aria-label={`Explore ${service.title}`}>
-                    Explore this service <ArrowUpRight size={16} aria-hidden="true"/>
+                  <SmartLink
+                    className={styles.serviceLink}
+                    href={service.link}
+                    aria-label={`Explore ${service.title}`}
+                  >
+                    Explore this service{" "}
+                    <ArrowUpRight size={16} aria-hidden="true" />
                   </SmartLink>
                 )}
               </CardContent>
@@ -46,7 +61,7 @@ function PageContent({servicesConfig}: PageContentProps) {
         </section>
       ) : (
         <section className={styles.emptyState} aria-label="Services">
-          <CheckCircle2 size={26} aria-hidden="true"/>
+          <CheckCircle2 size={26} aria-hidden="true" />
           <h2>This page is taking shape.</h2>
           <p>Once it&apos;s finalized, services offered will appear here.</p>
         </section>

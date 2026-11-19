@@ -3,7 +3,7 @@ export function migrateBlogsToV2(configuration: unknown): unknown {
     throw new Error("Invalid configuration format for migration.");
   }
 
-  const value = configuration as {posts?: unknown};
+  const value = configuration as { posts?: unknown };
   if (!Array.isArray(value.posts)) {
     return configuration;
   }
@@ -12,7 +12,11 @@ export function migrateBlogsToV2(configuration: unknown): unknown {
     if (typeof post !== "object" || post === null) {
       continue;
     }
-    if (!("accentColor" in post) || post.accentColor === undefined || post.accentColor === null) {
+    if (
+      !("accentColor" in post) ||
+      post.accentColor === undefined ||
+      post.accentColor === null
+    ) {
       post.accentColor = "#FFFFFF";
     }
   }

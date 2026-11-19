@@ -4,13 +4,17 @@ export function migrateNavigationToV1(configuration: unknown): unknown {
   }
 
   const config = configuration as Record<string, unknown>;
-  const navigations = (config.enabledMenus || config.enabledNavigations || []) as unknown[];
-  const navigationConfig =  {
+  const navigations = (config.enabledMenus ||
+    config.enabledNavigations ||
+    []) as unknown[];
+  const navigationConfig = {
     ...config,
-    enabledNavigations: navigations.filter((item: unknown) => typeof item === 'string' && item !== 'quickLinks'),
+    enabledNavigations: navigations.filter(
+      (item: unknown) => typeof item === "string" && item !== "quickLinks",
+    ),
   };
 
-  if ('enabledMenus' in navigationConfig) {
+  if ("enabledMenus" in navigationConfig) {
     delete navigationConfig.enabledMenus;
   }
   return navigationConfig;

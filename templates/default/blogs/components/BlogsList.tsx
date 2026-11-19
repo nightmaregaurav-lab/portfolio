@@ -1,11 +1,11 @@
 "use client";
 
-import {useMemo} from "react";
-import {Search} from "lucide-react";
-import {Input} from "@/components/ui/input";
-import {useDebouncedState} from "@/hooks/useDebouncedState";
+import { Search } from "lucide-react";
+import { useMemo } from "react";
+import { Input } from "@/components/ui/input";
+import type { TModel as BlogsModel } from "@/configuration/blogs";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
 import styles from "../page.module.css";
-import type {TModel as BlogsModel} from "@/configuration/blogs";
 import BlogCard from "./BlogCard";
 
 function getSearchablePostText(post: BlogsModel["posts"][number]) {
@@ -13,17 +13,20 @@ function getSearchablePostText(post: BlogsModel["posts"][number]) {
     post.title,
     post.summary,
     post.id,
-    ...post.slugs.map(({slug}) => slug),
+    ...post.slugs.map(({ slug }) => slug),
     ...(post.categories || []),
     ...(post.tags || []),
-  ].join(" ").replaceAll(/<[^>]*>/g, " ").toLocaleLowerCase();
+  ]
+    .join(" ")
+    .replaceAll(/<[^>]*>/g, " ")
+    .toLocaleLowerCase();
 }
 
-function BlogsList({posts}: {posts: BlogsModel["posts"]}) {
+function BlogsList({ posts }: { posts: BlogsModel["posts"] }) {
   const {
     state: searchTerm,
     debouncedState: debouncedSearchTerm,
-    setState: setSearchTerm
+    setState: setSearchTerm,
   } = useDebouncedState("", 300);
 
   const allPosts = useMemo(() => {
@@ -70,5 +73,5 @@ function BlogsList({posts}: {posts: BlogsModel["posts"]}) {
   );
 }
 
-export {BlogsList};
-export {default as BlogCard} from "./BlogCard";
+export { default as BlogCard } from "./BlogCard";
+export { BlogsList };

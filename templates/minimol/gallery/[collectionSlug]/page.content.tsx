@@ -1,1 +1,1 @@
-export {default} from "@/templates/default/gallery/[collectionSlug]/page.content";
+export { default } from "@/templates/default/gallery/[collectionSlug]/page.content";

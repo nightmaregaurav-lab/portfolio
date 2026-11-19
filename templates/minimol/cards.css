@@ -1,6 +1,12 @@
 body:has([data-template="minimol"]) #main-content {
   /* Shared templates expose cards through slots and their existing content attributes. */
-  :is([data-slot="card"], article[style*="--accent-tone"], a[data-featured], article[data-hovered], section[aria-labelledby^="project-"]),
+  :is(
+      [data-slot="card"],
+      article[style*="--accent-tone"],
+      a[data-featured],
+      article[data-hovered],
+      section[aria-labelledby^="project-"]
+    ),
   [aria-label$=" project details"] > div > article > header {
     min-width: 0;
     min-height: 0;
@@ -30,11 +36,17 @@ body:has([data-template="minimol"]) #main-content {
     aspect-ratio: 16 / 10;
   }
 
-  [data-slot="card"] :is([data-slot="card-header"], [data-slot="card-content"]) {
+  [data-slot="card"]
+    :is([data-slot="card-header"], [data-slot="card-content"]) {
     padding-inline: var(--minimol-card-padding);
   }
 
-  :is([data-slot="card-title"], [data-slot="card"] h2, article[style*="--accent-tone"] h2, article[data-hovered] h2) {
+  :is(
+      [data-slot="card-title"],
+      [data-slot="card"] h2,
+      article[style*="--accent-tone"] h2,
+      article[data-hovered] h2
+    ) {
     font-family: inherit;
     font-size: 1rem;
     font-weight: var(--minimol-heading-weight);
@@ -51,7 +63,8 @@ body:has([data-template="minimol"]) #main-content {
     font-weight: 400;
   }
 
-  :is([data-slot="card"], section[aria-labelledby^="project-"]) :is(.html-renderer, [data-slot="card-description"]),
+  :is([data-slot="card"], section[aria-labelledby^="project-"])
+    :is(.html-renderer, [data-slot="card-description"]),
   article[style*="--accent-tone"] > p {
     color: var(--muted-foreground);
     font-size: var(--minimol-card-body-size);
@@ -68,7 +81,8 @@ body:has([data-template="minimol"]) #main-content {
     padding: var(--minimol-card-padding);
   }
 
-  section[aria-labelledby^="project-"] :is(dl > div, div:has(> span[role="button"])) {
+  section[aria-labelledby^="project-"]
+    :is(dl > div, div:has(> span[role="button"])) {
     border-radius: var(--minimol-card-radius);
   }
 
@@ -181,7 +195,14 @@ body:has([data-template="minimol"]) #main-content {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  body:has([data-template="minimol"]) #main-content :is([data-slot="card"], article[style*="--accent-tone"], a[data-featured], article[data-hovered]) {
+  body:has([data-template="minimol"])
+    #main-content
+    :is(
+      [data-slot="card"],
+      article[style*="--accent-tone"],
+      a[data-featured],
+      article[data-hovered]
+    ) {
     transition: none;
   }
 }

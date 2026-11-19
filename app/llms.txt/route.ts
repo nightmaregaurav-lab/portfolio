@@ -1,4 +1,4 @@
-import {NextResponse} from "next/server";
+import { NextResponse } from "next/server";
 import {
   BlogsConfig,
   CoreConfig,
@@ -6,23 +6,23 @@ import {
   NavigationConfig,
   ProjectsConfig,
 } from "@/configuration";
-import {getCanonicalUrl} from "@/lib/pageMetadata";
+import { getCanonicalUrl } from "@/lib/pageMetadata";
 
 export const dynamic = "force-static";
 
 const MENU_PATH_MAP = [
-  {menu: "home", path: "/"},
-  {menu: "about", path: "/about/"},
-  {menu: "projects", path: "/projects/"},
-  {menu: "services", path: "/services/"},
-  {menu: "skills", path: "/skills/"},
-  {menu: "journey", path: "/journey/"},
-  {menu: "testimonials", path: "/testimonials/"},
-  {menu: "gallery", path: "/gallery/"},
-  {menu: "blogs", path: "/blogs/"},
+  { menu: "home", path: "/" },
+  { menu: "about", path: "/about/" },
+  { menu: "projects", path: "/projects/" },
+  { menu: "services", path: "/services/" },
+  { menu: "skills", path: "/skills/" },
+  { menu: "journey", path: "/journey/" },
+  { menu: "testimonials", path: "/testimonials/" },
+  { menu: "gallery", path: "/gallery/" },
+  { menu: "blogs", path: "/blogs/" },
 ];
 
-function getSitemapSlug(slugs: {slug: string; isActive: boolean}[]) {
+function getSitemapSlug(slugs: { slug: string; isActive: boolean }[]) {
   return slugs.find((s) => s.isActive)?.slug || slugs[0]?.slug;
 }
 
@@ -54,14 +54,17 @@ export function GET() {
   }
 
   // Projects
-  if (NavigationConfig.enabledNavigations.includes("projects") && ProjectsConfig.projects.length > 0) {
+  if (
+    NavigationConfig.enabledNavigations.includes("projects") &&
+    ProjectsConfig.projects.length > 0
+  ) {
     lines.push("");
     lines.push("## Projects");
     lines.push("");
     for (const project of ProjectsConfig.projects) {
       const slug = getSitemapSlug(project.slugs);
       if (slug) {
-        const url = getCanonicalUrl("/projects/" + slug + "/");
+        const url = getCanonicalUrl(`/projects/${slug}/`);
         if (url) {
           lines.push(`- **${project.title}** ${url}`);
         }
@@ -70,17 +73,20 @@ export function GET() {
   }
 
   // Blog posts
-  if (NavigationConfig.enabledNavigations.includes("blogs") && BlogsConfig.posts.length > 0) {
+  if (
+    NavigationConfig.enabledNavigations.includes("blogs") &&
+    BlogsConfig.posts.length > 0
+  ) {
     lines.push("");
     lines.push("## Blog Posts");
     lines.push("");
-    const sortedPosts = [...BlogsConfig.posts].sort((a, b) =>
-      new Date(b.date).getTime() - new Date(a.date).getTime()
+    const sortedPosts = [...BlogsConfig.posts].sort(
+      (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
     for (const post of sortedPosts) {
       const slug = getSitemapSlug(post.slugs);
       if (slug) {
-        const url = getCanonicalUrl("/blogs/" + slug + "/");
+        const url = getCanonicalUrl(`/blogs/${slug}/`);
         if (url) {
           lines.push(`- **${post.title}** (${post.date})`);
           lines.push(`  ${url}`);
@@ -90,14 +96,17 @@ export function GET() {
   }
 
   // Gallery collections
-  if (NavigationConfig.enabledNavigations.includes("gallery") && GalleryConfig.categories.length > 0) {
+  if (
+    NavigationConfig.enabledNavigations.includes("gallery") &&
+    GalleryConfig.categories.length > 0
+  ) {
     lines.push("");
     lines.push("## Gallery");
     lines.push("");
     for (const collection of GalleryConfig.categories) {
       const slug = getSitemapSlug(collection.slugs);
       if (slug) {
-        const url = getCanonicalUrl("/gallery/" + slug + "/");
+        const url = getCanonicalUrl(`/gallery/${slug}/`);
         if (url) {
           lines.push(`- **${collection.name}** ${url}`);
         }

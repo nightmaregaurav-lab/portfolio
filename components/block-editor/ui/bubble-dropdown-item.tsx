@@ -1,6 +1,7 @@
 import * as React from "react";
 
-export interface BubbleDropdownItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BubbleDropdownItemProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
   danger?: boolean;
 }

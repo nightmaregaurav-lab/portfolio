@@ -4,7 +4,7 @@ export function migrateAboutToV1(configuration: unknown): unknown {
   }
 
   // aboutMe is renamed to summary
-  const {aboutMe, ...rest} = configuration as Record<string, unknown>;
+  const { aboutMe, ...rest } = configuration as Record<string, unknown>;
   return {
     ...rest,
     summary: aboutMe,

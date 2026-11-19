@@ -1,11 +1,11 @@
-import styles from "./page.module.css";
-import SmartLink from "@/components/ui/SmartLink";
-import {ArrowLeft} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
+import type { PageContentProps } from "@/app/(app)/blogs/[blogSlug]/page.types";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import {formatDate} from "@/lib/utils";
-import type {PageContentProps} from "@/app/(app)/blogs/[blogSlug]/page.types";
+import SmartLink from "@/components/ui/SmartLink";
+import { formatDate } from "@/lib/utils";
+import styles from "./page.module.css";
 
-function PageContent({post, authorName}: PageContentProps) {
+function PageContent({ post, authorName }: PageContentProps) {
   return (
     <main className={styles.page}>
       <article className={styles.article}>
@@ -15,26 +15,34 @@ function PageContent({post, authorName}: PageContentProps) {
         <header className={styles.articleHeader}>
           <h1>{post.title}</h1>
           <div className={styles.postMeta}>
-            <time className={styles.postDate} dateTime={post.date}>{formatDate(post.date)}</time>
+            <time className={styles.postDate} dateTime={post.date}>
+              {formatDate(post.date)}
+            </time>
             <span className={styles.authorName}>{authorName}</span>
           </div>
           <p className={styles.pageText}>{post.summary}</p>
           {!!post.categories.length && (
             <div className={styles.tagList}>
               {post.categories.map((category) => (
-                <span className={styles.tag} key={category}>{category}</span>
+                <span className={styles.tag} key={category}>
+                  {category}
+                </span>
               ))}
             </div>
           )}
           {!!post.tags.length && (
             <div className={styles.tagList}>
               {post.tags.map((tag) => (
-                <span className={styles.tag} key={tag}>{tag}</span>
+                <span className={styles.tag} key={tag}>
+                  {tag}
+                </span>
               ))}
             </div>
           )}
         </header>
-        <HtmlRenderer className={styles.articleContent}>{post.content}</HtmlRenderer>
+        <HtmlRenderer className={styles.articleContent}>
+          {post.content}
+        </HtmlRenderer>
       </article>
     </main>
   );

@@ -1,5 +1,5 @@
-import type {TModel as BlogsModel} from "@/configuration/blogs";
-import type {TModel as BlogModel} from "@/configuration/blog";
+import type { TModel as BlogModel } from "@/configuration/blog";
+import type { TModel as BlogsModel } from "@/configuration/blogs";
 
 export type BlogPost = BlogsModel["posts"][number] & BlogModel;
 

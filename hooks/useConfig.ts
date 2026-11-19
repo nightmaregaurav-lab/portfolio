@@ -1,23 +1,62 @@
-"use client"
+"use client";
 
-import {useMutation, useQuery, useQueryClient} from "@tanstack/react-query";
-import {TOutput as CoreConfigurationOutput, schema as CoreConfigurationSchema} from "@/configuration/core";
-import {TOutput as NavigationConfigurationOutput, schema as NavigationConfigurationSchema} from "@/configuration/navigation";
-import {TOutput as HomeConfigurationOutput, schema as HomeConfigurationSchema} from "@/configuration/home";
-import {TOutput as AboutConfigurationOutput, schema as AboutConfigurationSchema} from "@/configuration/about";
-import {TOutput as JourneyConfigurationOutput, schema as JourneyConfigurationSchema} from "@/configuration/journey";
-import {TOutput as ProjectsConfigurationOutput, schema as ProjectsConfigurationSchema} from "@/configuration/projects";
-import {TOutput as SkillsConfigurationOutput, schema as SkillsConfigurationSchema} from "@/configuration/skills";
-import {TOutput as TestimonialsConfigurationOutput, schema as TestimonialsConfigurationSchema} from "@/configuration/testimonials";
-import {TOutput as GalleryConfigurationOutput, schema as GalleryConfigurationSchema} from "@/configuration/gallery";
-import {TOutput as QuickLinksConfigurationOutput, schema as QuickLinksConfigurationSchema} from "@/configuration/quickLinks";
-import {TOutput as BlogsConfigurationOutput, schema as BlogsConfigurationSchema} from "@/configuration/blogs";
-import {TOutput as BlogConfigurationOutput, schema as BlogConfigurationSchema} from "@/configuration/blog";
-import {TOutput as ServicesConfigurationOutput, schema as ServicesConfigurationSchema} from "@/configuration/services";
-import {toast} from "sonner";
-import {useGitHubPatAuth} from "@/hooks/useGitHubPatAuth";
-import {getGitHubFileContent, uploadGitHubFiles} from "@/lib/gitHub";
-import {serializeConfiguration} from "@/migrations/configurationVersions";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { toast } from "sonner";
+import {
+  type TOutput as AboutConfigurationOutput,
+  schema as AboutConfigurationSchema,
+} from "@/configuration/about";
+import {
+  type TOutput as BlogConfigurationOutput,
+  schema as BlogConfigurationSchema,
+} from "@/configuration/blog";
+import {
+  type TOutput as BlogsConfigurationOutput,
+  schema as BlogsConfigurationSchema,
+} from "@/configuration/blogs";
+import {
+  type TOutput as CoreConfigurationOutput,
+  schema as CoreConfigurationSchema,
+} from "@/configuration/core";
+import {
+  type TOutput as GalleryConfigurationOutput,
+  schema as GalleryConfigurationSchema,
+} from "@/configuration/gallery";
+import {
+  type TOutput as HomeConfigurationOutput,
+  schema as HomeConfigurationSchema,
+} from "@/configuration/home";
+import {
+  type TOutput as JourneyConfigurationOutput,
+  schema as JourneyConfigurationSchema,
+} from "@/configuration/journey";
+import {
+  type TOutput as NavigationConfigurationOutput,
+  schema as NavigationConfigurationSchema,
+} from "@/configuration/navigation";
+import {
+  type TOutput as ProjectsConfigurationOutput,
+  schema as ProjectsConfigurationSchema,
+} from "@/configuration/projects";
+import {
+  type TOutput as QuickLinksConfigurationOutput,
+  schema as QuickLinksConfigurationSchema,
+} from "@/configuration/quickLinks";
+import {
+  type TOutput as ServicesConfigurationOutput,
+  schema as ServicesConfigurationSchema,
+} from "@/configuration/services";
+import {
+  type TOutput as SkillsConfigurationOutput,
+  schema as SkillsConfigurationSchema,
+} from "@/configuration/skills";
+import {
+  type TOutput as TestimonialsConfigurationOutput,
+  schema as TestimonialsConfigurationSchema,
+} from "@/configuration/testimonials";
+import { useGitHubPatAuth } from "@/hooks/useGitHubPatAuth";
+import { getGitHubFileContent, uploadGitHubFiles } from "@/lib/gitHub";
+import { serializeConfiguration } from "@/migrations/configurationVersions";
 
 export enum Identifier {
   Core = "core",
@@ -51,7 +90,7 @@ type ConfigurationModelMap = {
   [Identifier.Services]: ServicesConfigurationOutput;
 };
 
-type ConfigQuery = Record<string, string|number|null>;
+type ConfigQuery = Record<string, string | number | null>;
 type ConfigurationModel<K extends Identifier> = ConfigurationModelMap[K];
 type ConfigHookResult<T extends Identifier> = {
   config: ConfigurationModel<T> | undefined;
@@ -60,21 +99,23 @@ type ConfigHookResult<T extends Identifier> = {
   isSavingConfig: boolean;
 };
 
-const configurationPaths: Record<Identifier, (query?: ConfigQuery) => string> = {
-  [Identifier.Core]: _ => `public/config/core.json`,
-  [Identifier.Navigation]: _ => `public/config/navigation.json`,
-  [Identifier.Home]: _ => `public/config/home.json`,
-  [Identifier.About]: _ => `public/config/about.json`,
-  [Identifier.Journey]: _ => `public/config/journey.json`,
-  [Identifier.Projects]: _ => `public/config/projects.json`,
-  [Identifier.Skills]: _ => `public/config/skills.json`,
-  [Identifier.Testimonials]: _ => `public/config/testimonials.json`,
-  [Identifier.Gallery]: _ => `public/config/gallery.json`,
-  [Identifier.QuickLinks]: _ => `public/config/quick-links.json`,
-  [Identifier.Blogs]: _ => `public/config/blogs.json`,
-  [Identifier.Blog]: (query) => `public/config/blogs/${query ? query["id"] : "empty"}.json`,
-  [Identifier.Services]: _ => `public/config/services.json`,
-};
+const configurationPaths: Record<Identifier, (query?: ConfigQuery) => string> =
+  {
+    [Identifier.Core]: (_) => `public/config/core.json`,
+    [Identifier.Navigation]: (_) => `public/config/navigation.json`,
+    [Identifier.Home]: (_) => `public/config/home.json`,
+    [Identifier.About]: (_) => `public/config/about.json`,
+    [Identifier.Journey]: (_) => `public/config/journey.json`,
+    [Identifier.Projects]: (_) => `public/config/projects.json`,
+    [Identifier.Skills]: (_) => `public/config/skills.json`,
+    [Identifier.Testimonials]: (_) => `public/config/testimonials.json`,
+    [Identifier.Gallery]: (_) => `public/config/gallery.json`,
+    [Identifier.QuickLinks]: (_) => `public/config/quick-links.json`,
+    [Identifier.Blogs]: (_) => `public/config/blogs.json`,
+    [Identifier.Blog]: (query) =>
+      `public/config/blogs/${query ? query["id"] : "empty"}.json`,
+    [Identifier.Services]: (_) => `public/config/services.json`,
+  };
 
 const configurationSchemas = {
   [Identifier.Core]: CoreConfigurationSchema,
@@ -92,55 +133,58 @@ const configurationSchemas = {
   [Identifier.Services]: ServicesConfigurationSchema,
 };
 
-export function useConfig<T extends Identifier>(configIdentifier: T, query?: ConfigQuery): ConfigHookResult<T>{
+export function useConfig<T extends Identifier>(
+  configIdentifier: T,
+  query?: ConfigQuery,
+): ConfigHookResult<T> {
   const queryClient = useQueryClient();
 
-  const {
-    data,
-    isLoading
-  } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: [configIdentifier, query],
-    queryFn: async () => await getConfig(
-      configIdentifier,
-      query,
-      gitHubPat,
-      gitHubSession?.repository?.full_name || ""
-    ),
-    refetchOnWindowFocus: false
+    queryFn: async () =>
+      await getConfig(
+        configIdentifier,
+        query,
+        gitHubPat,
+        gitHubSession?.repository?.full_name || "",
+      ),
+    refetchOnWindowFocus: false,
   });
 
-  const {
-    gitHubPat,
-    gitHubSession
-  } = useGitHubPatAuth();
+  const { gitHubPat, gitHubSession } = useGitHubPatAuth();
 
-  const {
-    mutateAsync,
-    isPending
-  } = useMutation({
+  const { mutateAsync, isPending } = useMutation({
     mutationKey: [configIdentifier, query],
-    mutationFn: async (newConfig: ConfigurationModel<T>) => await saveConfig(
-      configIdentifier,
-      query,
-      newConfig,
-      gitHubPat,
-      gitHubSession?.repository?.full_name || ""
-    ),
+    mutationFn: async (newConfig: ConfigurationModel<T>) =>
+      await saveConfig(
+        configIdentifier,
+        query,
+        newConfig,
+        gitHubPat,
+        gitHubSession?.repository?.full_name || "",
+      ),
     onSuccess: async () => {
-      await queryClient.invalidateQueries({ queryKey: [configIdentifier, query] });
+      await queryClient.invalidateQueries({
+        queryKey: [configIdentifier, query],
+      });
       toast.success(`Config saved successfully: ${configIdentifier}`);
     },
     onError: async (error) => {
-      const errorMessage = error instanceof Error ? error.message : typeof error === "string" ? error : `Failed to save ${configIdentifier} config.`;
+      const errorMessage =
+        error instanceof Error
+          ? error.message
+          : typeof error === "string"
+            ? error
+            : `Failed to save ${configIdentifier} config.`;
       toast.error(errorMessage);
-    }
+    },
   });
 
   return {
     config: data,
     isLoadingConfig: isLoading,
     saveConfig: mutateAsync,
-    isSavingConfig: isPending
+    isSavingConfig: isPending,
   };
 }
 
@@ -149,7 +193,7 @@ async function saveConfig<T extends Identifier>(
   query: ConfigQuery | undefined,
   newConfig: ConfigurationModel<T>,
   gitHubPat: string | null,
-  repo: string
+  repo: string,
 ): Promise<void> {
   const configPathFunction = configurationPaths[configIdentifier];
   const filePath = configPathFunction(query);
@@ -163,23 +207,21 @@ async function saveConfig<T extends Identifier>(
         name: filePath.substring(filePath.lastIndexOf("/") + 1),
         content,
       },
-    ]
-  )
+    ],
+  );
 }
 
 async function getConfig<T extends Identifier>(
   configIdentifier: T,
   query: ConfigQuery | undefined,
   gitHubPat: string | null,
-  repo: string
+  repo: string,
 ): Promise<ConfigurationModel<T>> {
   const configPathFunction = configurationPaths[configIdentifier];
   const filePath = configPathFunction(query);
-  const response = await getGitHubFileContent(
-    gitHubPat ?? "",
-    repo,
-    filePath
-  );
+  const response = await getGitHubFileContent(gitHubPat ?? "", repo, filePath);
 
-  return configurationSchemas[configIdentifier].parse(JSON.parse(response).configuration) as ConfigurationModel<T>;
+  return configurationSchemas[configIdentifier].parse(
+    JSON.parse(response).configuration,
+  ) as ConfigurationModel<T>;
 }

@@ -1,6 +1,7 @@
 import * as React from "react";
 
-export interface SlashMenuItemProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface SlashMenuItemProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   selected?: boolean;
 }
 
@@ -14,8 +15,15 @@ const SlashMenuItem = React.forwardRef<HTMLButtonElement, SlashMenuItemProps>(
       .filter(Boolean)
       .join(" ");
 
-    return <button ref={ref} className={cls} {...props} type={props.type ?? "button"} />;
-  }
+    return (
+      <button
+        ref={ref}
+        className={cls}
+        {...props}
+        type={props.type ?? "button"}
+      />
+    );
+  },
 );
 SlashMenuItem.displayName = "SlashMenuItem";
 

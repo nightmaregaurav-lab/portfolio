@@ -1,21 +1,25 @@
-"use client"
+"use client";
 
-import React, {useState} from 'react';
-import {cn} from "@/lib/utils";
-import {Button} from "@/components/ui/button";
-import {Check, Eye} from "lucide-react";
-import {Spinner} from "@/components/ui/spinner";
-import {useGitHubFolder} from "@/hooks/useGitHubFolder";
-import {Input} from "@/components/ui/input";
-import {useDebouncedState} from "@/hooks/useDebouncedState";
-import {GitHubContent} from "@/lib/gitHub";
-import {getFileTypeFromExtension} from "@/lib/files";
-import {UPLOADS_PATH, UPLOADS_THUMBS_PATH} from "@/lib/pathConfig";
+import { Check, Eye } from "lucide-react";
 import Image from "next/image";
-import ImageLightbox from "@/components/ui/ImageLightbox";
-import {Tooltip, TooltipContent, TooltipTrigger} from "@/components/ui/tooltip";
-import {Separator} from "@/components/ui/separator";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
 import GithubFilePickerCard from "@/components/ui/GithubFilePickerCard";
+import ImageLightbox from "@/components/ui/ImageLightbox";
+import { Input } from "@/components/ui/input";
+import { Separator } from "@/components/ui/separator";
+import { Spinner } from "@/components/ui/spinner";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { useGitHubFolder } from "@/hooks/useGitHubFolder";
+import { getFileTypeFromExtension } from "@/lib/files";
+import type { GitHubContent } from "@/lib/gitHub";
+import { UPLOADS_PATH, UPLOADS_THUMBS_PATH } from "@/lib/pathConfig";
+import { cn } from "@/lib/utils";
 
 type GithubFilePickerProps = {
   path?: string;
@@ -28,30 +32,41 @@ function GithubFilePicker({
   path = UPLOADS_PATH,
   onSelect,
   selectedUrls = [],
-  className
+  className,
 }: GithubFilePickerProps) {
   const {
     state: searchKeyword,
     debouncedState: debouncedSearchKeyword,
-    setState: setSearchKeyword
+    setState: setSearchKeyword,
   } = useDebouncedState("", 500);
 
-  const [imagePreview, setImagePreview] = useState<{url: string, name: string} | null>(null);
-  const {recentUploads, serverFiles, loadingFiles} = useGitHubFolder(path);
+  const [imagePreview, setImagePreview] = useState<{
+    url: string;
+    name: string;
+  } | null>(null);
+  const { recentUploads, serverFiles, loadingFiles } = useGitHubFolder(path);
 
-  const filteredFiles = serverFiles?.filter(file =>
-    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase())
+  const filteredFiles = serverFiles?.filter((file) =>
+    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase()),
   );
 
-  const filteredRecentUploads = recentUploads?.filter(file =>
-    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase())
+  const filteredRecentUploads = recentUploads?.filter((file) =>
+    file.name.toLowerCase().includes(debouncedSearchKeyword.toLowerCase()),
   );
 
-  const recentImageFiles = filteredRecentUploads?.filter(file => getFileTypeFromExtension(file.name) === "Image");
-  const recentOtherFiles = filteredRecentUploads?.filter(file => getFileTypeFromExtension(file.name) !== "Image");
+  const recentImageFiles = filteredRecentUploads?.filter(
+    (file) => getFileTypeFromExtension(file.name) === "Image",
+  );
+  const recentOtherFiles = filteredRecentUploads?.filter(
+    (file) => getFileTypeFromExtension(file.name) !== "Image",
+  );
 
-  const imageFiles = filteredFiles?.filter(file => getFileTypeFromExtension(file.name) === "Image");
-  const otherFiles = filteredFiles?.filter(file => getFileTypeFromExtension(file.name) !== "Image");
+  const imageFiles = filteredFiles?.filter(
+    (file) => getFileTypeFromExtension(file.name) === "Image",
+  );
+  const otherFiles = filteredFiles?.filter(
+    (file) => getFileTypeFromExtension(file.name) !== "Image",
+  );
 
   function handleSelect(file: GitHubContent) {
     if (selectedUrls.some((url) => url === file.download_url)) {
@@ -60,13 +75,10 @@ function GithubFilePicker({
     onSelect?.(file.download_url);
   }
 
-
   return (
     <div className={cn("flex flex-col", className)}>
       <div className={"flex flex-col gap-1 mb-3"}>
-        <span className={"text-lg font-bold"}>
-          Pick a File
-        </span>
+        <span className={"text-lg font-bold"}>Pick a File</span>
         <span className={"text-sm text-gray-500"}>
           Click a file or the check mark to select it.
         </span>
@@ -80,29 +92,56 @@ function GithubFilePicker({
       />
 
       {loadingFiles && (
-        <div className={"flex flex-row justify-center align-center items-center py-8"}>
-          <Spinner className={"mr-1"}/> Loading...
+        <div
+          className={
+            "flex flex-row justify-center align-center items-center py-8"
+          }
+        >
+          <Spinner className={"mr-1"} /> Loading...
         </div>
       )}
 
-      {!loadingFiles && (!serverFiles || serverFiles.length === 0) && (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
-        <div className={"flex flex-row justify-center align-center items-center py-8"}>
-          <span className={"text-gray-500"}>No files found.</span>
-        </div>
-      )}
+      {!loadingFiles &&
+        (!serverFiles || serverFiles.length === 0) &&
+        (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
+          <div
+            className={
+              "flex flex-row justify-center align-center items-center py-8"
+            }
+          >
+            <span className={"text-gray-500"}>No files found.</span>
+          </div>
+        )}
 
-      {!loadingFiles && serverFiles && serverFiles.length > 0 && filteredFiles && filteredFiles.length === 0 &&
-       (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
-        <div className={"flex flex-row justify-center align-center items-center py-8"}>
-          <span className={"text-gray-500"}>No files found matching the search criteria.</span>
-        </div>
-      )}
+      {!loadingFiles &&
+        serverFiles &&
+        serverFiles.length > 0 &&
+        filteredFiles &&
+        filteredFiles.length === 0 &&
+        (!filteredRecentUploads || filteredRecentUploads.length === 0) && (
+          <div
+            className={
+              "flex flex-row justify-center align-center items-center py-8"
+            }
+          >
+            <span className={"text-gray-500"}>
+              No files found matching the search criteria.
+            </span>
+          </div>
+        )}
 
       <div className={"flex flex-col gap-3 overflow-y-auto max-h-64"}>
-        {(recentImageFiles && recentImageFiles.length > 0) || (recentOtherFiles && recentOtherFiles.length > 0) ? (
+        {(recentImageFiles && recentImageFiles.length > 0) ||
+        (recentOtherFiles && recentOtherFiles.length > 0) ? (
           <>
-            <div className={"flex flex-row justify-between align-center items-center"}>
-              <span className={"text-xs font-semibold text-gray-700"}>Recent Uploads</span>
+            <div
+              className={
+                "flex flex-row justify-between align-center items-center"
+              }
+            >
+              <span className={"text-xs font-semibold text-gray-700"}>
+                Recent Uploads
+              </span>
               <span className={"text-xs text-gray-500"}>
                 syncing with server...
               </span>
@@ -114,8 +153,10 @@ function GithubFilePicker({
                     key={`recent-img-${i}`}
                     file={file}
                     onSelect={handleSelect}
-                    onView={(url) => setImagePreview({url, name: file.name})}
-                    isSelected={selectedUrls.some((url) => url === file.download_url)}
+                    onView={(url) => setImagePreview({ url, name: file.name })}
+                    isSelected={selectedUrls.some(
+                      (url) => url === file.download_url,
+                    )}
                   />
                 ))}
               </div>
@@ -127,26 +168,36 @@ function GithubFilePicker({
                     key={`recent-file-${i}`}
                     file={file}
                     onSelect={handleSelect}
-                    isSelected={selectedUrls.some((url) => url === file.download_url)}
+                    isSelected={selectedUrls.some(
+                      (url) => url === file.download_url,
+                    )}
                   />
                 ))}
               </div>
             )}
-            <Separator className={"my-1"}/>
+            <Separator className={"my-1"} />
           </>
         ) : null}
 
         {imageFiles && imageFiles.length > 0 && (
           <div className={"flex flex-col gap-2"}>
-            <span className={"text-xs font-medium text-muted-foreground uppercase tracking-wider"}>Images</span>
+            <span
+              className={
+                "text-xs font-medium text-muted-foreground uppercase tracking-wider"
+              }
+            >
+              Images
+            </span>
             <div className={"grid grid-cols-3 gap-2"}>
               {imageFiles.map((file, i) => (
                 <PickerImageCard
                   key={i}
                   file={file}
                   onSelect={handleSelect}
-                  onView={(url) => setImagePreview({url, name: file.name})}
-                  isSelected={selectedUrls.some((url) => url === file.download_url)}
+                  onView={(url) => setImagePreview({ url, name: file.name })}
+                  isSelected={selectedUrls.some(
+                    (url) => url === file.download_url,
+                  )}
                 />
               ))}
             </div>
@@ -155,14 +206,22 @@ function GithubFilePicker({
 
         {otherFiles && otherFiles.length > 0 && (
           <div className={"flex flex-col gap-2"}>
-            <span className={"text-xs font-medium text-muted-foreground uppercase tracking-wider"}>Other Files</span>
+            <span
+              className={
+                "text-xs font-medium text-muted-foreground uppercase tracking-wider"
+              }
+            >
+              Other Files
+            </span>
             <div className={"flex flex-col gap-1"}>
               {otherFiles.map((file, i) => (
                 <GithubFilePickerCard
                   key={i}
                   file={file}
                   onSelect={handleSelect}
-                  isSelected={selectedUrls.some((url) => url === file.download_url)}
+                  isSelected={selectedUrls.some(
+                    (url) => url === file.download_url,
+                  )}
                 />
               ))}
             </div>
@@ -190,7 +249,7 @@ function PickerImageCard({
   file,
   onSelect,
   onView,
-  isSelected
+  isSelected,
 }: {
   file: GitHubContent;
   onSelect: (file: GitHubContent) => void;
@@ -199,9 +258,14 @@ function PickerImageCard({
 }) {
   const [hovered, setHovered] = useState(false);
 
-  const thumbnailUrl = file.path.startsWith(`${UPLOADS_PATH}/`) && !file.path.startsWith(`${UPLOADS_THUMBS_PATH}/`)
-    ? file.download_url.replace(`/${UPLOADS_PATH}/`, `/${UPLOADS_THUMBS_PATH}/`)
-    : file.download_url;
+  const thumbnailUrl =
+    file.path.startsWith(`${UPLOADS_PATH}/`) &&
+    !file.path.startsWith(`${UPLOADS_THUMBS_PATH}/`)
+      ? file.download_url.replace(
+          `/${UPLOADS_PATH}/`,
+          `/${UPLOADS_THUMBS_PATH}/`,
+        )
+      : file.download_url;
   const [imageUrl, setImageUrl] = useState(thumbnailUrl);
 
   return (
@@ -213,7 +277,7 @@ function PickerImageCard({
             isSelected
               ? "ring-2 ring-ring border-ring opacity-60 cursor-default"
               : "cursor-pointer hover:scale-[1.02] hover:shadow-md",
-            !isSelected && hovered && "ring-2 ring-ring"
+            !isSelected && hovered && "ring-2 ring-ring",
           )}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
@@ -248,7 +312,11 @@ function PickerImageCard({
 
           {isSelected && (
             <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
-              <Check size={24} className="text-white drop-shadow-md" aria-hidden="true" />
+              <Check
+                size={24}
+                className="text-white drop-shadow-md"
+                aria-hidden="true"
+              />
             </div>
           )}
 

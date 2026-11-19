@@ -14,14 +14,21 @@ export const currentConfigurationVersions: Record<string, number> = {
   testimonials: 0,
 };
 
-export function serializeConfiguration(identifier: string, configuration: unknown): string {
+export function serializeConfiguration(
+  identifier: string,
+  configuration: unknown,
+): string {
   const currentVersion = currentConfigurationVersions[identifier];
   if (currentVersion === undefined) {
     throw new Error(`Unknown configuration identifier "${identifier}".`);
   }
 
-  return `${JSON.stringify({
-    version: currentVersion,
-    configuration,
-  }, null, 2)}\n`;
+  return `${JSON.stringify(
+    {
+      version: currentVersion,
+      configuration,
+    },
+    null,
+    2,
+  )}\n`;
 }

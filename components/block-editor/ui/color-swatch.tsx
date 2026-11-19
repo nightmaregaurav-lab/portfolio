@@ -61,6 +61,7 @@ const ColorSwatch = React.forwardRef<HTMLButtonElement, ColorSwatchProps>(
               strokeWidth={3}
               strokeLinecap="round"
               strokeLinejoin="round"
+              aria-label="color"
             >
               <path d="M20 6 9 17l-5-5" />
             </svg>
@@ -68,7 +69,7 @@ const ColorSwatch = React.forwardRef<HTMLButtonElement, ColorSwatchProps>(
         ) : null}
       </button>
     );
-  }
+  },
 );
 ColorSwatch.displayName = "ColorSwatch";
 

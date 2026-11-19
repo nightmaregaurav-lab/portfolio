@@ -1,9 +1,9 @@
-"use client"
+"use client";
 
 import { isTextSelection } from "@tiptap/core";
 import type { Editor } from "@tiptap/react";
 import { BubbleMenu as TiptapBubbleMenu } from "@tiptap/react/menus";
-import { useState, useCallback } from "react";
+import { useCallback, useState } from "react";
 
 import { DEFAULT_ICONS } from "../icons";
 import { BubbleButton, BubbleSeparator } from "../ui";
@@ -13,7 +13,7 @@ import { LanguageSelector } from "./language-selector";
 import { LinkSelector } from "./link-selector";
 import { NodeSelector } from "./node-selector";
 import { TextButtons } from "./text-buttons";
-import { useEditorState, shallowEqual } from "./utils";
+import { shallowEqual, useEditorState } from "./utils";
 
 export interface BubbleMenuProps {
   editor: Editor | null;
@@ -26,7 +26,7 @@ export const BubbleMenu = ({ editor }: BubbleMenuProps) => {
     (ed) => ({
       isCodeBlock: ed.isActive("codeBlock"),
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const shouldShow = useCallback(
@@ -49,7 +49,7 @@ export const BubbleMenu = ({ editor }: BubbleMenuProps) => {
       }
       return true;
     },
-    []
+    [],
   );
 
   if (!editor) {
@@ -57,7 +57,7 @@ export const BubbleMenu = ({ editor }: BubbleMenuProps) => {
   }
 
   const hasTextAlign = editor.extensionManager.extensions.some(
-    (ext) => ext.name === "textAlign"
+    (ext) => ext.name === "textAlign",
   );
 
   const isCodeBlockActive = editorState.isCodeBlock;

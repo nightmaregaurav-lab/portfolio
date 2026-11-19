@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import {
   BubbleDropdownItem,
   DropdownOverlay,
 } from "../ui";
-import { useEditorState, shallowEqual } from "./utils";
+import { shallowEqual, useEditorState } from "./utils";
 
 interface AlignSelectorResult {
   isAlignLeft: boolean;
@@ -65,7 +65,7 @@ export const TextAlignSelector = ({ editor }: { editor: Editor }) => {
         !ed.isActive({ textAlign: "right" }),
       isAlignRight: ed.isActive({ textAlign: "right" }),
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const activeItem = alignItems.find((i) => i.isActive(editorState));

@@ -1,8 +1,7 @@
-import {transliterate} from "transliteration";
-
+import { transliterate } from "transliteration";
 
 export function slugify(value: string, exhaustedSet: Set<string>): string {
-  if(!value) {
+  if (!value) {
     return "";
   }
 
@@ -11,7 +10,7 @@ export function slugify(value: string, exhaustedSet: Set<string>): string {
     .toLowerCase()
     // Transliterate any non-Latin script (Devanagari, Greek, Chinese, Cyrillic, etc.) to Latin
     .split("")
-    .map(ch => ch.charCodeAt(0) > 127 ? transliterate(ch) : ch)
+    .map((ch) => (ch.charCodeAt(0) > 127 ? transliterate(ch) : ch))
     .join("")
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/^-+|-+$/g, "");
@@ -22,10 +21,10 @@ export function slugify(value: string, exhaustedSet: Set<string>): string {
 
   if (exhaustedSet.has(candidate)) {
     let suffix = 1;
-    let newCandidate = candidate + "-" + suffix;
+    let newCandidate = `${candidate}-${suffix}`;
     while (exhaustedSet.has(newCandidate)) {
       suffix++;
-      newCandidate = candidate + "-" + suffix;
+      newCandidate = `${candidate}-${suffix}`;
     }
     exhaustedSet.add(newCandidate);
     return newCandidate;
@@ -35,12 +34,14 @@ export function slugify(value: string, exhaustedSet: Set<string>): string {
   }
 }
 
-export function getActiveSlug(slugs: {
-  slug: string;
-  isActive: boolean
-}[]){
-  const active = slugs.find(x => x.isActive);
-  if(active){
+export function getActiveSlug(
+  slugs: {
+    slug: string;
+    isActive: boolean;
+  }[],
+) {
+  const active = slugs.find((x) => x.isActive);
+  if (active) {
     return active.slug;
   }
   return slugs[0].slug;
