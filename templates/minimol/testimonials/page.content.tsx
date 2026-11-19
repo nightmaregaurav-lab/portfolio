@@ -32,11 +32,11 @@ export default function PageContent({ testimonialsConfig }: PageContentProps) {
       {testimonials.length > 0 ? (
         <section className={styles.grid}>
           <h2 className="sr-only">Recommendations</h2>
-          {testimonials.map((testimonial, index) => (
+          {testimonials.map((testimonial) => (
             <figure
               data-slot="card"
               className={styles.card}
-              key={`${testimonial.by}-${testimonial.date}-${index}`}
+              key={`${testimonial.by}-${testimonial.date}`}
             >
               <div className={styles.cardHeader}>
                 <time dateTime={testimonial.date}>{testimonial.date}</time>

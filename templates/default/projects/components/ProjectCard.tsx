@@ -66,8 +66,8 @@ function ProjectCard({
           </HtmlRenderer>
           {!!project.seoKeywords?.length && (
             <div className={styles.projectBadges}>
-              {project.seoKeywords.slice(0, 3).map((keyword, index) => (
-                <Badge variant="secondary" key={`${keyword}-${index}`}>
+              {project.seoKeywords.slice(0, 3).map((keyword) => (
+                <Badge variant="secondary" key={keyword}>
                   {keyword}
                 </Badge>
               ))}

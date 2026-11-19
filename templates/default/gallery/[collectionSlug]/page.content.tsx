@@ -35,11 +35,7 @@ function PageContent({ collection }: PageContentProps) {
           aria-label={`${collection.name} photos`}
         >
           {collection.photos.map((photo, index) => (
-            <PhotoCard
-              key={`${photo.id}-${index}`}
-              photo={photo}
-              index={index}
-            />
+            <PhotoCard key={photo.id} photo={photo} index={index} />
           ))}
         </section>
       ) : (

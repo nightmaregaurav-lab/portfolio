@@ -124,9 +124,9 @@ function PageContent({
                   <div className={styles.badges}>
                     {getRelatedWorks(skill, journeyConfig, projectsConfig)
                       .slice(0, 3)
-                      .map((work, index) => (
+                      .map((work) => (
                         <SmartLink
-                          key={`${work.label}-${index}`}
+                          key={`${work.label}-${work.url}`}
                           href={work.url}
                           aria-label={`View ${work.label}`}
                         >
@@ -153,9 +153,9 @@ function PageContent({
                       <TooltipContent className={"flex flex-col w-auto"}>
                         {getRelatedWorks(skill, journeyConfig, projectsConfig)
                           .slice(3)
-                          .map((work, index) => (
+                          .map((work) => (
                             <SmartLink
-                              key={`${work.label}-${index}`}
+                              key={`${work.label}-${work.url}`}
                               href={work.url}
                               aria-label={`View ${work.label}`}
                             >

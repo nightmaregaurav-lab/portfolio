@@ -44,8 +44,8 @@ export default function PageContent({
 
       {aboutConfig.keypoints.length > 0 && (
         <dl className={styles.details}>
-          {aboutConfig.keypoints.map((keypoint, index) => (
-            <div key={index}>
+          {aboutConfig.keypoints.map((keypoint) => (
+            <div key={keypoint.title}>
               <dt>{keypoint.title}</dt>
               <dd>
                 <SmartText>{keypoint.value}</SmartText>

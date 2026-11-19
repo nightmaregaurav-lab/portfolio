@@ -148,9 +148,9 @@ function GithubFilePicker({
             </div>
             {recentImageFiles && recentImageFiles.length > 0 && (
               <div className={"grid grid-cols-3 gap-2"}>
-                {recentImageFiles.map((file, i) => (
+                {recentImageFiles.map((file) => (
                   <PickerImageCard
-                    key={`recent-img-${i}`}
+                    key={`recent-img-${file.name}`}
                     file={file}
                     onSelect={handleSelect}
                     onView={(url) => setImagePreview({ url, name: file.name })}
@@ -163,9 +163,9 @@ function GithubFilePicker({
             )}
             {recentOtherFiles && recentOtherFiles.length > 0 && (
               <div className={"flex flex-col gap-1"}>
-                {recentOtherFiles.map((file, i) => (
+                {recentOtherFiles.map((file) => (
                   <GithubFilePickerCard
-                    key={`recent-file-${i}`}
+                    key={`recent-file-${file.name}`}
                     file={file}
                     onSelect={handleSelect}
                     isSelected={selectedUrls.some(
@@ -189,9 +189,9 @@ function GithubFilePicker({
               Images
             </span>
             <div className={"grid grid-cols-3 gap-2"}>
-              {imageFiles.map((file, i) => (
+              {imageFiles.map((file) => (
                 <PickerImageCard
-                  key={i}
+                  key={file.name}
                   file={file}
                   onSelect={handleSelect}
                   onView={(url) => setImagePreview({ url, name: file.name })}
@@ -214,9 +214,9 @@ function GithubFilePicker({
               Other Files
             </span>
             <div className={"flex flex-col gap-1"}>
-              {otherFiles.map((file, i) => (
+              {otherFiles.map((file) => (
                 <GithubFilePickerCard
-                  key={i}
+                  key={file.name}
                   file={file}
                   onSelect={handleSelect}
                   isSelected={selectedUrls.some(
