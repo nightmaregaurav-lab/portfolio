@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
 import { useState } from "react";
@@ -12,7 +12,7 @@ import {
   BubbleDropdownItem,
   DropdownOverlay,
 } from "../ui";
-import { useEditorState, copyBlock, deleteBlock, shallowEqual } from "./utils";
+import { copyBlock, deleteBlock, shallowEqual, useEditorState } from "./utils";
 
 interface SelectorResult {
   isParagraph: boolean;
@@ -137,7 +137,7 @@ export const NodeSelector = ({ editor }: { editor: Editor }) => {
       isParagraph: ed.isActive("paragraph"),
       isTaskList: ed.isActive("taskList"),
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const activeItems = nodeItems.filter((i) => i.isActive(editorState));

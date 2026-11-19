@@ -1,17 +1,37 @@
-"use client"
+"use client";
 
-import React, {useState, useMemo} from "react";
-import {Check} from "lucide-react";
-import {Button} from "@/components/ui/button";
-import {Popover, PopoverContent, PopoverTrigger} from "@/components/ui/popover";
-import {Input} from "@/components/ui/input";
-import {Label} from "@/components/ui/label";
-import {cn} from "@/lib/utils";
+import { Check } from "lucide-react";
+import type React from "react";
+import { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 const PRESET_COLORS = [
-  "#FFFFFF", "#000000", "#EF4444", "#F97316", "#F59E0B", "#EAB308",
-  "#84CC16", "#22C55E", "#10B981", "#14B8A6", "#06B6D4", "#3B82F6",
-  "#6366F1", "#8B5CF6", "#A855F7", "#D946EF", "#EC4899", "#F43F5E",
+  "#FFFFFF",
+  "#000000",
+  "#EF4444",
+  "#F97316",
+  "#F59E0B",
+  "#EAB308",
+  "#84CC16",
+  "#22C55E",
+  "#10B981",
+  "#14B8A6",
+  "#06B6D4",
+  "#3B82F6",
+  "#6366F1",
+  "#8B5CF6",
+  "#A855F7",
+  "#D946EF",
+  "#EC4899",
+  "#F43F5E",
 ];
 
 type ColorPickerProps = {
@@ -21,7 +41,12 @@ type ColorPickerProps = {
   id?: string;
 };
 
-function ColorPicker({value = "#FFFFFF", onChange, className, id}: ColorPickerProps) {
+function ColorPicker({
+  value = "#FFFFFF",
+  onChange,
+  className,
+  id,
+}: ColorPickerProps) {
   const [open, setOpen] = useState(false);
   const [hexInput, setHexInput] = useState(value);
 
@@ -64,12 +89,15 @@ function ColorPicker({value = "#FFFFFF", onChange, className, id}: ColorPickerPr
           <Button
             type="button"
             variant="outline"
-            className={cn("w-full justify-start text-left font-normal cursor-pointer hover:-translate-y-px", className)}
+            className={cn(
+              "w-full justify-start text-left font-normal cursor-pointer hover:-translate-y-px",
+              className,
+            )}
             id={id}
           >
             <div
               className="w-5 h-5 rounded border border-border shrink-0 mr-2"
-              style={{backgroundColor: displayColor}}
+              style={{ backgroundColor: displayColor }}
             />
             <span className="truncate font-mono text-sm">{displayColor}</span>
           </Button>
@@ -111,14 +139,21 @@ function ColorPicker({value = "#FFFFFF", onChange, className, id}: ColorPickerPr
                   onClick={() => handlePresetClick(color)}
                   className={cn(
                     "w-8 h-8 rounded-md border border-border transition-shadow hover:shadow-md",
-                    value.toUpperCase() === color && "ring-2 ring-primary ring-offset-1"
+                    value.toUpperCase() === color &&
+                      "ring-2 ring-primary ring-offset-1",
                   )}
-                  style={{backgroundColor: color}}
+                  style={{ backgroundColor: color }}
                   aria-label={`Select ${color}`}
                   title={color}
                 >
                   {value.toUpperCase() === color && (
-                    <Check size={14} className="m-auto" style={{color: color === "#FFFFFF" ? "#000000" : "#FFFFFF"}} />
+                    <Check
+                      size={14}
+                      className="m-auto"
+                      style={{
+                        color: color === "#FFFFFF" ? "#000000" : "#FFFFFF",
+                      }}
+                    />
                   )}
                 </button>
               ))}
@@ -130,4 +165,4 @@ function ColorPicker({value = "#FFFFFF", onChange, className, id}: ColorPickerPr
   );
 }
 
-export {ColorPicker};
+export { ColorPicker };

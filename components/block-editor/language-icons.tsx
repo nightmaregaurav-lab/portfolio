@@ -1,4 +1,4 @@
-import React from "react";
+import type React from "react";
 
 const LangIcon = ({
   children,
@@ -16,6 +16,7 @@ const LangIcon = ({
     strokeLinecap="round"
     strokeLinejoin="round"
     className={className}
+    aria-label="color"
   >
     {children}
   </svg>

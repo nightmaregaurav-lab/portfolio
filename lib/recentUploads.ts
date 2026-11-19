@@ -1,7 +1,7 @@
 "use client";
 
-import {GitHubContent} from "@/lib/gitHub";
-import {createExternalHook} from "@/lib/externalHook";
+import { createExternalHook } from "@/lib/externalHook";
+import type { GitHubContent } from "@/lib/gitHub";
 
 export interface RecentUpload {
   name: string;
@@ -12,8 +12,10 @@ export interface RecentUpload {
   uploadedAt: number;
 }
 
-const {update: updateRecentUploads, useState: useRecentUploads} = createExternalHook<RecentUpload[]>([]);
-export { useRecentUploads }
+const { update: updateRecentUploads, useState: useRecentUploads } =
+  createExternalHook<RecentUpload[]>([]);
+
+export { useRecentUploads };
 
 /**
  * Add newly uploaded files to the recent uploads list.
@@ -23,7 +25,7 @@ export function addRecentUploads(
   blobContents: Map<string, Blob>,
   folderPath: string,
   repository: string,
-  branch: string
+  branch: string,
 ) {
   updateRecentUploads((existing) => {
     const ownerRepo = repository.split("/");
@@ -71,7 +73,7 @@ export function getGitHubRawUrl(
   owner: string,
   repo: string,
   branch: string,
-  path: string
+  path: string,
 ): string {
   const normalizedPath = path.replace(/^\/+|\/+$/g, "");
   return `https://raw.githubusercontent.com/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/${encodeURIComponent(branch)}/${normalizedPath}`;
@@ -80,7 +82,9 @@ export function getGitHubRawUrl(
 /**
  * Build a GitHubContent-like object from a RecentUpload for use in file managers/pickers.
  */
-export function recentUploadToGitHubContent(upload: RecentUpload): GitHubContent {
+export function recentUploadToGitHubContent(
+  upload: RecentUpload,
+): GitHubContent {
   return {
     _links: {
       git: "",

@@ -1,11 +1,14 @@
-import {existsSync, readFileSync} from "node:fs";
-import {join} from "node:path";
+import { existsSync, readFileSync } from "node:fs";
+import { join } from "node:path";
 
 const trackedConfigurationDirectory = join(process.cwd(), "public", "config");
 const localConfigurationDirectory = join(process.cwd(), "local-config");
 
 export function getConfigurationDirectory(): string {
-  if (process.env.NODE_ENV === "development" && existsSync(localConfigurationDirectory)) {
+  if (
+    process.env.NODE_ENV === "development" &&
+    existsSync(localConfigurationDirectory)
+  ) {
     return localConfigurationDirectory;
   }
 
@@ -18,6 +21,8 @@ export function readConfigurationFromFile(filePath: string): unknown {
   if (!exists) {
     throw new Error(`Configuration file "${filePath}" does not exist.`);
   }
-  const config = JSON.parse(readFileSync(absolutePath, "utf8")) as { configuration: unknown };
-  return config["configuration"] as unknown;
+  const config = JSON.parse(readFileSync(absolutePath, "utf8")) as {
+    configuration: unknown;
+  };
+  return config.configuration as unknown;
 }

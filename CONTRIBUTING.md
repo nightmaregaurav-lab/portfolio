@@ -37,6 +37,7 @@ The portfolio uses a template system to separate visual presentation from config
 
 1. The `template` field in `configuration/core.ts` stores the active template name (default: `"default"`).
 2. Each content page in `app/(app)/` uses `next/dynamic` with the `PageContentProps` type from its `page.types.ts` to import the template component:
+
    ```ts
    import type {PageContentProps} from "./page.types";
 
@@ -61,6 +62,7 @@ The portfolio uses a template system to separate visual presentation from config
 
 - Each template page must export a default client component named `PageContent` with `"use client"` directive.
 - The `page.content.tsx` template must import and use `PageContentProps` from the app folder:
+
   ```ts
   import type {PageContentProps} from "@/app/(app)/<route>/page.types";
 

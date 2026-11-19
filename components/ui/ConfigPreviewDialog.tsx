@@ -1,10 +1,17 @@
-"use client"
+"use client";
 
-import React, {useMemo, useState} from 'react';
-import {Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle} from "@/components/ui/dialog";
-import {Button} from "@/components/ui/button";
-import {Copy, Check} from "lucide-react";
-import {common, createLowlight} from "lowlight";
+import { common, createLowlight } from "lowlight";
+import { Check, Copy } from "lucide-react";
+import React, { useMemo, useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const lowlight = createLowlight(common);
 
@@ -16,35 +23,46 @@ type HighlightNode = {
   children?: HighlightNode[];
 };
 
-function renderHighlightNode(node: HighlightNode, key: number | string): React.ReactNode {
+function renderHighlightNode(
+  node: HighlightNode,
+  key: number | string,
+): React.ReactNode {
   if (node.type === "text") {
     return node.value;
   }
 
-  const children = node.children?.map((child, index) => renderHighlightNode(child, index));
+  const children = node.children?.map((child, index) =>
+    renderHighlightNode(child, index),
+  );
   if (node.type === "root") {
     return children;
   }
 
-  const properties = {...node.properties};
+  const properties = { ...node.properties };
   if (Array.isArray(properties.className)) {
     properties.className = properties.className.join(" ");
   }
 
-  return React.createElement(node.tagName ?? "span", {...properties, key}, children);
+  return React.createElement(
+    node.tagName ?? "span",
+    { ...properties, key },
+    children,
+  );
 }
 
-function ConfigPreviewDialog(
-  {show, setShow, configString}: {
-    show: boolean,
-    setShow: (show: boolean) => void,
-    configString: string
-  }
-) {
+function ConfigPreviewDialog({
+  show,
+  setShow,
+  configString,
+}: {
+  show: boolean;
+  setShow: (show: boolean) => void;
+  configString: string;
+}) {
   const [copied, setCopied] = useState(false);
   const highlightedConfig = useMemo(
     () => lowlight.highlight("json", configString),
-    [configString]
+    [configString],
   );
 
   const handleCopy = async () => {
@@ -64,10 +82,12 @@ function ConfigPreviewDialog(
         </DialogHeader>
         <div className="relative rounded-lg border bg-muted/30 overflow-hidden">
           <pre
-            className="hljs max-h-[300px] overflow-auto p-4 text-xs leading-relaxed"
-            style={{margin: 0}}
+            className="hljs max-h-75 overflow-auto p-4 text-xs leading-relaxed"
+            style={{ margin: 0 }}
           >
-            <code>{renderHighlightNode(highlightedConfig as HighlightNode, "json")}</code>
+            <code>
+              {renderHighlightNode(highlightedConfig as HighlightNode, "json")}
+            </code>
           </pre>
         </div>
         <DialogFooter>

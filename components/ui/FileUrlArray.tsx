@@ -1,25 +1,25 @@
-"use client"
+"use client";
 
-import React, {useState} from 'react';
-import {Image as ImageIcon, XIcon} from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Image as ImageIcon, XIcon } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import GithubFilePicker from "@/components/ui/GithubFilePicker";
 import {
   InputGroup,
-  InputGroupInput,
-  InputGroupButton,
   InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
 } from "@/components/ui/input-group";
-import GithubFilePicker from "@/components/ui/GithubFilePicker";
-import {useGitHubPatAuth} from "@/hooks/useGitHubPatAuth";
-import {cn} from "@/lib/utils";
-import {Button} from "@/components/ui/button";
 import SmartLink from "@/components/ui/SmartLink";
+import { useGitHubPatAuth } from "@/hooks/useGitHubPatAuth";
+import { cn } from "@/lib/utils";
 
-type FileUrlArrayProps = Omit<React.ComponentProps<"input">, "onChange" | "value"> & {
+type FileUrlArrayProps = Omit<
+  React.ComponentProps<"input">,
+  "onChange" | "value"
+> & {
   value?: string[];
   onChange?: (value: string[]) => void;
 };
@@ -38,12 +38,16 @@ function FileUrlArray({
 }: FileUrlArrayProps) {
   const [inputValue, setInputValue] = useState("");
   const [showPicker, setShowPicker] = useState(false);
-  const {gitHubSession} = useGitHubPatAuth();
+  const { gitHubSession } = useGitHubPatAuth();
 
   function addValue(valueToAdd = inputValue) {
     const nextValue = valueToAdd.trim();
     if (!nextValue) return;
-    if (!(value || []).some((item) => item.toLocaleLowerCase() === nextValue.toLocaleLowerCase())) {
+    if (
+      !(value || []).some(
+        (item) => item.toLocaleLowerCase() === nextValue.toLocaleLowerCase(),
+      )
+    ) {
       onChange?.([...(value || []), nextValue]);
     }
     setInputValue("");
@@ -88,9 +92,19 @@ function FileUrlArray({
       {value && value.length > 0 && (
         <div className={"flex flex-wrap gap-2"}>
           {value.map((item, index) => (
-            <span key={`${item}-${index}`} className={"inline-flex max-w-full items-center gap-1 rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground"}>
+            <span
+              key={`${item}-${index}`}
+              className={
+                "inline-flex max-w-full items-center gap-1 rounded-md bg-primary px-2 py-1 text-xs font-medium text-primary-foreground"
+              }
+            >
               {isLink(item) ? (
-                <SmartLink href={item} target={"_blank"} rel={"noreferrer"} className={"max-w-[18rem] truncate hover:underline"}>
+                <SmartLink
+                  href={item}
+                  target={"_blank"}
+                  rel={"noreferrer"}
+                  className={"max-w-[18rem] truncate hover:underline"}
+                >
                   {item}
                 </SmartLink>
               ) : (
@@ -101,7 +115,9 @@ function FileUrlArray({
                 variant={"ghost"}
                 size={"icon-xs"}
                 aria-label={`Remove ${item}`}
-                className={"ml-1 shrink-0 rounded-sm text-primary-foreground transition-transform hover:scale-110 hover:bg-primary-foreground/20 active:scale-95"}
+                className={
+                  "ml-1 shrink-0 rounded-sm text-primary-foreground transition-transform hover:scale-110 hover:bg-primary-foreground/20 active:scale-95"
+                }
                 onClick={() => removeValue(index)}
               >
                 <XIcon size={12} />
@@ -122,7 +138,10 @@ function FileUrlArray({
         <DialogContent className="max-w-lg">
           <DialogTitle>Select Files</DialogTitle>
           {gitHubSession ? (
-            <GithubFilePicker onSelect={handleSelect} selectedUrls={value || []} />
+            <GithubFilePicker
+              onSelect={handleSelect}
+              selectedUrls={value || []}
+            />
           ) : (
             <span className={"text-gray-500"}>
               You have not logged in yet. Please log in to use the file picker.
@@ -134,4 +153,4 @@ function FileUrlArray({
   );
 }
 
-export {FileUrlArray};
+export { FileUrlArray };

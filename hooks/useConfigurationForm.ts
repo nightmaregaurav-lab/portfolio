@@ -1,44 +1,40 @@
-import { useEffect, useMemo } from "react";
-import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import {Identifier, useConfig} from "@/hooks/useConfig";
+import { useEffect, useMemo } from "react";
+import { type DefaultValues, type Resolver, useForm } from "react-hook-form";
+import type { input, output, z } from "zod";
+import { type Identifier, useConfig } from "@/hooks/useConfig";
 
 export function useConfigurationForm<
-  TSchema extends z.ZodObject<any> | z.ZodArray<any>,
-  TIdentifier extends Identifier
+  TSchema extends z.ZodObject<z.ZodRawShape> | z.ZodArray<z.ZodType>,
+  TIdentifier extends Identifier,
 >(
   identifier: TIdentifier,
   schema: TSchema,
   defaultValues: z.input<TSchema>,
-  query?: Record<string, string | number | null>
+  query?: Record<string, string | number | null>,
 ) {
-
   type TInput = z.input<TSchema>;
   type TOutput = z.output<TSchema>;
 
-  const {
-    config,
-    isLoadingConfig,
-    saveConfig,
-    isSavingConfig,
-  } = useConfig(identifier, query);
+  const { config, isLoadingConfig, saveConfig, isSavingConfig } = useConfig(
+    identifier,
+    query,
+  );
 
-  const form = useForm<TInput, any, TOutput>({
-    resolver: zodResolver(schema) as any,
-    defaultValues: defaultValues as any,
+  const form = useForm<TInput, unknown, TOutput>({
+    resolver: zodResolver(schema) as Resolver<
+      input<TSchema>,
+      unknown,
+      output<TSchema>
+    >,
+    defaultValues: defaultValues as DefaultValues<input<TSchema>>,
   });
 
-  const {
-    control,
-    reset,
-    handleSubmit,
-    watch
-  } = form;
+  const { control, reset, handleSubmit, watch } = form;
 
   useEffect(() => {
     if (config) {
-      reset(config as any);
+      reset(config as DefaultValues<input<TSchema>>);
     }
   }, [config, reset]);
 
@@ -61,6 +57,6 @@ export function useConfigurationForm<
     handleSubmit,
     formValues,
     hasChanges,
-    originalConfig: config
+    originalConfig: config,
   };
 }

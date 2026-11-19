@@ -1,30 +1,49 @@
-"use client"
+"use client";
 
-import React, {useEffect, useMemo, useState} from "react";
-import styles from "./page.module.css";
-import {Identifier, useConfig} from "@/hooks/useConfig";
-import {defaultValues, TInput, TOutput, schema} from "@/configuration/blogs";
-import {Input} from "@/components/ui/input";
-import {FileUrl} from "@/components/ui/FileUrl";
-import {DatePicker} from "@/components/ui/DatePicker";
-import {ArrayInput} from "@/components/ui/ArrayInput";
-import {Label} from "@/components/ui/label";
-import {Button} from "@/components/ui/button";
-import {Spinner} from "@/components/ui/spinner";
-import FullScreenMessage from "@/components/ui/FullScreenMessage";
+import { Pencil, Plus, Trash2 } from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  type Control,
+  Controller,
+  useFieldArray,
+  useFormContext,
+  useWatch,
+} from "react-hook-form";
+import { ArrayInput } from "@/components/ui/ArrayInput";
+import { Button } from "@/components/ui/button";
+import { ColorPicker } from "@/components/ui/ColorPicker";
 import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
-import {Pencil, Plus, Trash2} from "lucide-react";
-import {cn} from "@/lib/utils";
-import {Control, Controller, useFieldArray, useFormContext, useWatch} from "react-hook-form";
-import {RichTextEditor} from "@/components/ui/RichTextEditor";
-import {Textarea} from "@/components/ui/textarea";
-import {ColorPicker} from "@/components/ui/ColorPicker";
-import {createConfigurationId, withConfigurationId} from "@/lib/configurationUtils";
-import {useConfigurationForm} from "@/hooks/useConfigurationForm";
-import {confirm} from "@/components/ui/Confirm";
-import {isNullOrWhitespace} from "@/lib/string";
-import {slugify} from "@/lib/slugs";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+import { confirm } from "@/components/ui/Confirm";
+import { DatePicker } from "@/components/ui/DatePicker";
+import { FileUrl } from "@/components/ui/FileUrl";
+import FullScreenMessage from "@/components/ui/FullScreenMessage";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { RichTextEditor } from "@/components/ui/RichTextEditor";
+import { Spinner } from "@/components/ui/spinner";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  defaultValues,
+  schema,
+  type TInput,
+  type TOutput,
+} from "@/configuration/blogs";
+import { Identifier, useConfig } from "@/hooks/useConfig";
+import { useConfigurationForm } from "@/hooks/useConfigurationForm";
+import {
+  createConfigurationId,
+  withConfigurationId,
+} from "@/lib/configurationUtils";
+import { slugify } from "@/lib/slugs";
+import { isNullOrWhitespace } from "@/lib/string";
+import { cn } from "@/lib/utils";
+import styles from "./page.module.css";
 
 const emptyPost: NonNullable<TInput["posts"]>[number] = {
   id: "",
@@ -38,8 +57,12 @@ const emptyPost: NonNullable<TInput["posts"]>[number] = {
   coverImage: "",
 };
 
-
-function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions}: {
+function BlogMetadataFields({
+  control,
+  index,
+  categorySuggestions,
+  tagSuggestions,
+}: {
   control: Control<TInput>;
   index: number;
   categorySuggestions: string[];
@@ -51,141 +74,199 @@ function BlogMetadataFields({control, index, categorySuggestions, tagSuggestions
         <Controller
           control={control}
           name={`posts.${index}.title`}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.title`}>Title</Label>
-              <Input {...field} id={`posts.${index}.title`} placeholder={"Post title"} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <Input
+                {...field}
+                id={`posts.${index}.title`}
+                placeholder={"Post title"}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
 
         <Controller
           control={control}
           name={`posts.${index}.date`}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.date`}>Date</Label>
-              <DatePicker {...field} id={`posts.${index}.date`} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <DatePicker
+                {...field}
+                id={`posts.${index}.date`}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
       </div>
 
       <Controller
         control={control}
         name={`posts.${index}.summary`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`posts.${index}.summary`}>Summary (optional)</Label>
-            <Textarea {...field} id={`posts.${index}.summary`} placeholder={"A concise description of this post"} className={cn("w-full", error && "border-destructive")}/>
-            <p className={"text-xs text-muted-foreground"}>Shown on the blog page and used in search and social previews.</p>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <Textarea
+              {...field}
+              id={`posts.${index}.summary`}
+              placeholder={"A concise description of this post"}
+              className={cn("w-full", error && "border-destructive")}
+            />
+            <p className={"text-xs text-muted-foreground"}>
+              Shown on the blog page and used in search and social previews.
+            </p>
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
 
       <div className={"grid gap-3 md:grid-cols-2"}>
         <Controller
           control={control}
           name={`posts.${index}.categories`}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.categories`}>Categories</Label>
-              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.categories`} placeholder={"Type a category and press Enter"} suggestions={categorySuggestions} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <ArrayInput
+                value={field.value || []}
+                onChange={field.onChange}
+                id={`posts.${index}.categories`}
+                placeholder={"Type a category and press Enter"}
+                suggestions={categorySuggestions}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
 
         <Controller
           control={control}
           name={`posts.${index}.tags`}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={`posts.${index}.tags`}>Tags</Label>
-              <ArrayInput value={field.value || []} onChange={field.onChange} id={`posts.${index}.tags`} placeholder={"Type a tag and press Enter"} suggestions={tagSuggestions} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <ArrayInput
+                value={field.value || []}
+                onChange={field.onChange}
+                id={`posts.${index}.tags`}
+                placeholder={"Type a tag and press Enter"}
+                suggestions={tagSuggestions}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
       </div>
 
       <Controller
         control={control}
         name={`posts.${index}.accentColor`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`posts.${index}.accentColor`}>Accent Color</Label>
-            <ColorPicker value={field.value || "#FFFFFF"} onChange={field.onChange} id={`posts.${index}.accentColor`} className={cn(error && "border-destructive")}/>
-            <p className={"text-xs text-muted-foreground"}>Used as the top border color on the blog card.</p>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <ColorPicker
+              value={field.value || "#FFFFFF"}
+              onChange={field.onChange}
+              id={`posts.${index}.accentColor`}
+              className={cn(error && "border-destructive")}
+            />
+            <p className={"text-xs text-muted-foreground"}>
+              Used as the top border color on the blog card.
+            </p>
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
 
       <Controller
         control={control}
         name={`posts.${index}.coverImage`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
-            <Label htmlFor={`posts.${index}.coverImage`}>Cover Image (optional)</Label>
-            <FileUrl {...field} id={`posts.${index}.coverImage`} placeholder={"URL of the cover image"} className={cn("w-full", error && "border-destructive")}/>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <Label htmlFor={`posts.${index}.coverImage`}>
+              Cover Image (optional)
+            </Label>
+            <FileUrl
+              {...field}
+              id={`posts.${index}.coverImage`}
+              placeholder={"URL of the cover image"}
+              className={cn("w-full", error && "border-destructive")}
+            />
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
     </>
   );
 }
 
-function BlogForm(
-  {
-    postIndex, onClose, onSave, onDelete, saving, deleting, categorySuggestions, tagSuggestions, hasMetadataChanges
-  }: {
-    postIndex: number;
-    onClose: () => void;
-    onSave: () => Promise<void>;
-    onDelete: (index: number) => Promise<void>;
-    saving: boolean;
-    deleting: boolean;
-    categorySuggestions: string[];
-    tagSuggestions: string[];
-    hasMetadataChanges: boolean;
-  }
-) {
-  const {
-    control,
-    trigger
-  } = useFormContext<TInput>();
-  const selectedPost = useWatch({control, name: `posts.${postIndex}`});
+function BlogForm({
+  postIndex,
+  onClose,
+  onSave,
+  onDelete,
+  saving,
+  deleting,
+  categorySuggestions,
+  tagSuggestions,
+  hasMetadataChanges,
+}: {
+  postIndex: number;
+  onClose: () => void;
+  onSave: () => Promise<void>;
+  onDelete: (index: number) => Promise<void>;
+  saving: boolean;
+  deleting: boolean;
+  categorySuggestions: string[];
+  tagSuggestions: string[];
+  hasMetadataChanges: boolean;
+}) {
+  const { control, trigger } = useFormContext<TInput>();
+  const selectedPost = useWatch({ control, name: `posts.${postIndex}` });
   const selectedPostId = selectedPost?.id || "NA";
 
   const {
     config,
     isLoadingConfig: isLoadingChildContent,
     isSavingConfig: isSavingChildContent,
-    saveConfig: saveChildContent
-  } = useConfig(
-    Identifier.Blog,
-    {id: selectedPostId}
-  );
+    saveConfig: saveChildContent,
+  } = useConfig(Identifier.Blog, { id: selectedPostId });
 
-  const [content, setContent] = useState<string>(config?.content || "");
+  const [content, setContent] = useState<string>("");
   const [contentError, setContentError] = useState<string | null>(null);
+  const prevConfigRef = useRef<typeof config | undefined>(undefined);
 
   useEffect(() => {
-    if (config !== undefined) {
+    if (config !== undefined && config !== prevConfigRef.current) {
       setContent(config.content || "");
+      prevConfigRef.current = config;
     }
   }, [config]);
 
-  useEffect(() => {
-    if (contentError && !isNullOrWhitespace(content)) {
-      setContentError(null);
-    }
-  }, [content, contentError]);
+  if (contentError && !isNullOrWhitespace(content)) {
+    setContentError(null);
+  }
 
   const hasContentChanges = content !== (config?.content || "");
 
@@ -215,137 +296,192 @@ function BlogForm(
     await onSave();
   }
 
-  if (!selectedPost){
+  if (!selectedPost) {
     return null;
   }
 
-  return (<>
-    <div className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
-      <div className={"flex items-center justify-between gap-4 border-b pb-4"}>
-        <div>
-          <h2 className={"font-medium"}>{selectedPost.title || "Untitled post"}</h2>
-          <p className={"mt-1 text-sm text-muted-foreground"}>Post metadata</p>
-        </div>
-
-        <Button
-          type={"button"}
-          size={"icon-sm"}
-          variant={"ghost"}
-          className={"text-destructive cursor-pointer hover:-translate-y-px"}
-          onClick={() => onDelete(postIndex)}
-          aria-label={"Delete blog post"}
-          disabled={deleting}
+  return (
+    <>
+      <div className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
+        <div
+          className={"flex items-center justify-between gap-4 border-b pb-4"}
         >
-          {deleting ? <Spinner /> : <Trash2 />}
-        </Button>
-      </div>
-      <BlogMetadataFields control={control} index={postIndex} categorySuggestions={categorySuggestions} tagSuggestions={tagSuggestions}/>
+          <div>
+            <h2 className={"font-medium"}>
+              {selectedPost.title || "Untitled post"}
+            </h2>
+            <p className={"mt-1 text-sm text-muted-foreground"}>
+              Post metadata
+            </p>
+          </div>
 
-      <div className={"flex justify-end border-t pt-4"}>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger type="button" disabled={saving || deleting || !hasMetadataChanges}>
-              <Button
-                type={"button"}
-                size={"sm"}
-                variant={"outline"}
-                onClick={async() => await saveMetadata()}
-                className={"cursor-pointer hover:-translate-y-px bg-primary text-secondary"}
+          <Button
+            type={"button"}
+            size={"icon-sm"}
+            variant={"ghost"}
+            className={"text-destructive cursor-pointer hover:-translate-y-px"}
+            onClick={() => onDelete(postIndex)}
+            aria-label={"Delete blog post"}
+            disabled={deleting}
+          >
+            {deleting ? <Spinner /> : <Trash2 />}
+          </Button>
+        </div>
+        <BlogMetadataFields
+          control={control}
+          index={postIndex}
+          categorySuggestions={categorySuggestions}
+          tagSuggestions={tagSuggestions}
+        />
+
+        <div className={"flex justify-end border-t pt-4"}>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger
+                type="button"
                 disabled={saving || deleting || !hasMetadataChanges}
               >
-                {saving ? <Spinner /> : "Save"}
-              </Button>
-            </TooltipTrigger>
-            {!hasMetadataChanges && !saving && (
-              <TooltipContent>No metadata changes to save</TooltipContent>
-            )}
-          </Tooltip>
-        </TooltipProvider>
+                <Button
+                  type={"button"}
+                  size={"sm"}
+                  variant={"outline"}
+                  onClick={async () => await saveMetadata()}
+                  className={
+                    "cursor-pointer hover:-translate-y-px bg-primary text-secondary"
+                  }
+                  disabled={saving || deleting || !hasMetadataChanges}
+                >
+                  {saving ? <Spinner /> : "Save"}
+                </Button>
+              </TooltipTrigger>
+              {!hasMetadataChanges && !saving && (
+                <TooltipContent>No metadata changes to save</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
-    </div>
 
-    <div className={"grid gap-2"}>
-      <Label>Rich-text content</Label>
-      {isLoadingChildContent
-        ? <div className={"flex min-h-40 items-center justify-center rounded-lg border"}><Spinner /></div>
-        : <RichTextEditor key={selectedPost.id} value={content} onChange={setContent} className={cn("min-h-40", contentError && "border-destructive")}/>
-      }
-      {contentError && <small className={"text-destructive"}>{contentError}</small>}
+      <div className={"grid gap-2"}>
+        <Label>Rich-text content</Label>
+        {isLoadingChildContent ? (
+          <div
+            className={
+              "flex min-h-40 items-center justify-center rounded-lg border"
+            }
+          >
+            <Spinner />
+          </div>
+        ) : (
+          <RichTextEditor
+            key={selectedPost.id}
+            value={content}
+            onChange={setContent}
+            className={cn("min-h-40", contentError && "border-destructive")}
+          />
+        )}
+        {contentError && (
+          <small className={"text-destructive"}>{contentError}</small>
+        )}
 
-      <div className={"flex justify-end gap-2"}>
-        <Button
-          type={"button"}
-          size={"sm"}
-          variant={"outline"}
-          onClick={onClose}
-          className={"cursor-pointer hover:-translate-y-px mt-2"}
-          disabled={hasContentChanges || hasMetadataChanges}
-        >
-          Close
-        </Button>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger type="button" disabled={isSavingChildContent || isLoadingChildContent || !hasContentChanges}>
-              <Button
-                type={"button"}
-                size={"sm"}
-                variant={"outline"}
-                onClick={async() => await saveContent()}
-                className={"cursor-pointer hover:-translate-y-px mt-2 bg-primary text-secondary"}
-                disabled={isSavingChildContent || isLoadingChildContent || !hasContentChanges}
+        <div className={"flex justify-end gap-2"}>
+          <Button
+            type={"button"}
+            size={"sm"}
+            variant={"outline"}
+            onClick={onClose}
+            className={"cursor-pointer hover:-translate-y-px mt-2"}
+            disabled={hasContentChanges || hasMetadataChanges}
+          >
+            Close
+          </Button>
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger
+                type="button"
+                disabled={
+                  isSavingChildContent ||
+                  isLoadingChildContent ||
+                  !hasContentChanges
+                }
               >
-                {isSavingChildContent ? <Spinner /> : "Save"}
-              </Button>
-            </TooltipTrigger>
-            {!hasContentChanges && !isSavingChildContent && (
-              <TooltipContent>No content changes to save</TooltipContent>
-            )}
-          </Tooltip>
-        </TooltipProvider>
+                <Button
+                  type={"button"}
+                  size={"sm"}
+                  variant={"outline"}
+                  onClick={async () => await saveContent()}
+                  className={
+                    "cursor-pointer hover:-translate-y-px mt-2 bg-primary text-secondary"
+                  }
+                  disabled={
+                    isSavingChildContent ||
+                    isLoadingChildContent ||
+                    !hasContentChanges
+                  }
+                >
+                  {isSavingChildContent ? <Spinner /> : "Save"}
+                </Button>
+              </TooltipTrigger>
+              {!hasContentChanges && !isSavingChildContent && (
+                <TooltipContent>No content changes to save</TooltipContent>
+              )}
+            </Tooltip>
+          </TooltipProvider>
+        </div>
       </div>
-    </div>
-  </>);
+    </>
+  );
 }
 
-function BlogPreview({post}: {post: NonNullable<TInput["posts"]>[number]}) {
-  return (<>
-    <p className={"truncate font-medium text-muted-foreground"}>
-      {post.title || "Untitled post"}
-    </p>
+function BlogPreview({ post }: { post: NonNullable<TInput["posts"]>[number] }) {
+  return (
+    <>
+      <p className={"truncate font-medium text-muted-foreground"}>
+        {post.title || "Untitled post"}
+      </p>
 
-    <p className={"truncate text-sm text-muted-foreground"}>
-      {post.date || "No publication date"}{post.categories && post.categories.length > 0 ? ` · ${post.categories.join(", ")}` : ""}
-    </p>
-  </>);
+      <p className={"truncate text-sm text-muted-foreground"}>
+        {post.date || "No publication date"}
+        {post.categories && post.categories.length > 0
+          ? ` · ${post.categories.join(", ")}`
+          : ""}
+      </p>
+    </>
+  );
 }
 
-function BlogCardHeader(
-  {
-    post, isCurrentlyEditing, onEdit, onDelete
-  }: {
-    post: NonNullable<TInput["posts"]>[number];
-    isCurrentlyEditing: boolean;
-    onEdit: () => void;
-    onDelete: () => void;
-  }
-) {
+function BlogCardHeader({
+  post,
+  isCurrentlyEditing,
+  onEdit,
+  onDelete,
+}: {
+  post: NonNullable<TInput["posts"]>[number];
+  isCurrentlyEditing: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
   return (
     <div className={"flex items-center justify-between gap-4"}>
       <div className={"min-w-0"}>
-        <p className={"truncate font-medium text-muted-foreground"}>#{post.id}</p>
+        <p className={"truncate font-medium text-muted-foreground"}>
+          #{post.id}
+        </p>
       </div>
 
       <div className={"flex shrink-0 gap-2"}>
-        {!isCurrentlyEditing && <Button
-          type={"button"}
-          size={"icon-sm"}
-          variant={"ghost"}
-          onClick={onEdit}
-          className="cursor-pointer hover:-translate-y-px"
-          aria-label={"Edit blog post"}
-        >
-          <Pencil/>
-        </Button>}
+        {!isCurrentlyEditing && (
+          <Button
+            type={"button"}
+            size={"icon-sm"}
+            variant={"ghost"}
+            onClick={onEdit}
+            className="cursor-pointer hover:-translate-y-px"
+            aria-label={"Edit blog post"}
+          >
+            <Pencil />
+          </Button>
+        )}
 
         <Button
           type={"button"}
@@ -372,27 +508,39 @@ function PageContent() {
     handleSubmit,
     formValues,
     hasChanges,
-    originalConfig
-  } = useConfigurationForm(
-    Identifier.Blogs,
-    schema,
-    defaultValues
-  );
+    originalConfig,
+  } = useConfigurationForm(Identifier.Blogs, schema, defaultValues);
   const [editingBlogId, setEditingBlogId] = useState<string | null>(null);
-  const {fields: posts, append, remove} = useFieldArray({control, name: "posts", keyName: "fieldArrayId"});
-  const postsWatch = useWatch({control, name: "posts"}) || [];
+  const {
+    fields: posts,
+    append,
+    remove,
+  } = useFieldArray({ control, name: "posts", keyName: "fieldArrayId" });
+  const postsWatch = useWatch({ control, name: "posts" }) || [];
 
   const categorySuggestions = useMemo(() => {
     const names = postsWatch.flatMap((post) => post.categories || []);
-    return names.filter((name, index) =>
-      name.trim() && names.findIndex((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) === index
+    return names.filter(
+      (name, index) =>
+        name.trim() &&
+        names.findIndex(
+          (candidate) =>
+            candidate.trim().toLocaleLowerCase() ===
+            name.trim().toLocaleLowerCase(),
+        ) === index,
     );
   }, [postsWatch]);
 
   const tagSuggestions = useMemo(() => {
     const names = postsWatch.flatMap((post) => post.tags || []);
-    return names.filter((name, index) =>
-      name.trim() && names.findIndex((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) === index
+    return names.filter(
+      (name, index) =>
+        name.trim() &&
+        names.findIndex(
+          (candidate) =>
+            candidate.trim().toLocaleLowerCase() ===
+            name.trim().toLocaleLowerCase(),
+        ) === index,
     );
   }, [postsWatch]);
 
@@ -402,11 +550,20 @@ function PageContent() {
     setDeletingPost(true);
     const approved = await confirm({
       title: "Delete blog post?",
-      message: "Are you sure you want to delete this blog post? This action cannot be undone.",
+      message:
+        "Are you sure you want to delete this blog post? This action cannot be undone.",
       actions: [
-        {label: "Cancel", buttonProps: {variant: "outline"}, onClick: async () => false},
-        {label: "Delete", buttonProps: {variant: "destructive"}, onClick: async () => true}
-      ]
+        {
+          label: "Cancel",
+          buttonProps: { variant: "outline" },
+          onClick: async () => false,
+        },
+        {
+          label: "Delete",
+          buttonProps: { variant: "destructive" },
+          onClick: async () => true,
+        },
+      ],
     });
 
     if (!approved) {
@@ -421,12 +578,13 @@ function PageContent() {
     }
 
     const deletedPostId = post.id;
-    const wasPreviouslySaved = originalConfig?.posts?.some(p => p.id === deletedPostId) ?? false;
+    const wasPreviouslySaved =
+      originalConfig?.posts?.some((p) => p.id === deletedPostId) ?? false;
     remove(index);
     if (wasPreviouslySaved) {
       await save(schema.parse(form.getValues()));
     }
-    if(editingBlogId === deletedPostId) {
+    if (editingBlogId === deletedPostId) {
       setEditingBlogId(null);
     }
     setDeletingPost(false);
@@ -438,13 +596,16 @@ function PageContent() {
         post.id = createConfigurationId("blog");
       }
 
-      const exhaustedSlugsExceptThisPost = new Set(values
-        .posts
-        .filter(x => x.id !== post.id)
-        .flatMap(x => x.slugs)
-        .map(x => x.slug)
+      const exhaustedSlugsExceptThisPost = new Set(
+        values.posts
+          .filter((x) => x.id !== post.id)
+          .flatMap((x) => x.slugs)
+          .map((x) => x.slug),
       );
-      const activeSlugCandidate = slugify(post.title, exhaustedSlugsExceptThisPost);
+      const activeSlugCandidate = slugify(
+        post.title,
+        exhaustedSlugsExceptThisPost,
+      );
       let foundActiveSlug = false;
       for (const slugEntry of post.slugs) {
         if (slugEntry.slug === activeSlugCandidate) {
@@ -454,10 +615,10 @@ function PageContent() {
         }
         slugEntry.isActive = false;
       }
-      if(!foundActiveSlug){
+      if (!foundActiveSlug) {
         post.slugs.push({
           slug: activeSlugCandidate,
-          isActive: true
+          isActive: true,
         });
       }
     }
@@ -466,28 +627,54 @@ function PageContent() {
   }
 
   if (isLoadingConfig) {
-    return <FullScreenMessage><Spinner className={"size-10"} /></FullScreenMessage>;
+    return (
+      <FullScreenMessage>
+        <Spinner className={"size-10"} />
+      </FullScreenMessage>
+    );
   }
 
   return (
-    <ConfigurationFormWrapper className={styles.page} title={"Blogs Configuration"} config={formValues} form={form}>
-      <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
+    <ConfigurationFormWrapper
+      className={styles.page}
+      title={"Blogs Configuration"}
+      config={formValues}
+      form={form}
+    >
+      <form
+        onSubmit={handleSubmit(save)}
+        className={cn(styles.form, "grid max-w-3xl gap-6")}
+      >
         <Controller
           control={control}
           name={"summary"}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={"blogsSummary"}>Summary</Label>
-              <RichTextEditor id={"blogsSummary"} placeholder={"Introduce the articles on your blog"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <RichTextEditor
+                id={"blogsSummary"}
+                placeholder={"Introduce the articles on your blog"}
+                value={field.value || ""}
+                onChange={field.onChange}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
 
-        <div className={"flex flex-col justify-between gap-3 sm:flex-row sm:items-center"}>
+        <div
+          className={
+            "flex flex-col justify-between gap-3 sm:flex-row sm:items-center"
+          }
+        >
           <div>
             <Label>Blogs</Label>
-            <p className={"mt-1 text-sm text-muted-foreground"}>Manage your blog posts and their content.</p>
+            <p className={"mt-1 text-sm text-muted-foreground"}>
+              Manage your blog posts and their content.
+            </p>
           </div>
 
           <Button
@@ -508,7 +695,10 @@ function PageContent() {
         {editingBlogId === null ? (
           <>
             {postsWatch.map((post, index) => (
-              <div key={index} className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
+              <div
+                key={index}
+                className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}
+              >
                 <BlogCardHeader
                   post={post}
                   isCurrentlyEditing={false}
@@ -517,26 +707,35 @@ function PageContent() {
                 />
 
                 <div className={"grid gap-1 border-t pt-4"}>
-                  <BlogPreview post={post}/>
+                  <BlogPreview post={post} />
                 </div>
               </div>
             ))}
 
-            {posts.length === 0 &&
-              <div className={"rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground"}>
+            {posts.length === 0 && (
+              <div
+                className={
+                  "rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground"
+                }
+              >
                 No blog posts yet. Add your first post.
               </div>
-            }
+            )}
 
             <div className={"flex justify-end"}>
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+                  <TooltipTrigger
+                    type="button"
+                    disabled={isSavingConfig || !hasChanges}
+                  >
                     <Button
                       type={"submit"}
                       size={"sm"}
                       variant={"outline"}
-                      className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                      className={
+                        "cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"
+                      }
                       disabled={isSavingConfig || !hasChanges}
                     >
                       {isSavingConfig ? <Spinner /> : "Save"}

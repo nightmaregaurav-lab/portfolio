@@ -1,12 +1,15 @@
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
-import {stripHtmlTags} from "@/lib/html";
+import { stripHtmlTags } from "@/lib/html";
 
-type SmartTextProps = Omit<React.ComponentPropsWithoutRef<"span">, "children" | "dangerouslySetInnerHTML"> & {
+type SmartTextProps = Omit<
+  React.ComponentPropsWithoutRef<"span">,
+  "children" | "dangerouslySetInnerHTML"
+> & {
   children: string;
 };
 
 const SmartText = (props: SmartTextProps) => {
-  const {children, ...spanProps} = props;
+  const { children, ...spanProps } = props;
 
   let replacedText = stripHtmlTags(children);
 
@@ -15,9 +18,10 @@ const SmartText = (props: SmartTextProps) => {
     return `<a class="external-link" href="mailto:${match}">${match}</a>`;
   });
 
-  const phoneRegex = /(\+?\d{1,4}[\s-])?(?:\(?\d{3}\)?[\s-]?)?\d{3}[\s-]?\d{4}/g;
+  const phoneRegex =
+    /(\+?\d{1,4}[\s-])?(?:\(?\d{3}\)?[\s-]?)?\d{3}[\s-]?\d{4}/g;
   replacedText = replacedText.replace(phoneRegex, (match) => {
-    const telNumber = match.replace(/[\s-]/g, '');
+    const telNumber = match.replace(/[\s-]/g, "");
     return `<a class="external-link" href="tel:${telNumber}">${match}</a>`;
   });
 
@@ -33,7 +37,11 @@ const SmartText = (props: SmartTextProps) => {
     </a>`;
   });
 
-  return <HtmlRenderer as="span" {...spanProps}>{replacedText}</HtmlRenderer>;
+  return (
+    <HtmlRenderer as="span" {...spanProps}>
+      {replacedText}
+    </HtmlRenderer>
+  );
 };
 
 export default SmartText;

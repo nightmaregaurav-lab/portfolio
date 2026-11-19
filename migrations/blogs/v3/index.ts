@@ -3,7 +3,7 @@ export function migrateBlogsToV3(configuration: unknown): unknown {
     throw new Error("Invalid configuration format for migration.");
   }
 
-  const value = configuration as {posts?: unknown};
+  const value = configuration as { posts?: unknown };
   if (!Array.isArray(value.posts)) {
     return configuration;
   }
@@ -12,7 +12,11 @@ export function migrateBlogsToV3(configuration: unknown): unknown {
     if (typeof post !== "object" || post === null) {
       continue;
     }
-    if (!("coverImage" in post) || post.coverImage === undefined || post.coverImage === null) {
+    if (
+      !("coverImage" in post) ||
+      post.coverImage === undefined ||
+      post.coverImage === null
+    ) {
       post.coverImage = "";
     }
   }

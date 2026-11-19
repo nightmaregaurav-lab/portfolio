@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
     "migrate-config": "tsx scripts/migrate-config.ts",
     "migrate-config:dev": "NODE_ENV=development tsx scripts/migrate-config.ts",
     "mktemp": "tsx scripts/mktemp.ts",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
+    "check": "biome check . --max-diagnostics 1000",
+    "check:fix": "biome check --write . --max-diagnostics 1000",
+    "check:fix-unsafe": "biome check --write . --unsafe --max-diagnostics 1000",
+    "dev": "next dev",
     "build": "next build && rm -rf build/config build/uploads build/uploads_thumbs",
-    "start": "next start",
-    "lint": "eslint"
+    "start": "next start"
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
@@ -43,6 +47,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.4.0",
+    "isomorphic-dompurify": "^4.7.0",
     "lowlight": "^3.3.0",
     "lucide-react": "^1.70.0",
     "next": "16.4.5",
@@ -58,14 +63,12 @@
     "zod": "^4.6.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.6.8",
     "@tailwindcss/postcss": "^4.3.5",
-    "@tanstack/eslint-plugin-query": "^5.107.1",
     "@types/node": "^26.6.6",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "babel-plugin-react-compiler": "1.0.0",
-    "eslint": "10.14.0",
-    "eslint-config-next": "16.4.5",
     "shadcn": "^4.23.0",
     "tailwindcss": "^4.3.5",
     "tsx": "^4.23.15",

@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 
-export function useShadow<T extends object>(original?: T){
+export function useShadow<T extends object>(original?: T) {
   const [shadow, setShadow] = useState<T>();
 
   useEffect(() => {
@@ -12,7 +12,7 @@ export function useShadow<T extends object>(original?: T){
 
   function updateShadow<K extends keyof T>(key: K, value: T[K]) {
     setShadow((prevState) => {
-      if(!prevState){
+      if (!prevState) {
         return;
       }
 
@@ -27,5 +27,5 @@ export function useShadow<T extends object>(original?: T){
     shadow,
     setShadow,
     updateShadow,
-  }
+  };
 }

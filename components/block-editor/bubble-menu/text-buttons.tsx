@@ -1,10 +1,10 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
 
 import { DEFAULT_ICONS } from "../icons";
 import { BubbleButton, BubbleButtonGroup } from "../ui";
-import { useEditorState, shallowEqual } from "./utils";
+import { shallowEqual, useEditorState } from "./utils";
 
 interface TextSelectorResult {
   isBold: boolean;
@@ -66,7 +66,7 @@ export const TextButtons = ({ editor }: { editor: Editor }) => {
       isStrike: ed.isActive("strike"),
       isUnderline: ed.isActive("underline"),
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   return (

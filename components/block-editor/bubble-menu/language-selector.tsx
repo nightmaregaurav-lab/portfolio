@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import type { Editor } from "@tiptap/react";
 import { useState } from "react";
@@ -15,8 +15,8 @@ import {
 import {
   CODE_BLOCK_LANGUAGES,
   getLanguageLabel,
-  useEditorState,
   shallowEqual,
+  useEditorState,
 } from "./utils";
 
 export const LanguageSelector = ({ editor }: { editor: Editor }) => {
@@ -28,7 +28,7 @@ export const LanguageSelector = ({ editor }: { editor: Editor }) => {
     (ed) => ({
       currentLanguage: ed.getAttributes("codeBlock").language || "javascript",
     }),
-    shallowEqual
+    shallowEqual,
   );
 
   const langIcon =

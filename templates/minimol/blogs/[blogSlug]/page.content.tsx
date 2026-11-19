@@ -1,3 +1,1 @@
-"use client"
-
-export {default} from "@/templates/default/blogs/[blogSlug]/page.content";
+export { default } from "@/templates/default/blogs/[blogSlug]/page.content";

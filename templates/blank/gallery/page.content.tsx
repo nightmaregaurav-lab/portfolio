@@ -1,10 +1,8 @@
-import styles from "./page.module.css";
-import type {PageContentProps} from "@/app/(app)/gallery/page.types";
+import type { PageContentProps } from "@/app/(app)/gallery/page.types";
 
+// biome-ignore lint/correctness/noEmptyPattern: this is a template file, REMOVE THIS COMMENT AFTER ADDING PROPS
 function PageContent({}: PageContentProps) {
-  return (<>
-
-  </>);
+  return null;
 }
 
 export default PageContent;

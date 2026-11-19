@@ -1,31 +1,32 @@
 "use client";
 
-import { useCallback, useEffect, useState } from "react";
 import type { Editor, Range } from "@tiptap/core";
-import { useEditor } from "@tiptap/react";
-import StarterKit from "@tiptap/starter-kit";
-import Placeholder from "@tiptap/extension-placeholder";
-import Underline from "@tiptap/extension-underline";
-import TaskList from "@tiptap/extension-task-list";
-import TaskItem from "@tiptap/extension-task-item";
-import Image from "@tiptap/extension-image";
-import Link from "@tiptap/extension-link";
-import TextAlign from "@tiptap/extension-text-align";
-import { TextStyle } from "@tiptap/extension-text-style";
 import Color from "@tiptap/extension-color";
 import Highlight from "@tiptap/extension-highlight";
+import Image from "@tiptap/extension-image";
+import Link from "@tiptap/extension-link";
+import Placeholder from "@tiptap/extension-placeholder";
 import { Table } from "@tiptap/extension-table";
-import TableRow from "@tiptap/extension-table-row";
 import TableCell from "@tiptap/extension-table-cell";
 import TableHeader from "@tiptap/extension-table-header";
+import TableRow from "@tiptap/extension-table-row";
+import TaskItem from "@tiptap/extension-task-item";
+import TaskList from "@tiptap/extension-task-list";
+import TextAlign from "@tiptap/extension-text-align";
+import { TextStyle } from "@tiptap/extension-text-style";
+import Underline from "@tiptap/extension-underline";
+import { useEditor } from "@tiptap/react";
+import StarterKit from "@tiptap/starter-kit";
+import { useCallback, useEffect, useState } from "react";
+import type { SlashCommandSuggestionItem } from "@/components/block-editor";
 import {
   BlockEditor,
-  SlashCommand,
   defaultSlashCommandItems,
   getSlashCommandSuggestion,
+  SlashCommand,
 } from "@/components/block-editor";
-import type { SlashCommandSuggestionItem } from "@/components/block-editor";
 import "@/components/block-editor/style.css";
+import { Button } from "@/components/ui/button";
 import {
   Dialog,
   DialogContent,
@@ -34,9 +35,8 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { FileUrl } from "@/components/ui/FileUrl";
+import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
 
 const BlogImage = Image.extend({
@@ -45,21 +45,24 @@ const BlogImage = Image.extend({
       ...this.parent?.(),
       imageAlign: {
         default: "left",
-        parseHTML: (element) => element.getAttribute("data-image-align") || "left",
+        parseHTML: (element) =>
+          element.getAttribute("data-image-align") || "left",
         renderHTML: (attributes) => ({
           "data-image-align": attributes.imageAlign,
         }),
       },
       imageWrap: {
         default: "none",
-        parseHTML: (element) => element.getAttribute("data-image-wrap") || "none",
+        parseHTML: (element) =>
+          element.getAttribute("data-image-wrap") || "none",
         renderHTML: (attributes) => ({
           "data-image-wrap": attributes.imageWrap,
         }),
       },
       imageCrop: {
         default: false,
-        parseHTML: (element) => element.getAttribute("data-image-crop") === "true",
+        parseHTML: (element) =>
+          element.getAttribute("data-image-crop") === "true",
         renderHTML: (attributes) =>
           attributes.imageCrop ? { "data-image-crop": "true" } : {},
       },
@@ -94,7 +97,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
   };
 
   return (
-    <div className="rich-text-image-toolbar" aria-label="Image options">
+    <div className="rich-text-image-toolbar">
       <span className="rich-text-image-toolbar-label">Image</span>
       {(["left", "center", "right"] as const).map((align) => (
         <Button
@@ -104,7 +107,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
           type="button"
           className={cn(
             "rich-text-image-toolbar-button",
-            imageAttributes.imageAlign === align && "is-active"
+            imageAttributes.imageAlign === align && "is-active",
           )}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => updateImage({ imageAlign: align })}
@@ -122,7 +125,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
           type="button"
           className={cn(
             "rich-text-image-toolbar-button",
-            imageAttributes.imageWrap === wrap && "is-active"
+            imageAttributes.imageWrap === wrap && "is-active",
           )}
           onMouseDown={(event) => event.preventDefault()}
           onClick={() => updateImage({ imageWrap: wrap })}
@@ -138,7 +141,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
         size="sm"
         className={cn(
           "rich-text-image-toolbar-button",
-          imageAttributes.imageCrop && "is-active"
+          imageAttributes.imageCrop && "is-active",
         )}
         onMouseDown={(event) => event.preventDefault()}
         onClick={() => updateImage({ imageCrop: !imageAttributes.imageCrop })}
@@ -152,7 +155,7 @@ function ImageToolbar({ editor }: { editor: Editor }) {
 }
 
 function createSlashCommandItems(
-  onImageRequest: (range: Range) => void
+  onImageRequest: (range: Range) => void,
 ): SlashCommandSuggestionItem[] {
   return [
     ...defaultSlashCommandItems,
@@ -332,10 +335,20 @@ export function RichTextEditor({
             aria-label="Image title"
           />
           <DialogFooter className="mt-4">
-            <Button type="button" variant="outline" onClick={closeImageDialog} className="cursor-pointer hover:-translate-y-px">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={closeImageDialog}
+              className="cursor-pointer hover:-translate-y-px"
+            >
               Cancel
             </Button>
-            <Button type="button" disabled={!imageUrl.trim()} className="cursor-pointer hover:-translate-y-px" onClick={insertImage}>
+            <Button
+              type="button"
+              disabled={!imageUrl.trim()}
+              className="cursor-pointer hover:-translate-y-px"
+              onClick={insertImage}
+            >
               Insert image
             </Button>
           </DialogFooter>

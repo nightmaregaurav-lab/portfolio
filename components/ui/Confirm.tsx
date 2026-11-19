@@ -1,8 +1,8 @@
-"use client"
+"use client";
 
-import {
-  createExternalHook,
-} from "@/lib/externalHook";
+import type { ComponentProps } from "react";
+import { useState } from "react";
+import { toast } from "sonner";
 import {
   AlertDialog,
   AlertDialogContent,
@@ -11,35 +11,32 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-
 import { Button } from "@/components/ui/button";
-import type { ComponentProps } from "react";
-import { useState } from "react";
-import {toast} from "sonner";
-import {Spinner} from "@/components/ui/spinner";
+import { Spinner } from "@/components/ui/spinner";
+import { createExternalHook } from "@/lib/externalHook";
 
 type ButtonProps = Omit<ComponentProps<typeof Button>, "onClick" | "children">;
 
 export type ConfirmAction<TValue> = {
-  label: string
-  onClick: () => Promise<TValue>
-  buttonProps?: ButtonProps
-}
+  label: string;
+  onClick: () => Promise<TValue>;
+  buttonProps?: ButtonProps;
+};
 
 export type ConfirmOptions<TValue> = {
-  title: string
-  message: string
-  actions: ConfirmAction<TValue>[]
-}
+  title: string;
+  message: string;
+  actions: ConfirmAction<TValue>[];
+};
 
 type InternalConfirmAction = ConfirmAction<unknown>;
 
 type ConfirmRequest = {
-  title: string
-  message: string
-  actions: InternalConfirmAction[]
-  resolve: (value: unknown) => void
-}
+  title: string;
+  message: string;
+  actions: InternalConfirmAction[];
+  resolve: (value: unknown) => void;
+};
 
 const confirmStore = createExternalHook<ConfirmRequest | null>(null);
 
@@ -52,9 +49,13 @@ const confirmStore = createExternalHook<ConfirmRequest | null>(null);
  * The promise remains pending while the selected action
  * is running. If the action throws, the dialog remains open.
  */
-export function confirm<TValue>(options: ConfirmOptions<TValue>): Promise<TValue> {
+export function confirm<TValue>(
+  options: ConfirmOptions<TValue>,
+): Promise<TValue> {
   if (confirmStore.get() !== null) {
-    return Promise.reject(new Error("A confirmation dialog is already active."));
+    return Promise.reject(
+      new Error("A confirmation dialog is already active."),
+    );
   }
 
   return new Promise<TValue>((resolve) => {
@@ -63,9 +64,9 @@ export function confirm<TValue>(options: ConfirmOptions<TValue>): Promise<TValue
       message: options.message,
       actions: options.actions as InternalConfirmAction[],
       resolve: (value) => {
-        resolve(value as TValue)
-      }
-    })
+        resolve(value as TValue);
+      },
+    });
   });
 }
 
@@ -95,7 +96,9 @@ export function ConfirmDialog() {
     } catch (error) {
       // The dialog stays open.
       // The promise returned by confirm() stays pending.
-      toast.error("Error: " + (error instanceof Error ? error.message : String(error)));
+      toast.error(
+        `Error: ${error instanceof Error ? error.message : String(error)}`,
+      );
     } finally {
       setLoadingIndex(null);
     }
@@ -107,13 +110,9 @@ export function ConfirmDialog() {
         {request && (
           <>
             <AlertDialogHeader>
-              <AlertDialogTitle>
-                {request.title}
-              </AlertDialogTitle>
+              <AlertDialogTitle>{request.title}</AlertDialogTitle>
 
-              <AlertDialogDescription>
-                {request.message}
-              </AlertDialogDescription>
+              <AlertDialogDescription>{request.message}</AlertDialogDescription>
             </AlertDialogHeader>
 
             <AlertDialogFooter>
@@ -126,7 +125,13 @@ export function ConfirmDialog() {
                     type="button"
                     disabled={loading || action.buttonProps?.disabled}
                     onClick={() => handleAction(index)}
-                    className={[action.buttonProps?.className, "cursor-pointer", "hover:-translate-y-px"].filter(Boolean).join(" ")}
+                    className={[
+                      action.buttonProps?.className,
+                      "cursor-pointer",
+                      "hover:-translate-y-px",
+                    ]
+                      .filter(Boolean)
+                      .join(" ")}
                   >
                     {isLoading && <Spinner className="mr-2 size-4" />}
                     {action.label}
@@ -138,5 +143,5 @@ export function ConfirmDialog() {
         )}
       </AlertDialogContent>
     </AlertDialog>
-  )
+  );
 }

@@ -1,10 +1,10 @@
-import {transliterate} from "transliteration";
+import { transliterate } from "transliteration";
 
 function normalizeSearchText(value: string) {
   // Transliterate non-Latin characters (Devanagari, Greek, Chinese, Cyrillic, etc.) before processing
   const transliterated = value
     .split("")
-    .map(ch => ch.charCodeAt(0) > 127 ? transliterate(ch) : ch)
+    .map((ch) => (ch.charCodeAt(0) > 127 ? transliterate(ch) : ch))
     .join("");
 
   return transliterated
@@ -16,9 +16,8 @@ function normalizeSearchText(value: string) {
 }
 
 function getEditDistance(first: string, second: string) {
-  const distances = Array.from(
-    {length: first.length + 1},
-    () => Array.from({length: second.length + 1}, () => 0)
+  const distances = Array.from({ length: first.length + 1 }, () =>
+    Array.from({ length: second.length + 1 }, () => 0),
   );
 
   for (let firstIndex = 0; firstIndex <= first.length; firstIndex++) {
@@ -31,12 +30,13 @@ function getEditDistance(first: string, second: string) {
 
   for (let firstIndex = 1; firstIndex <= first.length; firstIndex++) {
     for (let secondIndex = 1; secondIndex <= second.length; secondIndex++) {
-      const substitutionCost = first[firstIndex - 1] === second[secondIndex - 1] ? 0 : 1;
+      const substitutionCost =
+        first[firstIndex - 1] === second[secondIndex - 1] ? 0 : 1;
 
       distances[firstIndex][secondIndex] = Math.min(
         distances[firstIndex - 1][secondIndex] + 1,
         distances[firstIndex][secondIndex - 1] + 1,
-        distances[firstIndex - 1][secondIndex - 1] + substitutionCost
+        distances[firstIndex - 1][secondIndex - 1] + substitutionCost,
       );
 
       if (
@@ -47,7 +47,7 @@ function getEditDistance(first: string, second: string) {
       ) {
         distances[firstIndex][secondIndex] = Math.min(
           distances[firstIndex][secondIndex],
-          distances[firstIndex - 2][secondIndex - 2] + 1
+          distances[firstIndex - 2][secondIndex - 2] + 1,
         );
       }
     }
@@ -75,19 +75,22 @@ function getFuzzyScore(searchText: string, query: string) {
   const words = normalizedText.split(" ");
 
   if (normalizedText === query) return 0;
-  if (normalizedText.startsWith(query)) return 10 + normalizedText.length - query.length;
+  if (normalizedText.startsWith(query))
+    return 10 + normalizedText.length - query.length;
   if (normalizedText.includes(query)) return 20 + normalizedText.indexOf(query);
 
   const compactQuery = query.replace(/\s/g, "");
-  if (compactText.startsWith(compactQuery)) return 30 + compactText.length - compactQuery.length;
-  if (compactText.includes(compactQuery)) return 40 + compactText.indexOf(compactQuery);
+  if (compactText.startsWith(compactQuery))
+    return 30 + compactText.length - compactQuery.length;
+  if (compactText.includes(compactQuery))
+    return 40 + compactText.indexOf(compactQuery);
 
   const queryWords = query.split(" ").filter(Boolean);
   let score = 0;
 
   for (const queryWord of queryWords) {
     const bestWordScore = Math.min(
-      ...words.map((word) => getWordScore(word, queryWord))
+      ...words.map((word) => getWordScore(word, queryWord)),
     );
 
     if (!Number.isFinite(bestWordScore)) return Infinity;
@@ -101,7 +104,7 @@ function getFuzzyScore(searchText: string, query: string) {
 export function fuzzySearch<T>(
   items: readonly T[],
   query: string,
-  getSearchText: (item: T) => string
+  getSearchText: (item: T) => string,
 ) {
   const normalizedQuery = normalizeSearchText(query);
   if (!normalizedQuery) return [...items];
@@ -112,7 +115,10 @@ export function fuzzySearch<T>(
       index,
       score: getFuzzyScore(getSearchText(item), normalizedQuery),
     }))
-    .filter(({score}) => Number.isFinite(score))
-    .sort((first, second) => first.score - second.score || first.index - second.index)
-    .map(({item}) => item);
+    .filter(({ score }) => Number.isFinite(score))
+    .sort(
+      (first, second) =>
+        first.score - second.score || first.index - second.index,
+    )
+    .map(({ item }) => item);
 }

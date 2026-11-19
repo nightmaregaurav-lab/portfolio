@@ -24,14 +24,14 @@ import {
   Strikethrough,
   Table,
   TextAlignCenter,
-  TextAlignStart,
   TextAlignEnd,
+  TextAlignStart,
   TextQuote,
   Trash2,
   Type,
   Underline,
 } from "lucide-react";
-import React from "react";
+import type React from "react";
 
 import type { BlockEditorIcons } from "./icon-types";
 import { DEFAULT_LANGUAGE_ICONS } from "./language-icons";

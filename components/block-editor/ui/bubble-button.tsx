@@ -1,6 +1,7 @@
 import * as React from "react";
 
-export interface BubbleButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface BubbleButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   active?: boolean;
 }
 
@@ -14,8 +15,15 @@ const BubbleButton = React.forwardRef<HTMLButtonElement, BubbleButtonProps>(
       .filter(Boolean)
       .join(" ");
 
-    return <button ref={ref} className={cls} {...props} type={props.type ?? "button"} />;
-  }
+    return (
+      <button
+        ref={ref}
+        className={cls}
+        {...props}
+        type={props.type ?? "button"}
+      />
+    );
+  },
 );
 BubbleButton.displayName = "BubbleButton";
 

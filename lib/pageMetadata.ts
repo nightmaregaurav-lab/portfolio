@@ -1,8 +1,10 @@
-import type {Metadata} from "next";
-import {CoreConfig, NavigationConfig} from "@/configuration";
+import type { Metadata } from "next";
+import { CoreConfig, NavigationConfig } from "@/configuration";
 
 export function getSiteName() {
-  return CoreConfig.websiteName?.trim() || CoreConfig.fullName?.trim() || "Portfolio";
+  return (
+    CoreConfig.websiteName?.trim() || CoreConfig.fullName?.trim() || "Portfolio"
+  );
 }
 
 export function getAuthorName() {
@@ -15,17 +17,16 @@ export function getSiteDescription() {
 
 export function truncateDescription(text: string): string {
   if (text.length <= 160) return text;
-  return text.slice(0, 157) + "...";
+  return `${text.slice(0, 157)}...`;
 }
-
 
 export function getTwitterHandle() {
   const twitterSocial = NavigationConfig.socials.find((s) =>
-    /twitter\.com|x\.com/i.test(s.url)
+    /twitter\.com|x\.com/i.test(s.url),
   );
   if (twitterSocial) {
     const match = twitterSocial.url.match(/(?:twitter\.com|x\.com)\/([^/]+)/);
-    if (match) return "@" + match[1];
+    if (match) return `@${match[1]}`;
   }
 
   return undefined;
@@ -44,8 +45,9 @@ type PageMetadataOptions = {
 };
 
 export function getSiteUrl() {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://localhost:3000";
-  return new URL(siteUrl.endsWith("/") ? siteUrl : siteUrl + "/");
+  const siteUrl =
+    process.env.NEXT_PUBLIC_SITE_URL?.trim() || "https://localhost:3000";
+  return new URL(siteUrl.endsWith("/") ? siteUrl : `${siteUrl}/`);
 }
 
 export function getCanonicalUrl(path: string) {
@@ -78,7 +80,9 @@ export function createPageMetadata({
   const imageUrl = getAbsoluteUrl(image || "/favicon.ico");
   const siteName = getSiteName();
   const authorName = getAuthorName();
-  const resolvedDescription = truncateDescription(description?.trim() || getSiteDescription());
+  const resolvedDescription = truncateDescription(
+    description?.trim() || getSiteDescription(),
+  );
 
   const coreKeywords = CoreConfig.seoKeywords || [];
   const resolvedKeywords = keywords
@@ -89,11 +93,13 @@ export function createPageMetadata({
     title,
     description: resolvedDescription,
     keywords: resolvedKeywords,
-    authors: [{name: authorName}],
-    alternates: canonical ? {
-      canonical,
-      languages: {'en': canonical},
-    } : undefined,
+    authors: [{ name: authorName }],
+    alternates: canonical
+      ? {
+          canonical,
+          languages: { en: canonical },
+        }
+      : undefined,
     openGraph: {
       type,
       url: canonical,
@@ -101,25 +107,31 @@ export function createPageMetadata({
       description: resolvedDescription,
       siteName,
       locale: "en_US",
-      images: [{
-        url: imageUrl,
-        width: 1200,
-        height: 630,
-        alt: title,
-      }],
-      ...(type === "article" ? {
-        publishedTime,
-        section,
-        tags,
-      } : {}),
+      images: [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: title,
+        },
+      ],
+      ...(type === "article"
+        ? {
+            publishedTime,
+            section,
+            tags,
+          }
+        : {}),
     },
     twitter: {
       card: "summary_large_image",
-      ...(getTwitterHandle() ? {site: getTwitterHandle(), creator: getTwitterHandle()} : {}),
+      ...(getTwitterHandle()
+        ? { site: getTwitterHandle(), creator: getTwitterHandle() }
+        : {}),
       title,
       description: resolvedDescription,
-      images: [{url: imageUrl, alt: resolvedDescription}],
+      images: [{ url: imageUrl, alt: resolvedDescription }],
     },
-    robots: {index: true, follow: true},
+    robots: { index: true, follow: true },
   };
 }

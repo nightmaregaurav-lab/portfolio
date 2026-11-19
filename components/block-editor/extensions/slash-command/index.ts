@@ -1,15 +1,15 @@
+export type {
+  OnCommandSelect,
+  SlashCommandOptions,
+  SlashCommandSuggestionItem,
+} from "./slash-command";
 export { SlashCommand, slashCommandPluginKey } from "./slash-command";
 export {
-  getSlashCommandSuggestion,
   defaultSlashCommandItems,
+  getSlashCommandSuggestion,
 } from "./suggestion";
-export type {
-  SlashCommandSuggestionItem,
-  SlashCommandOptions,
-  OnCommandSelect,
-} from "./slash-command";
-export { default as SuggestionList } from "./suggestion-list";
 export type {
   SuggestionListHandle,
   SuggestionListProps,
 } from "./suggestion-list";
+export { default as SuggestionList } from "./suggestion-list";

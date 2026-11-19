@@ -1,11 +1,6 @@
-"use client"
+"use client";
 
-import {
-  useCallback,
-  useEffect,
-  useState,
-  type RefObject,
-} from 'react';
+import { type RefObject, useCallback, useEffect, useState } from "react";
 
 type ScrollPosition = {
   scrollTop: number;
@@ -21,7 +16,7 @@ type ScrollPosition = {
 const EPSILON = 1;
 
 function useScrollPosition(
-  reference: RefObject<HTMLElement | null>
+  reference: RefObject<HTMLElement | null>,
 ): ScrollPosition {
   const [position, setPosition] = useState<ScrollPosition>({
     scrollTop: 0,
@@ -48,15 +43,9 @@ function useScrollPosition(
       clientWidth,
     } = element;
 
-    const scrollBottom = Math.max(
-      0,
-      scrollHeight - scrollTop - clientHeight
-    );
+    const scrollBottom = Math.max(0, scrollHeight - scrollTop - clientHeight);
 
-    const scrollRight = Math.max(
-      0,
-      scrollWidth - scrollLeft - clientWidth
-    );
+    const scrollRight = Math.max(0, scrollWidth - scrollLeft - clientWidth);
 
     setPosition({
       scrollTop,
@@ -90,7 +79,7 @@ function useScrollPosition(
     updatePosition();
 
     // Scroll events can fire very frequently, so update once per frame.
-    element.addEventListener('scroll', scheduleUpdate, {
+    element.addEventListener("scroll", scheduleUpdate, {
       passive: true,
     });
 
@@ -109,13 +98,13 @@ function useScrollPosition(
     });
 
     // Fonts/images/layout can settle after the effect runs.
-    window.addEventListener('resize', scheduleUpdate);
+    window.addEventListener("resize", scheduleUpdate);
 
     return () => {
-      element.removeEventListener('scroll', scheduleUpdate);
+      element.removeEventListener("scroll", scheduleUpdate);
       resizeObserver.disconnect();
       mutationObserver.disconnect();
-      window.removeEventListener('resize', scheduleUpdate);
+      window.removeEventListener("resize", scheduleUpdate);
 
       if (frameId !== null) {
         cancelAnimationFrame(frameId);

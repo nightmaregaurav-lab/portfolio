@@ -1,24 +1,24 @@
-import {initialAboutMigration} from "@/migrations/about/initial";
-import {migrateAboutToV1} from "@/migrations/about/v1";
-import {initialBlogsMigration} from "@/migrations/blogs/initial";
-import {migrateBlogsToV1} from "@/migrations/blogs/v1";
-import {migrateBlogsToV2} from "@/migrations/blogs/v2";
-import {migrateBlogsToV3} from "@/migrations/blogs/v3";
-import {initialCoreMigration} from "@/migrations/core/initial";
-import {migrateCoreToV1} from "@/migrations/core/v1";
-import {initialGalleryMigration} from "@/migrations/gallery/initial";
-import {migrateGalleryToV1} from "@/migrations/gallery/v1";
-import {initialHomeMigration} from "@/migrations/home/initial";
-import {initialJourneyMigration} from "@/migrations/journey/initial";
-import {initialProjectsMigration} from "@/migrations/projects/initial";
-import {migrateProjectsToV1} from "@/migrations/projects/v1";
-import {initialNavigationMigration} from "@/migrations/navigation/initial";
-import {migrateNavigationToV1} from "@/migrations/navigation/v1";
-import {initialQuickLinksMigration} from "@/migrations/quickLinks/initial";
-import {initialServicesMigration} from "@/migrations/services/initial";
-import {initialSkillsMigration} from "@/migrations/skills/initial";
-import {initialTestimonialsMigration} from "@/migrations/testimonials/initial";
-import {currentConfigurationVersions, serializeConfiguration} from "@/migrations/configurationVersions";
+import { initialAboutMigration } from "@/migrations/about/initial";
+import { migrateAboutToV1 } from "@/migrations/about/v1";
+import { initialBlogsMigration } from "@/migrations/blogs/initial";
+import { migrateBlogsToV1 } from "@/migrations/blogs/v1";
+import { migrateBlogsToV2 } from "@/migrations/blogs/v2";
+import { migrateBlogsToV3 } from "@/migrations/blogs/v3";
+import { currentConfigurationVersions } from "@/migrations/configurationVersions";
+import { initialCoreMigration } from "@/migrations/core/initial";
+import { migrateCoreToV1 } from "@/migrations/core/v1";
+import { initialGalleryMigration } from "@/migrations/gallery/initial";
+import { migrateGalleryToV1 } from "@/migrations/gallery/v1";
+import { initialHomeMigration } from "@/migrations/home/initial";
+import { initialJourneyMigration } from "@/migrations/journey/initial";
+import { initialNavigationMigration } from "@/migrations/navigation/initial";
+import { migrateNavigationToV1 } from "@/migrations/navigation/v1";
+import { initialProjectsMigration } from "@/migrations/projects/initial";
+import { migrateProjectsToV1 } from "@/migrations/projects/v1";
+import { initialQuickLinksMigration } from "@/migrations/quickLinks/initial";
+import { initialServicesMigration } from "@/migrations/services/initial";
+import { initialSkillsMigration } from "@/migrations/skills/initial";
+import { initialTestimonialsMigration } from "@/migrations/testimonials/initial";
 
 type ConfigurationMigration = (configuration: unknown) => unknown;
 type InitialMigration = () => unknown;
@@ -47,50 +47,59 @@ const initialMigrationMap: Record<string, InitialMigration> = {
   testimonials: initialTestimonialsMigration,
 };
 
-const configurationMigrationManager: Record<string, ConfigurationMigrationMap> = {
-  about: {
-    1: migrateAboutToV1
-  },
-  blog: {},
-  blogs: {
-    1: migrateBlogsToV1,
-    2: migrateBlogsToV2,
-    3: migrateBlogsToV3,
-  },
-  core: {
-    1: migrateCoreToV1,
-  },
-  gallery: {
-    1: migrateGalleryToV1,
-  },
-  home: {},
-  journey: {},
-  navigation: {
-    1: migrateNavigationToV1,
-  },
-  projects: {
-    1: migrateProjectsToV1,
-  },
-  quickLinks: {},
-  services: {},
-  skills: {},
-  testimonials: {},
-};
+const configurationMigrationManager: Record<string, ConfigurationMigrationMap> =
+  {
+    about: {
+      1: migrateAboutToV1,
+    },
+    blog: {},
+    blogs: {
+      1: migrateBlogsToV1,
+      2: migrateBlogsToV2,
+      3: migrateBlogsToV3,
+    },
+    core: {
+      1: migrateCoreToV1,
+    },
+    gallery: {
+      1: migrateGalleryToV1,
+    },
+    home: {},
+    journey: {},
+    navigation: {
+      1: migrateNavigationToV1,
+    },
+    projects: {
+      1: migrateProjectsToV1,
+    },
+    quickLinks: {},
+    services: {},
+    skills: {},
+    testimonials: {},
+  };
 
-function isVersionedConfiguration(value: unknown): value is VersionedConfiguration {
-  return typeof value === "object"
-    && value !== null
-    && "version" in value
-    && "configuration" in value;
+function isVersionedConfiguration(
+  value: unknown,
+): value is VersionedConfiguration {
+  return (
+    typeof value === "object" &&
+    value !== null &&
+    "version" in value &&
+    "configuration" in value
+  );
 }
 
-function getConfigurationVersion(value: VersionedConfiguration | unknown): number {
+function getConfigurationVersion(
+  value: VersionedConfiguration | unknown,
+): number {
   if (!isVersionedConfiguration(value)) {
     return initialConfigurationVersion;
   }
 
   if (!Number.isInteger(value.version) || value.version < 0) {
-    throw new Error(`Configuration version must be a positive integer. Found: ${value.version}.`);
+    throw new Error(
+      `Configuration version must be a positive integer. Found: ${value.version}.`,
+    );
   }
 
   return value.version;
@@ -105,9 +114,11 @@ export function migrateConfiguration(
     throw new Error(`Unknown configuration identifier "${identifier}".`);
   }
 
-  if(value == null) {
-    if(initialMigrationMap[identifier] == null){
-      throw new Error(`No initial migration defined for configuration "${identifier}".`);
+  if (value == null) {
+    if (initialMigrationMap[identifier] == null) {
+      throw new Error(
+        `No initial migration defined for configuration "${identifier}".`,
+      );
     }
     value = initialMigrationMap[identifier]();
   }
@@ -123,7 +134,11 @@ export function migrateConfiguration(
     ? value.configuration
     : value;
 
-  for (let nextVersion = version + 1; nextVersion <= currentVersion; nextVersion += 1) {
+  for (
+    let nextVersion = version + 1;
+    nextVersion <= currentVersion;
+    nextVersion += 1
+  ) {
     const migration = configurationMigrationManager[identifier][nextVersion];
     if (!migration) {
       throw new Error(
@@ -140,4 +155,4 @@ export function migrateConfiguration(
   };
 }
 
-export {serializeConfiguration} from "@/migrations/configurationVersions";
+export { serializeConfiguration } from "@/migrations/configurationVersions";

@@ -6,16 +6,16 @@ const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        hostname: '**',
-        pathname: '**',
-      }
+        hostname: "**",
+        pathname: "**",
+      },
     ],
-    unoptimized: true
+    unoptimized: true,
   },
-  output: 'export',
-  basePath: process.env.NEXT_PUBLIC_BASE_PATH || '',
+  output: "export",
+  basePath: process.env.NEXT_PUBLIC_BASE_PATH || "",
   trailingSlash: true,
-  distDir: 'build',
+  distDir: "build",
 };
 
 export default nextConfig;

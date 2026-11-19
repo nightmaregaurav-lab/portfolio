@@ -1,6 +1,6 @@
-import type {TModel as SkillsModel} from "@/configuration/skills";
-import type {TModel as JourneyModel} from "@/configuration/journey";
-import type {TModel as ProjectsModel} from "@/configuration/projects";
+import type { TModel as JourneyModel } from "@/configuration/journey";
+import type { TModel as ProjectsModel } from "@/configuration/projects";
+import type { TModel as SkillsModel } from "@/configuration/skills";
 
 export interface PageContentProps {
   skillsConfig: SkillsModel;

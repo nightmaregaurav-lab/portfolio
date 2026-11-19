@@ -83,9 +83,7 @@ const EXTENSION_TO_TYPE_MAP: Record<string, FileType> = {
   ogg: "Audio",
 };
 
-export function getFileTypeFromExtension(
-  filename?: string | null,
-): FileType {
+export function getFileTypeFromExtension(filename?: string | null): FileType {
   if (!filename) return "Other";
   const extension = filename.split(".").pop()?.toLowerCase();
   if (!extension) return "Other";
@@ -97,5 +95,5 @@ export function humanizeFileSize(bytes: number): string {
   const sizes = ["B", "KB", "MB", "GB", "TB"];
   if (bytes === 0) return "0 B";
   const i = Math.floor(Math.log(bytes) / Math.log(1024));
-  return Math.round(bytes / Math.pow(1024, i)) + " " + sizes[i];
+  return `${Math.round(bytes / 1024 ** i)} ${sizes[i]}`;
 }

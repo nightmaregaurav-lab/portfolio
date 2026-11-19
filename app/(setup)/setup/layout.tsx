@@ -1,5 +1,5 @@
-import type {Metadata} from "next";
-import type {ReactNode} from "react";
+import type { Metadata } from "next";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "Website setup",
@@ -12,6 +12,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function SetupLayout({children}: {children: ReactNode}) {
+export default function SetupLayout({ children }: { children: ReactNode }) {
   return children;
 }

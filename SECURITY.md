@@ -5,10 +5,10 @@
 Only the latest version on the `main` branch is actively supported with
 security fixes.
 
-| Version | Supported |
-| ------- | --------- |
-| `main` / latest release | Yes |
-| Older releases and forks | No |
+| Version                  | Supported |
+| ------------------------ | --------- |
+| `main` / latest release  | Yes       |
+| Older releases and forks | No        |
 
 Because this project is designed to be forked and deployed independently,
 security fixes may need to be applied to each fork separately.

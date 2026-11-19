@@ -1,31 +1,24 @@
-"use client"
+"use client";
 
-import React, {useEffect, useMemo, useRef, useState} from "react";
-import styles from "./page.module.css";
-import {Identifier} from "@/hooks/useConfig";
-import {defaultValues, TInput, TOutput, schema} from "@/configuration/gallery";
-import {Input} from "@/components/ui/input";
-import {ArrayInput} from "@/components/ui/ArrayInput";
-import {Label} from "@/components/ui/label";
-import {FileUrl} from "@/components/ui/FileUrl";
-import {Button} from "@/components/ui/button";
-import {Spinner} from "@/components/ui/spinner";
-import FullScreenMessage from "@/components/ui/FullScreenMessage";
-import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
-import {AlertCircle, MoreHorizontal, Pencil, Plus, Trash2, X} from "lucide-react";
-import {Badge} from "@/components/ui/badge";
-import {cn} from "@/lib/utils";
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import {Control, Controller, useFieldArray, useWatch} from "react-hook-form";
-import {useConfigurationForm} from "@/hooks/useConfigurationForm";
-import {withConfigurationId} from "@/lib/configurationUtils";
-import ImageLightbox from "@/components/ui/ImageLightbox";
-import {Tooltip, TooltipContent, TooltipProvider, TooltipTrigger} from "@/components/ui/tooltip";
+  AlertCircle,
+  MoreHorizontal,
+  Pencil,
+  Plus,
+  Trash2,
+  X,
+} from "lucide-react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  type Control,
+  Controller,
+  useFieldArray,
+  useWatch,
+} from "react-hook-form";
+import { ArrayInput } from "@/components/ui/ArrayInput";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import ConfigurationFormWrapper from "@/components/ui/ConfigurationFormWrapper";
 import {
   Dialog,
   DialogContent,
@@ -34,9 +27,39 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
-import {Textarea} from "@/components/ui/textarea";
-import {RichTextEditor} from "@/components/ui/RichTextEditor";
-import {slugify} from "@/lib/slugs";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { FileUrl } from "@/components/ui/FileUrl";
+import FullScreenMessage from "@/components/ui/FullScreenMessage";
+import ImageLightbox from "@/components/ui/ImageLightbox";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import ResponsiveImage from "@/components/ui/ResponsiveImage";
+import { RichTextEditor } from "@/components/ui/RichTextEditor";
+import { Spinner } from "@/components/ui/spinner";
+import { Textarea } from "@/components/ui/textarea";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  defaultValues,
+  schema,
+  type TInput,
+  type TOutput,
+} from "@/configuration/gallery";
+import { Identifier } from "@/hooks/useConfig";
+import { useConfigurationForm } from "@/hooks/useConfigurationForm";
+import { withConfigurationId } from "@/lib/configurationUtils";
+import { slugify } from "@/lib/slugs";
+import { cn } from "@/lib/utils";
+import styles from "./page.module.css";
 
 const emptyPhoto: NonNullable<TInput["photos"]>[number] = {
   id: "",
@@ -53,56 +76,82 @@ const emptyCategory: NonNullable<TInput["categories"]>[number] = {
   description: "",
 };
 
-function PhotoFields(
-  {control, index, categorySuggestions, onCategoryAdded}: {
-    control: Control<TInput>;
-    index: number
-    categorySuggestions: string[];
-    onCategoryAdded: (name: string) => void;
-  }
-) {
+function PhotoFields({
+  control,
+  index,
+  categorySuggestions,
+  onCategoryAdded,
+}: {
+  control: Control<TInput>;
+  index: number;
+  categorySuggestions: string[];
+  onCategoryAdded: (name: string) => void;
+}) {
   return (
     <>
       <Controller
         control={control}
         name={`photos.${index}.url`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`photos.${index}.url`}>Photo URL</Label>
-            <FileUrl {...field} id={`photos.${index}.url`} placeholder={"https://example.com/photo.jpg"} className={cn("w-full", error && "border-destructive")}/>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <FileUrl
+              {...field}
+              id={`photos.${index}.url`}
+              placeholder={"https://example.com/photo.jpg"}
+              className={cn("w-full", error && "border-destructive")}
+            />
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
 
       <Controller
         control={control}
         name={`photos.${index}.title`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`photos.${index}.title`}>Title (optional)</Label>
-            <Input {...field} id={`photos.${index}.title`} value={field.value || ""} placeholder={"A title for this image"} className={cn("w-full", error && "border-destructive")}/>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <Input
+              {...field}
+              id={`photos.${index}.title`}
+              value={field.value || ""}
+              placeholder={"A title for this image"}
+              className={cn("w-full", error && "border-destructive")}
+            />
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
 
       <Controller
         control={control}
         name={`photos.${index}.caption`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`photos.${index}.caption`}>Caption</Label>
-            <Textarea id={`photos.${index}.caption`} placeholder={"A short caption"} value={field.value} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <Textarea
+              id={`photos.${index}.caption`}
+              placeholder={"A short caption"}
+              value={field.value}
+              onChange={field.onChange}
+              className={cn("w-full", error && "border-destructive")}
+            />
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
 
       <Controller
         control={control}
         name={`photos.${index}.categories`}
-        render={({field, fieldState: {error}}) =>
+        render={({ field, fieldState: { error } }) => (
           <div className={"grid gap-2"}>
             <Label htmlFor={`photos.${index}.categories`}>Categories</Label>
             <ArrayInput
@@ -114,56 +163,99 @@ function PhotoFields(
               onValueAdded={onCategoryAdded}
               className={cn("w-full", error && "border-destructive")}
             />
-            <p className={"text-xs text-muted-foreground"}>Categories act like folders on your website. A photo can appear in more than one folder without being copied.</p>
-            {error && <small className={"text-destructive"}>{error.message}</small>}
+            <p className={"text-xs text-muted-foreground"}>
+              Categories act like folders on your website. A photo can appear in
+              more than one folder without being copied.
+            </p>
+            {error && (
+              <small className={"text-destructive"}>{error.message}</small>
+            )}
           </div>
-        }
+        )}
       />
     </>
   );
 }
 
-function GalleryPhotoCard(
-  {
-    photo, index, onEdit, onDelete, hasError
-  }: {
-    photo: NonNullable<TInput["photos"]>[number];
-    index: number;
-    onEdit: () => void;
-    onDelete: () => void;
-    hasError: boolean;
-  }
-) {
-  const imageName = photo.title || photo.caption || `Gallery photo ${index + 1}`;
+function GalleryPhotoCard({
+  photo,
+  index,
+  onEdit,
+  onDelete,
+  hasError,
+}: {
+  photo: NonNullable<TInput["photos"]>[number];
+  index: number;
+  onEdit: () => void;
+  onDelete: () => void;
+  hasError: boolean;
+}) {
+  const imageName =
+    photo.title || photo.caption || `Gallery photo ${index + 1}`;
   const image = photo.url ? (
-    <img src={photo.url} alt={imageName} className={"size-full object-cover"}/>
+    <ResponsiveImage
+      src={photo.url}
+      alt={imageName}
+      className={"size-full object-cover"}
+    />
   ) : (
-    <div className={"flex size-full items-center justify-center bg-muted text-sm text-muted-foreground"}>No image</div>
+    <div
+      className={
+        "flex size-full items-center justify-center bg-muted text-sm text-muted-foreground"
+      }
+    >
+      No image
+    </div>
   );
 
   return (
-    <div className={"group relative aspect-square overflow-hidden rounded-xl border bg-card shadow-sm"}>
-      {photo.url ?
-        <ImageLightbox
-          src={photo.url}
-          name={imageName}
-          trigger={image}
-        /> : image
+    <div
+      className={
+        "group relative aspect-square overflow-hidden rounded-xl border bg-card shadow-sm"
       }
+    >
+      {photo.url ? (
+        <ImageLightbox src={photo.url} name={imageName} trigger={image} />
+      ) : (
+        image
+      )}
 
       {hasError && (
-        <div className={"absolute left-2 top-2 z-10 flex size-6 items-center justify-center rounded-full bg-destructive"} title={"This photo has validation errors"}>
+        <div
+          className={
+            "absolute left-2 top-2 z-10 flex size-6 items-center justify-center rounded-full bg-destructive"
+          }
+          title={"This photo has validation errors"}
+        >
           <AlertCircle size={14} className={"text-white"} />
         </div>
       )}
 
-      <div className={"pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/30 to-transparent p-3 pt-10"}>
-        {photo.title && <p className={"truncate text-sm font-semibold text-white"}>{photo.title}</p>}
-        <p className={"truncate text-sm font-medium text-white"}>{photo.caption || `Photo ${index + 1}`}</p>
-        {photo.categories && photo.categories.length > 0 && <p className={"truncate text-xs text-white/75"}>{photo.categories.join(" · ")}</p>}
+      <div
+        className={
+          "pointer-events-none absolute inset-x-0 bottom-0 bg-linear-to-t from-black/75 via-black/30 to-transparent p-3 pt-10"
+        }
+      >
+        {photo.title && (
+          <p className={"truncate text-sm font-semibold text-white"}>
+            {photo.title}
+          </p>
+        )}
+        <p className={"truncate text-sm font-medium text-white"}>
+          {photo.caption || `Photo ${index + 1}`}
+        </p>
+        {photo.categories && photo.categories.length > 0 && (
+          <p className={"truncate text-xs text-white/75"}>
+            {photo.categories.join(" · ")}
+          </p>
+        )}
       </div>
 
-      <div className={"absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"}>
+      <div
+        className={
+          "absolute right-2 top-2 flex gap-1 opacity-0 transition-opacity group-hover:opacity-100"
+        }
+      >
         <Button
           type={"button"}
           size={"icon-sm"}
@@ -190,38 +282,44 @@ function GalleryPhotoCard(
   );
 }
 
-function CategoryBadge(
-  {
-    category, isCurrentlyEditing, hasError, onEdit, onDelete
-  }: {
-    category: NonNullable<TInput["categories"]>[number];
-    isCurrentlyEditing: boolean;
-    hasError: boolean;
-    onEdit: () => void;
-    onDelete: () => void;
-  }
-) {
+function CategoryBadge({
+  category,
+  isCurrentlyEditing,
+  hasError,
+  onEdit,
+  onDelete,
+}: {
+  category: NonNullable<TInput["categories"]>[number];
+  isCurrentlyEditing: boolean;
+  hasError: boolean;
+  onEdit: () => void;
+  onDelete: () => void;
+}) {
   return (
     <DropdownMenu>
-      <DropdownMenuTrigger render={
-        <Badge
-          variant={hasError ? "destructive" : "outline"}
-          className={cn(
-            "h-auto gap-0 p-2 py-0.5 cursor-pointer",
-            hasError && "border-destructive"
-          )}
-        >
-          <span className={"truncate text-xs"}>
-            {category.name || "New Category"}
-          </span>
-          <MoreHorizontal size={12} className={"ml-1 shrink-0 opacity-50"} />
-        </Badge>
-      } />
+      <DropdownMenuTrigger
+        render={
+          <Badge
+            variant={hasError ? "destructive" : "outline"}
+            className={cn(
+              "h-auto gap-0 p-2 py-0.5 cursor-pointer",
+              hasError && "border-destructive",
+            )}
+          >
+            <span className={"truncate text-xs"}>
+              {category.name || "New Category"}
+            </span>
+            <MoreHorizontal size={12} className={"ml-1 shrink-0 opacity-50"} />
+          </Badge>
+        }
+      />
       <DropdownMenuContent align="start" sideOffset={4}>
-        {!isCurrentlyEditing && <DropdownMenuItem onClick={onEdit}>
-          <Pencil size={14}/>
-          <span>Edit</span>
-        </DropdownMenuItem>}
+        {!isCurrentlyEditing && (
+          <DropdownMenuItem onClick={onEdit}>
+            <Pencil size={14} />
+            <span>Edit</span>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuItem variant="destructive" onClick={onDelete}>
           <X size={14} />
           <span>Delete</span>
@@ -240,42 +338,68 @@ function PageContent() {
     control,
     handleSubmit,
     formValues,
-    hasChanges
-  } = useConfigurationForm(
-    Identifier.Gallery,
-    schema,
-    defaultValues
-  );
+    hasChanges,
+  } = useConfigurationForm(Identifier.Gallery, schema, defaultValues);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
-  const [editingCategoryIndex, setEditingCategoryIndex] = useState<number | null>(null);
+  const [editingCategoryIndex, setEditingCategoryIndex] = useState<
+    number | null
+  >(null);
   const editingCategoryName = useRef("");
-  const {fields: photos, append, remove} = useFieldArray({control, name: "photos", keyName: "fieldArrayId"});
-  const {fields: categoryFields, append: appendCategory, remove: removeCategoryField} = useFieldArray({control, name: "categories", keyName: "categoryFieldId"});
-  const photosWatch = useWatch({control, name: "photos"}) || [];
-  const categoriesWatch = useWatch({control, name: "categories"}) || [];
+  const {
+    fields: photos,
+    append,
+    remove,
+  } = useFieldArray({ control, name: "photos", keyName: "fieldArrayId" });
+  const {
+    fields: categoryFields,
+    append: appendCategory,
+    remove: removeCategoryField,
+  } = useFieldArray({
+    control,
+    name: "categories",
+    keyName: "categoryFieldId",
+  });
+  const photosWatch = useWatch({ control, name: "photos" }) || [];
+  const categoriesWatch = useWatch({ control, name: "categories" }) || [];
   const categorySuggestions = useMemo(() => {
     const names = [
       ...categoriesWatch.map((category) => category.name),
       ...photosWatch.flatMap((photo) => photo.categories || []),
     ];
-    return names.filter((name, index) =>
-      name.trim() && names.findIndex((candidate) => candidate.trim().toLocaleLowerCase() === name.trim().toLocaleLowerCase()) === index
+    return names.filter(
+      (name, index) =>
+        name.trim() &&
+        names.findIndex(
+          (candidate) =>
+            candidate.trim().toLocaleLowerCase() ===
+            name.trim().toLocaleLowerCase(),
+        ) === index,
     );
   }, [categoriesWatch, photosWatch]);
 
   function ensureCategory(name: string) {
     const existingCategories = form.getValues("categories") || [];
     const normalizedName = name.trim().toLocaleLowerCase();
-    if (!normalizedName || existingCategories.some((category) => category.name.trim().toLocaleLowerCase() === normalizedName)) return;
-    appendCategory({
-      name: name.trim(),
-      slugs: [],
-      coverImage: "",
-      description: ""
-    }, {
-      shouldFocus: false
-    });
+    if (
+      !normalizedName ||
+      existingCategories.some(
+        (category) =>
+          category.name.trim().toLocaleLowerCase() === normalizedName,
+      )
+    )
+      return;
+    appendCategory(
+      {
+        name: name.trim(),
+        slugs: [],
+        coverImage: "",
+        description: "",
+      },
+      {
+        shouldFocus: false,
+      },
+    );
   }
 
   function updatePhotoCategoryName(previousName: string, nextName: string) {
@@ -285,23 +409,25 @@ function PageContent() {
     const updatedPhotos = photosValues.map((photo) => ({
       ...photo,
       categories: (photo.categories || []).map((categoryName) =>
-        categoryName.trim().toLocaleLowerCase() === previousName.trim().toLocaleLowerCase()
+        categoryName.trim().toLocaleLowerCase() ===
+        previousName.trim().toLocaleLowerCase()
           ? nextName
-          : categoryName
+          : categoryName,
       ),
     }));
 
-    form.setValue("photos", updatedPhotos, {shouldDirty: true});
+    form.setValue("photos", updatedPhotos, { shouldDirty: true });
   }
 
   function openCategoryEditor(index: number) {
-    editingCategoryName.current = form.getValues(`categories.${index}.name`) || "";
+    editingCategoryName.current =
+      form.getValues(`categories.${index}.name`) || "";
     setEditingCategoryIndex(index);
   }
 
   function addCategory() {
     const categoriesLength = form.getValues("categories")?.length || 0;
-    appendCategory({...emptyCategory});
+    appendCategory({ ...emptyCategory });
     editingCategoryName.current = "";
     setEditingCategoryIndex(categoriesLength);
   }
@@ -312,12 +438,14 @@ function PageContent() {
       const photosValues = form.getValues("photos") || [];
       const updatedPhotos = photosValues.map((photo) => ({
         ...photo,
-        categories: (photo.categories || []).filter((name) =>
-          name.trim().toLocaleLowerCase() !== categoryName.trim().toLocaleLowerCase()
+        categories: (photo.categories || []).filter(
+          (name) =>
+            name.trim().toLocaleLowerCase() !==
+            categoryName.trim().toLocaleLowerCase(),
         ),
       }));
 
-      form.setValue("photos", updatedPhotos, {shouldDirty: true});
+      form.setValue("photos", updatedPhotos, { shouldDirty: true });
     }
 
     removeCategoryField(index);
@@ -331,24 +459,34 @@ function PageContent() {
   }
 
   function finishCategoryEdit(index: number) {
-    const categoryName = (form.getValues(`categories.${index}.name`) || "").trim();
+    const categoryName = (
+      form.getValues(`categories.${index}.name`) || ""
+    ).trim();
     if (!categoryName) {
       void form.trigger(`categories.${index}.name`);
       return;
     }
 
-    const duplicateCategory = (form.getValues("categories") || []).some((category, categoryIndex) =>
-      categoryIndex !== index && category.name.trim().toLocaleLowerCase() === categoryName.toLocaleLowerCase()
+    const duplicateCategory = (form.getValues("categories") || []).some(
+      (category, categoryIndex) =>
+        categoryIndex !== index &&
+        category.name.trim().toLocaleLowerCase() ===
+          categoryName.toLocaleLowerCase(),
     );
     if (duplicateCategory) {
-      form.setError(`categories.${index}.name`, {type: "manual", message: "A folder with this name already exists."});
+      form.setError(`categories.${index}.name`, {
+        type: "manual",
+        message: "A folder with this name already exists.",
+      });
       return;
     }
 
     const currentName = form.getValues(`categories.${index}.name`) || "";
     if (currentName !== categoryName) {
       updatePhotoCategoryName(currentName, categoryName);
-      form.setValue(`categories.${index}.name`, categoryName, {shouldDirty: true});
+      form.setValue(`categories.${index}.name`, categoryName, {
+        shouldDirty: true,
+      });
     }
 
     setEditingCategoryIndex(null);
@@ -359,9 +497,13 @@ function PageContent() {
     if (isLoadingConfig) return;
 
     const configuredCategories = form.getValues("categories") || [];
-    const knownNames = new Set(configuredCategories.map((category) => category.name.trim().toLocaleLowerCase()));
+    const knownNames = new Set(
+      configuredCategories.map((category) =>
+        category.name.trim().toLocaleLowerCase(),
+      ),
+    );
     if (!form.getValues("categories")) {
-      form.setValue("categories", [], {shouldDirty: false});
+      form.setValue("categories", [], { shouldDirty: false });
     }
 
     for (const photo of photosWatch) {
@@ -369,14 +511,17 @@ function PageContent() {
         const name = categoryName.trim();
         const normalizedName = name.toLocaleLowerCase();
         if (name && !knownNames.has(normalizedName)) {
-          appendCategory({
-            name,
-            slugs: [],
-            coverImage: "",
-            description: ""
-          }, {
-            shouldFocus: false
-          });
+          appendCategory(
+            {
+              name,
+              slugs: [],
+              coverImage: "",
+              description: "",
+            },
+            {
+              shouldFocus: false,
+            },
+          );
           knownNames.add(normalizedName);
         }
       }
@@ -402,7 +547,10 @@ function PageContent() {
       const normalizedName = name.toLocaleLowerCase();
       if (categoryNames.has(normalizedName)) {
         openCategoryEditor(index);
-        form.setError(`categories.${index}.name`, {type: "manual", message: "A folder with this name already exists."});
+        form.setError(`categories.${index}.name`, {
+          type: "manual",
+          message: "A folder with this name already exists.",
+        });
         return;
       }
 
@@ -418,7 +566,7 @@ function PageContent() {
             name,
             slugs: [],
             coverImage: "",
-            description: ""
+            description: "",
           });
           categoryNames.add(normalizedName);
         }
@@ -434,23 +582,28 @@ function PageContent() {
         }
       }
     }
-    values.categories = values.categories.filter(category => {
-      const hasPhotos = categoryNamesWithPhotos.has(category.name.trim().toLocaleLowerCase());
+    values.categories = values.categories.filter((category) => {
+      const hasPhotos = categoryNamesWithPhotos.has(
+        category.name.trim().toLocaleLowerCase(),
+      );
       const hasCoverImage = !!category.coverImage?.trim();
       const hasDescription = !!category.description?.trim();
       return hasPhotos || hasCoverImage || hasDescription;
     });
 
-    for (const category of values.categories){
-      const exhaustedSlugsExceptThisCategory = new Set(values
-        .categories
-        .filter(x => x.name != category.name)
-        .flatMap(x => x.slugs)
-        .map(x => x.slug)
+    for (const category of values.categories) {
+      const exhaustedSlugsExceptThisCategory = new Set(
+        values.categories
+          .filter((x) => x.name !== category.name)
+          .flatMap((x) => x.slugs)
+          .map((x) => x.slug),
       );
-      const activeSlugCandidate = slugify(category.name, exhaustedSlugsExceptThisCategory);
+      const activeSlugCandidate = slugify(
+        category.name,
+        exhaustedSlugsExceptThisCategory,
+      );
       let foundActiveSlug = false;
-      for (const slugEntry of category.slugs){
+      for (const slugEntry of category.slugs) {
         if (slugEntry.slug === activeSlugCandidate) {
           slugEntry.isActive = true;
           foundActiveSlug = true;
@@ -458,10 +611,10 @@ function PageContent() {
         }
         slugEntry.isActive = false;
       }
-      if(!foundActiveSlug){
+      if (!foundActiveSlug) {
         category.slugs.push({
           slug: activeSlugCandidate,
-          isActive: true
+          isActive: true,
         });
       }
     }
@@ -470,29 +623,58 @@ function PageContent() {
   }
 
   if (isLoadingConfig) {
-    return <FullScreenMessage><Spinner className={"size-10"} /></FullScreenMessage>;
+    return (
+      <FullScreenMessage>
+        <Spinner className={"size-10"} />
+      </FullScreenMessage>
+    );
   }
 
   return (
-    <ConfigurationFormWrapper className={styles.page} title={"Gallery Configuration"} config={formValues} form={form}>
-      <form onSubmit={handleSubmit(save)} className={cn(styles.form, "grid max-w-3xl gap-6")}>
+    <ConfigurationFormWrapper
+      className={styles.page}
+      title={"Gallery Configuration"}
+      config={formValues}
+      form={form}
+    >
+      <form
+        onSubmit={handleSubmit(save)}
+        className={cn(styles.form, "grid max-w-3xl gap-6")}
+      >
         <Controller
           control={control}
           name={"summary"}
-          render={({field, fieldState: {error}}) =>
+          render={({ field, fieldState: { error } }) => (
             <div className={"grid gap-2"}>
               <Label htmlFor={"gallerySummary"}>Summary</Label>
-              <RichTextEditor id={"gallerySummary"} placeholder={"Introduce the photos and collections in your gallery"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
-              {error && <small className={"text-destructive"}>{error.message}</small>}
+              <RichTextEditor
+                id={"gallerySummary"}
+                placeholder={
+                  "Introduce the photos and collections in your gallery"
+                }
+                value={field.value || ""}
+                onChange={field.onChange}
+                className={cn("w-full", error && "border-destructive")}
+              />
+              {error && (
+                <small className={"text-destructive"}>{error.message}</small>
+              )}
             </div>
-          }
+          )}
         />
 
         <div className={"grid gap-3"}>
-          <div className={"flex flex-col justify-between gap-3 sm:flex-row sm:items-center"}>
+          <div
+            className={
+              "flex flex-col justify-between gap-3 sm:flex-row sm:items-center"
+            }
+          >
             <div>
               <Label>Gallery folders</Label>
-              <p className={"mt-1 text-sm text-muted-foreground"}>Add categories to photos or create folders manually. Each folder can have its own cover image and introduction.</p>
+              <p className={"mt-1 text-sm text-muted-foreground"}>
+                Add categories to photos or create folders manually. Each folder
+                can have its own cover image and introduction.
+              </p>
             </div>
 
             <Button
@@ -507,7 +689,11 @@ function PageContent() {
           </div>
 
           {categoryFields.length === 0 ? (
-            <div className={"rounded-xl border border-dashed p-5 text-sm text-muted-foreground"}>
+            <div
+              className={
+                "rounded-xl border border-dashed p-5 text-sm text-muted-foreground"
+              }
+            >
               No folders yet. Add a category or add one while editing a photo.
             </div>
           ) : (
@@ -526,62 +712,121 @@ function PageContent() {
               </div>
 
               {editingCategoryIndex !== null && (
-                <div className={"grid gap-4 rounded-xl border bg-card p-4 shadow-sm"}>
+                <div
+                  className={
+                    "grid gap-4 rounded-xl border bg-card p-4 shadow-sm"
+                  }
+                >
                   <Controller
                     control={control}
                     name={`categories.${editingCategoryIndex}.name`}
-                    render={({field, fieldState: {error}}) =>
+                    render={({ field, fieldState: { error } }) => (
                       <div className={"grid gap-2"}>
-                        <Label htmlFor={`categories.${editingCategoryIndex}.name`}>Folder name</Label>
+                        <Label
+                          htmlFor={`categories.${editingCategoryIndex}.name`}
+                        >
+                          Folder name
+                        </Label>
                         <Input
                           {...field}
                           id={`categories.${editingCategoryIndex}.name`}
-                          className={cn("w-full", error && "border-destructive")}
+                          className={cn(
+                            "w-full",
+                            error && "border-destructive",
+                          )}
                           onChange={(event) => {
                             const nextName = event.target.value;
-                            updatePhotoCategoryName(editingCategoryName.current, nextName);
+                            updatePhotoCategoryName(
+                              editingCategoryName.current,
+                              nextName,
+                            );
                             if (nextName.trim()) {
                               editingCategoryName.current = nextName;
                             }
-                            form.clearErrors(`categories.${editingCategoryIndex}.name`);
+                            form.clearErrors(
+                              `categories.${editingCategoryIndex}.name`,
+                            );
                             field.onChange(nextName);
                           }}
                         />
-                        {error && <small className={"text-destructive"}>{error.message}</small>}
+                        {error && (
+                          <small className={"text-destructive"}>
+                            {error.message}
+                          </small>
+                        )}
                       </div>
-                    }
+                    )}
                   />
                   <Controller
                     control={control}
                     name={`categories.${editingCategoryIndex}.coverImage`}
-                    render={({field, fieldState: {error}}) =>
+                    render={({ field, fieldState: { error } }) => (
                       <div className={"grid gap-2"}>
-                        <Label htmlFor={`categories.${editingCategoryIndex}.coverImage`}>Folder cover image URL (optional)</Label>
+                        <Label
+                          htmlFor={`categories.${editingCategoryIndex}.coverImage`}
+                        >
+                          Folder cover image URL (optional)
+                        </Label>
                         <FileUrl
                           {...field}
                           id={`categories.${editingCategoryIndex}.coverImage`}
                           value={field.value || ""}
                           placeholder={"https://example.com/cover.jpg"}
-                          className={cn("w-full", error && "border-destructive")}
+                          className={cn(
+                            "w-full",
+                            error && "border-destructive",
+                          )}
                         />
-                        <p className={"text-xs text-muted-foreground"}>When empty, the first photo in this folder is used as its cover.</p>
-                        {error && <small className={"text-destructive"}>{error.message}</small>}
+                        <p className={"text-xs text-muted-foreground"}>
+                          When empty, the first photo in this folder is used as
+                          its cover.
+                        </p>
+                        {error && (
+                          <small className={"text-destructive"}>
+                            {error.message}
+                          </small>
+                        )}
                       </div>
-                    }
+                    )}
                   />
                   <Controller
                     control={control}
                     name={`categories.${editingCategoryIndex}.description`}
-                    render={({field, fieldState: {error}}) =>
+                    render={({ field, fieldState: { error } }) => (
                       <div className={"grid gap-2"}>
-                        <Label htmlFor={`categories.${editingCategoryIndex}.description`}>Folder introduction (optional)</Label>
-                        <RichTextEditor id={`categories.${editingCategoryIndex}.description`} placeholder={"Introduce this collection"} value={field.value || ""} onChange={field.onChange} className={cn("w-full", error && "border-destructive")}/>
-                        {error && <small className={"text-destructive"}>{error.message}</small>}
+                        <Label
+                          htmlFor={`categories.${editingCategoryIndex}.description`}
+                        >
+                          Folder introduction (optional)
+                        </Label>
+                        <RichTextEditor
+                          id={`categories.${editingCategoryIndex}.description`}
+                          placeholder={"Introduce this collection"}
+                          value={field.value || ""}
+                          onChange={field.onChange}
+                          className={cn(
+                            "w-full",
+                            error && "border-destructive",
+                          )}
+                        />
+                        {error && (
+                          <small className={"text-destructive"}>
+                            {error.message}
+                          </small>
+                        )}
                       </div>
-                    }
+                    )}
                   />
                   <div className={"flex justify-end"}>
-                    <Button type={"button"} size={"sm"} variant={"outline"} onClick={() => finishCategoryEdit(editingCategoryIndex)} className="cursor-pointer hover:-translate-y-px">Done</Button>
+                    <Button
+                      type={"button"}
+                      size={"sm"}
+                      variant={"outline"}
+                      onClick={() => finishCategoryEdit(editingCategoryIndex)}
+                      className="cursor-pointer hover:-translate-y-px"
+                    >
+                      Done
+                    </Button>
                   </div>
                 </div>
               )}
@@ -589,10 +834,16 @@ function PageContent() {
           )}
         </div>
 
-        <div className={"flex flex-col justify-between gap-3 sm:flex-row sm:items-center"}>
+        <div
+          className={
+            "flex flex-col justify-between gap-3 sm:flex-row sm:items-center"
+          }
+        >
           <div>
             <Label>Gallery photos</Label>
-            <p className={"mt-1 text-sm text-muted-foreground"}>Browse your photos. Hover a photo to edit it.</p>
+            <p className={"mt-1 text-sm text-muted-foreground"}>
+              Browse your photos. Hover a photo to edit it.
+            </p>
           </div>
 
           <Button
@@ -607,7 +858,9 @@ function PageContent() {
         </div>
 
         {photosWatch.length > 0 && (
-          <div className={"grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"}>
+          <div
+            className={"grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4"}
+          >
             {photosWatch.map((photo, index) => (
               <GalleryPhotoCard
                 key={index}
@@ -621,21 +874,30 @@ function PageContent() {
           </div>
         )}
 
-        {photos.length === 0 &&
-          <div className={"rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground"}>
+        {photos.length === 0 && (
+          <div
+            className={
+              "rounded-xl border border-dashed p-8 text-center text-sm text-muted-foreground"
+            }
+          >
             No photos yet. Add your first photo.
           </div>
-        }
+        )}
 
         <div className={"flex justify-end"}>
           <TooltipProvider>
             <Tooltip>
-              <TooltipTrigger type="button" disabled={isSavingConfig || !hasChanges}>
+              <TooltipTrigger
+                type="button"
+                disabled={isSavingConfig || !hasChanges}
+              >
                 <Button
                   type={"submit"}
                   size={"sm"}
                   variant={"outline"}
-                  className={"cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"}
+                  className={
+                    "cursor-pointer mt-2 bg-primary text-secondary hover:-translate-y-px"
+                  }
                   disabled={isSavingConfig || !hasChanges}
                 >
                   {isSavingConfig ? <Spinner /> : "Save"}
@@ -653,15 +915,27 @@ function PageContent() {
         <DialogContent className={"max-h-[90vh] overflow-y-auto sm:max-w-lg"}>
           <DialogHeader>
             <DialogTitle>
-              {editingIndex === null ? "Edit photo" : photosWatch[editingIndex]?.caption ? "Edit photo" : "Add photo"}
+              {editingIndex === null
+                ? "Edit photo"
+                : photosWatch[editingIndex]?.caption
+                  ? "Edit photo"
+                  : "Add photo"}
             </DialogTitle>
             <DialogDescription>
-              {editingIndex === null ? "Add" : "Update"} the image, caption, and categories for this gallery photo.
+              {editingIndex === null ? "Add" : "Update"} the image, caption, and
+              categories for this gallery photo.
             </DialogDescription>
           </DialogHeader>
-          {editingIndex !== null && <div className={"grid gap-4"}>
-            <PhotoFields control={control} index={editingIndex} categorySuggestions={categorySuggestions} onCategoryAdded={ensureCategory}/>
-          </div>}
+          {editingIndex !== null && (
+            <div className={"grid gap-4"}>
+              <PhotoFields
+                control={control}
+                index={editingIndex}
+                categorySuggestions={categorySuggestions}
+                onCategoryAdded={ensureCategory}
+              />
+            </div>
+          )}
           <DialogFooter>
             <Button
               type={"button"}

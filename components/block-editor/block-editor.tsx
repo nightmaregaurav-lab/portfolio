@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { DragHandle } from "@tiptap/extension-drag-handle-react";
 import type { Node } from "@tiptap/pm/model";
@@ -25,7 +25,7 @@ const BlockEditorDragHandle = () => {
     ({ node, pos }: { node: Node | null; pos: number }) => {
       dragNodeRef.current = node ? { node, pos } : null;
     },
-    []
+    [],
   );
 
   const handleAdd = useCallback(() => {
@@ -75,10 +75,10 @@ const BlockEditorContent = () => {
 
   return (
     <div className="block-editor">
-      {editor && editor.isEditable && <BlockEditorDragHandle />}
-      {editor && editor.isEditable && <BubbleMenu editor={editor} />}
+      {editor?.isEditable && <BlockEditorDragHandle />}
+      {editor?.isEditable && <BubbleMenu editor={editor} />}
       <EditorContent editor={editor} className="block-editor-content" />
-      {editor && editor.isEditable && <BottomBar editor={editor} />}
+      {editor?.isEditable && <BottomBar editor={editor} />}
     </div>
   );
 };

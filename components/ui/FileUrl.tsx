@@ -1,22 +1,22 @@
-"use client"
+"use client";
 
-import React, {useState} from 'react';
-import {Image as ImageIcon} from "lucide-react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import { Image as ImageIcon } from "lucide-react";
+import type React from "react";
+import { useState } from "react";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
+import GithubFilePicker from "@/components/ui/GithubFilePicker";
 import {
   InputGroup,
-  InputGroupInput,
-  InputGroupButton,
   InputGroupAddon,
+  InputGroupButton,
+  InputGroupInput,
 } from "@/components/ui/input-group";
-import GithubFilePicker from "@/components/ui/GithubFilePicker";
-import {useGitHubPatAuth} from "@/hooks/useGitHubPatAuth";
+import { useGitHubPatAuth } from "@/hooks/useGitHubPatAuth";
 
-type FileUrlProps = Omit<React.ComponentProps<"input">, "onChange" | "value"> & {
+type FileUrlProps = Omit<
+  React.ComponentProps<"input">,
+  "onChange" | "value"
+> & {
   value?: string;
   onChange?: (value: string) => void;
 };
@@ -30,7 +30,7 @@ function FileUrl({
   ...props
 }: FileUrlProps) {
   const [showPicker, setShowPicker] = useState(false);
-  const {gitHubSession} = useGitHubPatAuth();
+  const { gitHubSession } = useGitHubPatAuth();
 
   function handleSelect(url: string) {
     onChange?.(url);
@@ -70,7 +70,10 @@ function FileUrl({
         <DialogContent className="max-w-lg">
           <DialogTitle>Select a File</DialogTitle>
           {gitHubSession ? (
-            <GithubFilePicker onSelect={handleSelect} selectedUrls={value ? [value] : []} />
+            <GithubFilePicker
+              onSelect={handleSelect}
+              selectedUrls={value ? [value] : []}
+            />
           ) : (
             <span className={"text-gray-500"}>
               You have not logged in yet. Please log in to use the file picker.
@@ -82,4 +85,4 @@ function FileUrl({
   );
 }
 
-export {FileUrl};
+export { FileUrl };

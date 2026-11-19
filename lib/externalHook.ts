@@ -1,7 +1,4 @@
-import {
-  useSyncExternalStore,
-  type SetStateAction,
-} from "react"
+import { type SetStateAction, useSyncExternalStore } from "react";
 
 /**
  * The API returned by `createExternalHook`.
@@ -10,19 +7,19 @@ import {
  */
 type ExternalHook<T> = {
   /** React hook that returns the current value of the external state. */
-  useState: () => T,
+  useState: () => T;
 
   /**
    * Updates the external state and notifies all subscribed components.
    *
    * Accepts either a new value or an updater function receiving the previous value.
    */
-  update: (next: SetStateAction<T>) => void,
+  update: (next: SetStateAction<T>) => void;
   /**
    * Returns the current value of the external state.
    */
-  get: () => T,
-}
+  get: () => T;
+};
 
 /**
  * Creates a small external state store with a React hook for subscribing and an externally callable updater.
@@ -65,9 +62,7 @@ type ExternalHook<T> = {
  * }
  * ```
  */
-export function createExternalHook<T>(
-  initialValue: T,
-) {
+export function createExternalHook<T>(initialValue: T) {
   let value = initialValue;
   const listeners = new Set<() => void>();
 
@@ -75,17 +70,17 @@ export function createExternalHook<T>(
     listeners.add(listener);
     return () => {
       listeners.delete(listener);
-    }
+    };
   }
 
   function notify() {
-    listeners.forEach((listener) => listener());
+    listeners.forEach((listener) => {
+      listener();
+    });
   }
 
   function update(next: SetStateAction<T>) {
-    value = typeof next === "function"
-        ? (next as (prev: T) => T)(value)
-        : next;
+    value = typeof next === "function" ? (next as (prev: T) => T)(value) : next;
     notify();
   }
 
@@ -93,17 +88,14 @@ export function createExternalHook<T>(
     return value;
   }
 
+  // biome-ignore lint/correctness/noComponentHookFactories: this is only named similarly to React's useState for familiarity, but it is not a component hook factory
   function useState() {
-    return useSyncExternalStore(
-      subscribe,
-      getSnapshot,
-      getSnapshot,
-    )
+    return useSyncExternalStore(subscribe, getSnapshot, getSnapshot);
   }
 
   return {
     useState,
     update,
-    get: getSnapshot
-  } as ExternalHook<T>
+    get: getSnapshot,
+  } as ExternalHook<T>;
 }
