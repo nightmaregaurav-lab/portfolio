@@ -1,6 +1,6 @@
 .page {
   min-height: 100dvh;
-  padding: 2rem;
+  padding: 0.5rem 2rem 2rem;
 }
 
 .pageInner {
@@ -312,7 +312,7 @@
 
 @media (max-width: 640px) {
   .page {
-    padding: 1.25rem 1rem 2rem;
+    padding: 0.5rem 1rem 2rem;
   }
 
   .projectHeader {

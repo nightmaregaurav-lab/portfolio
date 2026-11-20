@@ -10,8 +10,8 @@
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check . --max-diagnostics 1000",
-    "check:fix": "biome check --write . --max-diagnostics 1000",
-    "check:fix-unsafe": "biome check --write . --unsafe --max-diagnostics 1000",
+    "fix": "biome check --write . --max-diagnostics 1000",
+    "fix-unsafe": "biome check --write . --unsafe --max-diagnostics 1000",
     "dev": "next dev",
     "build": "next build && rm -rf build/config build/uploads build/uploads_thumbs",
     "start": "next start"
