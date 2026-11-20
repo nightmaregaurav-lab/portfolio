@@ -5,7 +5,7 @@ Thanks for helping improve the portfolio project.
 ## Run it locally
 
 1. Fork the repository.
-2. Clone your fork or open it in a GitHub Codespace.
+2. Clone your fork or open it in a GitHub Codespaces.
 3. Install dependencies with `pnpm install`.
 4. Start the development server with `pnpm dev`.
 5. Use the ignored `local-config/` folder for development-only configuration. It overrides `public/config/` while `NODE_ENV=development` is active.
