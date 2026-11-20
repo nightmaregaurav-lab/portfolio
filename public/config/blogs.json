@@ -75,8 +75,8 @@
         "id": "blog-ef8236cdf144",
         "slugs": [
           {
-            "slug": "ghr",
-            "isActive": true
+            "isActive": true,
+            "slug": "ghr"
           }
         ],
         "title": "घर",
@@ -91,6 +91,26 @@
           "Nepali Poem"
         ],
         "accentColor": "#EAB308",
+        "coverImage": ""
+      },
+      {
+        "id": "blog-6f4ece4f2215",
+        "slugs": [
+          {
+            "slug": "the-silence-after-i-left",
+            "isActive": true
+          }
+        ],
+        "title": "The Silence After I Left",
+        "summary": "Where do your thoughts end and someone else's begin? Somewhere along the way, I started questioning how much of what I believed was actually my own. Three years ago, I left social media to find out what remained when I stopped listening to everyone else. I found some of my independence, lost most of my connections, and discovered a silence I hadn't quite anticipated.",
+        "date": "2026-11-20",
+        "categories": [
+          "Thoughts"
+        ],
+        "tags": [
+          "Penned by Gaurav"
+        ],
+        "accentColor": "#06B6D4",
         "coverImage": ""
       }
     ]
