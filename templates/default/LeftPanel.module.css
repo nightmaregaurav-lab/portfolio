@@ -1,7 +1,7 @@
 .openButton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0.5rem;
+  right: 0.5rem;
   font-size: 24px;
   cursor: pointer;
 }
@@ -21,8 +21,8 @@
 
 .closeButton {
   position: absolute;
-  top: 8px;
-  right: 8px;
+  top: 0.5rem;
+  right: 0.5rem;
   background: none;
   border: none;
   font-size: 24px;
