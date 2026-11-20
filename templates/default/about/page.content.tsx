@@ -1,6 +1,5 @@
 import Image from "next/image";
 import type { PageContentProps } from "@/app/(app)/about/page.types";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
 import HtmlRenderer from "@/components/ui/HtmlRenderer";
 import ImageLightbox from "@/components/ui/ImageLightbox";
 import SmartText from "@/components/ui/SmartText";
@@ -16,10 +15,7 @@ function PageContent({ coreConfig, aboutConfig }: PageContentProps) {
       </HtmlRenderer>
       <section className={styles.pageContent}>
         <h2 className="sr-only">Profile details</h2>
-        <AspectRatio
-          ratio={16 / 9}
-          className="w-full max-w-sm rounded-lg bg-muted"
-        >
+        <div className={cn("w-full max-w-sm rounded-lg bg-muted overflow-hidden", styles.photoContainer)}>
           <ImageLightbox
             src={aboutConfig.heroPicture}
             name={`${coreConfig.fullName}`}
@@ -30,11 +26,11 @@ function PageContent({ coreConfig, aboutConfig }: PageContentProps) {
                 alt={coreConfig.fullName}
                 width={200}
                 height={200}
-                style={{ objectFit: "cover", width: "100%", height: "auto" }}
+                style={{ objectFit: "contain", width: "100%", height: "auto" }}
               />
             }
           />
-        </AspectRatio>
+        </div>
         <div className={styles.keypoints}>
           {aboutConfig.keypoints.map((keypoint) => (
             <div
