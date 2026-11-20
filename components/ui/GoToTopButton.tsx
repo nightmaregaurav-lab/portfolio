@@ -24,8 +24,8 @@ function GoToTopButton() {
       size="icon-sm"
       style={{
         position: "fixed",
-        bottom: "0.5rem",
-        right: "0.5rem",
+        bottom: "1rem",
+        right: "1rem",
         cursor: "pointer",
       }}
       onClick={() => {
