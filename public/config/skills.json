@@ -112,7 +112,7 @@
       {
         "id": "skill-6d0cf605a571",
         "title": "Typescript",
-        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/f/f5/Typescript.svg",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Typescript_logo_2020.svg/250px-Typescript_logo_2020.svg.png",
         "description": "<p>I was introduced to TypeScript during my time at Premium Technologies, where I quickly picked it up as part of my professional development work. Its strong typing system and tooling made it a natural extension of my JavaScript experience. What started as a new technology to learn soon became a regular part of my development workflow, and I've continued using it extensively for building modern web applications ever since.</p>",
         "associatedMilestoneIds": [
           "milestone-1353f03a14c5",
@@ -125,7 +125,7 @@
       {
         "id": "skill-894bb66f29a7",
         "title": "React",
-        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg",
+        "image": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/30/React_Logo_SVG.svg/330px-React_Logo_SVG.svg.png",
         "description": "<p>My introduction to React came through independent exploration of modern frontend development. As I became more comfortable with its component-based architecture and declarative approach to building interfaces, I transitioned from experimenting with it to using it professionally at Premium Technologies. Since then, React has remained a staple of my frontend development work, powering a wide range of interactive and component-driven applications.</p>",
         "associatedMilestoneIds": [
           "milestone-1353f03a14c5",
