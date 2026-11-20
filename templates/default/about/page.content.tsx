@@ -15,7 +15,12 @@ function PageContent({ coreConfig, aboutConfig }: PageContentProps) {
       </HtmlRenderer>
       <section className={styles.pageContent}>
         <h2 className="sr-only">Profile details</h2>
-        <div className={cn("w-full max-w-sm rounded-lg bg-muted overflow-hidden", styles.photoContainer)}>
+        <div
+          className={cn(
+            "w-full max-w-sm rounded-lg bg-muted overflow-hidden",
+            styles.photoContainer,
+          )}
+        >
           <ImageLightbox
             src={aboutConfig.heroPicture}
             name={`${coreConfig.fullName}`}
