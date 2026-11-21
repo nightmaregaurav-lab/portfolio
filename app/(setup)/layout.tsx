@@ -24,7 +24,11 @@ function Layout({ children }: LayoutProps<"/">) {
               "max-w-[calc(100%-3rem)] truncate text-sm text-muted-foreground"
             }
           >
-            Saving to{" "}
+            Hi{" "}
+            <strong className={"font-medium text-foreground"}>
+              {gitHubSession.user?.name ?? `@${gitHubSession.user?.login}`}
+            </strong>
+            , We're saving your changes to{" "}
             <strong className={"font-medium text-foreground"}>
               {gitHubSession.repository?.full_name}
             </strong>
