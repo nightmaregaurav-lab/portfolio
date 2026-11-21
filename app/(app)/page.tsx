@@ -25,7 +25,7 @@ const PageContent =
           .default as React.ComponentType<PageContentProps>)
       : null;
 
-export const metadata = createPageMetadata({
+const pageMeta = createPageMetadata({
   title: getSiteName(),
   description: CoreConfig.seoDescription || HomeConfig.bio,
   path: "/",
@@ -35,6 +35,13 @@ export const metadata = createPageMetadata({
     CoreConfig.favicon,
   keywords: CoreConfig.seoKeywords,
 });
+
+export const metadata = {
+  ...pageMeta,
+  title: {
+    absolute: getSiteName()
+  },
+};
 
 function Page() {
   if (!PageContent) {
