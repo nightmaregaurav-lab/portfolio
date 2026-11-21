@@ -39,7 +39,7 @@ const pageMeta = createPageMetadata({
 export const metadata = {
   ...pageMeta,
   title: {
-    absolute: getSiteName()
+    absolute: getSiteName(),
   },
 };
 
