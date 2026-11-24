@@ -21,6 +21,7 @@ import SmartLink from "@/components/ui/SmartLink";
 import SmartText from "@/components/ui/SmartText";
 import { cn } from "@/lib/utils";
 import styles from "./page.module.css";
+import {generateMilestoneLabel} from "@/lib/configurationUtils";
 
 function PageContent({ project, milestone, skills }: PageContentProps) {
   const links = project.links || [];
@@ -172,10 +173,10 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
               <Card className={styles.sideCard}>
                 <CardHeader>
                   <CardTitle>
-                    <h2>Journey milestone</h2>
+                    <h2>Milestone</h2>
                   </CardTitle>
                   <CardDescription>
-                    The point in the journey associated with this project.
+                    The milestone associated with this project.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -184,11 +185,13 @@ function PageContent({ project, milestone, skills }: PageContentProps) {
                       {milestone.type && (
                         <Badge variant="secondary">{milestone.type}</Badge>
                       )}
-                      <p>{milestone.title}</p>
+                      <SmartLink href={`/journey#${milestone?.id}`}>
+                        <p>{generateMilestoneLabel(milestone)}</p>
+                      </SmartLink>
                     </div>
                   ) : (
                     <p className={styles.mutedText}>
-                      No journey milestone is associated with this project.
+                      No milestone is associated with this project.
                     </p>
                   )}
                 </CardContent>
