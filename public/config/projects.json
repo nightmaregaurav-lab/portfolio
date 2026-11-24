@@ -201,8 +201,8 @@
         "id": "project-1c6b34c61ec7",
         "slugs": [
           {
-            "slug": "xfreerdp-gui",
-            "isActive": true
+            "isActive": true,
+            "slug": "xfreerdp-gui"
           }
         ],
         "title": "XFreeRDP-GUI",
@@ -241,6 +241,61 @@
           "Open Source"
         ],
         "milestoneId": ""
+      },
+      {
+        "id": "project-04606fcefddc",
+        "slugs": [
+          {
+            "slug": "crystal-erp",
+            "isActive": true
+          }
+        ],
+        "title": "Crystal ERP",
+        "links": [
+          {
+            "name": "Website",
+            "url": "https://thecrystalerp.com"
+          },
+          {
+            "name": "Google Play",
+            "url": "https://play.google.com/store/apps/dev?id=6477430824382574804"
+          },
+          {
+            "name": "App Store",
+            "url": "https://apps.apple.com/us/developer/roshan-budhathoki/id1842037446"
+          }
+        ],
+        "description": "<p>Crystal ERP is a comprehensive Enterprise Resource Planning (ERP) solution designed to simplify business management. It provides integrated management solutions for schools, colleges, restaurants, hotels, accounting, and inventory operations, helping organizations streamline their daily activities and manage multiple branches efficiently.</p>",
+        "previewImage": "https://raw.githubusercontent.com/nightmaregaurav-lab/portfolio/main/public/uploads/crystal ERP logo.jpg",
+        "images": [],
+        "keypoints": [
+          {
+            "title": "Type",
+            "value": "Enterprise Resource Planning (ERP) Software"
+          },
+          {
+            "title": "Platform",
+            "value": "Web, Desktop, Android & iOS"
+          },
+          {
+            "title": "Modules",
+            "value": "School, College, Restaurant, Hotel, Accounting, Inventory, and More"
+          }
+        ],
+        "seoKeywords": [
+          "Crystal ERP",
+          "ERP Software Nepal",
+          "Enterprise Resource Planning",
+          "Business Management Software",
+          "School Management System",
+          "College Management System",
+          "Restaurant Management Software",
+          "Hotel Management Software",
+          "Inventory Management",
+          "Accounting Software",
+          "Multi-Branch ERP"
+        ],
+        "milestoneId": "milestone-769ef323e4c5"
       }
     ]
   }
