@@ -97,8 +97,8 @@
         "id": "blog-6f4ece4f2215",
         "slugs": [
           {
-            "slug": "the-silence-after-i-left",
-            "isActive": true
+            "isActive": true,
+            "slug": "the-silence-after-i-left"
           }
         ],
         "title": "The Silence After I Left",
@@ -111,6 +111,27 @@
           "Penned by Gaurav"
         ],
         "accentColor": "#06B6D4",
+        "coverImage": ""
+      },
+      {
+        "id": "blog-1187db094322",
+        "slugs": [
+          {
+            "slug": "when-codebases-rot-the-lifecycle-of-technical-debt-and-what-to-do-about-it",
+            "isActive": true
+          }
+        ],
+        "title": "When Codebases Rot: The Lifecycle of Technical Debt and What to Do About It",
+        "summary": "If a piece of code is so fragile that it might break when touched, that’s exactly why we should touch it. Now. Not later.",
+        "date": "2026-11-24",
+        "categories": [
+          "Technical"
+        ],
+        "tags": [
+          "Technical Debt",
+          "Rotting Codebase"
+        ],
+        "accentColor": "#EF4444",
         "coverImage": ""
       }
     ]
