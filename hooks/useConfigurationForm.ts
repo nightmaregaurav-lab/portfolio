@@ -43,7 +43,7 @@ export function useConfigurationForm<
   // Detect whether the current form values differ from the originally loaded config
   const hasChanges = useMemo(() => {
     if (!config) {
-      return false;
+      return true;
     }
     return JSON.stringify(formValues) !== JSON.stringify(config);
   }, [formValues, config]);
