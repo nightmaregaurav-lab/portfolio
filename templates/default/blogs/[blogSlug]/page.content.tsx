@@ -7,6 +7,8 @@ import { cn, formatDate } from "@/lib/utils";
 import styles from "./page.module.css";
 
 function PageContent({ post, authorName }: PageContentProps) {
+  const tags = post.tags.filter((tag) => !post.categories.includes(tag));
+
   return (
     <main className={styles.page}>
       <article className={styles.article}>
@@ -38,9 +40,9 @@ function PageContent({ post, authorName }: PageContentProps) {
               ))}
             </div>
           )}
-          {!!post.tags.length && (
+          {!!tags.length && (
             <div className={styles.tagList}>
-              {post.tags.map((tag) => (
+              {tags.map((tag) => (
                 <span className={styles.tag} key={tag}>
                   {tag}
                 </span>
