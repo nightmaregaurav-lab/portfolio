@@ -117,8 +117,8 @@
         "id": "blog-1187db094322",
         "slugs": [
           {
-            "slug": "when-codebases-rot-the-lifecycle-of-technical-debt-and-what-to-do-about-it",
-            "isActive": true
+            "isActive": true,
+            "slug": "when-codebases-rot-the-lifecycle-of-technical-debt-and-what-to-do-about-it"
           }
         ],
         "title": "When Codebases Rot: The Lifecycle of Technical Debt and What to Do About It",
@@ -132,6 +132,28 @@
           "Rotting Codebase"
         ],
         "accentColor": "#EF4444",
+        "coverImage": ""
+      },
+      {
+        "id": "blog-7449414f333d",
+        "slugs": [
+          {
+            "slug": "not-perfect-just-right",
+            "isActive": true
+          }
+        ],
+        "title": "Not Perfect, Just Right",
+        "summary": "Sometimes, finding the right person isn't about finding someone without flaws. It's about finding someone whose presence makes life a little more peaceful.",
+        "date": "2026-11-27",
+        "categories": [
+          "Thoughts",
+          "Quote Review"
+        ],
+        "tags": [
+          "Penned by Gaurav",
+          "Quote Review"
+        ],
+        "accentColor": "#C2C502",
         "coverImage": ""
       }
     ]
